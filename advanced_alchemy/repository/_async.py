@@ -1355,6 +1355,16 @@ class SQLAlchemyAsyncRepository(Generic[ModelT]):
         statement += lambda s: s.filter(expression)
         return statement
 
+    def _filter_by_is(
+        self,
+        statement: StatementLambdaElement,
+        field_name: str | InstrumentedAttribute,
+        value: Any,
+    ) -> StatementLambdaElement:
+        field = get_instrumented_attr(self.model_type, field_name)
+        statement += lambda s: s.where(field.is_(value))
+        return statement
+
     def _filter_by_where(
         self,
         statement: StatementLambdaElement,
