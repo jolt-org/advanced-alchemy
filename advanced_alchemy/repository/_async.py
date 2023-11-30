@@ -32,6 +32,7 @@ from advanced_alchemy.filters import (
     SearchFilter,
 )
 from advanced_alchemy.operations import Merge
+from advanced_alchemy.repository._load import SQLAlchemyLoad, SQLAlchemyLoadConfig
 from advanced_alchemy.repository._util import get_instrumented_attr, wrap_sqlalchemy_exception
 from advanced_alchemy.repository.typing import ModelT
 from advanced_alchemy.utils.deprecation import deprecated
@@ -39,10 +40,13 @@ from advanced_alchemy.utils.deprecation import deprecated
 if TYPE_CHECKING:
     from collections import abc
     from datetime import datetime
+    from typing import Self
 
     from sqlalchemy.engine.interfaces import _CoreSingleExecuteParams
     from sqlalchemy.ext.asyncio import AsyncSession
     from sqlalchemy.ext.asyncio.scoping import async_scoped_session
+
+    from advanced_alchemy.repository._load import AnySQLAtrategy
 
 DEFAULT_INSERTMANYVALUES_MAX_PARAMETERS: Final = 950
 POSTGRES_VERSION_SUPPORTING_MERGE: Final = 15
@@ -68,6 +72,7 @@ class SQLAlchemyAsyncRepository(Generic[ModelT]):
         auto_expunge: bool = False,
         auto_refresh: bool = True,
         auto_commit: bool = False,
+        load: SQLAlchemyLoad | None = None,
         **kwargs: Any,
     ) -> None:
         """Repository pattern for SQLAlchemy models.
@@ -78,6 +83,7 @@ class SQLAlchemyAsyncRepository(Generic[ModelT]):
             auto_expunge: Remove object from session before returning.
             auto_refresh: Refresh object from session before returning.
             auto_commit: Commit objects before returning.
+            load: Default relationships load.
             **kwargs: Additional arguments.
 
         """
@@ -86,6 +92,7 @@ class SQLAlchemyAsyncRepository(Generic[ModelT]):
         self.auto_refresh = auto_refresh
         self.auto_commit = auto_commit
         self.session = session
+        self.default_load = load or SQLAlchemyLoad()
         if isinstance(statement, Select):
             self.statement = lambda_stmt(lambda: statement)
         elif statement is None:
@@ -95,6 +102,7 @@ class SQLAlchemyAsyncRepository(Generic[ModelT]):
             self.statement = statement
         self._dialect = self.session.bind.dialect if self.session.bind is not None else self.session.get_bind().dialect
         self._prefer_any = any(self._dialect.name == engine_type for engine_type in self.prefer_any_dialects or ())
+        self._load: SQLAlchemyLoad = self.default_load
 
     @classmethod
     def get_id_attribute_value(cls, item: ModelT | type[ModelT], id_attribute: str | None = None) -> Any:
@@ -146,6 +154,24 @@ class SQLAlchemyAsyncRepository(Generic[ModelT]):
             raise NotFoundError(msg)
         return item_or_none
 
+    def load(
+        self,
+        config: SQLAlchemyLoadConfig | None = None,
+        /,
+        **kwargs: AnySQLAtrategy,
+    ) -> Self:
+        """Set relationships to be loaded on the model
+
+        Args:
+            config: Override default load config. Defaults to None.
+            kwargs: Relationship paths to load
+
+        Returns:
+            The repository instance
+        """
+        self._load = SQLAlchemyLoad(config, **kwargs)
+        return self
+
     async def add(
         self,
         data: ModelT,
@@ -169,6 +195,9 @@ class SQLAlchemyAsyncRepository(Generic[ModelT]):
         """
         with wrap_sqlalchemy_exception():
             instance = await self._attach_to_session(data)
+            if self._load:
+                await self._flush_or_commit(auto_commit=True)
+                return await self._refresh_with_load(instance)
             await self._flush_or_commit(auto_commit=auto_commit)
             await self._refresh(instance, auto_refresh=auto_refresh)
             self._expunge(instance, auto_expunge=auto_expunge)
@@ -812,6 +841,17 @@ class SQLAlchemyAsyncRepository(Generic[ModelT]):
             else None
         )
 
+    async def _refresh_with_load(self, instance: ModelT) -> ModelT:
+        with wrap_sqlalchemy_exception():
+            statement = self._get_base_stmt()
+            statement = self._filter_select_by_kwargs(
+                statement,
+                {self.id_attribute: getattr(instance, self.id_attribute)},
+            )
+            result = await self._execute(statement)
+            refreshed_instance = result.scalar_one_or_none()
+            return self.check_not_found(refreshed_instance)
+
     async def _list_and_count_window(
         self,
         *filters: FilterTypes | ColumnElement[bool],
@@ -1175,7 +1215,16 @@ class SQLAlchemyAsyncRepository(Generic[ModelT]):
         raise ValueError(msg)
 
     async def _execute(self, statement: Select[Any] | StatementLambdaElement) -> Result[Any]:
-        return await self.session.execute(statement)
+        if self._load:
+            if isinstance(statement, Select):
+                statement = lambda_stmt(lambda: statement)
+            loaders = self._load.loaders(self.model_type)
+            statement += lambda s: s.options(*loaders)
+        result = await self.session.execute(statement)
+        if self._load and self._load.has_wildcards():
+            result = result.unique()
+        self._load = self.default_load
+        return result
 
     def _apply_limit_offset_pagination(
         self,

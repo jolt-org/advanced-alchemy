@@ -9,6 +9,7 @@ from advanced_alchemy.config import (
     SyncSessionConfig,
 )
 from advanced_alchemy.repository._async import SQLAlchemyAsyncRepository
+from advanced_alchemy.repository._load import SQLAlchemyLoad, SQLAlchemyLoadConfig, SQLALoadStrategy
 from advanced_alchemy.repository._sync import SQLAlchemySyncRepository
 from advanced_alchemy.repository._util import wrap_sqlalchemy_exception
 from advanced_alchemy.repository.typing import ModelT
@@ -24,6 +25,9 @@ __all__ = (
     "NotFoundError",
     "RepositoryError",
     "SQLAlchemyAsyncRepository",
+    "SQLAlchemyLoad",
+    "SQLAlchemyLoadConfig",
+    "SQLALoadStrategy",
     "SQLAlchemySyncRepository",
     "SQLAlchemySyncRepositoryService",
     "SQLAlchemySyncRepositoryReadService",

@@ -11,10 +11,18 @@ import pytest
 import sqlalchemy
 from pytest_lazyfixture import lazy_fixture
 from sqlalchemy import Engine, Table, insert, select
+from sqlalchemy.exc import InvalidRequestError
 from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession
 from sqlalchemy.orm import Session, sessionmaker
 
-from advanced_alchemy import SQLAlchemyAsyncRepository, SQLAlchemyAsyncRepositoryService, base
+from advanced_alchemy import (
+    SQLAlchemyAsyncRepository,
+    SQLAlchemyAsyncRepositoryService,
+    SQLAlchemyLoad,
+    SQLAlchemyLoadConfig,
+    SQLALoadStrategy,
+    base,
+)
 from advanced_alchemy.exceptions import NotFoundError, RepositoryError
 from advanced_alchemy.filters import (
     BeforeAfter,
@@ -44,6 +52,12 @@ RuleModel = Type[Union[models_uuid.UUIDRule, models_bigint.BigIntRule]]
 ModelWithFetchedValue = Type[Union[models_uuid.UUIDModelWithFetchedValue, models_bigint.BigIntModelWithFetchedValue]]
 ItemModel = Type[Union[models_uuid.UUIDItem, models_bigint.BigIntItem]]
 TagModel = Type[Union[models_uuid.UUIDTag, models_bigint.BigIntTag]]
+BookModel = Type[Union[models_uuid.UUIDBook, models_bigint.BigIntBook]]
+PublisherModel = Type[Union[models_uuid.UUIDPublisher, models_bigint.BigIntPublisher]]
+
+AnyPublisher = Union[models_uuid.UUIDPublisher, models_bigint.BigIntPublisher]
+PublisherRepository = SQLAlchemyAsyncRepository[AnyPublisher]
+PublisherService = SQLAlchemyAsyncRepositoryService[AnyPublisher]
 
 AnyAuthor = Union[models_uuid.UUIDAuthor, models_bigint.BigIntAuthor]
 AuthorRepository = SQLAlchemyAsyncRepository[AnyAuthor]
@@ -72,6 +86,17 @@ ModelWithFetchedValueService = SQLAlchemyAsyncRepositoryService[AnyModelWithFetc
 RawRecordData = List[Dict[str, Any]]
 
 
+@pytest.fixture(name="raw_publishers_uuid")
+def fx_raw_publishers_uuid() -> RawRecordData:
+    """Unstructured publisher representations."""
+    return [
+        {
+            "id": UUID("f34545b9-663c-4fce-915d-dd1ae9cea42b"),
+            "name": "Harper",
+        },
+    ]
+
+
 @pytest.fixture(name="raw_authors_uuid")
 def fx_raw_authors_uuid() -> RawRecordData:
     """Unstructured author representations."""
@@ -94,14 +119,20 @@ def fx_raw_authors_uuid() -> RawRecordData:
 
 
 @pytest.fixture(name="raw_books_uuid")
-def fx_raw_books_uuid(raw_authors_uuid: RawRecordData) -> RawRecordData:
+def fx_raw_books_uuid(raw_authors_uuid: RawRecordData, raw_publishers_uuid: RawRecordData) -> RawRecordData:
     """Unstructured book representations."""
     return [
         {
             "id": UUID("f34545b9-663c-4fce-915d-dd1ae9cea42a"),
             "title": "Murder on the Orient Express",
             "author_id": raw_authors_uuid[0]["id"],
-            "author": raw_authors_uuid[0],
+            "publisher_id": raw_publishers_uuid[0]["id"],
+        },
+        {
+            "id": UUID("f34545b9-663c-4fce-915d-dd1ae9cea41B"),
+            "title": "War and Peace",
+            "author_id": raw_authors_uuid[1]["id"],
+            "publisher_id": raw_publishers_uuid[0]["id"],
         },
     ]
 
@@ -141,6 +172,14 @@ def fx_raw_rules_uuid() -> RawRecordData:
     ]
 
 
+@pytest.fixture(name="raw_publishers_bigint")
+def fx_raw_publishers_bigint() -> RawRecordData:
+    """Unstructured publisher representations."""
+    return [
+        {"id": 1023, "name": "Harper"},
+    ]
+
+
 @pytest.fixture(name="raw_authors_bigint")
 def fx_raw_authors_bigint() -> RawRecordData:
     """Unstructured author representations."""
@@ -163,13 +202,18 @@ def fx_raw_authors_bigint() -> RawRecordData:
 
 
 @pytest.fixture(name="raw_books_bigint")
-def fx_raw_books_bigint(raw_authors_bigint: RawRecordData) -> RawRecordData:
+def fx_raw_books_bigint(raw_authors_bigint: RawRecordData, raw_publishers_bigint: RawRecordData) -> RawRecordData:
     """Unstructured book representations."""
     return [
         {
             "title": "Murder on the Orient Express",
             "author_id": raw_authors_bigint[0]["id"],
-            "author": raw_authors_bigint[0],
+            "publisher_id": raw_publishers_bigint[0]["id"],
+        },
+        {
+            "title": "War and Peace",
+            "author_id": raw_authors_bigint[1]["id"],
+            "publisher_id": raw_publishers_bigint[0]["id"],
         },
     ]
 
@@ -213,6 +257,14 @@ def fx_raw_rules_bigint() -> RawRecordData:
 def repository_pk_type(request: FixtureRequest) -> RepositoryPKType:
     """Return the primary key type of the repository"""
     return cast(RepositoryPKType, request.param)
+
+
+@pytest.fixture()
+def publisher_model(repository_pk_type: RepositoryPKType) -> PublisherModel:
+    """Return the ``Publisher`` model matching the current repository PK type"""
+    if repository_pk_type == "uuid":
+        return models_uuid.UUIDPublisher
+    return models_bigint.BigIntPublisher
 
 
 @pytest.fixture()
@@ -363,6 +415,16 @@ def engine(request: FixtureRequest, repository_pk_type: RepositoryPKType) -> Eng
 
 
 @pytest.fixture()
+def raw_publishers(request: FixtureRequest, repository_pk_type: RepositoryPKType) -> RawRecordData:
+    """Return raw ``Author`` data matching the current PK type"""
+    if repository_pk_type == "bigint":
+        publishers = request.getfixturevalue("raw_publishers_bigint")
+    else:
+        publishers = request.getfixturevalue("raw_publishers_uuid")
+    return cast("RawRecordData", publishers)
+
+
+@pytest.fixture()
 def raw_authors(request: FixtureRequest, repository_pk_type: RepositoryPKType) -> RawRecordData:
     """Return raw ``Author`` data matching the current PK type"""
     if repository_pk_type == "bigint":
@@ -382,13 +444,27 @@ def raw_rules(request: FixtureRequest, repository_pk_type: RepositoryPKType) -> 
     return cast("RawRecordData", rules)
 
 
+@pytest.fixture()
+def raw_books(request: FixtureRequest, repository_pk_type: RepositoryPKType) -> RawRecordData:
+    """Return raw ``Rule`` data matching the current PK type"""
+    if repository_pk_type == "bigint":
+        rules = request.getfixturevalue("raw_books_bigint")
+    else:
+        rules = request.getfixturevalue("raw_books_uuid")
+    return cast("RawRecordData", rules)
+
+
 def _seed_db_sync(
     *,
     engine: Engine,
     raw_authors: RawRecordData,
     raw_rules: RawRecordData,
+    raw_books: RawRecordData,
+    raw_publishers: RawRecordData,
     author_model: AuthorModel,
     rule_model: RuleModel,
+    book_model: RuleModel,
+    publisher_model: PublisherModel,
 ) -> None:
     update_raw_records(raw_authors=raw_authors, raw_rules=raw_rules)
 
@@ -401,6 +477,10 @@ def _seed_db_sync(
             conn.execute(insert(author_model).values(author))
         for rule in raw_rules:
             conn.execute(insert(rule_model).values(rule))
+        for publisher in raw_publishers:
+            conn.execute(insert(publisher_model).values(publisher))
+        for book in raw_books:
+            conn.execute(insert(book_model).values(book))
 
 
 def _seed_spanner(
@@ -424,8 +504,12 @@ def seed_db_sync(
     engine: Engine,
     raw_authors: RawRecordData,
     raw_rules: RawRecordData,
+    raw_books: RawRecordData,
+    raw_publishers: RawRecordData,
     author_model: AuthorModel,
     rule_model: RuleModel,
+    book_model: RuleModel,
+    publisher_model: PublisherModel,
 ) -> None:
     if engine.dialect.name.startswith("spanner"):
         _seed_spanner(engine=engine, raw_authors_uuid=raw_authors, raw_rules_uuid=raw_rules)
@@ -434,8 +518,12 @@ def seed_db_sync(
             engine=engine,
             raw_authors=raw_authors,
             raw_rules=raw_rules,
+            raw_books=raw_books,
+            raw_publishers=raw_publishers,
             author_model=author_model,
             rule_model=rule_model,
+            book_model=book_model,
+            publisher_model=publisher_model,
         )
 
 
@@ -535,8 +623,12 @@ async def seed_db_async(
     async_engine: AsyncEngine,
     raw_authors: RawRecordData,
     raw_rules: RawRecordData,
+    raw_books: RawRecordData,
+    raw_publishers: RawRecordData,
     author_model: AuthorModel,
     rule_model: RuleModel,
+    book_model: BookModel,
+    publisher_model: PublisherModel,
 ) -> None:
     """Return an asynchronous session for the current engine"""
 
@@ -549,11 +641,11 @@ async def seed_db_async(
         raw_author["updated_at"] = datetime.strptime(raw_author["updated_at"], "%Y-%m-%dT%H:%M:%S").astimezone(
             timezone.utc,
         )
-    for raw_author in raw_rules:
-        raw_author["created_at"] = datetime.strptime(raw_author["created_at"], "%Y-%m-%dT%H:%M:%S").astimezone(
+    for raw_rule in raw_rules:
+        raw_rule["created_at"] = datetime.strptime(raw_rule["created_at"], "%Y-%m-%dT%H:%M:%S").astimezone(
             timezone.utc,
         )
-        raw_author["updated_at"] = datetime.strptime(raw_author["updated_at"], "%Y-%m-%dT%H:%M:%S").astimezone(
+        raw_rule["updated_at"] = datetime.strptime(raw_rule["updated_at"], "%Y-%m-%dT%H:%M:%S").astimezone(
             timezone.utc,
         )
 
@@ -562,6 +654,8 @@ async def seed_db_async(
         await conn.run_sync(base.orm_registry.metadata.create_all)
         await conn.execute(insert(author_model).values(raw_authors))
         await conn.execute(insert(rule_model).values(raw_rules))
+        await conn.execute(insert(publisher_model).values(raw_publishers))
+        await conn.execute(insert(book_model).values(raw_books))
 
 
 @pytest.fixture(params=[lazy_fixture("session"), lazy_fixture("async_session")], ids=["sync", "async"])
@@ -577,6 +671,16 @@ def any_session(request: FixtureRequest) -> AsyncSession | Session:
 @pytest.fixture()
 def repository_module(repository_pk_type: RepositoryPKType) -> Any:
     return models_uuid if repository_pk_type == "uuid" else models_bigint
+
+
+@pytest.fixture()
+def publisher_repo(any_session: AsyncSession | Session, repository_module: Any) -> AuthorRepository:
+    """Return an AuthorAsyncRepository or AuthorSyncRepository based on the current PK and session type"""
+    if isinstance(any_session, AsyncSession):
+        repo = repository_module.PublisherAsyncRepository(session=any_session)
+    else:
+        repo = repository_module.PublisherSyncRepository(session=any_session)
+    return cast(AuthorRepository, repo)
 
 
 @pytest.fixture()
@@ -781,8 +885,8 @@ async def test_repo_list_and_count_basic_method(raw_authors: RawRecordData, auth
     assert len(collection) == exp_count
 
 
-async def test_repo_list_and_count_method_empty(book_repo: BookRepository) -> None:
-    collection, count = await maybe_async(book_repo.list_and_count())
+async def test_repo_list_and_count_method_empty(item_repo: ItemRepository) -> None:
+    collection, count = await maybe_async(item_repo.list_and_count())
     assert count == 0
     assert isinstance(collection, list)
     assert len(collection) == 0
@@ -792,6 +896,7 @@ async def test_repo_created_updated(
     author_repo: AuthorRepository,
     book_model: type[AnyBook],
     repository_pk_type: RepositoryPKType,
+    raw_publishers: RawRecordData,
 ) -> None:
     author = await maybe_async(author_repo.get_one(name="Agatha Christie"))
     assert author.created_at is not None
@@ -805,7 +910,7 @@ async def test_repo_created_updated(
     else:
         author = cast(models_bigint.BigIntAuthor, author)
         book_model = cast("type[models_bigint.BigIntBook]", book_model)
-    author.books.append(book_model(title="Testing"))  # type: ignore[arg-type]
+    author.books.append(book_model(title="Testing", publisher_id=raw_publishers[0]["id"]))  # type: ignore[arg-type]
     author = await maybe_async(author_repo.update(author))
     assert author.updated_at > original_update_dt
 
@@ -1345,6 +1450,145 @@ async def test_repo_health_check(author_repo: AuthorRepository) -> None:
     assert healthy
 
 
+@pytest.mark.parametrize("strategy", [True, "joinedload", "selectinload", "subqueryload"])
+async def test_repo_load_include_strategy(
+    book_repo: BookRepository,
+    author_model: AuthorModel,
+    strategy: SQLALoadStrategy,
+) -> None:
+    await maybe_async(book_repo.session.expunge_all())
+    books = await maybe_async(book_repo.load(author=strategy).list())
+    for book in books:
+        assert isinstance(book.author, author_model)
+
+
+@pytest.mark.parametrize(
+    "load_kwargs",
+    [
+        {"books": ...},
+        {"books": False, "books": ...},  # noqa: F601
+        {"books__author": True},
+        {"books": False, "books__author": True},
+    ],
+)
+async def test_repo_load_nested(
+    publisher_repo: PublisherRepository,
+    book_model: BookModel,
+    author_model: AuthorModel,
+    load_kwargs: dict[str, Any],
+) -> None:
+    await maybe_async(publisher_repo.session.expunge_all())
+    publishers = await maybe_async(publisher_repo.load(**load_kwargs).list())
+    for publisher in publishers:
+        for book in publisher.books:
+            assert isinstance(book, book_model)
+            assert isinstance(book.author, author_model)
+
+
+@pytest.mark.parametrize(
+    "load_kwargs",
+    [{"books": True}, {"books": ..., "books__author": False}, {"books__author": False, "books": True}],
+)
+async def test_repo_load_partially_nested(
+    publisher_repo: PublisherRepository,
+    book_model: BookModel,
+    author_model: AuthorModel,
+    load_kwargs: dict[str, Any],
+) -> None:
+    await maybe_async(publisher_repo.session.expunge_all())
+    publishers = await maybe_async(publisher_repo.load(**load_kwargs).list())
+    for publisher in publishers:
+        for book in publisher.books:
+            assert isinstance(book, book_model)
+            with pytest.raises(InvalidRequestError):
+                isinstance(book.author, author_model)
+
+
+@pytest.mark.parametrize("strategy", [False, "raiseload", "defaultload"])
+async def test_repo_load_exclude_strategy(
+    book_repo: BookRepository,
+    author_model: AuthorModel,
+    strategy: SQLALoadStrategy,
+) -> None:
+    await maybe_async(book_repo.session.expunge_all())
+    books = await maybe_async(book_repo.load(author=strategy).list())
+    for book in books:
+        with pytest.raises(InvalidRequestError):
+            isinstance(book.author, author_model)
+
+
+@pytest.mark.parametrize("strategy", [True, "joinedload", "selectinload", "subqueryload"])
+async def test_repo_load_default_strategy(
+    publisher_repo: PublisherRepository,
+    book_model: BookModel,
+    author_model: AuthorModel,
+    strategy: SQLALoadStrategy,
+) -> None:
+    await maybe_async(publisher_repo.session.expunge_all())
+    publisher_repo._load = SQLAlchemyLoad(SQLAlchemyLoadConfig(default_strategy=strategy))
+    publishers = await maybe_async(publisher_repo.list())
+    for publisher in publishers:
+        for book in publisher.books:
+            assert isinstance(book, book_model)
+            assert isinstance(book.author, author_model)
+
+
+async def test_repo_load_default_kwargs(
+    publisher_repo: PublisherRepository,
+    book_model: BookModel,
+    author_model: AuthorModel,
+) -> None:
+    await maybe_async(publisher_repo.session.expunge_all())
+    publisher_repo._load = SQLAlchemyLoad(books=True)
+    publishers = await maybe_async(publisher_repo.list())
+    for publisher in publishers:
+        for book in publisher.books:
+            assert isinstance(book, book_model)
+            with pytest.raises(InvalidRequestError):
+                isinstance(book.author, author_model)
+
+
+@pytest.mark.parametrize("strategy", [True, "joinedload", "selectinload", "subqueryload"])
+async def test_repo_load_default_strategy_and_kwargs(
+    publisher_repo: PublisherRepository,
+    strategy: SQLALoadStrategy,
+) -> None:
+    await maybe_async(publisher_repo.session.expunge_all())
+    publisher_repo._load = SQLAlchemyLoad(SQLAlchemyLoadConfig(default_strategy=strategy))
+    publishers = await maybe_async(publisher_repo.load(books=False).list())
+    for publisher in publishers:
+        with pytest.raises(InvalidRequestError):
+            len(publisher.books)
+
+
+async def test_repo_load_nested_and_add(
+    publisher_repo: PublisherRepository,
+    publisher_model: PublisherModel,
+    author_model: AuthorModel,
+    book_model: BookModel,
+) -> None:
+    book = book_model(
+        title="The Silmarillion",
+        author=author_model(name="J.R.R Tolkien", dob=datetime(month=9, day=2, year=1973)),
+    )
+    publisher_instance = publisher_model(name="George Allen & Unwin", books=[book])
+    publisher = await maybe_async(publisher_repo.load(books=...).add(publisher_instance))
+    assert len(publisher.books) == 1
+    assert isinstance(publisher.books[0], book_model)
+    assert isinstance(publisher.books[0].author, author_model)
+
+
+async def test_repo_load_only_affect_next_query(book_repo: BookRepository, publisher_model: PublisherModel) -> None:
+    await maybe_async(book_repo.session.expunge_all())
+    books = await maybe_async(book_repo.load(publisher=True).list())
+    assert all(isinstance(book.publisher, publisher_model) for book in books)
+
+    await maybe_async(book_repo.session.expunge_all())
+    books = await maybe_async(book_repo.list())
+    with pytest.raises(InvalidRequestError):
+        assert all(isinstance(book.publisher, publisher_model) for book in books)
+
+
 # service tests
 async def test_service_filter_search(author_service: AuthorService) -> None:
     existing_obj = await maybe_async(
@@ -1441,8 +1685,8 @@ async def test_service_list_and_count_basic_method(raw_authors: RawRecordData, a
     assert len(collection) == exp_count
 
 
-async def test_service_list_and_count_method_empty(book_service: BookService) -> None:
-    collection, count = await maybe_async(book_service.list_and_count())
+async def test_service_list_and_count_method_empty(item_service: ItemService) -> None:
+    collection, count = await maybe_async(item_service.list_and_count())
     assert count == 0
     assert isinstance(collection, list)
     assert len(collection) == 0
