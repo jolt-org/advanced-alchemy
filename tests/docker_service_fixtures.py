@@ -49,7 +49,8 @@ async def wait_until_responsive(
     raise RuntimeError(msg)
 
 
-USE_LEGACY_DOCKER_COMPOSE: bool = bool(os.environ.get("USE_LEGACY_DOCKER_COMPOSE", None))
+SKIP_DOCKER_COMPOSE: bool = bool(os.environ.get("SKIP_DOCKER_COMPOSE", False))
+USE_LEGACY_DOCKER_COMPOSE: bool = bool(os.environ.get("USE_LEGACY_DOCKER_COMPOSE", False))
 
 
 class DockerServiceRegistry:
@@ -60,11 +61,13 @@ class DockerServiceRegistry:
         self._base_command.extend(
             [
                 f"--file={Path(__file__).parent / 'docker-compose.yml'}",
-                f"--project-name=advanced_alchemy-{worker_id}",
+                f"--file={Path(__file__).parent / 'docker-compose.overrides.yml'}",
+                f"--project-name=advanced-alchemy-test-{worker_id}",
             ],
         )
 
-    def _get_docker_ip(self) -> str:
+    @staticmethod
+    def _get_docker_ip() -> str:
         docker_host = os.environ.get("DOCKER_HOST", "").strip()
         if not docker_host or docker_host.startswith("unix://"):
             return "127.0.0.1"
@@ -88,23 +91,26 @@ class DockerServiceRegistry:
         pause: float = 0.1,
         **kwargs: Any,
     ) -> None:
+        if SKIP_DOCKER_COMPOSE:
+            self._running_services.add(name)
         if name not in self._running_services:
             self.run_command("up", "-d", name)
             self._running_services.add(name)
 
-            await wait_until_responsive(
-                check=wrap_sync(check),
-                timeout=timeout,
-                pause=pause,
-                host=self.docker_ip,
-                **kwargs,
-            )
+        await wait_until_responsive(
+            check=wrap_sync(check),
+            timeout=timeout,
+            pause=pause,
+            host=self.docker_ip,
+            **kwargs,
+        )
 
     def stop(self, name: str) -> None:
         pass
 
     def down(self) -> None:
-        self.run_command("down", "-t", "5")
+        if not SKIP_DOCKER_COMPOSE:
+            self.run_command("down", "-t", "10")
 
 
 @pytest.fixture(scope="session")
@@ -166,7 +172,7 @@ async def postgres_responsive(host: str) -> bool:
 
 @pytest.fixture()
 async def postgres_service(docker_services: DockerServiceRegistry) -> None:
-    await docker_services.start("postgres", check=postgres_responsive)
+    await docker_services.start("postgres", pause=1, check=postgres_responsive)
 
 
 async def postgres14_responsive(host: str) -> bool:
@@ -189,7 +195,7 @@ async def postgres14_responsive(host: str) -> bool:
 
 @pytest.fixture()
 async def postgres14_service(docker_services: DockerServiceRegistry) -> None:
-    await docker_services.start("postgres", check=postgres_responsive)
+    await docker_services.start("postgres", pause=1, check=postgres14_responsive)
 
 
 def oracle23c_responsive(host: str) -> bool:
@@ -211,7 +217,7 @@ def oracle23c_responsive(host: str) -> bool:
 
 @pytest.fixture()
 async def oracle23c_service(docker_services: DockerServiceRegistry) -> None:
-    await docker_services.start("oracle23c", check=oracle23c_responsive, timeout=120)
+    await docker_services.start("oracle23c", check=oracle23c_responsive, pause=1, timeout=120)
 
 
 def oracle18c_responsive(host: str) -> bool:
@@ -233,7 +239,7 @@ def oracle18c_responsive(host: str) -> bool:
 
 @pytest.fixture()
 async def oracle18c_service(docker_services: DockerServiceRegistry) -> None:
-    await docker_services.start("oracle18c", check=oracle18c_responsive, timeout=120)
+    await docker_services.start("oracle18c", check=oracle18c_responsive, pause=1, timeout=120)
 
 
 def spanner_responsive(host: str) -> bool:
@@ -259,7 +265,7 @@ def spanner_responsive(host: str) -> bool:
 @pytest.fixture()
 async def spanner_service(docker_services: DockerServiceRegistry) -> None:
     os.environ["SPANNER_EMULATOR_HOST"] = "localhost:9010"
-    await docker_services.start("spanner", timeout=60, check=spanner_responsive)
+    await docker_services.start("spanner", timeout=60, pause=1, check=spanner_responsive)
 
 
 async def mssql_responsive(host: str) -> bool:
