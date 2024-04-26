@@ -1,97 +1,142 @@
-<!DOCTYPE html>
-<html lang="en">
+
+  <!DOCTYPE html>
+<html lang="en" data-accent-color="amber" data-content_root="">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>script.py - Docs</title>
-    <link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" /><link rel="next" title="config" href="../../../config/index.html" /><link rel="prev" title="env" href="env.html" />
+      <title>script.py - Litestar Framework</title>
+    <link rel="shortcut icon" href="../../../../_static/favicon.svg"/><link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" /><link rel="next" title="config" href="../../../config/index.html" /><link rel="prev" title="env" href="env.html" />
+
   <script>
-    const isDarkTheme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const sessionTheme = sessionStorage['_theme']
-    if (sessionTheme) {
-      document.documentElement.classList.add(sessionTheme)
-    } else if (isDarkTheme) {
-      document.documentElement.classList.add('dark')
-    }
-  </script><link rel="shortcut icon" href="../../../../_static/logo.png"/><link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=aecf457f" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/shibuya.css?v=28c32440" />
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(sessionStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=aecf457f" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/shibuya.css?v=aef655f6" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
-    <link media="print" rel="stylesheet" type="text/css" href="../../../../_static/print.css?v=ee381b95" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/css/custom.css?v=bf5addad" />
-    <style>
-:root {
-  --sy-f-sys:-apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Droid Sans, Helvetica Neue;--sy-f-cjk:PingFang SC, Hiragino Sans GB, Droid Sans Fallback, Microsoft YaHei;--sy-f-heading:var(--sy-f-sys), var(--sy-f-cjk), sans-serif;--sy-f-text:var(--sy-f-sys), var(--sy-f-cjk), sans-serif;--sy-f-mono:Menlo, Monaco, Consolas, "Courier New", monospace;--sy-c-divider:rgba(var(--sy-rc-text), 0.1);--sy-c-divider-weak:rgba(var(--sy-rc-text), 0.05);--sy-c-border:rgba(var(--sy-rc-text), 0.14);--sy-s-banner-height:0rem;--sy-s-navbar-height:56px;--sy-s-offset-top:calc(var(--sy-s-navbar-height) + var(--sy-s-banner-height));--sy-c-link:rgb(var(--sy-rc-theme));--sy-c-link-weak:rgba(var(--sy-rc-theme), 0.86);
-  --sy-rc-theme:245, 0, 87;--sy-rc-bg:255, 255, 255;--sy-rc-invert:245, 0, 87;--sy-rc-text:245, 0, 87;--sy-c-bg:#fff;--sy-c-bg-weak:0, 0, 0;--sy-c-text:#000000;--sy-c-text-weak:#f50057;--sy-c-heading:#f50057;--sy-c-bold:#f50057;--sy-c-foot-text:#000000;--sy-c-foot-bg:#fafafa;--sy-c-foot-divider:#f50057;
-}
-@media (prefers-color-scheme: light) {
-  :root {
-    --sy-rc-theme:245, 0, 87;--sy-rc-bg:255, 255, 255;--sy-rc-invert:245, 0, 87;--sy-rc-text:245, 0, 87;--sy-c-bg:#fff;--sy-c-bg-weak:0, 0, 0;--sy-c-text:#000000;--sy-c-text-weak:#f50057;--sy-c-heading:#f50057;--sy-c-bold:#f50057;--sy-c-foot-text:#000000;--sy-c-foot-bg:#fafafa;--sy-c-foot-divider:#f50057;
-  }
-}
-@media (prefers-color-scheme: dark) {
-  :root {
-    --sy-rc-theme:245, 0, 87;--sy-rc-bg:0, 0, 0;--sy-rc-invert:245, 0, 87;--sy-rc-text:245, 0, 87;--sy-c-bg:#f50057;--sy-c-bg-weak:#000000;--sy-c-text:#ebdddd;--sy-c-text-weak:#f50057;--sy-c-heading:#f50057;--sy-c-bold:#f50057;--sy-c-foot-text:#ebdddd;--sy-c-foot-bg:#000000;--sy-c-foot-divider:#f50057;
-  }
-}
-html.light {
-  --sy-rc-theme:245, 0, 87;--sy-rc-bg:255, 255, 255;--sy-rc-invert:245, 0, 87;--sy-rc-text:245, 0, 87;--sy-c-bg:#fff;--sy-c-bg-weak:0, 0, 0;--sy-c-text:#000000;--sy-c-text-weak:#f50057;--sy-c-heading:#f50057;--sy-c-bold:#f50057;--sy-c-foot-text:#000000;--sy-c-foot-bg:#fafafa;--sy-c-foot-divider:#f50057;
-}
-html.dark {
-  --sy-rc-theme:245, 0, 87;--sy-rc-bg:0, 0, 0;--sy-rc-invert:245, 0, 87;--sy-rc-text:245, 0, 87;--sy-c-bg:#f50057;--sy-c-bg-weak:#000000;--sy-c-text:#ebdddd;--sy-c-text-weak:#f50057;--sy-c-heading:#f50057;--sy-c-bold:#f50057;--sy-c-foot-text:#ebdddd;--sy-c-foot-bg:#000000;--sy-c-foot-divider:#f50057;
-}
-</style>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx_paramlinks.css" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../../../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/style.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/litestar-sphinx-theme.css?v=9fce248e" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --sy-f-heading: Inter, var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
 }
 </style>
     <meta property="og:type" content="website"/><meta property="og:title" content="script.py"/>
-<meta name="twitter:card" content="summary"/></head>
-<body><div class="document"><div class="announcement">
-    <div class="announcement-inner">
-      <p>This documentation is currently under development.</p>
-      <button class="announcement-close" aria-label="Close announcement">
-        <i class="i-icon close"></i>
-      </button>
-    </div>
-  </div><div class="sy-head">
+<meta name="twitter:card" content="summary"/>
+<meta property="og:image" content="_static/logo-light.svg"/>
+  </head>
+<body><div class="document"><div class="sy-head">
   <div class="sy-head-blur"></div>
   <div class="sy-head-inner sy-container mx-auto">
     <a class="sy-head-brand mr-4" href="/">
-      <img class="light-logo" src="../../../../_static/logo.png" alt="advanced_alchemy" height="28" />
-      <img class="dark-logo" src="../../../../_static/logo.png" alt="advanced_alchemy" height="28" />
+      <img class="light-logo" src="../../../../_static/logo-light.svg" alt="advanced_alchemy" height="28" />
+      <img class="dark-logo" src="../../../../_static/logo-dark.svg" alt="advanced_alchemy" height="28" />
       <strong>advanced_alchemy</strong>
     </a>
     <div class="sy-head-links" id="NavLinks">
       <nav class="sy-head-nav">
 
-<ul><li class="link">
-          <a href="https://advanced-alchemy.jolt.rs"><span>Home</span><i class="i-icon external-link"></i></a>
-        </li><li class="link">
-          <a href="https://docs.advanced-alchemy.jolt.rs"><span>Docs</span><i class="i-icon external-link"></i></a>
-        </li><li class="link">
-          <a href="https://github.com/jolt-org/advanced-alchemy"><span>Code</span><i class="i-icon external-link"></i></a>
+<ul><li class="link"><a href="../../../../index.html">Home</a></li>
+      <li class="link"><button type="button">
+            <span>Community</span>
+            <i class="i-lucid chevron"></i>
+          </button>
+        <ul>
+          <li><a href="../../../../contribution-guide.html">
+                <span>Contributing</span>
+                <small>Learn how to contribute to the Advanced Alchemy project</small>
+              </a></li><li><a href="https://github.com/litestar-org/.github?tab=coc-ov-file">
+                <span>Code of Conduct</span>
+                <small>Review the etiquette for interacting with the Litestar community</small>
+              </a></li><li><a href="https://github.com/litestar-org/.github?tab=coc-ov-file#security-ov-file">
+                <span>Security</span>
+                <small>Overview of Litestar's security protocols</small>
+              </a></li></ul>
+      </li>
+      <li class="link"><button type="button">
+            <span>About</span>
+            <i class="i-lucid chevron"></i>
+          </button>
+        <ul>
+          <li><a href="https://litestar.dev/about/organization">
+                <span>Litestar Organization</span>
+                <small>Details about the Litestar organization</small>
+              </a></li><li><a href="../../../../releases.html">
+                <span>Releases</span>
+                <small>Explore the release process, versioning, and deprecation policy for Litestar</small>
+              </a></li></ul>
+      </li>
+      <li class="link"><button type="button">
+            <span>Release notes</span>
+            <i class="i-lucid chevron"></i>
+          </button>
+        <ul>
+          <li><a href="../../../../changelog.html">
+                <span>1.x Changelog</span>
+                <small>All changes in the 2.x series</small>
+              </a></li></ul>
+      </li>
+      <li class="link"><button type="button">
+            <span>Help</span>
+            <i class="i-lucid chevron"></i>
+          </button>
+        <ul>
+          <li><a href="https://discord.gg/litestar">
+                <span>Discord Help Forum</span>
+                <small>Dedicated Discord help forum</small>
+              </a></li><li><a href="https://github.com/litestar-org/advanced-alchemy/discussions">
+                <span>GitHub Discussions</span>
+                <small>GitHub Discussions</small>
+              </a></li><li><a href="https://stackoverflow.com/questions/tagged/litestar">
+                <span>Stack Overflow</span>
+                <small>We monitor the <code><b>litestar</b></code> tag on Stack Overflow</small>
+              </a></li></ul>
+      </li><li class="link">
+          <a href="https://github.com/sponsors/Litestar-Org">
+            <span>Sponsor</span>
+            
+          </a>
         </li></ul></nav>
-      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../../../search.html" method="get">
+      <div class="sy-head-extra flex items-center print:hidden">
+        
+<form class="searchbox flex items-center" action="../../../../search.html" method="get">
   <input type="text" name="q" placeholder="Search" />
   <kbd>/</kbd>
 </form>
         
+  <div class="nav-versions">
+    <button type="button" aria-label="Versions">
+      <span class="md:hidden">Versions</span>
+      <span class="hidden md:inline">latest</span>
+      <i class="i-lucid chevron"></i>
+    </button>
+    <div class="nav-versions-choices">
+      <ul><li><a href="/latest">latest</a></li><li><a href="/main">development</a></li></ul></div>
+  </div>
         
-        <div class="sy-head-social flex items-center">
-            <a class="flex items-center" href="https://github.com/jolt-org/advanced-alchemy" aria-label="GitHub">
-              <i class="i-icon github"></i>
-            </a>
-        </div>
+        <div class="sy-head-socials flex items-center">
+  <a href="https://twitter.com/LitestarAPI" aria-label="X (Twitter)">
+    <i class="i-simpleicons x-twitter"></i>
+  </a>
+    <a href="https://discord.gg/litestar-919193495116337154" aria-label="Discord">
+      <i class="i-simpleicons discord"></i>
+    </a>
+</div>
       </div>
     </div>
     <div class="sy-head-actions flex items-center shrink-0 print:hidden">
-      <button class="js-theme theme-switch flex items-center" data-aria-light="Switch to dark mode" data-aria-dark="Switch to light mode">
-        <i class="i-icon theme-icon"></i>
+      <button class="js-theme theme-switch flex items-center"
+        data-aria-auto="Switch to light color mode"
+        data-aria-light="Switch to dark color mode"
+        data-aria-dark="Switch to auto color mode">
+        <i class="i-lucid theme-icon"></i>
       </button>
       <button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="NavLinks" aria-expanded="false">
         <div class="hamburger">
@@ -107,7 +152,23 @@ html.dark {
   <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
     <div class="sy-lside-inner md:sticky">
       <div class="sy-scrollbar p-6">
-        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading"><span class="caption-text">Advanced Alchemy Documentation</span></p>
+<div class="sidebar-links">
+  <ul>
+    <li><a class="icon-link" href="https://github.com/orgs/litestar-org/discussions">
+  <span class="icon">
+    <svg viewBox="0 0 24 24" fill="none">
+      <path fill="var(--accent-9)" fill-rule="evenodd" clip-rule="evenodd" d="M11 5a6 6 0 0 0-4.687 9.746c.215.27.315.62.231.954l-.514 2.058a1 1 0 0 0 1.485 1.1l2.848-1.71c.174-.104.374-.15.576-.148H13a6 6 0 0 0 0-12h-2Z"/>
+      <circle fill="white" cx="12" cy="11" r="1"/>
+      <circle fill="white" cx="9" cy="11" r="1"/>
+      <circle fill="white" cx="15" cy="11" r="1"/>
+    </svg>
+  </span>
+  <span class="text">Discussion</span>
+</a></li>
+  </ul>
+</div>
+
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../../../usage/index.html">Usage</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../../usage/placeholder.html">Placeholder</a></li>
@@ -178,6 +239,8 @@ html.dark {
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../contribution-guide.html">Contribution guide</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/search?q=user%3Alitestar-org+state%3Aopen+label%3A%22good+first+issue%22+++no%3Aassignee+repo%3A%22advanced-alchemy%22&amp;type=issues">Available Issues</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/litestar-org/.github?tab=coc-ov-file#readme">Code of Conduct</a></li>
 </ul>
 
         </div>
@@ -188,28 +251,28 @@ html.dark {
   <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
   <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
     <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
-      <i class="i-icon close"></i>
+      <i class="i-lucid close"></i>
     </button>
-    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><a class="js-repo-stats repo-stats flex items-center" href="https://github.com/jolt-org/advanced-alchemy"
-  data-type="github" data-user="jolt-org" data-repo="advanced-alchemy">
-  <span class="w-8 flex items-center justify-around shrink-0 text-2xl">
-    <i class="i-icon github"></i>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><a class="js-repo-stats repo-stats flex items-center" href="https://github.com/litestar-org/advanced-alchemy"
+  data-type="github" data-user="litestar-org" data-repo="advanced-alchemy">
+  <span class="w-8 flex items-center justify-around shrink-0 text-3xl">
+    <i class="i-simpleicons github"></i>
   </span>
   <span class="flex-grow px-2">
-    <span>jolt-org/advanced-alchemy</span>
+    <span>litestar-org/advanced-alchemy</span>
     <span class="flex text-sm repo-stats-count">
       <span class="flex items-center pr-3">
-        <i class="i-icon star"></i>
+        <i class="i-lucid star"></i>
         <strong class="js-repo-stars ml-1">0</strong>
       </span>
       <span class="flex items-center">
-        <i class="i-icon git-fork"></i>
+        <i class="i-lucid git-fork"></i>
         <strong class="js-repo-forks ml-1">0</strong>
       </span>
     </span>
   </span>
 </a><div class="edit-this-page">
-  <a href="https://github.com/jolt-org/advanced-alchemy/blob/master/docs/reference/alembic/templates/sync/script-py.rst">Edit this page</a>
+  <a href="https://github.com/litestar-org/advanced-alchemy/blob/master/docs/reference/alembic/templates/sync/script-py.rst">Edit this page</a>
 </div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div>
     </div>
   </aside>
@@ -219,28 +282,47 @@ html.dark {
   <div class="sy-breadcrumbs-inner flex items-center">
     <div class="md:hidden mr-3">
       <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
-        <i class="i-icon menu"></i>
+        <i class="i-lucid menu"></i>
       </button>
     </div>
-    <ul class="flex-1">
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList">
       
       
-      <li><a href="../../../../index.html">advanced_alchemy</a><span>/</span></li>
+      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../../../index.html"><span itemprop="name">advanced_alchemy</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li>
       
-      <li><a href="../../../index.html">API Reference</a><span>/</span></li>
+      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../../index.html"><span itemprop="name">API Reference</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li>
       
-      <li><a href="../../index.html">alembic</a><span>/</span></li>
+      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">alembic</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="3" />
+      </li>
       
-      <li><a href="index.html">sync</a><span>/</span></li>
+      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="index.html"><span itemprop="name">sync</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="4" />
+      </li>
       
-      <li><strong>script.py</strong></li>
+      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">script.py</strong>
+        <meta itemprop="position" content="5" />
+      </li>
       
       
-    </ul>
+    </ol>
     <div class="xl:hidden ml-1">
       <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
         aria-expanded="false">
-        <i class="i-icon outdent"></i>
+        <i class="i-lucid outdent"></i>
       </button>
     </div>
   </div>
@@ -250,79 +332,85 @@ html.dark {
         <article class="yue" role="main">
           <section id="script-py">
 <h1>script.py<a class="headerlink" href="#script-py" title="Permalink to this heading">¶</a></h1>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span id="1-1"><span class="linenos"> 1</span># type: ignore
-</span><span id="1-2"><span class="linenos"> 2</span>&quot;&quot;&quot;${message}
-</span><span id="1-3"><span class="linenos"> 3</span>
-</span><span id="1-4"><span class="linenos"> 4</span>Revision ID: ${up_revision}
-</span><span id="1-5"><span class="linenos"> 5</span>Revises: ${down_revision | comma,n}
-</span><span id="1-6"><span class="linenos"> 6</span>Create Date: ${create_date}
-</span><span id="1-7"><span class="linenos"> 7</span>
-</span><span id="1-8"><span class="linenos"> 8</span>&quot;&quot;&quot;
-</span><span id="1-9"><span class="linenos"> 9</span>from __future__ import annotations
-</span><span id="1-10"><span class="linenos">10</span>
-</span><span id="1-11"><span class="linenos">11</span>import warnings
-</span><span id="1-12"><span class="linenos">12</span>from typing import TYPE_CHECKING
-</span><span id="1-13"><span class="linenos">13</span>
-</span><span id="1-14"><span class="linenos">14</span>import sqlalchemy as sa
-</span><span id="1-15"><span class="linenos">15</span>from alembic import op
-</span><span id="1-16"><span class="linenos">16</span>from advanced_alchemy.types import EncryptedString, EncryptedText, GUID, ORA_JSONB, DateTimeUTC
-</span><span id="1-17"><span class="linenos">17</span>from sqlalchemy import Text  # noqa: F401
-</span><span id="1-18"><span class="linenos">18</span>${imports if imports else &quot;&quot;}
-</span><span id="1-19"><span class="linenos">19</span>if TYPE_CHECKING:
-</span><span id="1-20"><span class="linenos">20</span>    from collections.abc import Sequence
-</span><span id="1-21"><span class="linenos">21</span>
-</span><span id="1-22"><span class="linenos">22</span>__all__ = [&quot;downgrade&quot;, &quot;upgrade&quot;, &quot;schema_upgrades&quot;, &quot;schema_downgrades&quot;, &quot;data_upgrades&quot;, &quot;data_downgrades&quot;]
-</span><span id="1-23"><span class="linenos">23</span>
-</span><span id="1-24"><span class="linenos">24</span>sa.GUID = GUID
-</span><span id="1-25"><span class="linenos">25</span>sa.DateTimeUTC = DateTimeUTC
-</span><span id="1-26"><span class="linenos">26</span>sa.ORA_JSONB = ORA_JSONB
-</span><span id="1-27"><span class="linenos">27</span>sa.EncryptedString = EncryptedString
-</span><span id="1-28"><span class="linenos">28</span>sa.EncryptedText = EncryptedText
-</span><span id="1-29"><span class="linenos">29</span>
-</span><span id="1-30"><span class="linenos">30</span># revision identifiers, used by Alembic.
-</span><span id="1-31"><span class="linenos">31</span>revision: str = ${repr(up_revision)}
-</span><span id="1-32"><span class="linenos">32</span>down_revision: str | None = ${repr(down_revision)}
-</span><span id="1-33"><span class="linenos">33</span>branch_labels: str  | Sequence[str] | None = ${repr(branch_labels)}
-</span><span id="1-34"><span class="linenos">34</span>depends_on: str  | Sequence[str] | None = ${repr(depends_on)}
-</span><span id="1-35"><span class="linenos">35</span>
-</span><span id="1-36"><span class="linenos">36</span>
-</span><span id="1-37"><span class="linenos">37</span>def upgrade() -&gt; None:
-</span><span id="1-38"><span class="linenos">38</span>    with warnings.catch_warnings():
-</span><span id="1-39"><span class="linenos">39</span>        warnings.filterwarnings(&quot;ignore&quot;, category=UserWarning)
-</span><span id="1-40"><span class="linenos">40</span>        with op.get_context().autocommit_block():
-</span><span id="1-41"><span class="linenos">41</span>            schema_upgrades()
-</span><span id="1-42"><span class="linenos">42</span>            data_upgrades()
-</span><span id="1-43"><span class="linenos">43</span>
-</span><span id="1-44"><span class="linenos">44</span>def downgrade() -&gt; None:
-</span><span id="1-45"><span class="linenos">45</span>    with warnings.catch_warnings():
-</span><span id="1-46"><span class="linenos">46</span>        warnings.filterwarnings(&quot;ignore&quot;, category=UserWarning)
-</span><span id="1-47"><span class="linenos">47</span>        with op.get_context().autocommit_block():
-</span><span id="1-48"><span class="linenos">48</span>            data_downgrades()
-</span><span id="1-49"><span class="linenos">49</span>            schema_downgrades()
-</span><span id="1-50"><span class="linenos">50</span>
-</span><span id="1-51"><span class="linenos">51</span>def schema_upgrades() -&gt; None:
-</span><span id="1-52"><span class="linenos">52</span>    &quot;&quot;&quot;schema upgrade migrations go here.&quot;&quot;&quot;
-</span><span id="1-53"><span class="linenos">53</span>    ${upgrades if upgrades else &quot;pass&quot;}
-</span><span id="1-54"><span class="linenos">54</span>
-</span><span id="1-55"><span class="linenos">55</span>def schema_downgrades() -&gt; None:
-</span><span id="1-56"><span class="linenos">56</span>    &quot;&quot;&quot;schema downgrade migrations go here.&quot;&quot;&quot;
-</span><span id="1-57"><span class="linenos">57</span>    ${downgrades if downgrades else &quot;pass&quot;}
-</span><span id="1-58"><span class="linenos">58</span>
-</span><span id="1-59"><span class="linenos">59</span>def data_upgrades() -&gt; None:
-</span><span id="1-60"><span class="linenos">60</span>    &quot;&quot;&quot;Add any optional data upgrade migrations here!&quot;&quot;&quot;
-</span><span id="1-61"><span class="linenos">61</span>
-</span><span id="1-62"><span class="linenos">62</span>def data_downgrades() -&gt; None:
-</span><span id="1-63"><span class="linenos">63</span>    &quot;&quot;&quot;Add any optional data downgrade migrations here!&quot;&quot;&quot;
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="linenos"> 1</span># type: ignore
+</span><span data-line="2"><span class="linenos"> 2</span>&quot;&quot;&quot;${message}
+</span><span data-line="3"><span class="linenos"> 3</span>
+</span><span data-line="4"><span class="linenos"> 4</span>Revision ID: ${up_revision}
+</span><span data-line="5"><span class="linenos"> 5</span>Revises: ${down_revision | comma,n}
+</span><span data-line="6"><span class="linenos"> 6</span>Create Date: ${create_date}
+</span><span data-line="7"><span class="linenos"> 7</span>
+</span><span data-line="8"><span class="linenos"> 8</span>&quot;&quot;&quot;
+</span><span data-line="9"><span class="linenos"> 9</span>from __future__ import annotations
+</span><span data-line="10"><span class="linenos">10</span>
+</span><span data-line="11"><span class="linenos">11</span>import warnings
+</span><span data-line="12"><span class="linenos">12</span>from typing import TYPE_CHECKING
+</span><span data-line="13"><span class="linenos">13</span>
+</span><span data-line="14"><span class="linenos">14</span>import sqlalchemy as sa
+</span><span data-line="15"><span class="linenos">15</span>from alembic import op
+</span><span data-line="16"><span class="linenos">16</span>from advanced_alchemy.types import EncryptedString, EncryptedText, GUID, ORA_JSONB, DateTimeUTC
+</span><span data-line="17"><span class="linenos">17</span>from sqlalchemy import Text  # noqa: F401
+</span><span data-line="18"><span class="linenos">18</span>${imports if imports else &quot;&quot;}
+</span><span data-line="19"><span class="linenos">19</span>if TYPE_CHECKING:
+</span><span data-line="20"><span class="linenos">20</span>    from collections.abc import Sequence
+</span><span data-line="21"><span class="linenos">21</span>
+</span><span data-line="22"><span class="linenos">22</span>__all__ = [&quot;downgrade&quot;, &quot;upgrade&quot;, &quot;schema_upgrades&quot;, &quot;schema_downgrades&quot;, &quot;data_upgrades&quot;, &quot;data_downgrades&quot;]
+</span><span data-line="23"><span class="linenos">23</span>
+</span><span data-line="24"><span class="linenos">24</span>sa.GUID = GUID
+</span><span data-line="25"><span class="linenos">25</span>sa.DateTimeUTC = DateTimeUTC
+</span><span data-line="26"><span class="linenos">26</span>sa.ORA_JSONB = ORA_JSONB
+</span><span data-line="27"><span class="linenos">27</span>sa.EncryptedString = EncryptedString
+</span><span data-line="28"><span class="linenos">28</span>sa.EncryptedText = EncryptedText
+</span><span data-line="29"><span class="linenos">29</span>
+</span><span data-line="30"><span class="linenos">30</span># revision identifiers, used by Alembic.
+</span><span data-line="31"><span class="linenos">31</span>revision: str = ${repr(up_revision)}
+</span><span data-line="32"><span class="linenos">32</span>down_revision: str | None = ${repr(down_revision)}
+</span><span data-line="33"><span class="linenos">33</span>branch_labels: str  | Sequence[str] | None = ${repr(branch_labels)}
+</span><span data-line="34"><span class="linenos">34</span>depends_on: str  | Sequence[str] | None = ${repr(depends_on)}
+</span><span data-line="35"><span class="linenos">35</span>
+</span><span data-line="36"><span class="linenos">36</span>
+</span><span data-line="37"><span class="linenos">37</span>def upgrade() -&gt; None:
+</span><span data-line="38"><span class="linenos">38</span>    with warnings.catch_warnings():
+</span><span data-line="39"><span class="linenos">39</span>        warnings.filterwarnings(&quot;ignore&quot;, category=UserWarning)
+</span><span data-line="40"><span class="linenos">40</span>        with op.get_context().autocommit_block():
+</span><span data-line="41"><span class="linenos">41</span>            schema_upgrades()
+</span><span data-line="42"><span class="linenos">42</span>            data_upgrades()
+</span><span data-line="43"><span class="linenos">43</span>
+</span><span data-line="44"><span class="linenos">44</span>def downgrade() -&gt; None:
+</span><span data-line="45"><span class="linenos">45</span>    with warnings.catch_warnings():
+</span><span data-line="46"><span class="linenos">46</span>        warnings.filterwarnings(&quot;ignore&quot;, category=UserWarning)
+</span><span data-line="47"><span class="linenos">47</span>        with op.get_context().autocommit_block():
+</span><span data-line="48"><span class="linenos">48</span>            data_downgrades()
+</span><span data-line="49"><span class="linenos">49</span>            schema_downgrades()
+</span><span data-line="50"><span class="linenos">50</span>
+</span><span data-line="51"><span class="linenos">51</span>def schema_upgrades() -&gt; None:
+</span><span data-line="52"><span class="linenos">52</span>    &quot;&quot;&quot;schema upgrade migrations go here.&quot;&quot;&quot;
+</span><span data-line="53"><span class="linenos">53</span>    ${upgrades if upgrades else &quot;pass&quot;}
+</span><span data-line="54"><span class="linenos">54</span>
+</span><span data-line="55"><span class="linenos">55</span>def schema_downgrades() -&gt; None:
+</span><span data-line="56"><span class="linenos">56</span>    &quot;&quot;&quot;schema downgrade migrations go here.&quot;&quot;&quot;
+</span><span data-line="57"><span class="linenos">57</span>    ${downgrades if downgrades else &quot;pass&quot;}
+</span><span data-line="58"><span class="linenos">58</span>
+</span><span data-line="59"><span class="linenos">59</span>def data_upgrades() -&gt; None:
+</span><span data-line="60"><span class="linenos">60</span>    &quot;&quot;&quot;Add any optional data upgrade migrations here!&quot;&quot;&quot;
+</span><span data-line="61"><span class="linenos">61</span>
+</span><span data-line="62"><span class="linenos">62</span>def data_downgrades() -&gt; None:
+</span><span data-line="63"><span class="linenos">63</span>    &quot;&quot;&quot;Add any optional data downgrade migrations here!&quot;&quot;&quot;
 </span></pre></div>
 </div>
 </section>
 
         </article>
+        <button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button>
         
         <div class="navigation flex print:hidden">
   <div class="navigation-prev">
     <a href="env.html">
-      <i class="i-icon chevron"></i>
+      <i class="i-lucid chevron"></i>
       <div class="page-info">
         <span>Previous</span>
         
@@ -337,7 +425,7 @@ html.dark {
         <span>Next</span>
         <div class="title">config</div>
       </div>
-      <i class="i-icon chevron"></i>
+      <i class="i-lucid chevron"></i>
     </a>
   </div>
 </div>
@@ -350,29 +438,38 @@ html.dark {
   <div class="sy-foot-inner sy-container mx-auto">
     
     <div class="sy-foot-reserved md:flex justify-between items-center">
-      <div class="sy-foot-copyright"><p>2023, Jolt Org</p>
-        
-        <p>
-          Made with
-          
-          <a href="https://www.sphinx-doc.org/">Sphinx</a> and
-          
-          <a href="https://shibuya.lepture.com">Shibuya theme</a>.
-        </p>
-      </div>
+      <div class="sy-foot-copyright"><p>2024, Litestar Organization</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
       <div class="sy-foot-socials">
-          <a href="https://github.com/jolt-org/advanced-alchemy" aria-label="GitHub"><i class="i-icon github"></i></a>
-      </div>
+  <a href="https://twitter.com/LitestarAPI" aria-label="X (Twitter)"><i class="i-simpleicons x-twitter"></i></a>
+  <a href="https://discord.gg/litestar-919193495116337154" aria-label="Discord"><i class="i-simpleicons discord"></i></a>
+  <a href="https://www.reddit.com/r/LitestarAPI" aria-label="Reddit"><i class="i-simpleicons reddit"></i></a>
+</div>
     </div>
   </div>
 </footer></div>
-      <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js?v=e43216b9"></script>
+      <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js?v=2c5cfeb5"></script>
       <script src="../../../../_static/doctools.js?v=888ff710"></script>
       <script src="../../../../_static/sphinx_highlight.js?v=4825356b"></script>
       <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../../../_static/litestar-theme.js?v=ab2dcc9e"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../../../../_static/togglebutton.js?v=4a39c7ea"></script>
       <script src="../../../../_static/design-tabs.js?v=36754332"></script>
-      <script src="../../../../_static/shibuya.js?v=3e5c8598"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script src="../../../../_static/shibuya.js?v=9aab5f5b"></script>
+      <script src="../../../../_static/versioning.js"></script>
     
 </body>
 </html>

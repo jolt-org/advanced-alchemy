@@ -1,97 +1,142 @@
-<!DOCTYPE html>
-<html lang="en">
+
+  <!DOCTYPE html>
+<html lang="en" data-accent-color="amber" data-content_root="">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>advanced_alchemy.extensions.litestar.dto - Docs</title>
-    <link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" />
+      <title>advanced_alchemy.extensions.litestar.dto - Litestar Framework</title>
+    <link rel="shortcut icon" href="../../../../_static/favicon.svg"/><link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" />
+
   <script>
-    const isDarkTheme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const sessionTheme = sessionStorage['_theme']
-    if (sessionTheme) {
-      document.documentElement.classList.add(sessionTheme)
-    } else if (isDarkTheme) {
-      document.documentElement.classList.add('dark')
-    }
-  </script><link rel="shortcut icon" href="../../../../_static/logo.png"/><link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=aecf457f" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/shibuya.css?v=28c32440" />
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(sessionStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=aecf457f" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/shibuya.css?v=aef655f6" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
-    <link media="print" rel="stylesheet" type="text/css" href="../../../../_static/print.css?v=ee381b95" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/css/custom.css?v=bf5addad" />
-    <style>
-:root {
-  --sy-f-sys:-apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Droid Sans, Helvetica Neue;--sy-f-cjk:PingFang SC, Hiragino Sans GB, Droid Sans Fallback, Microsoft YaHei;--sy-f-heading:var(--sy-f-sys), var(--sy-f-cjk), sans-serif;--sy-f-text:var(--sy-f-sys), var(--sy-f-cjk), sans-serif;--sy-f-mono:Menlo, Monaco, Consolas, "Courier New", monospace;--sy-c-divider:rgba(var(--sy-rc-text), 0.1);--sy-c-divider-weak:rgba(var(--sy-rc-text), 0.05);--sy-c-border:rgba(var(--sy-rc-text), 0.14);--sy-s-banner-height:0rem;--sy-s-navbar-height:56px;--sy-s-offset-top:calc(var(--sy-s-navbar-height) + var(--sy-s-banner-height));--sy-c-link:rgb(var(--sy-rc-theme));--sy-c-link-weak:rgba(var(--sy-rc-theme), 0.86);
-  --sy-rc-theme:245, 0, 87;--sy-rc-bg:255, 255, 255;--sy-rc-invert:245, 0, 87;--sy-rc-text:245, 0, 87;--sy-c-bg:#fff;--sy-c-bg-weak:0, 0, 0;--sy-c-text:#000000;--sy-c-text-weak:#f50057;--sy-c-heading:#f50057;--sy-c-bold:#f50057;--sy-c-foot-text:#000000;--sy-c-foot-bg:#fafafa;--sy-c-foot-divider:#f50057;
-}
-@media (prefers-color-scheme: light) {
-  :root {
-    --sy-rc-theme:245, 0, 87;--sy-rc-bg:255, 255, 255;--sy-rc-invert:245, 0, 87;--sy-rc-text:245, 0, 87;--sy-c-bg:#fff;--sy-c-bg-weak:0, 0, 0;--sy-c-text:#000000;--sy-c-text-weak:#f50057;--sy-c-heading:#f50057;--sy-c-bold:#f50057;--sy-c-foot-text:#000000;--sy-c-foot-bg:#fafafa;--sy-c-foot-divider:#f50057;
-  }
-}
-@media (prefers-color-scheme: dark) {
-  :root {
-    --sy-rc-theme:245, 0, 87;--sy-rc-bg:0, 0, 0;--sy-rc-invert:245, 0, 87;--sy-rc-text:245, 0, 87;--sy-c-bg:#f50057;--sy-c-bg-weak:#000000;--sy-c-text:#ebdddd;--sy-c-text-weak:#f50057;--sy-c-heading:#f50057;--sy-c-bold:#f50057;--sy-c-foot-text:#ebdddd;--sy-c-foot-bg:#000000;--sy-c-foot-divider:#f50057;
-  }
-}
-html.light {
-  --sy-rc-theme:245, 0, 87;--sy-rc-bg:255, 255, 255;--sy-rc-invert:245, 0, 87;--sy-rc-text:245, 0, 87;--sy-c-bg:#fff;--sy-c-bg-weak:0, 0, 0;--sy-c-text:#000000;--sy-c-text-weak:#f50057;--sy-c-heading:#f50057;--sy-c-bold:#f50057;--sy-c-foot-text:#000000;--sy-c-foot-bg:#fafafa;--sy-c-foot-divider:#f50057;
-}
-html.dark {
-  --sy-rc-theme:245, 0, 87;--sy-rc-bg:0, 0, 0;--sy-rc-invert:245, 0, 87;--sy-rc-text:245, 0, 87;--sy-c-bg:#f50057;--sy-c-bg-weak:#000000;--sy-c-text:#ebdddd;--sy-c-text-weak:#f50057;--sy-c-heading:#f50057;--sy-c-bold:#f50057;--sy-c-foot-text:#ebdddd;--sy-c-foot-bg:#000000;--sy-c-foot-divider:#f50057;
-}
-</style>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx_paramlinks.css" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../../../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/style.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/litestar-sphinx-theme.css?v=9fce248e" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --sy-f-heading: Inter, var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
 }
 </style>
     <meta property="og:type" content="website"/><meta property="og:title" content="advanced_alchemy.extensions.litestar.dto"/>
-<meta name="twitter:card" content="summary"/></head>
-<body><div class="document"><div class="announcement">
-    <div class="announcement-inner">
-      <p>This documentation is currently under development.</p>
-      <button class="announcement-close" aria-label="Close announcement">
-        <i class="i-icon close"></i>
-      </button>
-    </div>
-  </div><div class="sy-head">
+<meta name="twitter:card" content="summary"/>
+<meta property="og:image" content="_static/logo-light.svg"/>
+  </head>
+<body><div class="document"><div class="sy-head">
   <div class="sy-head-blur"></div>
   <div class="sy-head-inner sy-container mx-auto">
     <a class="sy-head-brand mr-4" href="/">
-      <img class="light-logo" src="../../../../_static/logo.png" alt="advanced_alchemy" height="28" />
-      <img class="dark-logo" src="../../../../_static/logo.png" alt="advanced_alchemy" height="28" />
+      <img class="light-logo" src="../../../../_static/logo-light.svg" alt="advanced_alchemy" height="28" />
+      <img class="dark-logo" src="../../../../_static/logo-dark.svg" alt="advanced_alchemy" height="28" />
       <strong>advanced_alchemy</strong>
     </a>
     <div class="sy-head-links" id="NavLinks">
       <nav class="sy-head-nav">
 
-<ul><li class="link">
-          <a href="https://advanced-alchemy.jolt.rs"><span>Home</span><i class="i-icon external-link"></i></a>
-        </li><li class="link">
-          <a href="https://docs.advanced-alchemy.jolt.rs"><span>Docs</span><i class="i-icon external-link"></i></a>
-        </li><li class="link">
-          <a href="https://github.com/jolt-org/advanced-alchemy"><span>Code</span><i class="i-icon external-link"></i></a>
+<ul><li class="link"><a href="../../../../index.html">Home</a></li>
+      <li class="link"><button type="button">
+            <span>Community</span>
+            <i class="i-lucid chevron"></i>
+          </button>
+        <ul>
+          <li><a href="../../../../contribution-guide.html">
+                <span>Contributing</span>
+                <small>Learn how to contribute to the Advanced Alchemy project</small>
+              </a></li><li><a href="https://github.com/litestar-org/.github?tab=coc-ov-file">
+                <span>Code of Conduct</span>
+                <small>Review the etiquette for interacting with the Litestar community</small>
+              </a></li><li><a href="https://github.com/litestar-org/.github?tab=coc-ov-file#security-ov-file">
+                <span>Security</span>
+                <small>Overview of Litestar's security protocols</small>
+              </a></li></ul>
+      </li>
+      <li class="link"><button type="button">
+            <span>About</span>
+            <i class="i-lucid chevron"></i>
+          </button>
+        <ul>
+          <li><a href="https://litestar.dev/about/organization">
+                <span>Litestar Organization</span>
+                <small>Details about the Litestar organization</small>
+              </a></li><li><a href="../../../../releases.html">
+                <span>Releases</span>
+                <small>Explore the release process, versioning, and deprecation policy for Litestar</small>
+              </a></li></ul>
+      </li>
+      <li class="link"><button type="button">
+            <span>Release notes</span>
+            <i class="i-lucid chevron"></i>
+          </button>
+        <ul>
+          <li><a href="../../../../changelog.html">
+                <span>1.x Changelog</span>
+                <small>All changes in the 2.x series</small>
+              </a></li></ul>
+      </li>
+      <li class="link"><button type="button">
+            <span>Help</span>
+            <i class="i-lucid chevron"></i>
+          </button>
+        <ul>
+          <li><a href="https://discord.gg/litestar">
+                <span>Discord Help Forum</span>
+                <small>Dedicated Discord help forum</small>
+              </a></li><li><a href="https://github.com/litestar-org/advanced-alchemy/discussions">
+                <span>GitHub Discussions</span>
+                <small>GitHub Discussions</small>
+              </a></li><li><a href="https://stackoverflow.com/questions/tagged/litestar">
+                <span>Stack Overflow</span>
+                <small>We monitor the <code><b>litestar</b></code> tag on Stack Overflow</small>
+              </a></li></ul>
+      </li><li class="link">
+          <a href="https://github.com/sponsors/Litestar-Org">
+            <span>Sponsor</span>
+            
+          </a>
         </li></ul></nav>
-      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../../../search.html" method="get">
+      <div class="sy-head-extra flex items-center print:hidden">
+        
+<form class="searchbox flex items-center" action="../../../../search.html" method="get">
   <input type="text" name="q" placeholder="Search" />
   <kbd>/</kbd>
 </form>
         
+  <div class="nav-versions">
+    <button type="button" aria-label="Versions">
+      <span class="md:hidden">Versions</span>
+      <span class="hidden md:inline">latest</span>
+      <i class="i-lucid chevron"></i>
+    </button>
+    <div class="nav-versions-choices">
+      <ul><li><a href="/latest">latest</a></li><li><a href="/main">development</a></li></ul></div>
+  </div>
         
-        <div class="sy-head-social flex items-center">
-            <a class="flex items-center" href="https://github.com/jolt-org/advanced-alchemy" aria-label="GitHub">
-              <i class="i-icon github"></i>
-            </a>
-        </div>
+        <div class="sy-head-socials flex items-center">
+  <a href="https://twitter.com/LitestarAPI" aria-label="X (Twitter)">
+    <i class="i-simpleicons x-twitter"></i>
+  </a>
+    <a href="https://discord.gg/litestar-919193495116337154" aria-label="Discord">
+      <i class="i-simpleicons discord"></i>
+    </a>
+</div>
       </div>
     </div>
     <div class="sy-head-actions flex items-center shrink-0 print:hidden">
-      <button class="js-theme theme-switch flex items-center" data-aria-light="Switch to dark mode" data-aria-dark="Switch to light mode">
-        <i class="i-icon theme-icon"></i>
+      <button class="js-theme theme-switch flex items-center"
+        data-aria-auto="Switch to light color mode"
+        data-aria-light="Switch to dark color mode"
+        data-aria-dark="Switch to auto color mode">
+        <i class="i-lucid theme-icon"></i>
       </button>
       <button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="NavLinks" aria-expanded="false">
         <div class="hamburger">
@@ -107,7 +152,23 @@ html.dark {
   <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
     <div class="sy-lside-inner md:sticky">
       <div class="sy-scrollbar p-6">
-        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading"><span class="caption-text">Advanced Alchemy Documentation</span></p>
+<div class="sidebar-links">
+  <ul>
+    <li><a class="icon-link" href="https://github.com/orgs/litestar-org/discussions">
+  <span class="icon">
+    <svg viewBox="0 0 24 24" fill="none">
+      <path fill="var(--accent-9)" fill-rule="evenodd" clip-rule="evenodd" d="M11 5a6 6 0 0 0-4.687 9.746c.215.27.315.62.231.954l-.514 2.058a1 1 0 0 0 1.485 1.1l2.848-1.71c.174-.104.374-.15.576-.148H13a6 6 0 0 0 0-12h-2Z"/>
+      <circle fill="white" cx="12" cy="11" r="1"/>
+      <circle fill="white" cx="9" cy="11" r="1"/>
+      <circle fill="white" cx="15" cy="11" r="1"/>
+    </svg>
+  </span>
+  <span class="text">Discussion</span>
+</a></li>
+  </ul>
+</div>
+
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../usage/index.html">Usage</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../../usage/placeholder.html">Placeholder</a></li>
@@ -178,6 +239,8 @@ html.dark {
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../contribution-guide.html">Contribution guide</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/search?q=user%3Alitestar-org+state%3Aopen+label%3A%22good+first+issue%22+++no%3Aassignee+repo%3A%22advanced-alchemy%22&amp;type=issues">Available Issues</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/litestar-org/.github?tab=coc-ov-file#readme">Code of Conduct</a></li>
 </ul>
 
         </div>
@@ -188,22 +251,22 @@ html.dark {
   <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
   <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
     <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
-      <i class="i-icon close"></i>
+      <i class="i-lucid close"></i>
     </button>
-    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><a class="js-repo-stats repo-stats flex items-center" href="https://github.com/jolt-org/advanced-alchemy"
-  data-type="github" data-user="jolt-org" data-repo="advanced-alchemy">
-  <span class="w-8 flex items-center justify-around shrink-0 text-2xl">
-    <i class="i-icon github"></i>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><a class="js-repo-stats repo-stats flex items-center" href="https://github.com/litestar-org/advanced-alchemy"
+  data-type="github" data-user="litestar-org" data-repo="advanced-alchemy">
+  <span class="w-8 flex items-center justify-around shrink-0 text-3xl">
+    <i class="i-simpleicons github"></i>
   </span>
   <span class="flex-grow px-2">
-    <span>jolt-org/advanced-alchemy</span>
+    <span>litestar-org/advanced-alchemy</span>
     <span class="flex text-sm repo-stats-count">
       <span class="flex items-center pr-3">
-        <i class="i-icon star"></i>
+        <i class="i-lucid star"></i>
         <strong class="js-repo-stars ml-1">0</strong>
       </span>
       <span class="flex items-center">
-        <i class="i-icon git-fork"></i>
+        <i class="i-lucid git-fork"></i>
         <strong class="js-repo-forks ml-1">0</strong>
       </span>
     </span>
@@ -217,24 +280,35 @@ html.dark {
   <div class="sy-breadcrumbs-inner flex items-center">
     <div class="md:hidden mr-3">
       <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
-        <i class="i-icon menu"></i>
+        <i class="i-lucid menu"></i>
       </button>
     </div>
-    <ul class="flex-1">
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList">
       
       
-      <li><a href="../../../../index.html">advanced_alchemy</a><span>/</span></li>
+      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../../../index.html"><span itemprop="name">advanced_alchemy</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li>
       
-      <li><a href="../../../index.html">Module code</a><span>/</span></li>
+      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../../index.html"><span itemprop="name">Module code</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li>
       
-      <li><strong>advanced_alchemy.extensions.litestar.dto</strong></li>
+      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">advanced_alchemy.extensions.litestar.dto</strong>
+        <meta itemprop="position" content="3" />
+      </li>
       
       
-    </ul>
+    </ol>
     <div class="xl:hidden ml-1">
       <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
         aria-expanded="false">
-        <i class="i-icon outdent"></i>
+        <i class="i-lucid outdent"></i>
       </button>
     </div>
   </div>
@@ -243,379 +317,385 @@ html.dark {
       <div class="min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
         <article class="yue" role="main">
           <h1>Source code for advanced_alchemy.extensions.litestar.dto</h1><div class="highlight"><pre>
-<span></span><span id="1-1"><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
-</span><span id="1-2">
-</span><span id="1-3"><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">asdict</span><span class="p">,</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">replace</span>
-</span><span id="1-4"><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">singledispatchmethod</span>
-</span><span id="1-5"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">ClassVar</span><span class="p">,</span> <span class="n">Collection</span><span class="p">,</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">TypeVar</span>
-</span><span id="1-6">
-</span><span id="1-7"><span class="kn">from</span> <span class="nn">litestar.dto.base_dto</span> <span class="kn">import</span> <span class="n">AbstractDTO</span>
-</span><span id="1-8"><span class="kn">from</span> <span class="nn">litestar.dto.config</span> <span class="kn">import</span> <span class="n">DTOConfig</span>
-</span><span id="1-9"><span class="kn">from</span> <span class="nn">litestar.dto.data_structures</span> <span class="kn">import</span> <span class="n">DTOFieldDefinition</span>
-</span><span id="1-10"><span class="kn">from</span> <span class="nn">litestar.dto.field</span> <span class="kn">import</span> <span class="n">DTO_FIELD_META_KEY</span><span class="p">,</span> <span class="n">DTOField</span><span class="p">,</span> <span class="n">Mark</span>
-</span><span id="1-11"><span class="kn">from</span> <span class="nn">litestar.types.empty</span> <span class="kn">import</span> <span class="n">Empty</span>
-</span><span id="1-12"><span class="kn">from</span> <span class="nn">litestar.typing</span> <span class="kn">import</span> <span class="n">FieldDefinition</span>
-</span><span id="1-13"><span class="kn">from</span> <span class="nn">litestar.utils.signature</span> <span class="kn">import</span> <span class="n">ParsedSignature</span>
-</span><span id="1-14"><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">Column</span><span class="p">,</span> <span class="n">inspect</span><span class="p">,</span> <span class="n">orm</span><span class="p">,</span> <span class="n">sql</span>
-</span><span id="1-15"><span class="kn">from</span> <span class="nn">sqlalchemy.ext.associationproxy</span> <span class="kn">import</span> <span class="n">AssociationProxy</span><span class="p">,</span> <span class="n">AssociationProxyExtensionType</span>
-</span><span id="1-16"><span class="kn">from</span> <span class="nn">sqlalchemy.ext.hybrid</span> <span class="kn">import</span> <span class="n">HybridExtensionType</span><span class="p">,</span> <span class="n">hybrid_property</span>
-</span><span id="1-17"><span class="kn">from</span> <span class="nn">sqlalchemy.orm</span> <span class="kn">import</span> <span class="p">(</span>
-</span><span id="1-18">    <span class="n">ColumnProperty</span><span class="p">,</span>
-</span><span id="1-19">    <span class="n">CompositeProperty</span><span class="p">,</span>
-</span><span id="1-20">    <span class="n">DeclarativeBase</span><span class="p">,</span>
-</span><span id="1-21">    <span class="n">InspectionAttr</span><span class="p">,</span>
-</span><span id="1-22">    <span class="n">Mapped</span><span class="p">,</span>
-</span><span id="1-23">    <span class="n">MappedColumn</span><span class="p">,</span>
-</span><span id="1-24">    <span class="n">NotExtension</span><span class="p">,</span>
-</span><span id="1-25">    <span class="n">QueryableAttribute</span><span class="p">,</span>
-</span><span id="1-26">    <span class="n">RelationshipDirection</span><span class="p">,</span>
-</span><span id="1-27">    <span class="n">RelationshipProperty</span><span class="p">,</span>
-</span><span id="1-28"><span class="p">)</span>
-</span><span id="1-29"><span class="kn">from</span> <span class="nn">sqlalchemy.sql.expression</span> <span class="kn">import</span> <span class="n">ColumnClause</span><span class="p">,</span> <span class="n">Label</span>
-</span><span id="1-30">
-</span><span id="1-31"><span class="kn">from</span> <span class="nn">advanced_alchemy.exceptions</span> <span class="kn">import</span> <span class="n">ImproperConfigurationError</span>
-</span><span id="1-32">
-</span><span id="1-33"><span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-</span><span id="1-34">    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Generator</span>
-</span><span id="1-35">
-</span><span id="1-36">    <span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">TypeAlias</span>
-</span><span id="1-37">
-</span><span id="1-38"><span class="n">__all__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;SQLAlchemyDTO&quot;</span><span class="p">,)</span>
-</span><span id="1-39">
-</span><span id="1-40"><span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="s2">&quot;DeclarativeBase | Collection[DeclarativeBase]&quot;</span><span class="p">)</span>
-</span><span id="1-41">
-</span><span id="1-42"><span class="n">ElementType</span><span class="p">:</span> <span class="n">TypeAlias</span> <span class="o">=</span> <span class="s2">&quot;Column | RelationshipProperty | CompositeProperty | ColumnClause | Label&quot;</span>
-</span><span id="1-43"><span class="n">SQLA_NS</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="nb">vars</span><span class="p">(</span><span class="n">orm</span><span class="p">),</span> <span class="o">**</span><span class="nb">vars</span><span class="p">(</span><span class="n">sql</span><span class="p">)}</span>
-</span><span id="1-44">
-</span><span id="1-45">
-</span><span id="1-46"><span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span><span id="1-47"><span class="k">class</span> <span class="nc">SQLAlchemyDTOConfig</span><span class="p">(</span><span class="n">DTOConfig</span><span class="p">):</span>
-</span><span id="1-48"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Additional controls for the generated SQLAlchemy DTO.&quot;&quot;&quot;</span>
-</span><span id="1-49">
-</span><span id="1-50">    <span class="n">include_implicit_fields</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;hybrid-only&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
-</span><span id="1-51"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Fields that are implicitly mapped are included.</span>
-</span><span id="1-52">
-</span><span id="1-53"><span class="sd">    Turning this off will lead to exclude all fields not using ``Mapped`` annotation,</span>
-</span><span id="1-54">
-</span><span id="1-55"><span class="sd">    When setting this to ``hybrid-only``, all implicitly mapped fields are excluded</span>
-</span><span id="1-56"><span class="sd">    with the exception for hybrid properties.</span>
-</span><span id="1-57"><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="1-58">
-</span><span id="1-59">
-<div class="viewcode-block" id="SQLAlchemyDTO"><a class="viewcode-back" href="../../../../reference/extensions/litestar/dto.html#advanced_alchemy.extensions.litestar.dto.SQLAlchemyDTO">[docs]</a></span><span id="1-60"><span class="k">class</span> <span class="nc">SQLAlchemyDTO</span><span class="p">(</span><span class="n">AbstractDTO</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
-</span><span id="1-61"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Support for domain modelling with SQLAlchemy.&quot;&quot;&quot;</span>
-</span><span id="1-62">
-</span><span id="1-63">    <span class="n">config</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="n">SQLAlchemyDTOConfig</span><span class="p">]</span>
-</span><span id="1-64">
-</span><span id="1-65">    <span class="nd">@staticmethod</span>
-</span><span id="1-66">    <span class="k">def</span> <span class="nf">_ensure_sqla_dto_config</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">DTOConfig</span> <span class="o">|</span> <span class="n">SQLAlchemyDTOConfig</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SQLAlchemyDTOConfig</span><span class="p">:</span>
-</span><span id="1-67">        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">SQLAlchemyDTOConfig</span><span class="p">):</span>
-</span><span id="1-68">            <span class="k">return</span> <span class="n">SQLAlchemyDTOConfig</span><span class="p">(</span><span class="o">**</span><span class="n">asdict</span><span class="p">(</span><span class="n">config</span><span class="p">))</span>
-</span><span id="1-69">
-</span><span id="1-70">        <span class="k">return</span> <span class="n">config</span>
-</span><span id="1-71">
-</span><span id="1-72">    <span class="k">def</span> <span class="nf">__init_subclass__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="1-73">        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__init_subclass__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-</span><span id="1-74">        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="s2">&quot;config&quot;</span><span class="p">):</span>
-</span><span id="1-75">            <span class="bp">cls</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_ensure_sqla_dto_config</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
-</span><span id="1-76">
-</span><span id="1-77">    <span class="nd">@singledispatchmethod</span>
-</span><span id="1-78">    <span class="nd">@classmethod</span>
-</span><span id="1-79">    <span class="k">def</span> <span class="nf">handle_orm_descriptor</span><span class="p">(</span>
-</span><span id="1-80">        <span class="bp">cls</span><span class="p">,</span>
-</span><span id="1-81">        <span class="n">extension_type</span><span class="p">:</span> <span class="n">NotExtension</span> <span class="o">|</span> <span class="n">AssociationProxyExtensionType</span> <span class="o">|</span> <span class="n">HybridExtensionType</span><span class="p">,</span>
-</span><span id="1-82">        <span class="n">orm_descriptor</span><span class="p">:</span> <span class="n">InspectionAttr</span><span class="p">,</span>  <span class="c1"># noqa: ARG003</span>
-</span><span id="1-83">        <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>  <span class="c1"># noqa: ARG003</span>
-</span><span id="1-84">        <span class="n">model_type_hints</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">FieldDefinition</span><span class="p">],</span>  <span class="c1"># noqa: ARG003</span>
-</span><span id="1-85">        <span class="n">model_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>  <span class="c1"># noqa: ARG003</span>
-</span><span id="1-86">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">DTOFieldDefinition</span><span class="p">]:</span>
-</span><span id="1-87">        <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Unsupported extension type: </span><span class="si">{</span><span class="n">extension_type</span><span class="si">}</span><span class="s2">&quot;</span>
-</span><span id="1-88">        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-</span><span id="1-89">
-</span><span id="1-90">    <span class="nd">@handle_orm_descriptor</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">NotExtension</span><span class="p">)</span>
-</span><span id="1-91">    <span class="nd">@classmethod</span>
-</span><span id="1-92">    <span class="k">def</span> <span class="nf">_</span><span class="p">(</span>
-</span><span id="1-93">        <span class="bp">cls</span><span class="p">,</span>
-</span><span id="1-94">        <span class="n">extension_type</span><span class="p">:</span> <span class="n">NotExtension</span><span class="p">,</span>
-</span><span id="1-95">        <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-</span><span id="1-96">        <span class="n">orm_descriptor</span><span class="p">:</span> <span class="n">InspectionAttr</span><span class="p">,</span>
-</span><span id="1-97">        <span class="n">model_type_hints</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">FieldDefinition</span><span class="p">],</span>
-</span><span id="1-98">        <span class="n">model_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-</span><span id="1-99">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">DTOFieldDefinition</span><span class="p">]:</span>
-</span><span id="1-100">        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">orm_descriptor</span><span class="p">,</span> <span class="n">QueryableAttribute</span><span class="p">):</span>
-</span><span id="1-101">            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Unexpected descriptor type for &#39;</span><span class="si">{</span><span class="n">extension_type</span><span class="si">}</span><span class="s2">&#39;: &#39;</span><span class="si">{</span><span class="n">orm_descriptor</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
-</span><span id="1-102">            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-</span><span id="1-103">
-</span><span id="1-104">        <span class="n">elem</span><span class="p">:</span> <span class="n">ElementType</span>
-</span><span id="1-105">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">orm_descriptor</span><span class="o">.</span><span class="n">property</span><span class="p">,</span> <span class="n">ColumnProperty</span><span class="p">):</span>
-</span><span id="1-106">            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">orm_descriptor</span><span class="o">.</span><span class="n">property</span><span class="o">.</span><span class="n">expression</span><span class="p">,</span> <span class="p">(</span><span class="n">Column</span><span class="p">,</span> <span class="n">ColumnClause</span><span class="p">,</span> <span class="n">Label</span><span class="p">)):</span>
-</span><span id="1-107">                <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Expected &#39;Column&#39;, got: &#39;</span><span class="si">{</span><span class="n">orm_descriptor</span><span class="o">.</span><span class="n">property</span><span class="o">.</span><span class="n">expression</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">orm_descriptor</span><span class="o">.</span><span class="n">property</span><span class="o">.</span><span class="n">expression</span><span class="p">)</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
-</span><span id="1-108">                <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-</span><span id="1-109">            <span class="n">elem</span> <span class="o">=</span> <span class="n">orm_descriptor</span><span class="o">.</span><span class="n">property</span><span class="o">.</span><span class="n">expression</span>
-</span><span id="1-110">        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">orm_descriptor</span><span class="o">.</span><span class="n">property</span><span class="p">,</span> <span class="p">(</span><span class="n">RelationshipProperty</span><span class="p">,</span> <span class="n">CompositeProperty</span><span class="p">)):</span>
-</span><span id="1-111">            <span class="n">elem</span> <span class="o">=</span> <span class="n">orm_descriptor</span><span class="o">.</span><span class="n">property</span>
-</span><span id="1-112">        <span class="k">else</span><span class="p">:</span>
-</span><span id="1-113">            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Unhandled property type: &#39;</span><span class="si">{</span><span class="n">orm_descriptor</span><span class="o">.</span><span class="n">property</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
-</span><span id="1-114">            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-</span><span id="1-115">
-</span><span id="1-116">        <span class="n">default</span><span class="p">,</span> <span class="n">default_factory</span> <span class="o">=</span> <span class="n">_detect_defaults</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span>
-</span><span id="1-117">
-</span><span id="1-118">        <span class="k">try</span><span class="p">:</span>
-</span><span id="1-119">            <span class="k">if</span> <span class="p">(</span><span class="n">field_definition</span> <span class="o">:=</span> <span class="n">model_type_hints</span><span class="p">[</span><span class="n">key</span><span class="p">])</span><span class="o">.</span><span class="n">origin</span> <span class="ow">is</span> <span class="n">Mapped</span><span class="p">:</span>
-</span><span id="1-120">                <span class="p">(</span><span class="n">field_definition</span><span class="p">,)</span> <span class="o">=</span> <span class="n">field_definition</span><span class="o">.</span><span class="n">inner_types</span>
-</span><span id="1-121">            <span class="k">else</span><span class="p">:</span>
-</span><span id="1-122">                <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Expected &#39;Mapped&#39; origin, got: &#39;</span><span class="si">{</span><span class="n">field_definition</span><span class="o">.</span><span class="n">origin</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
-</span><span id="1-123">                <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-</span><span id="1-124">        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-</span><span id="1-125">            <span class="n">field_definition</span> <span class="o">=</span> <span class="n">parse_type_from_element</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span>
-</span><span id="1-126">
-</span><span id="1-127">        <span class="n">dto_field</span> <span class="o">=</span> <span class="n">elem</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">DTO_FIELD_META_KEY</span><span class="p">,</span> <span class="n">DTOField</span><span class="p">())</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="s2">&quot;info&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="n">DTOField</span><span class="p">()</span>
-</span><span id="1-128">        <span class="k">return</span> <span class="p">[</span>
-</span><span id="1-129">            <span class="n">DTOFieldDefinition</span><span class="o">.</span><span class="n">from_field_definition</span><span class="p">(</span>
-</span><span id="1-130">                <span class="n">field_definition</span><span class="o">=</span><span class="n">replace</span><span class="p">(</span>
-</span><span id="1-131">                    <span class="n">field_definition</span><span class="p">,</span>
-</span><span id="1-132">                    <span class="n">name</span><span class="o">=</span><span class="n">key</span><span class="p">,</span>
-</span><span id="1-133">                    <span class="n">default</span><span class="o">=</span><span class="n">default</span><span class="p">,</span>
-</span><span id="1-134">                <span class="p">),</span>
-</span><span id="1-135">                <span class="n">default_factory</span><span class="o">=</span><span class="n">default_factory</span><span class="p">,</span>
-</span><span id="1-136">                <span class="n">dto_field</span><span class="o">=</span><span class="n">dto_field</span><span class="p">,</span>
-</span><span id="1-137">                <span class="n">model_name</span><span class="o">=</span><span class="n">model_name</span><span class="p">,</span>
-</span><span id="1-138">            <span class="p">),</span>
-</span><span id="1-139">        <span class="p">]</span>
-</span><span id="1-140">
-</span><span id="1-141">    <span class="nd">@handle_orm_descriptor</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">AssociationProxyExtensionType</span><span class="p">)</span>
-</span><span id="1-142">    <span class="nd">@classmethod</span>
-</span><span id="1-143">    <span class="k">def</span> <span class="nf">_</span><span class="p">(</span>
-</span><span id="1-144">        <span class="bp">cls</span><span class="p">,</span>
-</span><span id="1-145">        <span class="n">extension_type</span><span class="p">:</span> <span class="n">AssociationProxyExtensionType</span><span class="p">,</span>
-</span><span id="1-146">        <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-</span><span id="1-147">        <span class="n">orm_descriptor</span><span class="p">:</span> <span class="n">InspectionAttr</span><span class="p">,</span>
-</span><span id="1-148">        <span class="n">model_type_hints</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">FieldDefinition</span><span class="p">],</span>
-</span><span id="1-149">        <span class="n">model_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-</span><span id="1-150">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">DTOFieldDefinition</span><span class="p">]:</span>
-</span><span id="1-151">        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">orm_descriptor</span><span class="p">,</span> <span class="n">AssociationProxy</span><span class="p">):</span>
-</span><span id="1-152">            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Unexpected descriptor type &#39;</span><span class="si">{</span><span class="n">orm_descriptor</span><span class="si">}</span><span class="s2">&#39; for &#39;</span><span class="si">{</span><span class="n">extension_type</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
-</span><span id="1-153">            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-</span><span id="1-154">
-</span><span id="1-155">        <span class="k">if</span> <span class="p">(</span><span class="n">field_definition</span> <span class="o">:=</span> <span class="n">model_type_hints</span><span class="p">[</span><span class="n">key</span><span class="p">])</span><span class="o">.</span><span class="n">origin</span> <span class="ow">is</span> <span class="n">AssociationProxy</span><span class="p">:</span>
-</span><span id="1-156">            <span class="p">(</span><span class="n">field_definition</span><span class="p">,)</span> <span class="o">=</span> <span class="n">field_definition</span><span class="o">.</span><span class="n">inner_types</span>
-</span><span id="1-157">        <span class="k">else</span><span class="p">:</span>
-</span><span id="1-158">            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Expected &#39;AssociationProxy&#39; origin, got: &#39;</span><span class="si">{</span><span class="n">field_definition</span><span class="o">.</span><span class="n">origin</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
-</span><span id="1-159">            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-</span><span id="1-160">
-</span><span id="1-161">        <span class="k">return</span> <span class="p">[</span>
-</span><span id="1-162">            <span class="n">DTOFieldDefinition</span><span class="o">.</span><span class="n">from_field_definition</span><span class="p">(</span>
-</span><span id="1-163">                <span class="n">field_definition</span><span class="o">=</span><span class="n">replace</span><span class="p">(</span>
-</span><span id="1-164">                    <span class="n">field_definition</span><span class="p">,</span>
-</span><span id="1-165">                    <span class="n">name</span><span class="o">=</span><span class="n">key</span><span class="p">,</span>
-</span><span id="1-166">                    <span class="n">default</span><span class="o">=</span><span class="n">Empty</span><span class="p">,</span>
-</span><span id="1-167">                <span class="p">),</span>
-</span><span id="1-168">                <span class="n">default_factory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-</span><span id="1-169">                <span class="n">dto_field</span><span class="o">=</span><span class="n">orm_descriptor</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">DTO_FIELD_META_KEY</span><span class="p">,</span> <span class="n">DTOField</span><span class="p">(</span><span class="n">mark</span><span class="o">=</span><span class="n">Mark</span><span class="o">.</span><span class="n">READ_ONLY</span><span class="p">)),</span>
-</span><span id="1-170">                <span class="n">model_name</span><span class="o">=</span><span class="n">model_name</span><span class="p">,</span>
-</span><span id="1-171">            <span class="p">),</span>
-</span><span id="1-172">        <span class="p">]</span>
-</span><span id="1-173">
-</span><span id="1-174">    <span class="nd">@handle_orm_descriptor</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">HybridExtensionType</span><span class="p">)</span>
-</span><span id="1-175">    <span class="nd">@classmethod</span>
-</span><span id="1-176">    <span class="k">def</span> <span class="nf">_</span><span class="p">(</span>
-</span><span id="1-177">        <span class="bp">cls</span><span class="p">,</span>
-</span><span id="1-178">        <span class="n">extension_type</span><span class="p">:</span> <span class="n">HybridExtensionType</span><span class="p">,</span>
-</span><span id="1-179">        <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>  <span class="c1"># noqa: ARG003</span>
-</span><span id="1-180">        <span class="n">orm_descriptor</span><span class="p">:</span> <span class="n">InspectionAttr</span><span class="p">,</span>
-</span><span id="1-181">        <span class="n">model_type_hints</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">FieldDefinition</span><span class="p">],</span>  <span class="c1"># noqa: ARG003</span>
-</span><span id="1-182">        <span class="n">model_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-</span><span id="1-183">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">DTOFieldDefinition</span><span class="p">]:</span>
-</span><span id="1-184">        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">orm_descriptor</span><span class="p">,</span> <span class="n">hybrid_property</span><span class="p">):</span>
-</span><span id="1-185">            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Unexpected descriptor type &#39;</span><span class="si">{</span><span class="n">orm_descriptor</span><span class="si">}</span><span class="s2">&#39; for &#39;</span><span class="si">{</span><span class="n">extension_type</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
-</span><span id="1-186">            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-</span><span id="1-187">
-</span><span id="1-188">        <span class="n">getter_sig</span> <span class="o">=</span> <span class="n">ParsedSignature</span><span class="o">.</span><span class="n">from_fn</span><span class="p">(</span><span class="n">orm_descriptor</span><span class="o">.</span><span class="n">fget</span><span class="p">,</span> <span class="p">{})</span>
-</span><span id="1-189">
-</span><span id="1-190">        <span class="n">field_defs</span> <span class="o">=</span> <span class="p">[</span>
-</span><span id="1-191">            <span class="n">DTOFieldDefinition</span><span class="o">.</span><span class="n">from_field_definition</span><span class="p">(</span>
-</span><span id="1-192">                <span class="n">field_definition</span><span class="o">=</span><span class="n">replace</span><span class="p">(</span>
-</span><span id="1-193">                    <span class="n">getter_sig</span><span class="o">.</span><span class="n">return_type</span><span class="p">,</span>
-</span><span id="1-194">                    <span class="n">name</span><span class="o">=</span><span class="n">orm_descriptor</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
-</span><span id="1-195">                    <span class="n">default</span><span class="o">=</span><span class="n">Empty</span><span class="p">,</span>
-</span><span id="1-196">                <span class="p">),</span>
-</span><span id="1-197">                <span class="n">default_factory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-</span><span id="1-198">                <span class="n">dto_field</span><span class="o">=</span><span class="n">orm_descriptor</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">DTO_FIELD_META_KEY</span><span class="p">,</span> <span class="n">DTOField</span><span class="p">(</span><span class="n">mark</span><span class="o">=</span><span class="n">Mark</span><span class="o">.</span><span class="n">READ_ONLY</span><span class="p">)),</span>
-</span><span id="1-199">                <span class="n">model_name</span><span class="o">=</span><span class="n">model_name</span><span class="p">,</span>
-</span><span id="1-200">            <span class="p">),</span>
-</span><span id="1-201">        <span class="p">]</span>
-</span><span id="1-202">
-</span><span id="1-203">        <span class="k">if</span> <span class="n">orm_descriptor</span><span class="o">.</span><span class="n">fset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="1-204">            <span class="n">setter_sig</span> <span class="o">=</span> <span class="n">ParsedSignature</span><span class="o">.</span><span class="n">from_fn</span><span class="p">(</span><span class="n">orm_descriptor</span><span class="o">.</span><span class="n">fset</span><span class="p">,</span> <span class="p">{})</span>
-</span><span id="1-205">            <span class="n">field_defs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-</span><span id="1-206">                <span class="n">DTOFieldDefinition</span><span class="o">.</span><span class="n">from_field_definition</span><span class="p">(</span>
-</span><span id="1-207">                    <span class="n">field_definition</span><span class="o">=</span><span class="n">replace</span><span class="p">(</span>
-</span><span id="1-208">                        <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">setter_sig</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">values</span><span class="p">())),</span>
-</span><span id="1-209">                        <span class="n">name</span><span class="o">=</span><span class="n">orm_descriptor</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
-</span><span id="1-210">                        <span class="n">default</span><span class="o">=</span><span class="n">Empty</span><span class="p">,</span>
-</span><span id="1-211">                    <span class="p">),</span>
-</span><span id="1-212">                    <span class="n">default_factory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-</span><span id="1-213">                    <span class="n">dto_field</span><span class="o">=</span><span class="n">orm_descriptor</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">DTO_FIELD_META_KEY</span><span class="p">,</span> <span class="n">DTOField</span><span class="p">(</span><span class="n">mark</span><span class="o">=</span><span class="n">Mark</span><span class="o">.</span><span class="n">WRITE_ONLY</span><span class="p">)),</span>
-</span><span id="1-214">                    <span class="n">model_name</span><span class="o">=</span><span class="n">model_name</span><span class="p">,</span>
-</span><span id="1-215">                <span class="p">),</span>
-</span><span id="1-216">            <span class="p">)</span>
-</span><span id="1-217">
-</span><span id="1-218">        <span class="k">return</span> <span class="n">field_defs</span>
-</span><span id="1-219">
-<div class="viewcode-block" id="SQLAlchemyDTO.generate_field_definitions"><a class="viewcode-back" href="../../../../reference/extensions/litestar/dto.html#advanced_alchemy.extensions.litestar.dto.SQLAlchemyDTO.generate_field_definitions">[docs]</a></span><span id="1-220">    <span class="nd">@classmethod</span>
-</span><span id="1-221">    <span class="k">def</span> <span class="nf">generate_field_definitions</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">model_type</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">DeclarativeBase</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">DTOFieldDefinition</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
-</span><span id="1-222">        <span class="k">if</span> <span class="p">(</span><span class="n">mapper</span> <span class="o">:=</span> <span class="n">inspect</span><span class="p">(</span><span class="n">model_type</span><span class="p">))</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
-</span><span id="1-223">            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Unexpected `None` value for mapper.&quot;</span>  <span class="c1"># type: ignore[unreachable]</span>
-</span><span id="1-224">            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-</span><span id="1-225">
-</span><span id="1-226">        <span class="c1"># includes SQLAlchemy names and other mapped class names in the forward reference resolution namespace</span>
-</span><span id="1-227">        <span class="n">namespace</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">SQLA_NS</span><span class="p">,</span> <span class="o">**</span><span class="p">{</span><span class="n">m</span><span class="o">.</span><span class="n">class_</span><span class="o">.</span><span class="vm">__name__</span><span class="p">:</span> <span class="n">m</span><span class="o">.</span><span class="n">class_</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">mapper</span><span class="o">.</span><span class="n">registry</span><span class="o">.</span><span class="n">mappers</span> <span class="k">if</span> <span class="n">m</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">mapper</span><span class="p">}}</span>
-</span><span id="1-228">        <span class="n">model_type_hints</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">get_model_type_hints</span><span class="p">(</span><span class="n">model_type</span><span class="p">,</span> <span class="n">namespace</span><span class="o">=</span><span class="n">namespace</span><span class="p">)</span>
-</span><span id="1-229">        <span class="n">model_name</span> <span class="o">=</span> <span class="n">model_type</span><span class="o">.</span><span class="vm">__name__</span>
-</span><span id="1-230">        <span class="n">include_implicit_fields</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">include_implicit_fields</span>
-</span><span id="1-231">
-</span><span id="1-232">        <span class="c1"># the same hybrid property descriptor can be included in `all_orm_descriptors` multiple times, once</span>
-</span><span id="1-233">        <span class="c1"># for each method name it is bound to. We only need to see it once, so track views of it here.</span>
-</span><span id="1-234">        <span class="n">seen_hybrid_descriptors</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="n">hybrid_property</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-</span><span id="1-235">        <span class="n">skipped_descriptors</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-</span><span id="1-236">        <span class="k">for</span> <span class="n">composite_property</span> <span class="ow">in</span> <span class="n">mapper</span><span class="o">.</span><span class="n">composites</span><span class="p">:</span>
-</span><span id="1-237">            <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">composite_property</span><span class="o">.</span><span class="n">attrs</span><span class="p">:</span>
-</span><span id="1-238">                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span> <span class="p">(</span><span class="n">MappedColumn</span><span class="p">,</span> <span class="n">Column</span><span class="p">)):</span>
-</span><span id="1-239">                    <span class="n">skipped_descriptors</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">attr</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-</span><span id="1-240">                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-</span><span id="1-241">                    <span class="n">skipped_descriptors</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">attr</span><span class="p">)</span>
-</span><span id="1-242">        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">orm_descriptor</span> <span class="ow">in</span> <span class="n">mapper</span><span class="o">.</span><span class="n">all_orm_descriptors</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-</span><span id="1-243">            <span class="k">if</span> <span class="n">is_hybrid_property</span> <span class="o">:=</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">orm_descriptor</span><span class="p">,</span> <span class="n">hybrid_property</span><span class="p">):</span>
-</span><span id="1-244">                <span class="k">if</span> <span class="n">orm_descriptor</span> <span class="ow">in</span> <span class="n">seen_hybrid_descriptors</span><span class="p">:</span>
-</span><span id="1-245">                    <span class="k">continue</span>
-</span><span id="1-246">
-</span><span id="1-247">                <span class="n">seen_hybrid_descriptors</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">orm_descriptor</span><span class="p">)</span>
-</span><span id="1-248">
-</span><span id="1-249">            <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">skipped_descriptors</span><span class="p">:</span>
-</span><span id="1-250">                <span class="k">continue</span>
-</span><span id="1-251">
-</span><span id="1-252">            <span class="n">should_skip_descriptor</span> <span class="o">=</span> <span class="kc">False</span>
-</span><span id="1-253">            <span class="n">dto_field</span><span class="p">:</span> <span class="n">DTOField</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
-</span><span id="1-254">            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">orm_descriptor</span><span class="p">,</span> <span class="s2">&quot;property&quot;</span><span class="p">):</span>
-</span><span id="1-255">                <span class="n">dto_field</span> <span class="o">=</span> <span class="n">orm_descriptor</span><span class="o">.</span><span class="n">property</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">DTO_FIELD_META_KEY</span><span class="p">)</span>  <span class="c1"># pyright: ignore  # noqa: PGH003</span>
-</span><span id="1-256">
-</span><span id="1-257">            <span class="c1"># Case 1</span>
-</span><span id="1-258">            <span class="n">is_field_marked_not_private</span> <span class="o">=</span> <span class="n">dto_field</span> <span class="ow">and</span> <span class="n">dto_field</span><span class="o">.</span><span class="n">mark</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">Mark</span><span class="o">.</span><span class="n">PRIVATE</span>
-</span><span id="1-259">
-</span><span id="1-260">            <span class="c1"># Case 2</span>
-</span><span id="1-261">            <span class="n">should_exclude_anything_implicit</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">include_implicit_fields</span> <span class="ow">and</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">model_type_hints</span>
-</span><span id="1-262">
-</span><span id="1-263">            <span class="c1"># Case 3</span>
-</span><span id="1-264">            <span class="n">should_exclude_non_hybrid_only</span> <span class="o">=</span> <span class="p">(</span>
-</span><span id="1-265">                <span class="ow">not</span> <span class="n">is_hybrid_property</span> <span class="ow">and</span> <span class="n">include_implicit_fields</span> <span class="o">==</span> <span class="s2">&quot;hybrid-only&quot;</span> <span class="ow">and</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">model_type_hints</span>
-</span><span id="1-266">            <span class="p">)</span>
-</span><span id="1-267">
-</span><span id="1-268">            <span class="c1"># Descriptor is marked with with either Mark.READ_ONLY or Mark.WRITE_ONLY (see Case 1):</span>
-</span><span id="1-269">            <span class="c1"># - always include it regardless of anything else.</span>
-</span><span id="1-270">            <span class="c1"># Descriptor is not marked:</span>
-</span><span id="1-271">            <span class="c1"># - It&#39;s implicit BUT config excludes anything implicit (see Case 2): exclude</span>
-</span><span id="1-272">            <span class="c1"># - It&#39;s implicit AND not hybrid BUT config includes hybrid-only implicit descriptors (Case 3): exclude</span>
-</span><span id="1-273">            <span class="n">should_skip_descriptor</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">is_field_marked_not_private</span> <span class="ow">and</span> <span class="p">(</span>
-</span><span id="1-274">                <span class="n">should_exclude_anything_implicit</span> <span class="ow">or</span> <span class="n">should_exclude_non_hybrid_only</span>
-</span><span id="1-275">            <span class="p">)</span>
-</span><span id="1-276">
-</span><span id="1-277">            <span class="k">if</span> <span class="n">should_skip_descriptor</span><span class="p">:</span>
-</span><span id="1-278">                <span class="k">continue</span>
-</span><span id="1-279">
-</span><span id="1-280">            <span class="k">yield from</span> <span class="bp">cls</span><span class="o">.</span><span class="n">handle_orm_descriptor</span><span class="p">(</span>
-</span><span id="1-281">                <span class="n">orm_descriptor</span><span class="o">.</span><span class="n">extension_type</span><span class="p">,</span>
-</span><span id="1-282">                <span class="n">key</span><span class="p">,</span>
-</span><span id="1-283">                <span class="n">orm_descriptor</span><span class="p">,</span>
-</span><span id="1-284">                <span class="n">model_type_hints</span><span class="p">,</span>
-</span><span id="1-285">                <span class="n">model_name</span><span class="p">,</span>
-</span><span id="1-286">            <span class="p">)</span></div>
-</span><span id="1-287">
-<div class="viewcode-block" id="SQLAlchemyDTO.detect_nested_field"><a class="viewcode-back" href="../../../../reference/extensions/litestar/dto.html#advanced_alchemy.extensions.litestar.dto.SQLAlchemyDTO.detect_nested_field">[docs]</a></span><span id="1-288">    <span class="nd">@classmethod</span>
-</span><span id="1-289">    <span class="k">def</span> <span class="nf">detect_nested_field</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">field_definition</span><span class="p">:</span> <span class="n">FieldDefinition</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-</span><span id="1-290">        <span class="k">return</span> <span class="n">field_definition</span><span class="o">.</span><span class="n">is_subclass_of</span><span class="p">(</span><span class="n">DeclarativeBase</span><span class="p">)</span></div></div>
-</span><span id="1-291">
-</span><span id="1-292">
-</span><span id="1-293"><span class="k">def</span> <span class="nf">_detect_defaults</span><span class="p">(</span><span class="n">elem</span><span class="p">:</span> <span class="n">ElementType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-</span><span id="1-294">    <span class="n">default</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="n">Empty</span>
-</span><span id="1-295">    <span class="n">default_factory</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># pyright:ignore  # noqa: PGH003</span>
-</span><span id="1-296">    <span class="k">if</span> <span class="n">sqla_default</span> <span class="o">:=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="s2">&quot;default&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
-</span><span id="1-297">        <span class="k">if</span> <span class="n">sqla_default</span><span class="o">.</span><span class="n">is_scalar</span><span class="p">:</span>
-</span><span id="1-298">            <span class="n">default</span> <span class="o">=</span> <span class="n">sqla_default</span><span class="o">.</span><span class="n">arg</span>
-</span><span id="1-299">        <span class="k">elif</span> <span class="n">sqla_default</span><span class="o">.</span><span class="n">is_callable</span><span class="p">:</span>
-</span><span id="1-300">
-</span><span id="1-301">            <span class="k">def</span> <span class="nf">default_factory</span><span class="p">(</span><span class="n">d</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="n">sqla_default</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
-</span><span id="1-302">                <span class="k">return</span> <span class="n">d</span><span class="o">.</span><span class="n">arg</span><span class="p">({})</span>
-</span><span id="1-303">
-</span><span id="1-304">        <span class="k">elif</span> <span class="n">sqla_default</span><span class="o">.</span><span class="n">is_sequence</span> <span class="ow">or</span> <span class="n">sqla_default</span><span class="o">.</span><span class="n">is_sentinel</span><span class="p">:</span>
-</span><span id="1-305">            <span class="c1"># SQLAlchemy sequences represent server side defaults</span>
-</span><span id="1-306">            <span class="c1"># so we cannot infer a reasonable default value for</span>
-</span><span id="1-307">            <span class="c1"># them on the client side</span>
-</span><span id="1-308">            <span class="k">pass</span>
-</span><span id="1-309">        <span class="k">else</span><span class="p">:</span>
-</span><span id="1-310">            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Unexpected default type&quot;</span>
-</span><span id="1-311">            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-</span><span id="1-312">    <span class="k">elif</span> <span class="p">(</span>
-</span><span id="1-313">        <span class="nb">isinstance</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="n">RelationshipProperty</span><span class="p">)</span>
-</span><span id="1-314">        <span class="ow">and</span> <span class="n">detect_nullable_relationship</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span>
-</span><span id="1-315">        <span class="ow">or</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="s2">&quot;nullable&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
-</span><span id="1-316">    <span class="p">):</span>
-</span><span id="1-317">        <span class="n">default</span> <span class="o">=</span> <span class="kc">None</span>
-</span><span id="1-318">
-</span><span id="1-319">    <span class="k">return</span> <span class="n">default</span><span class="p">,</span> <span class="n">default_factory</span>
-</span><span id="1-320">
-</span><span id="1-321">
-</span><span id="1-322"><span class="k">def</span> <span class="nf">parse_type_from_element</span><span class="p">(</span><span class="n">elem</span><span class="p">:</span> <span class="n">ElementType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FieldDefinition</span><span class="p">:</span>
-</span><span id="1-323"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Parses a type from a SQLAlchemy element.</span>
-</span><span id="1-324">
-</span><span id="1-325"><span class="sd">    Args:</span>
-</span><span id="1-326"><span class="sd">        elem: The SQLAlchemy element to parse.</span>
-</span><span id="1-327">
-</span><span id="1-328"><span class="sd">    Returns:</span>
-</span><span id="1-329"><span class="sd">        FieldDefinition: The parsed type.</span>
-</span><span id="1-330">
-</span><span id="1-331"><span class="sd">    Raises:</span>
-</span><span id="1-332"><span class="sd">        ImproperlyConfiguredException: If the type cannot be parsed.</span>
-</span><span id="1-333"><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="1-334">
-</span><span id="1-335">    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="n">Column</span><span class="p">):</span>
-</span><span id="1-336">        <span class="k">if</span> <span class="n">elem</span><span class="o">.</span><span class="n">nullable</span><span class="p">:</span>
-</span><span id="1-337">            <span class="k">return</span> <span class="n">FieldDefinition</span><span class="o">.</span><span class="n">from_annotation</span><span class="p">(</span><span class="n">Optional</span><span class="p">[</span><span class="n">elem</span><span class="o">.</span><span class="n">type</span><span class="o">.</span><span class="n">python_type</span><span class="p">])</span>
-</span><span id="1-338">        <span class="k">return</span> <span class="n">FieldDefinition</span><span class="o">.</span><span class="n">from_annotation</span><span class="p">(</span><span class="n">elem</span><span class="o">.</span><span class="n">type</span><span class="o">.</span><span class="n">python_type</span><span class="p">)</span>
-</span><span id="1-339">
-</span><span id="1-340">    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="n">RelationshipProperty</span><span class="p">):</span>
-</span><span id="1-341">        <span class="k">if</span> <span class="n">elem</span><span class="o">.</span><span class="n">direction</span> <span class="ow">in</span> <span class="p">(</span><span class="n">RelationshipDirection</span><span class="o">.</span><span class="n">ONETOMANY</span><span class="p">,</span> <span class="n">RelationshipDirection</span><span class="o">.</span><span class="n">MANYTOMANY</span><span class="p">):</span>
-</span><span id="1-342">            <span class="n">collection_type</span> <span class="o">=</span> <span class="n">FieldDefinition</span><span class="o">.</span><span class="n">from_annotation</span><span class="p">(</span><span class="n">elem</span><span class="o">.</span><span class="n">collection_class</span> <span class="ow">or</span> <span class="nb">list</span><span class="p">)</span>
-</span><span id="1-343">            <span class="k">return</span> <span class="n">FieldDefinition</span><span class="o">.</span><span class="n">from_annotation</span><span class="p">(</span><span class="n">collection_type</span><span class="o">.</span><span class="n">safe_generic_origin</span><span class="p">[</span><span class="n">elem</span><span class="o">.</span><span class="n">mapper</span><span class="o">.</span><span class="n">class_</span><span class="p">])</span>
-</span><span id="1-344">
-</span><span id="1-345">        <span class="k">if</span> <span class="n">detect_nullable_relationship</span><span class="p">(</span><span class="n">elem</span><span class="p">):</span>
-</span><span id="1-346">            <span class="k">return</span> <span class="n">FieldDefinition</span><span class="o">.</span><span class="n">from_annotation</span><span class="p">(</span><span class="n">Optional</span><span class="p">[</span><span class="n">elem</span><span class="o">.</span><span class="n">mapper</span><span class="o">.</span><span class="n">class_</span><span class="p">])</span>
-</span><span id="1-347">
-</span><span id="1-348">        <span class="k">return</span> <span class="n">FieldDefinition</span><span class="o">.</span><span class="n">from_annotation</span><span class="p">(</span><span class="n">elem</span><span class="o">.</span><span class="n">mapper</span><span class="o">.</span><span class="n">class_</span><span class="p">)</span>
-</span><span id="1-349">
-</span><span id="1-350">    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="n">CompositeProperty</span><span class="p">):</span>
-</span><span id="1-351">        <span class="k">return</span> <span class="n">FieldDefinition</span><span class="o">.</span><span class="n">from_annotation</span><span class="p">(</span><span class="n">elem</span><span class="o">.</span><span class="n">composite_class</span><span class="p">)</span>
-</span><span id="1-352">
-</span><span id="1-353">    <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Unable to parse type from element &#39;</span><span class="si">{</span><span class="n">elem</span><span class="si">}</span><span class="s2">&#39;. Consider adding a type hint.&quot;</span>
-</span><span id="1-354">    <span class="k">raise</span> <span class="n">ImproperConfigurationError</span><span class="p">(</span>
-</span><span id="1-355">        <span class="n">msg</span><span class="p">,</span>
-</span><span id="1-356">    <span class="p">)</span>
-</span><span id="1-357">
-</span><span id="1-358">
-</span><span id="1-359"><span class="k">def</span> <span class="nf">detect_nullable_relationship</span><span class="p">(</span><span class="n">elem</span><span class="p">:</span> <span class="n">RelationshipProperty</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-</span><span id="1-360"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Detects if a relationship is nullable.</span>
-</span><span id="1-361">
-</span><span id="1-362"><span class="sd">    This attempts to decide if we should allow a ``None`` default value for a relationship by looking at the</span>
-</span><span id="1-363"><span class="sd">    foreign key fields. If all foreign key fields are nullable, then we allow a ``None`` default value.</span>
-</span><span id="1-364">
-</span><span id="1-365"><span class="sd">    Args:</span>
-</span><span id="1-366"><span class="sd">        elem: The relationship to check.</span>
-</span><span id="1-367">
-</span><span id="1-368"><span class="sd">    Returns:</span>
-</span><span id="1-369"><span class="sd">        bool: ``True`` if the relationship is nullable, ``False`` otherwise.</span>
-</span><span id="1-370"><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="1-371">    <span class="k">return</span> <span class="n">elem</span><span class="o">.</span><span class="n">direction</span> <span class="o">==</span> <span class="n">RelationshipDirection</span><span class="o">.</span><span class="n">MANYTOONE</span> <span class="ow">and</span> <span class="nb">all</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">nullable</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">elem</span><span class="o">.</span><span class="n">local_columns</span><span class="p">)</span>
+<span></span><span data-line="1"><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+</span><span data-line="2">
+</span><span data-line="3"><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">asdict</span><span class="p">,</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">replace</span>
+</span><span data-line="4"><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">singledispatchmethod</span>
+</span><span data-line="5"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">ClassVar</span><span class="p">,</span> <span class="n">Collection</span><span class="p">,</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">TypeVar</span>
+</span><span data-line="6">
+</span><span data-line="7"><span class="kn">from</span> <span class="nn">litestar.dto.base_dto</span> <span class="kn">import</span> <span class="n">AbstractDTO</span>
+</span><span data-line="8"><span class="kn">from</span> <span class="nn">litestar.dto.config</span> <span class="kn">import</span> <span class="n">DTOConfig</span>
+</span><span data-line="9"><span class="kn">from</span> <span class="nn">litestar.dto.data_structures</span> <span class="kn">import</span> <span class="n">DTOFieldDefinition</span>
+</span><span data-line="10"><span class="kn">from</span> <span class="nn">litestar.dto.field</span> <span class="kn">import</span> <span class="n">DTO_FIELD_META_KEY</span><span class="p">,</span> <span class="n">DTOField</span><span class="p">,</span> <span class="n">Mark</span>
+</span><span data-line="11"><span class="kn">from</span> <span class="nn">litestar.types.empty</span> <span class="kn">import</span> <span class="n">Empty</span>
+</span><span data-line="12"><span class="kn">from</span> <span class="nn">litestar.typing</span> <span class="kn">import</span> <span class="n">FieldDefinition</span>
+</span><span data-line="13"><span class="kn">from</span> <span class="nn">litestar.utils.signature</span> <span class="kn">import</span> <span class="n">ParsedSignature</span>
+</span><span data-line="14"><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">Column</span><span class="p">,</span> <span class="n">inspect</span><span class="p">,</span> <span class="n">orm</span><span class="p">,</span> <span class="n">sql</span>
+</span><span data-line="15"><span class="kn">from</span> <span class="nn">sqlalchemy.ext.associationproxy</span> <span class="kn">import</span> <span class="n">AssociationProxy</span><span class="p">,</span> <span class="n">AssociationProxyExtensionType</span>
+</span><span data-line="16"><span class="kn">from</span> <span class="nn">sqlalchemy.ext.hybrid</span> <span class="kn">import</span> <span class="n">HybridExtensionType</span><span class="p">,</span> <span class="n">hybrid_property</span>
+</span><span data-line="17"><span class="kn">from</span> <span class="nn">sqlalchemy.orm</span> <span class="kn">import</span> <span class="p">(</span>
+</span><span data-line="18">    <span class="n">ColumnProperty</span><span class="p">,</span>
+</span><span data-line="19">    <span class="n">CompositeProperty</span><span class="p">,</span>
+</span><span data-line="20">    <span class="n">DeclarativeBase</span><span class="p">,</span>
+</span><span data-line="21">    <span class="n">InspectionAttr</span><span class="p">,</span>
+</span><span data-line="22">    <span class="n">Mapped</span><span class="p">,</span>
+</span><span data-line="23">    <span class="n">MappedColumn</span><span class="p">,</span>
+</span><span data-line="24">    <span class="n">NotExtension</span><span class="p">,</span>
+</span><span data-line="25">    <span class="n">QueryableAttribute</span><span class="p">,</span>
+</span><span data-line="26">    <span class="n">RelationshipDirection</span><span class="p">,</span>
+</span><span data-line="27">    <span class="n">RelationshipProperty</span><span class="p">,</span>
+</span><span data-line="28"><span class="p">)</span>
+</span><span data-line="29"><span class="kn">from</span> <span class="nn">sqlalchemy.sql.expression</span> <span class="kn">import</span> <span class="n">ColumnClause</span><span class="p">,</span> <span class="n">Label</span>
+</span><span data-line="30">
+</span><span data-line="31"><span class="kn">from</span> <span class="nn">advanced_alchemy.exceptions</span> <span class="kn">import</span> <span class="n">ImproperConfigurationError</span>
+</span><span data-line="32">
+</span><span data-line="33"><span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+</span><span data-line="34">    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Generator</span>
+</span><span data-line="35">
+</span><span data-line="36">    <span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">TypeAlias</span>
+</span><span data-line="37">
+</span><span data-line="38"><span class="n">__all__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;SQLAlchemyDTO&quot;</span><span class="p">,)</span>
+</span><span data-line="39">
+</span><span data-line="40"><span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="s2">&quot;DeclarativeBase | Collection[DeclarativeBase]&quot;</span><span class="p">)</span>
+</span><span data-line="41">
+</span><span data-line="42"><span class="n">ElementType</span><span class="p">:</span> <span class="n">TypeAlias</span> <span class="o">=</span> <span class="s2">&quot;Column | RelationshipProperty | CompositeProperty | ColumnClause | Label&quot;</span>
+</span><span data-line="43"><span class="n">SQLA_NS</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="nb">vars</span><span class="p">(</span><span class="n">orm</span><span class="p">),</span> <span class="o">**</span><span class="nb">vars</span><span class="p">(</span><span class="n">sql</span><span class="p">)}</span>
+</span><span data-line="44">
+</span><span data-line="45">
+</span><span data-line="46"><span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span data-line="47"><span class="k">class</span> <span class="nc">SQLAlchemyDTOConfig</span><span class="p">(</span><span class="n">DTOConfig</span><span class="p">):</span>
+</span><span data-line="48"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Additional controls for the generated SQLAlchemy DTO.&quot;&quot;&quot;</span>
+</span><span data-line="49">
+</span><span data-line="50">    <span class="n">include_implicit_fields</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;hybrid-only&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+</span><span data-line="51"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Fields that are implicitly mapped are included.</span>
+</span><span data-line="52">
+</span><span data-line="53"><span class="sd">    Turning this off will lead to exclude all fields not using ``Mapped`` annotation,</span>
+</span><span data-line="54">
+</span><span data-line="55"><span class="sd">    When setting this to ``hybrid-only``, all implicitly mapped fields are excluded</span>
+</span><span data-line="56"><span class="sd">    with the exception for hybrid properties.</span>
+</span><span data-line="57"><span class="sd">    &quot;&quot;&quot;</span>
+</span><span data-line="58">
+</span><span data-line="59">
+<div class="viewcode-block" id="SQLAlchemyDTO"><a class="viewcode-back" href="../../../../reference/extensions/litestar/dto.html#advanced_alchemy.extensions.litestar.dto.SQLAlchemyDTO">[docs]</a></span><span data-line="60"><span class="k">class</span> <span class="nc">SQLAlchemyDTO</span><span class="p">(</span><span class="n">AbstractDTO</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
+</span><span data-line="61"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Support for domain modelling with SQLAlchemy.&quot;&quot;&quot;</span>
+</span><span data-line="62">
+</span><span data-line="63">    <span class="n">config</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="n">SQLAlchemyDTOConfig</span><span class="p">]</span>
+</span><span data-line="64">
+</span><span data-line="65">    <span class="nd">@staticmethod</span>
+</span><span data-line="66">    <span class="k">def</span> <span class="nf">_ensure_sqla_dto_config</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">DTOConfig</span> <span class="o">|</span> <span class="n">SQLAlchemyDTOConfig</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SQLAlchemyDTOConfig</span><span class="p">:</span>
+</span><span data-line="67">        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">SQLAlchemyDTOConfig</span><span class="p">):</span>
+</span><span data-line="68">            <span class="k">return</span> <span class="n">SQLAlchemyDTOConfig</span><span class="p">(</span><span class="o">**</span><span class="n">asdict</span><span class="p">(</span><span class="n">config</span><span class="p">))</span>
+</span><span data-line="69">
+</span><span data-line="70">        <span class="k">return</span> <span class="n">config</span>
+</span><span data-line="71">
+</span><span data-line="72">    <span class="k">def</span> <span class="nf">__init_subclass__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="73">        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__init_subclass__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span><span data-line="74">        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="s2">&quot;config&quot;</span><span class="p">):</span>
+</span><span data-line="75">            <span class="bp">cls</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_ensure_sqla_dto_config</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
+</span><span data-line="76">
+</span><span data-line="77">    <span class="nd">@singledispatchmethod</span>
+</span><span data-line="78">    <span class="nd">@classmethod</span>
+</span><span data-line="79">    <span class="k">def</span> <span class="nf">handle_orm_descriptor</span><span class="p">(</span>
+</span><span data-line="80">        <span class="bp">cls</span><span class="p">,</span>
+</span><span data-line="81">        <span class="n">extension_type</span><span class="p">:</span> <span class="n">NotExtension</span> <span class="o">|</span> <span class="n">AssociationProxyExtensionType</span> <span class="o">|</span> <span class="n">HybridExtensionType</span><span class="p">,</span>
+</span><span data-line="82">        <span class="n">orm_descriptor</span><span class="p">:</span> <span class="n">InspectionAttr</span><span class="p">,</span>  <span class="c1"># noqa: ARG003</span>
+</span><span data-line="83">        <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>  <span class="c1"># noqa: ARG003</span>
+</span><span data-line="84">        <span class="n">model_type_hints</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">FieldDefinition</span><span class="p">],</span>  <span class="c1"># noqa: ARG003</span>
+</span><span data-line="85">        <span class="n">model_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>  <span class="c1"># noqa: ARG003</span>
+</span><span data-line="86">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">DTOFieldDefinition</span><span class="p">]:</span>
+</span><span data-line="87">        <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Unsupported extension type: </span><span class="si">{</span><span class="n">extension_type</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span data-line="88">        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+</span><span data-line="89">
+</span><span data-line="90">    <span class="nd">@handle_orm_descriptor</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">NotExtension</span><span class="p">)</span>
+</span><span data-line="91">    <span class="nd">@classmethod</span>
+</span><span data-line="92">    <span class="k">def</span> <span class="nf">_</span><span class="p">(</span>
+</span><span data-line="93">        <span class="bp">cls</span><span class="p">,</span>
+</span><span data-line="94">        <span class="n">extension_type</span><span class="p">:</span> <span class="n">NotExtension</span><span class="p">,</span>
+</span><span data-line="95">        <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+</span><span data-line="96">        <span class="n">orm_descriptor</span><span class="p">:</span> <span class="n">InspectionAttr</span><span class="p">,</span>
+</span><span data-line="97">        <span class="n">model_type_hints</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">FieldDefinition</span><span class="p">],</span>
+</span><span data-line="98">        <span class="n">model_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+</span><span data-line="99">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">DTOFieldDefinition</span><span class="p">]:</span>
+</span><span data-line="100">        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">orm_descriptor</span><span class="p">,</span> <span class="n">QueryableAttribute</span><span class="p">):</span>
+</span><span data-line="101">            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Unexpected descriptor type for &#39;</span><span class="si">{</span><span class="n">extension_type</span><span class="si">}</span><span class="s2">&#39;: &#39;</span><span class="si">{</span><span class="n">orm_descriptor</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
+</span><span data-line="102">            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+</span><span data-line="103">
+</span><span data-line="104">        <span class="n">elem</span><span class="p">:</span> <span class="n">ElementType</span>
+</span><span data-line="105">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">orm_descriptor</span><span class="o">.</span><span class="n">property</span><span class="p">,</span> <span class="n">ColumnProperty</span><span class="p">):</span>
+</span><span data-line="106">            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">orm_descriptor</span><span class="o">.</span><span class="n">property</span><span class="o">.</span><span class="n">expression</span><span class="p">,</span> <span class="p">(</span><span class="n">Column</span><span class="p">,</span> <span class="n">ColumnClause</span><span class="p">,</span> <span class="n">Label</span><span class="p">)):</span>
+</span><span data-line="107">                <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Expected &#39;Column&#39;, got: &#39;</span><span class="si">{</span><span class="n">orm_descriptor</span><span class="o">.</span><span class="n">property</span><span class="o">.</span><span class="n">expression</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">orm_descriptor</span><span class="o">.</span><span class="n">property</span><span class="o">.</span><span class="n">expression</span><span class="p">)</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
+</span><span data-line="108">                <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+</span><span data-line="109">            <span class="n">elem</span> <span class="o">=</span> <span class="n">orm_descriptor</span><span class="o">.</span><span class="n">property</span><span class="o">.</span><span class="n">expression</span>
+</span><span data-line="110">        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">orm_descriptor</span><span class="o">.</span><span class="n">property</span><span class="p">,</span> <span class="p">(</span><span class="n">RelationshipProperty</span><span class="p">,</span> <span class="n">CompositeProperty</span><span class="p">)):</span>
+</span><span data-line="111">            <span class="n">elem</span> <span class="o">=</span> <span class="n">orm_descriptor</span><span class="o">.</span><span class="n">property</span>
+</span><span data-line="112">        <span class="k">else</span><span class="p">:</span>
+</span><span data-line="113">            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Unhandled property type: &#39;</span><span class="si">{</span><span class="n">orm_descriptor</span><span class="o">.</span><span class="n">property</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
+</span><span data-line="114">            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+</span><span data-line="115">
+</span><span data-line="116">        <span class="n">default</span><span class="p">,</span> <span class="n">default_factory</span> <span class="o">=</span> <span class="n">_detect_defaults</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span>
+</span><span data-line="117">
+</span><span data-line="118">        <span class="k">try</span><span class="p">:</span>
+</span><span data-line="119">            <span class="k">if</span> <span class="p">(</span><span class="n">field_definition</span> <span class="o">:=</span> <span class="n">model_type_hints</span><span class="p">[</span><span class="n">key</span><span class="p">])</span><span class="o">.</span><span class="n">origin</span> <span class="ow">is</span> <span class="n">Mapped</span><span class="p">:</span>
+</span><span data-line="120">                <span class="p">(</span><span class="n">field_definition</span><span class="p">,)</span> <span class="o">=</span> <span class="n">field_definition</span><span class="o">.</span><span class="n">inner_types</span>
+</span><span data-line="121">            <span class="k">else</span><span class="p">:</span>
+</span><span data-line="122">                <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Expected &#39;Mapped&#39; origin, got: &#39;</span><span class="si">{</span><span class="n">field_definition</span><span class="o">.</span><span class="n">origin</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
+</span><span data-line="123">                <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+</span><span data-line="124">        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+</span><span data-line="125">            <span class="n">field_definition</span> <span class="o">=</span> <span class="n">parse_type_from_element</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span>
+</span><span data-line="126">
+</span><span data-line="127">        <span class="n">dto_field</span> <span class="o">=</span> <span class="n">elem</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">DTO_FIELD_META_KEY</span><span class="p">,</span> <span class="n">DTOField</span><span class="p">())</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="s2">&quot;info&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="n">DTOField</span><span class="p">()</span>
+</span><span data-line="128">        <span class="k">return</span> <span class="p">[</span>
+</span><span data-line="129">            <span class="n">DTOFieldDefinition</span><span class="o">.</span><span class="n">from_field_definition</span><span class="p">(</span>
+</span><span data-line="130">                <span class="n">field_definition</span><span class="o">=</span><span class="n">replace</span><span class="p">(</span>
+</span><span data-line="131">                    <span class="n">field_definition</span><span class="p">,</span>
+</span><span data-line="132">                    <span class="n">name</span><span class="o">=</span><span class="n">key</span><span class="p">,</span>
+</span><span data-line="133">                    <span class="n">default</span><span class="o">=</span><span class="n">default</span><span class="p">,</span>
+</span><span data-line="134">                <span class="p">),</span>
+</span><span data-line="135">                <span class="n">default_factory</span><span class="o">=</span><span class="n">default_factory</span><span class="p">,</span>
+</span><span data-line="136">                <span class="n">dto_field</span><span class="o">=</span><span class="n">dto_field</span><span class="p">,</span>
+</span><span data-line="137">                <span class="n">model_name</span><span class="o">=</span><span class="n">model_name</span><span class="p">,</span>
+</span><span data-line="138">            <span class="p">),</span>
+</span><span data-line="139">        <span class="p">]</span>
+</span><span data-line="140">
+</span><span data-line="141">    <span class="nd">@handle_orm_descriptor</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">AssociationProxyExtensionType</span><span class="p">)</span>
+</span><span data-line="142">    <span class="nd">@classmethod</span>
+</span><span data-line="143">    <span class="k">def</span> <span class="nf">_</span><span class="p">(</span>
+</span><span data-line="144">        <span class="bp">cls</span><span class="p">,</span>
+</span><span data-line="145">        <span class="n">extension_type</span><span class="p">:</span> <span class="n">AssociationProxyExtensionType</span><span class="p">,</span>
+</span><span data-line="146">        <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+</span><span data-line="147">        <span class="n">orm_descriptor</span><span class="p">:</span> <span class="n">InspectionAttr</span><span class="p">,</span>
+</span><span data-line="148">        <span class="n">model_type_hints</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">FieldDefinition</span><span class="p">],</span>
+</span><span data-line="149">        <span class="n">model_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+</span><span data-line="150">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">DTOFieldDefinition</span><span class="p">]:</span>
+</span><span data-line="151">        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">orm_descriptor</span><span class="p">,</span> <span class="n">AssociationProxy</span><span class="p">):</span>
+</span><span data-line="152">            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Unexpected descriptor type &#39;</span><span class="si">{</span><span class="n">orm_descriptor</span><span class="si">}</span><span class="s2">&#39; for &#39;</span><span class="si">{</span><span class="n">extension_type</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
+</span><span data-line="153">            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+</span><span data-line="154">
+</span><span data-line="155">        <span class="k">if</span> <span class="p">(</span><span class="n">field_definition</span> <span class="o">:=</span> <span class="n">model_type_hints</span><span class="p">[</span><span class="n">key</span><span class="p">])</span><span class="o">.</span><span class="n">origin</span> <span class="ow">is</span> <span class="n">AssociationProxy</span><span class="p">:</span>
+</span><span data-line="156">            <span class="p">(</span><span class="n">field_definition</span><span class="p">,)</span> <span class="o">=</span> <span class="n">field_definition</span><span class="o">.</span><span class="n">inner_types</span>
+</span><span data-line="157">        <span class="k">else</span><span class="p">:</span>
+</span><span data-line="158">            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Expected &#39;AssociationProxy&#39; origin, got: &#39;</span><span class="si">{</span><span class="n">field_definition</span><span class="o">.</span><span class="n">origin</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
+</span><span data-line="159">            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+</span><span data-line="160">
+</span><span data-line="161">        <span class="k">return</span> <span class="p">[</span>
+</span><span data-line="162">            <span class="n">DTOFieldDefinition</span><span class="o">.</span><span class="n">from_field_definition</span><span class="p">(</span>
+</span><span data-line="163">                <span class="n">field_definition</span><span class="o">=</span><span class="n">replace</span><span class="p">(</span>
+</span><span data-line="164">                    <span class="n">field_definition</span><span class="p">,</span>
+</span><span data-line="165">                    <span class="n">name</span><span class="o">=</span><span class="n">key</span><span class="p">,</span>
+</span><span data-line="166">                    <span class="n">default</span><span class="o">=</span><span class="n">Empty</span><span class="p">,</span>
+</span><span data-line="167">                <span class="p">),</span>
+</span><span data-line="168">                <span class="n">default_factory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+</span><span data-line="169">                <span class="n">dto_field</span><span class="o">=</span><span class="n">orm_descriptor</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">DTO_FIELD_META_KEY</span><span class="p">,</span> <span class="n">DTOField</span><span class="p">(</span><span class="n">mark</span><span class="o">=</span><span class="n">Mark</span><span class="o">.</span><span class="n">READ_ONLY</span><span class="p">)),</span>
+</span><span data-line="170">                <span class="n">model_name</span><span class="o">=</span><span class="n">model_name</span><span class="p">,</span>
+</span><span data-line="171">            <span class="p">),</span>
+</span><span data-line="172">        <span class="p">]</span>
+</span><span data-line="173">
+</span><span data-line="174">    <span class="nd">@handle_orm_descriptor</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">HybridExtensionType</span><span class="p">)</span>
+</span><span data-line="175">    <span class="nd">@classmethod</span>
+</span><span data-line="176">    <span class="k">def</span> <span class="nf">_</span><span class="p">(</span>
+</span><span data-line="177">        <span class="bp">cls</span><span class="p">,</span>
+</span><span data-line="178">        <span class="n">extension_type</span><span class="p">:</span> <span class="n">HybridExtensionType</span><span class="p">,</span>
+</span><span data-line="179">        <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>  <span class="c1"># noqa: ARG003</span>
+</span><span data-line="180">        <span class="n">orm_descriptor</span><span class="p">:</span> <span class="n">InspectionAttr</span><span class="p">,</span>
+</span><span data-line="181">        <span class="n">model_type_hints</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">FieldDefinition</span><span class="p">],</span>  <span class="c1"># noqa: ARG003</span>
+</span><span data-line="182">        <span class="n">model_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+</span><span data-line="183">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">DTOFieldDefinition</span><span class="p">]:</span>
+</span><span data-line="184">        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">orm_descriptor</span><span class="p">,</span> <span class="n">hybrid_property</span><span class="p">):</span>
+</span><span data-line="185">            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Unexpected descriptor type &#39;</span><span class="si">{</span><span class="n">orm_descriptor</span><span class="si">}</span><span class="s2">&#39; for &#39;</span><span class="si">{</span><span class="n">extension_type</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
+</span><span data-line="186">            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+</span><span data-line="187">
+</span><span data-line="188">        <span class="n">getter_sig</span> <span class="o">=</span> <span class="n">ParsedSignature</span><span class="o">.</span><span class="n">from_fn</span><span class="p">(</span><span class="n">orm_descriptor</span><span class="o">.</span><span class="n">fget</span><span class="p">,</span> <span class="p">{})</span>
+</span><span data-line="189">
+</span><span data-line="190">        <span class="n">field_defs</span> <span class="o">=</span> <span class="p">[</span>
+</span><span data-line="191">            <span class="n">DTOFieldDefinition</span><span class="o">.</span><span class="n">from_field_definition</span><span class="p">(</span>
+</span><span data-line="192">                <span class="n">field_definition</span><span class="o">=</span><span class="n">replace</span><span class="p">(</span>
+</span><span data-line="193">                    <span class="n">getter_sig</span><span class="o">.</span><span class="n">return_type</span><span class="p">,</span>
+</span><span data-line="194">                    <span class="n">name</span><span class="o">=</span><span class="n">orm_descriptor</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+</span><span data-line="195">                    <span class="n">default</span><span class="o">=</span><span class="n">Empty</span><span class="p">,</span>
+</span><span data-line="196">                <span class="p">),</span>
+</span><span data-line="197">                <span class="n">default_factory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+</span><span data-line="198">                <span class="n">dto_field</span><span class="o">=</span><span class="n">orm_descriptor</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">DTO_FIELD_META_KEY</span><span class="p">,</span> <span class="n">DTOField</span><span class="p">(</span><span class="n">mark</span><span class="o">=</span><span class="n">Mark</span><span class="o">.</span><span class="n">READ_ONLY</span><span class="p">)),</span>
+</span><span data-line="199">                <span class="n">model_name</span><span class="o">=</span><span class="n">model_name</span><span class="p">,</span>
+</span><span data-line="200">            <span class="p">),</span>
+</span><span data-line="201">        <span class="p">]</span>
+</span><span data-line="202">
+</span><span data-line="203">        <span class="k">if</span> <span class="n">orm_descriptor</span><span class="o">.</span><span class="n">fset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="204">            <span class="n">setter_sig</span> <span class="o">=</span> <span class="n">ParsedSignature</span><span class="o">.</span><span class="n">from_fn</span><span class="p">(</span><span class="n">orm_descriptor</span><span class="o">.</span><span class="n">fset</span><span class="p">,</span> <span class="p">{})</span>
+</span><span data-line="205">            <span class="n">field_defs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+</span><span data-line="206">                <span class="n">DTOFieldDefinition</span><span class="o">.</span><span class="n">from_field_definition</span><span class="p">(</span>
+</span><span data-line="207">                    <span class="n">field_definition</span><span class="o">=</span><span class="n">replace</span><span class="p">(</span>
+</span><span data-line="208">                        <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">setter_sig</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">values</span><span class="p">())),</span>
+</span><span data-line="209">                        <span class="n">name</span><span class="o">=</span><span class="n">orm_descriptor</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+</span><span data-line="210">                        <span class="n">default</span><span class="o">=</span><span class="n">Empty</span><span class="p">,</span>
+</span><span data-line="211">                    <span class="p">),</span>
+</span><span data-line="212">                    <span class="n">default_factory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+</span><span data-line="213">                    <span class="n">dto_field</span><span class="o">=</span><span class="n">orm_descriptor</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">DTO_FIELD_META_KEY</span><span class="p">,</span> <span class="n">DTOField</span><span class="p">(</span><span class="n">mark</span><span class="o">=</span><span class="n">Mark</span><span class="o">.</span><span class="n">WRITE_ONLY</span><span class="p">)),</span>
+</span><span data-line="214">                    <span class="n">model_name</span><span class="o">=</span><span class="n">model_name</span><span class="p">,</span>
+</span><span data-line="215">                <span class="p">),</span>
+</span><span data-line="216">            <span class="p">)</span>
+</span><span data-line="217">
+</span><span data-line="218">        <span class="k">return</span> <span class="n">field_defs</span>
+</span><span data-line="219">
+<div class="viewcode-block" id="SQLAlchemyDTO.generate_field_definitions"><a class="viewcode-back" href="../../../../reference/extensions/litestar/dto.html#advanced_alchemy.extensions.litestar.dto.SQLAlchemyDTO.generate_field_definitions">[docs]</a></span><span data-line="220">    <span class="nd">@classmethod</span>
+</span><span data-line="221">    <span class="k">def</span> <span class="nf">generate_field_definitions</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">model_type</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">DeclarativeBase</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">DTOFieldDefinition</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+</span><span data-line="222">        <span class="k">if</span> <span class="p">(</span><span class="n">mapper</span> <span class="o">:=</span> <span class="n">inspect</span><span class="p">(</span><span class="n">model_type</span><span class="p">))</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+</span><span data-line="223">            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Unexpected `None` value for mapper.&quot;</span>  <span class="c1"># type: ignore[unreachable]</span>
+</span><span data-line="224">            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+</span><span data-line="225">
+</span><span data-line="226">        <span class="c1"># includes SQLAlchemy names and other mapped class names in the forward reference resolution namespace</span>
+</span><span data-line="227">        <span class="n">namespace</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">SQLA_NS</span><span class="p">,</span> <span class="o">**</span><span class="p">{</span><span class="n">m</span><span class="o">.</span><span class="n">class_</span><span class="o">.</span><span class="vm">__name__</span><span class="p">:</span> <span class="n">m</span><span class="o">.</span><span class="n">class_</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">mapper</span><span class="o">.</span><span class="n">registry</span><span class="o">.</span><span class="n">mappers</span> <span class="k">if</span> <span class="n">m</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">mapper</span><span class="p">}}</span>
+</span><span data-line="228">        <span class="n">model_type_hints</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">get_model_type_hints</span><span class="p">(</span><span class="n">model_type</span><span class="p">,</span> <span class="n">namespace</span><span class="o">=</span><span class="n">namespace</span><span class="p">)</span>
+</span><span data-line="229">        <span class="n">model_name</span> <span class="o">=</span> <span class="n">model_type</span><span class="o">.</span><span class="vm">__name__</span>
+</span><span data-line="230">        <span class="n">include_implicit_fields</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">include_implicit_fields</span>
+</span><span data-line="231">
+</span><span data-line="232">        <span class="c1"># the same hybrid property descriptor can be included in `all_orm_descriptors` multiple times, once</span>
+</span><span data-line="233">        <span class="c1"># for each method name it is bound to. We only need to see it once, so track views of it here.</span>
+</span><span data-line="234">        <span class="n">seen_hybrid_descriptors</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="n">hybrid_property</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+</span><span data-line="235">        <span class="n">skipped_descriptors</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+</span><span data-line="236">        <span class="k">for</span> <span class="n">composite_property</span> <span class="ow">in</span> <span class="n">mapper</span><span class="o">.</span><span class="n">composites</span><span class="p">:</span>
+</span><span data-line="237">            <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">composite_property</span><span class="o">.</span><span class="n">attrs</span><span class="p">:</span>
+</span><span data-line="238">                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span> <span class="p">(</span><span class="n">MappedColumn</span><span class="p">,</span> <span class="n">Column</span><span class="p">)):</span>
+</span><span data-line="239">                    <span class="n">skipped_descriptors</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">attr</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+</span><span data-line="240">                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+</span><span data-line="241">                    <span class="n">skipped_descriptors</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">attr</span><span class="p">)</span>
+</span><span data-line="242">        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">orm_descriptor</span> <span class="ow">in</span> <span class="n">mapper</span><span class="o">.</span><span class="n">all_orm_descriptors</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+</span><span data-line="243">            <span class="k">if</span> <span class="n">is_hybrid_property</span> <span class="o">:=</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">orm_descriptor</span><span class="p">,</span> <span class="n">hybrid_property</span><span class="p">):</span>
+</span><span data-line="244">                <span class="k">if</span> <span class="n">orm_descriptor</span> <span class="ow">in</span> <span class="n">seen_hybrid_descriptors</span><span class="p">:</span>
+</span><span data-line="245">                    <span class="k">continue</span>
+</span><span data-line="246">
+</span><span data-line="247">                <span class="n">seen_hybrid_descriptors</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">orm_descriptor</span><span class="p">)</span>
+</span><span data-line="248">
+</span><span data-line="249">            <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">skipped_descriptors</span><span class="p">:</span>
+</span><span data-line="250">                <span class="k">continue</span>
+</span><span data-line="251">
+</span><span data-line="252">            <span class="n">should_skip_descriptor</span> <span class="o">=</span> <span class="kc">False</span>
+</span><span data-line="253">            <span class="n">dto_field</span><span class="p">:</span> <span class="n">DTOField</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span data-line="254">            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">orm_descriptor</span><span class="p">,</span> <span class="s2">&quot;property&quot;</span><span class="p">):</span>
+</span><span data-line="255">                <span class="n">dto_field</span> <span class="o">=</span> <span class="n">orm_descriptor</span><span class="o">.</span><span class="n">property</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">DTO_FIELD_META_KEY</span><span class="p">)</span>  <span class="c1"># pyright: ignore  # noqa: PGH003</span>
+</span><span data-line="256">
+</span><span data-line="257">            <span class="c1"># Case 1</span>
+</span><span data-line="258">            <span class="n">is_field_marked_not_private</span> <span class="o">=</span> <span class="n">dto_field</span> <span class="ow">and</span> <span class="n">dto_field</span><span class="o">.</span><span class="n">mark</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">Mark</span><span class="o">.</span><span class="n">PRIVATE</span>
+</span><span data-line="259">
+</span><span data-line="260">            <span class="c1"># Case 2</span>
+</span><span data-line="261">            <span class="n">should_exclude_anything_implicit</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">include_implicit_fields</span> <span class="ow">and</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">model_type_hints</span>
+</span><span data-line="262">
+</span><span data-line="263">            <span class="c1"># Case 3</span>
+</span><span data-line="264">            <span class="n">should_exclude_non_hybrid_only</span> <span class="o">=</span> <span class="p">(</span>
+</span><span data-line="265">                <span class="ow">not</span> <span class="n">is_hybrid_property</span> <span class="ow">and</span> <span class="n">include_implicit_fields</span> <span class="o">==</span> <span class="s2">&quot;hybrid-only&quot;</span> <span class="ow">and</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">model_type_hints</span>
+</span><span data-line="266">            <span class="p">)</span>
+</span><span data-line="267">
+</span><span data-line="268">            <span class="c1"># Descriptor is marked with with either Mark.READ_ONLY or Mark.WRITE_ONLY (see Case 1):</span>
+</span><span data-line="269">            <span class="c1"># - always include it regardless of anything else.</span>
+</span><span data-line="270">            <span class="c1"># Descriptor is not marked:</span>
+</span><span data-line="271">            <span class="c1"># - It&#39;s implicit BUT config excludes anything implicit (see Case 2): exclude</span>
+</span><span data-line="272">            <span class="c1"># - It&#39;s implicit AND not hybrid BUT config includes hybrid-only implicit descriptors (Case 3): exclude</span>
+</span><span data-line="273">            <span class="n">should_skip_descriptor</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">is_field_marked_not_private</span> <span class="ow">and</span> <span class="p">(</span>
+</span><span data-line="274">                <span class="n">should_exclude_anything_implicit</span> <span class="ow">or</span> <span class="n">should_exclude_non_hybrid_only</span>
+</span><span data-line="275">            <span class="p">)</span>
+</span><span data-line="276">
+</span><span data-line="277">            <span class="k">if</span> <span class="n">should_skip_descriptor</span><span class="p">:</span>
+</span><span data-line="278">                <span class="k">continue</span>
+</span><span data-line="279">
+</span><span data-line="280">            <span class="k">yield from</span> <span class="bp">cls</span><span class="o">.</span><span class="n">handle_orm_descriptor</span><span class="p">(</span>
+</span><span data-line="281">                <span class="n">orm_descriptor</span><span class="o">.</span><span class="n">extension_type</span><span class="p">,</span>
+</span><span data-line="282">                <span class="n">key</span><span class="p">,</span>
+</span><span data-line="283">                <span class="n">orm_descriptor</span><span class="p">,</span>
+</span><span data-line="284">                <span class="n">model_type_hints</span><span class="p">,</span>
+</span><span data-line="285">                <span class="n">model_name</span><span class="p">,</span>
+</span><span data-line="286">            <span class="p">)</span></div>
+</span><span data-line="287">
+<div class="viewcode-block" id="SQLAlchemyDTO.detect_nested_field"><a class="viewcode-back" href="../../../../reference/extensions/litestar/dto.html#advanced_alchemy.extensions.litestar.dto.SQLAlchemyDTO.detect_nested_field">[docs]</a></span><span data-line="288">    <span class="nd">@classmethod</span>
+</span><span data-line="289">    <span class="k">def</span> <span class="nf">detect_nested_field</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">field_definition</span><span class="p">:</span> <span class="n">FieldDefinition</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+</span><span data-line="290">        <span class="k">return</span> <span class="n">field_definition</span><span class="o">.</span><span class="n">is_subclass_of</span><span class="p">(</span><span class="n">DeclarativeBase</span><span class="p">)</span></div></div>
+</span><span data-line="291">
+</span><span data-line="292">
+</span><span data-line="293"><span class="k">def</span> <span class="nf">_detect_defaults</span><span class="p">(</span><span class="n">elem</span><span class="p">:</span> <span class="n">ElementType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+</span><span data-line="294">    <span class="n">default</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="n">Empty</span>
+</span><span data-line="295">    <span class="n">default_factory</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># pyright:ignore  # noqa: PGH003</span>
+</span><span data-line="296">    <span class="k">if</span> <span class="n">sqla_default</span> <span class="o">:=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="s2">&quot;default&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
+</span><span data-line="297">        <span class="k">if</span> <span class="n">sqla_default</span><span class="o">.</span><span class="n">is_scalar</span><span class="p">:</span>
+</span><span data-line="298">            <span class="n">default</span> <span class="o">=</span> <span class="n">sqla_default</span><span class="o">.</span><span class="n">arg</span>
+</span><span data-line="299">        <span class="k">elif</span> <span class="n">sqla_default</span><span class="o">.</span><span class="n">is_callable</span><span class="p">:</span>
+</span><span data-line="300">
+</span><span data-line="301">            <span class="k">def</span> <span class="nf">default_factory</span><span class="p">(</span><span class="n">d</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="n">sqla_default</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+</span><span data-line="302">                <span class="k">return</span> <span class="n">d</span><span class="o">.</span><span class="n">arg</span><span class="p">({})</span>
+</span><span data-line="303">
+</span><span data-line="304">        <span class="k">elif</span> <span class="n">sqla_default</span><span class="o">.</span><span class="n">is_sequence</span> <span class="ow">or</span> <span class="n">sqla_default</span><span class="o">.</span><span class="n">is_sentinel</span><span class="p">:</span>
+</span><span data-line="305">            <span class="c1"># SQLAlchemy sequences represent server side defaults</span>
+</span><span data-line="306">            <span class="c1"># so we cannot infer a reasonable default value for</span>
+</span><span data-line="307">            <span class="c1"># them on the client side</span>
+</span><span data-line="308">            <span class="k">pass</span>
+</span><span data-line="309">        <span class="k">else</span><span class="p">:</span>
+</span><span data-line="310">            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Unexpected default type&quot;</span>
+</span><span data-line="311">            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+</span><span data-line="312">    <span class="k">elif</span> <span class="p">(</span>
+</span><span data-line="313">        <span class="nb">isinstance</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="n">RelationshipProperty</span><span class="p">)</span>
+</span><span data-line="314">        <span class="ow">and</span> <span class="n">detect_nullable_relationship</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span>
+</span><span data-line="315">        <span class="ow">or</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="s2">&quot;nullable&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+</span><span data-line="316">    <span class="p">):</span>
+</span><span data-line="317">        <span class="n">default</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span data-line="318">
+</span><span data-line="319">    <span class="k">return</span> <span class="n">default</span><span class="p">,</span> <span class="n">default_factory</span>
+</span><span data-line="320">
+</span><span data-line="321">
+</span><span data-line="322"><span class="k">def</span> <span class="nf">parse_type_from_element</span><span class="p">(</span><span class="n">elem</span><span class="p">:</span> <span class="n">ElementType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FieldDefinition</span><span class="p">:</span>
+</span><span data-line="323"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Parses a type from a SQLAlchemy element.</span>
+</span><span data-line="324">
+</span><span data-line="325"><span class="sd">    Args:</span>
+</span><span data-line="326"><span class="sd">        elem: The SQLAlchemy element to parse.</span>
+</span><span data-line="327">
+</span><span data-line="328"><span class="sd">    Returns:</span>
+</span><span data-line="329"><span class="sd">        FieldDefinition: The parsed type.</span>
+</span><span data-line="330">
+</span><span data-line="331"><span class="sd">    Raises:</span>
+</span><span data-line="332"><span class="sd">        ImproperlyConfiguredException: If the type cannot be parsed.</span>
+</span><span data-line="333"><span class="sd">    &quot;&quot;&quot;</span>
+</span><span data-line="334">
+</span><span data-line="335">    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="n">Column</span><span class="p">):</span>
+</span><span data-line="336">        <span class="k">if</span> <span class="n">elem</span><span class="o">.</span><span class="n">nullable</span><span class="p">:</span>
+</span><span data-line="337">            <span class="k">return</span> <span class="n">FieldDefinition</span><span class="o">.</span><span class="n">from_annotation</span><span class="p">(</span><span class="n">Optional</span><span class="p">[</span><span class="n">elem</span><span class="o">.</span><span class="n">type</span><span class="o">.</span><span class="n">python_type</span><span class="p">])</span>
+</span><span data-line="338">        <span class="k">return</span> <span class="n">FieldDefinition</span><span class="o">.</span><span class="n">from_annotation</span><span class="p">(</span><span class="n">elem</span><span class="o">.</span><span class="n">type</span><span class="o">.</span><span class="n">python_type</span><span class="p">)</span>
+</span><span data-line="339">
+</span><span data-line="340">    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="n">RelationshipProperty</span><span class="p">):</span>
+</span><span data-line="341">        <span class="k">if</span> <span class="n">elem</span><span class="o">.</span><span class="n">direction</span> <span class="ow">in</span> <span class="p">(</span><span class="n">RelationshipDirection</span><span class="o">.</span><span class="n">ONETOMANY</span><span class="p">,</span> <span class="n">RelationshipDirection</span><span class="o">.</span><span class="n">MANYTOMANY</span><span class="p">):</span>
+</span><span data-line="342">            <span class="n">collection_type</span> <span class="o">=</span> <span class="n">FieldDefinition</span><span class="o">.</span><span class="n">from_annotation</span><span class="p">(</span><span class="n">elem</span><span class="o">.</span><span class="n">collection_class</span> <span class="ow">or</span> <span class="nb">list</span><span class="p">)</span>
+</span><span data-line="343">            <span class="k">return</span> <span class="n">FieldDefinition</span><span class="o">.</span><span class="n">from_annotation</span><span class="p">(</span><span class="n">collection_type</span><span class="o">.</span><span class="n">safe_generic_origin</span><span class="p">[</span><span class="n">elem</span><span class="o">.</span><span class="n">mapper</span><span class="o">.</span><span class="n">class_</span><span class="p">])</span>
+</span><span data-line="344">
+</span><span data-line="345">        <span class="k">if</span> <span class="n">detect_nullable_relationship</span><span class="p">(</span><span class="n">elem</span><span class="p">):</span>
+</span><span data-line="346">            <span class="k">return</span> <span class="n">FieldDefinition</span><span class="o">.</span><span class="n">from_annotation</span><span class="p">(</span><span class="n">Optional</span><span class="p">[</span><span class="n">elem</span><span class="o">.</span><span class="n">mapper</span><span class="o">.</span><span class="n">class_</span><span class="p">])</span>
+</span><span data-line="347">
+</span><span data-line="348">        <span class="k">return</span> <span class="n">FieldDefinition</span><span class="o">.</span><span class="n">from_annotation</span><span class="p">(</span><span class="n">elem</span><span class="o">.</span><span class="n">mapper</span><span class="o">.</span><span class="n">class_</span><span class="p">)</span>
+</span><span data-line="349">
+</span><span data-line="350">    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="n">CompositeProperty</span><span class="p">):</span>
+</span><span data-line="351">        <span class="k">return</span> <span class="n">FieldDefinition</span><span class="o">.</span><span class="n">from_annotation</span><span class="p">(</span><span class="n">elem</span><span class="o">.</span><span class="n">composite_class</span><span class="p">)</span>
+</span><span data-line="352">
+</span><span data-line="353">    <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Unable to parse type from element &#39;</span><span class="si">{</span><span class="n">elem</span><span class="si">}</span><span class="s2">&#39;. Consider adding a type hint.&quot;</span>
+</span><span data-line="354">    <span class="k">raise</span> <span class="n">ImproperConfigurationError</span><span class="p">(</span>
+</span><span data-line="355">        <span class="n">msg</span><span class="p">,</span>
+</span><span data-line="356">    <span class="p">)</span>
+</span><span data-line="357">
+</span><span data-line="358">
+</span><span data-line="359"><span class="k">def</span> <span class="nf">detect_nullable_relationship</span><span class="p">(</span><span class="n">elem</span><span class="p">:</span> <span class="n">RelationshipProperty</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+</span><span data-line="360"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Detects if a relationship is nullable.</span>
+</span><span data-line="361">
+</span><span data-line="362"><span class="sd">    This attempts to decide if we should allow a ``None`` default value for a relationship by looking at the</span>
+</span><span data-line="363"><span class="sd">    foreign key fields. If all foreign key fields are nullable, then we allow a ``None`` default value.</span>
+</span><span data-line="364">
+</span><span data-line="365"><span class="sd">    Args:</span>
+</span><span data-line="366"><span class="sd">        elem: The relationship to check.</span>
+</span><span data-line="367">
+</span><span data-line="368"><span class="sd">    Returns:</span>
+</span><span data-line="369"><span class="sd">        bool: ``True`` if the relationship is nullable, ``False`` otherwise.</span>
+</span><span data-line="370"><span class="sd">    &quot;&quot;&quot;</span>
+</span><span data-line="371">    <span class="k">return</span> <span class="n">elem</span><span class="o">.</span><span class="n">direction</span> <span class="o">==</span> <span class="n">RelationshipDirection</span><span class="o">.</span><span class="n">MANYTOONE</span> <span class="ow">and</span> <span class="nb">all</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">nullable</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">elem</span><span class="o">.</span><span class="n">local_columns</span><span class="p">)</span>
 </span></pre></div>
         </article>
+        <button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button>
         
         <div class="navigation flex print:hidden">
   
@@ -630,29 +710,38 @@ html.dark {
   <div class="sy-foot-inner sy-container mx-auto">
     
     <div class="sy-foot-reserved md:flex justify-between items-center">
-      <div class="sy-foot-copyright"><p>2023, Jolt Org</p>
-        
-        <p>
-          Made with
-          
-          <a href="https://www.sphinx-doc.org/">Sphinx</a> and
-          
-          <a href="https://shibuya.lepture.com">Shibuya theme</a>.
-        </p>
-      </div>
+      <div class="sy-foot-copyright"><p>2024, Litestar Organization</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
       <div class="sy-foot-socials">
-          <a href="https://github.com/jolt-org/advanced-alchemy" aria-label="GitHub"><i class="i-icon github"></i></a>
-      </div>
+  <a href="https://twitter.com/LitestarAPI" aria-label="X (Twitter)"><i class="i-simpleicons x-twitter"></i></a>
+  <a href="https://discord.gg/litestar-919193495116337154" aria-label="Discord"><i class="i-simpleicons discord"></i></a>
+  <a href="https://www.reddit.com/r/LitestarAPI" aria-label="Reddit"><i class="i-simpleicons reddit"></i></a>
+</div>
     </div>
   </div>
 </footer></div>
-      <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js?v=e43216b9"></script>
+      <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js?v=2c5cfeb5"></script>
       <script src="../../../../_static/doctools.js?v=888ff710"></script>
       <script src="../../../../_static/sphinx_highlight.js?v=4825356b"></script>
       <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../../../_static/litestar-theme.js?v=ab2dcc9e"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../../../../_static/togglebutton.js?v=4a39c7ea"></script>
       <script src="../../../../_static/design-tabs.js?v=36754332"></script>
-      <script src="../../../../_static/shibuya.js?v=3e5c8598"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script src="../../../../_static/shibuya.js?v=9aab5f5b"></script>
+      <script src="../../../../_static/versioning.js"></script>
     
 </body>
 </html>

@@ -1,96 +1,138 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-accent-color="amber" data-content_root="">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Index - Docs</title>
-    <link rel="index" title="Index" href="#" /><link rel="search" title="Search" href="search.html" />
+      <title>Index - Litestar Framework</title>
+    <link rel="shortcut icon" href="_static/favicon.svg"/><link rel="index" title="Index" href="#" /><link rel="search" title="Search" href="search.html" />
+
   <script>
-    const isDarkTheme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const sessionTheme = sessionStorage['_theme']
-    if (sessionTheme) {
-      document.documentElement.classList.add(sessionTheme)
-    } else if (isDarkTheme) {
-      document.documentElement.classList.add('dark')
-    }
-  </script><link rel="shortcut icon" href="_static/logo.png"/><link rel="stylesheet" type="text/css" href="_static/pygments.css?v=aecf457f" />
-    <link rel="stylesheet" type="text/css" href="_static/shibuya.css?v=28c32440" />
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(sessionStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="_static/pygments.css?v=aecf457f" />
+    <link rel="stylesheet" type="text/css" href="_static/shibuya.css?v=aef655f6" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
-    <link media="print" rel="stylesheet" type="text/css" href="_static/print.css?v=ee381b95" />
-    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=bf5addad" />
-    <style>
-:root {
-  --sy-f-sys:-apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Droid Sans, Helvetica Neue;--sy-f-cjk:PingFang SC, Hiragino Sans GB, Droid Sans Fallback, Microsoft YaHei;--sy-f-heading:var(--sy-f-sys), var(--sy-f-cjk), sans-serif;--sy-f-text:var(--sy-f-sys), var(--sy-f-cjk), sans-serif;--sy-f-mono:Menlo, Monaco, Consolas, "Courier New", monospace;--sy-c-divider:rgba(var(--sy-rc-text), 0.1);--sy-c-divider-weak:rgba(var(--sy-rc-text), 0.05);--sy-c-border:rgba(var(--sy-rc-text), 0.14);--sy-s-banner-height:0rem;--sy-s-navbar-height:56px;--sy-s-offset-top:calc(var(--sy-s-navbar-height) + var(--sy-s-banner-height));--sy-c-link:rgb(var(--sy-rc-theme));--sy-c-link-weak:rgba(var(--sy-rc-theme), 0.86);
-  --sy-rc-theme:245, 0, 87;--sy-rc-bg:255, 255, 255;--sy-rc-invert:245, 0, 87;--sy-rc-text:245, 0, 87;--sy-c-bg:#fff;--sy-c-bg-weak:0, 0, 0;--sy-c-text:#000000;--sy-c-text-weak:#f50057;--sy-c-heading:#f50057;--sy-c-bold:#f50057;--sy-c-foot-text:#000000;--sy-c-foot-bg:#fafafa;--sy-c-foot-divider:#f50057;
-}
-@media (prefers-color-scheme: light) {
-  :root {
-    --sy-rc-theme:245, 0, 87;--sy-rc-bg:255, 255, 255;--sy-rc-invert:245, 0, 87;--sy-rc-text:245, 0, 87;--sy-c-bg:#fff;--sy-c-bg-weak:0, 0, 0;--sy-c-text:#000000;--sy-c-text-weak:#f50057;--sy-c-heading:#f50057;--sy-c-bold:#f50057;--sy-c-foot-text:#000000;--sy-c-foot-bg:#fafafa;--sy-c-foot-divider:#f50057;
-  }
-}
-@media (prefers-color-scheme: dark) {
-  :root {
-    --sy-rc-theme:245, 0, 87;--sy-rc-bg:0, 0, 0;--sy-rc-invert:245, 0, 87;--sy-rc-text:245, 0, 87;--sy-c-bg:#f50057;--sy-c-bg-weak:#000000;--sy-c-text:#ebdddd;--sy-c-text-weak:#f50057;--sy-c-heading:#f50057;--sy-c-bold:#f50057;--sy-c-foot-text:#ebdddd;--sy-c-foot-bg:#000000;--sy-c-foot-divider:#f50057;
-  }
-}
-html.light {
-  --sy-rc-theme:245, 0, 87;--sy-rc-bg:255, 255, 255;--sy-rc-invert:245, 0, 87;--sy-rc-text:245, 0, 87;--sy-c-bg:#fff;--sy-c-bg-weak:0, 0, 0;--sy-c-text:#000000;--sy-c-text-weak:#f50057;--sy-c-heading:#f50057;--sy-c-bold:#f50057;--sy-c-foot-text:#000000;--sy-c-foot-bg:#fafafa;--sy-c-foot-divider:#f50057;
-}
-html.dark {
-  --sy-rc-theme:245, 0, 87;--sy-rc-bg:0, 0, 0;--sy-rc-invert:245, 0, 87;--sy-rc-text:245, 0, 87;--sy-c-bg:#f50057;--sy-c-bg-weak:#000000;--sy-c-text:#ebdddd;--sy-c-text-weak:#f50057;--sy-c-heading:#f50057;--sy-c-bold:#f50057;--sy-c-foot-text:#ebdddd;--sy-c-foot-bg:#000000;--sy-c-foot-divider:#f50057;
-}
-</style>
+    <link rel="stylesheet" type="text/css" href="_static/sphinx_paramlinks.css" />
+    <link media="print" rel="stylesheet" type="text/css" href="_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="_static/style.css" />
+    <link rel="stylesheet" type="text/css" href="_static/litestar-sphinx-theme.css?v=9fce248e" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --sy-f-heading: Inter, var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
 }
 </style>
     </head>
-<body><div class="document"><div class="announcement">
-    <div class="announcement-inner">
-      <p>This documentation is currently under development.</p>
-      <button class="announcement-close" aria-label="Close announcement">
-        <i class="i-icon close"></i>
-      </button>
-    </div>
-  </div><div class="sy-head">
+<body><div class="document"><div class="sy-head">
   <div class="sy-head-blur"></div>
   <div class="sy-head-inner sy-container mx-auto">
     <a class="sy-head-brand mr-4" href="/">
-      <img class="light-logo" src="_static/logo.png" alt="advanced_alchemy" height="28" />
-      <img class="dark-logo" src="_static/logo.png" alt="advanced_alchemy" height="28" />
+      <img class="light-logo" src="_static/logo-light.svg" alt="advanced_alchemy" height="28" />
+      <img class="dark-logo" src="_static/logo-dark.svg" alt="advanced_alchemy" height="28" />
       <strong>advanced_alchemy</strong>
     </a>
     <div class="sy-head-links" id="NavLinks">
       <nav class="sy-head-nav">
 
-<ul><li class="link">
-          <a href="https://advanced-alchemy.jolt.rs"><span>Home</span><i class="i-icon external-link"></i></a>
-        </li><li class="link">
-          <a href="https://docs.advanced-alchemy.jolt.rs"><span>Docs</span><i class="i-icon external-link"></i></a>
-        </li><li class="link">
-          <a href="https://github.com/jolt-org/advanced-alchemy"><span>Code</span><i class="i-icon external-link"></i></a>
+<ul><li class="link"><a href="index.html">Home</a></li>
+      <li class="link"><button type="button">
+            <span>Community</span>
+            <i class="i-lucid chevron"></i>
+          </button>
+        <ul>
+          <li><a href="contribution-guide.html">
+                <span>Contributing</span>
+                <small>Learn how to contribute to the Advanced Alchemy project</small>
+              </a></li><li><a href="https://github.com/litestar-org/.github?tab=coc-ov-file">
+                <span>Code of Conduct</span>
+                <small>Review the etiquette for interacting with the Litestar community</small>
+              </a></li><li><a href="https://github.com/litestar-org/.github?tab=coc-ov-file#security-ov-file">
+                <span>Security</span>
+                <small>Overview of Litestar's security protocols</small>
+              </a></li></ul>
+      </li>
+      <li class="link"><button type="button">
+            <span>About</span>
+            <i class="i-lucid chevron"></i>
+          </button>
+        <ul>
+          <li><a href="https://litestar.dev/about/organization">
+                <span>Litestar Organization</span>
+                <small>Details about the Litestar organization</small>
+              </a></li><li><a href="releases.html">
+                <span>Releases</span>
+                <small>Explore the release process, versioning, and deprecation policy for Litestar</small>
+              </a></li></ul>
+      </li>
+      <li class="link"><button type="button">
+            <span>Release notes</span>
+            <i class="i-lucid chevron"></i>
+          </button>
+        <ul>
+          <li><a href="changelog.html">
+                <span>1.x Changelog</span>
+                <small>All changes in the 2.x series</small>
+              </a></li></ul>
+      </li>
+      <li class="link"><button type="button">
+            <span>Help</span>
+            <i class="i-lucid chevron"></i>
+          </button>
+        <ul>
+          <li><a href="https://discord.gg/litestar">
+                <span>Discord Help Forum</span>
+                <small>Dedicated Discord help forum</small>
+              </a></li><li><a href="https://github.com/litestar-org/advanced-alchemy/discussions">
+                <span>GitHub Discussions</span>
+                <small>GitHub Discussions</small>
+              </a></li><li><a href="https://stackoverflow.com/questions/tagged/litestar">
+                <span>Stack Overflow</span>
+                <small>We monitor the <code><b>litestar</b></code> tag on Stack Overflow</small>
+              </a></li></ul>
+      </li><li class="link">
+          <a href="https://github.com/sponsors/Litestar-Org">
+            <span>Sponsor</span>
+            
+          </a>
         </li></ul></nav>
-      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="search.html" method="get">
+      <div class="sy-head-extra flex items-center print:hidden">
+        
+<form class="searchbox flex items-center" action="search.html" method="get">
   <input type="text" name="q" placeholder="Search" />
   <kbd>/</kbd>
 </form>
         
+  <div class="nav-versions">
+    <button type="button" aria-label="Versions">
+      <span class="md:hidden">Versions</span>
+      <span class="hidden md:inline">latest</span>
+      <i class="i-lucid chevron"></i>
+    </button>
+    <div class="nav-versions-choices">
+      <ul><li><a href="/latest">latest</a></li><li><a href="/main">development</a></li></ul></div>
+  </div>
         
-        <div class="sy-head-social flex items-center">
-            <a class="flex items-center" href="https://github.com/jolt-org/advanced-alchemy" aria-label="GitHub">
-              <i class="i-icon github"></i>
-            </a>
-        </div>
+        <div class="sy-head-socials flex items-center">
+  <a href="https://twitter.com/LitestarAPI" aria-label="X (Twitter)">
+    <i class="i-simpleicons x-twitter"></i>
+  </a>
+    <a href="https://discord.gg/litestar-919193495116337154" aria-label="Discord">
+      <i class="i-simpleicons discord"></i>
+    </a>
+</div>
       </div>
     </div>
     <div class="sy-head-actions flex items-center shrink-0 print:hidden">
-      <button class="js-theme theme-switch flex items-center" data-aria-light="Switch to dark mode" data-aria-dark="Switch to light mode">
-        <i class="i-icon theme-icon"></i>
+      <button class="js-theme theme-switch flex items-center"
+        data-aria-auto="Switch to light color mode"
+        data-aria-light="Switch to dark color mode"
+        data-aria-dark="Switch to auto color mode">
+        <i class="i-lucid theme-icon"></i>
       </button>
       <button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="NavLinks" aria-expanded="false">
         <div class="hamburger">
@@ -138,6 +180,156 @@ html.dark {
 <h2 id="Symbols">Symbols</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/mixins/unique.html#advanced_alchemy.mixins.unique.UniqueMixin.as_unique_async.params.**kwargs">**kwargs (advanced_alchemy.mixins.unique.UniqueMixin.as_unique_async parameter)</a>
+
+      <ul>
+        <li><a href="reference/mixins/unique.html#advanced_alchemy.mixins.unique.UniqueMixin.as_unique_sync.params.**kwargs">(advanced_alchemy.mixins.unique.UniqueMixin.as_unique_sync parameter)</a>
+</li>
+        <li><a href="reference/mixins/unique.html#advanced_alchemy.mixins.unique.UniqueMixin.unique_filter.params.**kwargs">(advanced_alchemy.mixins.unique.UniqueMixin.unique_filter parameter)</a>
+</li>
+        <li><a href="reference/mixins/unique.html#advanced_alchemy.mixins.unique.UniqueMixin.unique_hash.params.**kwargs">(advanced_alchemy.mixins.unique.UniqueMixin.unique_hash parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.params.**kwargs">(advanced_alchemy.repository.SQLAlchemyAsyncRepository parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.count.params.**kwargs">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.count parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.exists.params.**kwargs">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.exists parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.filter_collection_by_kwargs.params.**kwargs">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.filter_collection_by_kwargs parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_and_update.params.**kwargs">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_and_update parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_one.params.**kwargs">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_one parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_one_or_none.params.**kwargs">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_one_or_none parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_or_create.params.**kwargs">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_or_create parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_or_upsert.params.**kwargs">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_or_upsert parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.list.params.**kwargs">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.list parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.list_and_count.params.**kwargs">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.list_and_count parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncSlugRepository.get_available_slug.params.**kwargs">(advanced_alchemy.repository.SQLAlchemyAsyncSlugRepository.get_available_slug parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.params.**kwargs">(advanced_alchemy.repository.SQLAlchemySyncRepository parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.count.params.**kwargs">(advanced_alchemy.repository.SQLAlchemySyncRepository.count parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.exists.params.**kwargs">(advanced_alchemy.repository.SQLAlchemySyncRepository.exists parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.filter_collection_by_kwargs.params.**kwargs">(advanced_alchemy.repository.SQLAlchemySyncRepository.filter_collection_by_kwargs parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.get_and_update.params.**kwargs">(advanced_alchemy.repository.SQLAlchemySyncRepository.get_and_update parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.get_one.params.**kwargs">(advanced_alchemy.repository.SQLAlchemySyncRepository.get_one parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.get_one_or_none.params.**kwargs">(advanced_alchemy.repository.SQLAlchemySyncRepository.get_one_or_none parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.get_or_create.params.**kwargs">(advanced_alchemy.repository.SQLAlchemySyncRepository.get_or_create parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.get_or_upsert.params.**kwargs">(advanced_alchemy.repository.SQLAlchemySyncRepository.get_or_upsert parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.list.params.**kwargs">(advanced_alchemy.repository.SQLAlchemySyncRepository.list parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.list_and_count.params.**kwargs">(advanced_alchemy.repository.SQLAlchemySyncRepository.list_and_count parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncSlugRepository.get_available_slug.params.**kwargs">(advanced_alchemy.repository.SQLAlchemySyncSlugRepository.get_available_slug parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.count.params.**kwargs">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.count parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.exists.params.**kwargs">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.exists parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.get_one.params.**kwargs">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.get_one parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.get_one_or_none.params.**kwargs">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.get_one_or_none parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.list.params.**kwargs">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.list parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.list_and_count.params.**kwargs">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.list_and_count parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.get_and_update.params.**kwargs">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.get_and_update parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.get_or_upsert.params.**kwargs">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.get_or_upsert parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.count.params.**kwargs">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.count parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.exists.params.**kwargs">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.exists parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.get_one.params.**kwargs">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.get_one parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.get_one_or_none.params.**kwargs">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.get_one_or_none parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.list.params.**kwargs">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.list parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.list_and_count.params.**kwargs">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.list_and_count parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.get_and_update.params.**kwargs">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.get_and_update parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.get_or_upsert.params.**kwargs">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.get_or_upsert parameter)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.params.**repo_kwargs">**repo_kwargs (advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService parameter)</a>
+
+      <ul>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.params.**repo_kwargs">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService parameter)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/exceptions.html#advanced_alchemy.exceptions.AdvancedAlchemyError.params.*args">*args (advanced_alchemy.exceptions.AdvancedAlchemyError parameter)</a>
+
+      <ul>
+        <li><a href="reference/exceptions.html#advanced_alchemy.exceptions.ConflictError.params.*args">(advanced_alchemy.exceptions.ConflictError parameter)</a>
+</li>
+        <li><a href="reference/exceptions.html#advanced_alchemy.exceptions.MissingDependencyError.params.*args">(advanced_alchemy.exceptions.MissingDependencyError parameter)</a>
+</li>
+        <li><a href="reference/mixins/unique.html#advanced_alchemy.mixins.unique.UniqueMixin.as_unique_async.params.*args">(advanced_alchemy.mixins.unique.UniqueMixin.as_unique_async parameter)</a>
+</li>
+        <li><a href="reference/mixins/unique.html#advanced_alchemy.mixins.unique.UniqueMixin.as_unique_sync.params.*args">(advanced_alchemy.mixins.unique.UniqueMixin.as_unique_sync parameter)</a>
+</li>
+        <li><a href="reference/mixins/unique.html#advanced_alchemy.mixins.unique.UniqueMixin.unique_filter.params.*args">(advanced_alchemy.mixins.unique.UniqueMixin.unique_filter parameter)</a>
+</li>
+        <li><a href="reference/mixins/unique.html#advanced_alchemy.mixins.unique.UniqueMixin.unique_hash.params.*args">(advanced_alchemy.mixins.unique.UniqueMixin.unique_hash parameter)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.count.params.*filters">*filters (advanced_alchemy.repository.SQLAlchemyAsyncRepository.count parameter)</a>
+
+      <ul>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.exists.params.*filters">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.exists parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.list.params.*filters">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.list parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.list_and_count.params.*filters">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.list_and_count parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.count.params.*filters">(advanced_alchemy.repository.SQLAlchemySyncRepository.count parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.exists.params.*filters">(advanced_alchemy.repository.SQLAlchemySyncRepository.exists parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.list.params.*filters">(advanced_alchemy.repository.SQLAlchemySyncRepository.list parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.list_and_count.params.*filters">(advanced_alchemy.repository.SQLAlchemySyncRepository.list_and_count parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.count.params.*filters">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.count parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.exists.params.*filters">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.exists parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.list.params.*filters">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.list parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.list_and_count.params.*filters">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.list_and_count parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.count.params.*filters">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.count parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.exists.params.*filters">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.exists parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.list.params.*filters">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.list parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.list_and_count.params.*filters">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.list_and_count parameter)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/base.html#advanced_alchemy.base.merge_table_arguments.params.*mixins">*mixins (advanced_alchemy.base.merge_table_arguments parameter)</a>
+</li>
       <li>
     --autogenerate
 
@@ -215,8 +407,6 @@ html.dark {
         <li><a href="reference/extensions/litestar/cli.html#cmdoption-Litestar-CLI-stamp-migration-purge">Litestar-CLI-stamp-migration command line option</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     --rev-id
 
@@ -530,8 +720,6 @@ html.dark {
         <li><a href="reference/extensions/litestar/plugins/serialization.html#module-advanced_alchemy.extensions.litestar.plugins.serialization">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     advanced_alchemy.extensions.sanic
 
@@ -615,14 +803,346 @@ html.dark {
 </li>
       <li><a href="reference/config/sync.html#advanced_alchemy.config.sync.AlembicSyncConfig">AlembicSyncConfig (class in advanced_alchemy.config.sync)</a>
 </li>
+      <li><a href="reference/extensions/litestar/plugins/init/config/asyncio.html#advanced_alchemy.extensions.litestar.plugins.init.config.asyncio.SQLAlchemyAsyncConfig.create_all_metadata.params.app">app (advanced_alchemy.extensions.litestar.plugins.init.config.asyncio.SQLAlchemyAsyncConfig.create_all_metadata parameter)</a>
+
+      <ul>
+        <li><a href="reference/extensions/litestar/plugins/init/config/sync.html#advanced_alchemy.extensions.litestar.plugins.init.config.sync.SQLAlchemySyncConfig.create_all_metadata.params.app">(advanced_alchemy.extensions.litestar.plugins.init.config.sync.SQLAlchemySyncConfig.create_all_metadata parameter)</a>
+</li>
+        <li><a href="reference/extensions/litestar/plugins/init/config/sync.html#advanced_alchemy.extensions.litestar.plugins.init.config.sync.SQLAlchemySyncConfig.update_app_state.params.app">(advanced_alchemy.extensions.litestar.plugins.init.config.sync.SQLAlchemySyncConfig.update_app_state parameter)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/extensions/litestar/plugins/init/plugin.html#advanced_alchemy.extensions.litestar.plugins.init.plugin.SQLAlchemyInitPlugin.on_app_init.params.app_config">app_config (advanced_alchemy.extensions.litestar.plugins.init.plugin.SQLAlchemyInitPlugin.on_app_init parameter)</a>
+</li>
       <li><a href="reference/mixins/unique.html#advanced_alchemy.mixins.unique.UniqueMixin.as_unique_async">as_unique_async() (advanced_alchemy.mixins.unique.UniqueMixin class method)</a>
 </li>
       <li><a href="reference/mixins/unique.html#advanced_alchemy.mixins.unique.UniqueMixin.as_unique_sync">as_unique_sync() (advanced_alchemy.mixins.unique.UniqueMixin class method)</a>
 </li>
       <li><a href="reference/config/asyncio.html#advanced_alchemy.config.asyncio.AsyncSessionConfig">AsyncSessionConfig (class in advanced_alchemy.config.asyncio)</a>
 </li>
+      <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_and_update.params.attribute_names">attribute_names (advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_and_update parameter)</a>
+
+      <ul>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_or_create.params.attribute_names">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_or_create parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_or_upsert.params.attribute_names">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_or_upsert parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.update.params.attribute_names">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.update parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.upsert.params.attribute_names">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.upsert parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.get_and_update.params.attribute_names">(advanced_alchemy.repository.SQLAlchemySyncRepository.get_and_update parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.get_or_create.params.attribute_names">(advanced_alchemy.repository.SQLAlchemySyncRepository.get_or_create parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.get_or_upsert.params.attribute_names">(advanced_alchemy.repository.SQLAlchemySyncRepository.get_or_upsert parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.update.params.attribute_names">(advanced_alchemy.repository.SQLAlchemySyncRepository.update parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.upsert.params.attribute_names">(advanced_alchemy.repository.SQLAlchemySyncRepository.upsert parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.get_and_update.params.attribute_names">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.get_and_update parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.get_or_upsert.params.attribute_names">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.get_or_upsert parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.update.params.attribute_names">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.update parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.upsert.params.attribute_names">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.upsert parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.get_and_update.params.attribute_names">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.get_and_update parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.get_or_upsert.params.attribute_names">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.get_or_upsert parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.update.params.attribute_names">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.update parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.upsert.params.attribute_names">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.upsert parameter)</a>
+</li>
+      </ul></li>
       <li><a href="reference/base.html#advanced_alchemy.base.AuditColumns">AuditColumns (class in advanced_alchemy.base)</a>
 </li>
+      <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.params.auto_commit">auto_commit (advanced_alchemy.repository.SQLAlchemyAsyncRepository parameter)</a>
+
+      <ul>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.add.params.auto_commit">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.add parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.add_many.params.auto_commit">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.add_many parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.delete.params.auto_commit">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.delete parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.delete_many.params.auto_commit">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.delete_many parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_and_update.params.auto_commit">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_and_update parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_or_create.params.auto_commit">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_or_create parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_or_upsert.params.auto_commit">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_or_upsert parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.update.params.auto_commit">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.update parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.update_many.params.auto_commit">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.update_many parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.upsert.params.auto_commit">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.upsert parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.upsert_many.params.auto_commit">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.upsert_many parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.params.auto_commit">(advanced_alchemy.repository.SQLAlchemySyncRepository parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.add.params.auto_commit">(advanced_alchemy.repository.SQLAlchemySyncRepository.add parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.add_many.params.auto_commit">(advanced_alchemy.repository.SQLAlchemySyncRepository.add_many parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.delete.params.auto_commit">(advanced_alchemy.repository.SQLAlchemySyncRepository.delete parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.delete_many.params.auto_commit">(advanced_alchemy.repository.SQLAlchemySyncRepository.delete_many parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.get_and_update.params.auto_commit">(advanced_alchemy.repository.SQLAlchemySyncRepository.get_and_update parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.get_or_create.params.auto_commit">(advanced_alchemy.repository.SQLAlchemySyncRepository.get_or_create parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.get_or_upsert.params.auto_commit">(advanced_alchemy.repository.SQLAlchemySyncRepository.get_or_upsert parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.update.params.auto_commit">(advanced_alchemy.repository.SQLAlchemySyncRepository.update parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.update_many.params.auto_commit">(advanced_alchemy.repository.SQLAlchemySyncRepository.update_many parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.upsert.params.auto_commit">(advanced_alchemy.repository.SQLAlchemySyncRepository.upsert parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.upsert_many.params.auto_commit">(advanced_alchemy.repository.SQLAlchemySyncRepository.upsert_many parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.params.auto_commit">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.create.params.auto_commit">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.create parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.create_many.params.auto_commit">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.create_many parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.delete.params.auto_commit">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.delete parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.delete_many.params.auto_commit">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.delete_many parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.get_and_update.params.auto_commit">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.get_and_update parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.get_or_upsert.params.auto_commit">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.get_or_upsert parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.update.params.auto_commit">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.update parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.update_many.params.auto_commit">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.update_many parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.upsert.params.auto_commit">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.upsert parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.upsert_many.params.auto_commit">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.upsert_many parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.params.auto_commit">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.create.params.auto_commit">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.create parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.create_many.params.auto_commit">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.create_many parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.delete.params.auto_commit">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.delete parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.delete_many.params.auto_commit">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.delete_many parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.get_and_update.params.auto_commit">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.get_and_update parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.get_or_upsert.params.auto_commit">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.get_or_upsert parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.update.params.auto_commit">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.update parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.update_many.params.auto_commit">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.update_many parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.upsert.params.auto_commit">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.upsert parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.upsert_many.params.auto_commit">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.upsert_many parameter)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.params.auto_expunge">auto_expunge (advanced_alchemy.repository.SQLAlchemyAsyncRepository parameter)</a>
+
+      <ul>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.add.params.auto_expunge">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.add parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.add_many.params.auto_expunge">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.add_many parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.delete.params.auto_expunge">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.delete parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.delete_many.params.auto_expunge">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.delete_many parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.get.params.auto_expunge">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.get parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_and_update.params.auto_expunge">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_and_update parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_one.params.auto_expunge">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_one parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_one_or_none.params.auto_expunge">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_one_or_none parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_or_create.params.auto_expunge">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_or_create parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_or_upsert.params.auto_expunge">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_or_upsert parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.list.params.auto_expunge">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.list parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.list_and_count.params.auto_expunge">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.list_and_count parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.update.params.auto_expunge">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.update parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.update_many.params.auto_expunge">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.update_many parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.upsert.params.auto_expunge">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.upsert parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.upsert_many.params.auto_expunge">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.upsert_many parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.params.auto_expunge">(advanced_alchemy.repository.SQLAlchemySyncRepository parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.add.params.auto_expunge">(advanced_alchemy.repository.SQLAlchemySyncRepository.add parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.add_many.params.auto_expunge">(advanced_alchemy.repository.SQLAlchemySyncRepository.add_many parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.delete.params.auto_expunge">(advanced_alchemy.repository.SQLAlchemySyncRepository.delete parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.delete_many.params.auto_expunge">(advanced_alchemy.repository.SQLAlchemySyncRepository.delete_many parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.get.params.auto_expunge">(advanced_alchemy.repository.SQLAlchemySyncRepository.get parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.get_and_update.params.auto_expunge">(advanced_alchemy.repository.SQLAlchemySyncRepository.get_and_update parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.get_one.params.auto_expunge">(advanced_alchemy.repository.SQLAlchemySyncRepository.get_one parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.get_one_or_none.params.auto_expunge">(advanced_alchemy.repository.SQLAlchemySyncRepository.get_one_or_none parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.get_or_create.params.auto_expunge">(advanced_alchemy.repository.SQLAlchemySyncRepository.get_or_create parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.get_or_upsert.params.auto_expunge">(advanced_alchemy.repository.SQLAlchemySyncRepository.get_or_upsert parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.list.params.auto_expunge">(advanced_alchemy.repository.SQLAlchemySyncRepository.list parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.list_and_count.params.auto_expunge">(advanced_alchemy.repository.SQLAlchemySyncRepository.list_and_count parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.update.params.auto_expunge">(advanced_alchemy.repository.SQLAlchemySyncRepository.update parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.update_many.params.auto_expunge">(advanced_alchemy.repository.SQLAlchemySyncRepository.update_many parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.upsert.params.auto_expunge">(advanced_alchemy.repository.SQLAlchemySyncRepository.upsert parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.upsert_many.params.auto_expunge">(advanced_alchemy.repository.SQLAlchemySyncRepository.upsert_many parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.params.auto_expunge">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.get.params.auto_expunge">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.get parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.get_one.params.auto_expunge">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.get_one parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.get_one_or_none.params.auto_expunge">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.get_one_or_none parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.list.params.auto_expunge">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.list parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.list_and_count.params.auto_expunge">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.list_and_count parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.create.params.auto_expunge">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.create parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.create_many.params.auto_expunge">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.create_many parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.delete.params.auto_expunge">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.delete parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.delete_many.params.auto_expunge">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.delete_many parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.get_and_update.params.auto_expunge">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.get_and_update parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.get_or_upsert.params.auto_expunge">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.get_or_upsert parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.update.params.auto_expunge">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.update parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.update_many.params.auto_expunge">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.update_many parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.upsert.params.auto_expunge">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.upsert parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.upsert_many.params.auto_expunge">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.upsert_many parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.params.auto_expunge">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.get.params.auto_expunge">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.get parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.get_one.params.auto_expunge">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.get_one parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.get_one_or_none.params.auto_expunge">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.get_one_or_none parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.list.params.auto_expunge">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.list parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.list_and_count.params.auto_expunge">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.list_and_count parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.create.params.auto_expunge">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.create parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.create_many.params.auto_expunge">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.create_many parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.delete.params.auto_expunge">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.delete parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.delete_many.params.auto_expunge">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.delete_many parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.get_and_update.params.auto_expunge">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.get_and_update parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.get_or_upsert.params.auto_expunge">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.get_or_upsert parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.update.params.auto_expunge">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.update parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.update_many.params.auto_expunge">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.update_many parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.upsert.params.auto_expunge">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.upsert parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.upsert_many.params.auto_expunge">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.upsert_many parameter)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.params.auto_refresh">auto_refresh (advanced_alchemy.repository.SQLAlchemyAsyncRepository parameter)</a>
+
+      <ul>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.add.params.auto_refresh">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.add parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_and_update.params.auto_refresh">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_and_update parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_or_create.params.auto_refresh">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_or_create parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_or_upsert.params.auto_refresh">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_or_upsert parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.update.params.auto_refresh">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.update parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.upsert.params.auto_refresh">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.upsert parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.params.auto_refresh">(advanced_alchemy.repository.SQLAlchemySyncRepository parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.add.params.auto_refresh">(advanced_alchemy.repository.SQLAlchemySyncRepository.add parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.get_and_update.params.auto_refresh">(advanced_alchemy.repository.SQLAlchemySyncRepository.get_and_update parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.get_or_create.params.auto_refresh">(advanced_alchemy.repository.SQLAlchemySyncRepository.get_or_create parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.get_or_upsert.params.auto_refresh">(advanced_alchemy.repository.SQLAlchemySyncRepository.get_or_upsert parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.update.params.auto_refresh">(advanced_alchemy.repository.SQLAlchemySyncRepository.update parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.upsert.params.auto_refresh">(advanced_alchemy.repository.SQLAlchemySyncRepository.upsert parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.params.auto_refresh">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.create.params.auto_refresh">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.create parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.get_and_update.params.auto_refresh">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.get_and_update parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.get_or_upsert.params.auto_refresh">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.get_or_upsert parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.update.params.auto_refresh">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.update parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.upsert.params.auto_refresh">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.upsert parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.params.auto_refresh">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.create.params.auto_refresh">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.create parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.get_and_update.params.auto_refresh">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.get_and_update parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.get_or_upsert.params.auto_refresh">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.get_or_upsert parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.update.params.auto_refresh">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.update parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.upsert.params.auto_refresh">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.upsert parameter)</a>
+</li>
+      </ul></li>
       <li><a href="reference/config/common.html#advanced_alchemy.config.common.GenericSessionConfig.autobegin">autobegin (advanced_alchemy.config.common.GenericSessionConfig attribute)</a>
 </li>
       <li><a href="reference/extensions/litestar/plugins/init/config/asyncio.html#advanced_alchemy.extensions.litestar.plugins.init.config.asyncio.autocommit_before_send_handler">autocommit_before_send_handler() (in module advanced_alchemy.extensions.litestar.plugins.init.config.asyncio)</a>
@@ -691,10 +1211,30 @@ html.dark {
         <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.check_not_found">(advanced_alchemy.repository.SQLAlchemySyncRepository static method)</a>
 </li>
       </ul></li>
+      <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.delete_many.params.chunk_size">chunk_size (advanced_alchemy.repository.SQLAlchemyAsyncRepository.delete_many parameter)</a>
+
+      <ul>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.delete_many.params.chunk_size">(advanced_alchemy.repository.SQLAlchemySyncRepository.delete_many parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.delete_many.params.chunk_size">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.delete_many parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.delete_many.params.chunk_size">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.delete_many parameter)</a>
+</li>
+      </ul></li>
       <li><a href="reference/config/common.html#advanced_alchemy.config.common.GenericSessionConfig.class_">class_ (advanced_alchemy.config.common.GenericSessionConfig attribute)</a>
+</li>
+      <li><a href="reference/extensions/litestar/plugins/init/plugin.html#advanced_alchemy.extensions.litestar.plugins.init.plugin.SQLAlchemyInitPlugin.on_cli_init.params.cli">cli (advanced_alchemy.extensions.litestar.plugins.init.plugin.SQLAlchemyInitPlugin.on_cli_init parameter)</a>
+</li>
+      <li><a href="reference/base.html#advanced_alchemy.base.merge_table_arguments.params.cls">cls (advanced_alchemy.base.merge_table_arguments parameter)</a>
 </li>
       <li><a href="reference/types.html#advanced_alchemy.types.ORA_JSONB.coerce_compared_value">coerce_compared_value() (advanced_alchemy.types.ORA_JSONB method)</a>
 </li>
+      <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.filter_collection_by_kwargs.params.collection">collection (advanced_alchemy.repository.SQLAlchemyAsyncRepository.filter_collection_by_kwargs parameter)</a>
+
+      <ul>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.filter_collection_by_kwargs.params.collection">(advanced_alchemy.repository.SQLAlchemySyncRepository.filter_collection_by_kwargs parameter)</a>
+</li>
+      </ul></li>
       <li><a href="reference/filters.html#advanced_alchemy.filters.CollectionFilter">CollectionFilter (class in advanced_alchemy.filters)</a>
 </li>
       <li><a href="reference/config/types.html#advanced_alchemy.config.types.CommitStrategy">CommitStrategy (in module advanced_alchemy.config.types)</a>
@@ -712,15 +1252,19 @@ html.dark {
       <li><a href="reference/types.html#advanced_alchemy.types.GUID.compare_values">compare_values() (advanced_alchemy.types.GUID method)</a>
 </li>
       <li><a href="reference/extensions/litestar/dto.html#advanced_alchemy.extensions.litestar.dto.SQLAlchemyDTO.config">config (advanced_alchemy.extensions.litestar.dto.SQLAlchemyDTO attribute)</a>
+
+      <ul>
+        <li><a href="reference/extensions/litestar/plugins/init/plugin.html#advanced_alchemy.extensions.litestar.plugins.init.plugin.SQLAlchemyInitPlugin.params.config">(advanced_alchemy.extensions.litestar.plugins.init.plugin.SQLAlchemyInitPlugin parameter)</a>
 </li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/exceptions.html#advanced_alchemy.exceptions.ConflictError">ConflictError</a>
 </li>
       <li><a href="reference/config/engine.html#advanced_alchemy.config.engine.EngineConfig.connect_args">connect_args (advanced_alchemy.config.engine.EngineConfig attribute)</a>
 </li>
       <li><a href="reference/config/common.html#advanced_alchemy.config.common.GenericSQLAlchemyConfig.connection_string">connection_string (advanced_alchemy.config.common.GenericSQLAlchemyConfig attribute)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.count">count() (advanced_alchemy.repository.SQLAlchemyAsyncRepository method)</a>
 
       <ul>
@@ -729,6 +1273,12 @@ html.dark {
         <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.count">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService method)</a>
 </li>
         <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.count">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService method)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.get_or_upsert.params.create">create (advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.get_or_upsert parameter)</a>
+
+      <ul>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.get_or_upsert.params.create">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.get_or_upsert parameter)</a>
 </li>
       </ul></li>
       <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.create">create() (advanced_alchemy.service.SQLAlchemyAsyncRepositoryService method)</a>
@@ -785,6 +1335,66 @@ html.dark {
 <h2 id="D">D</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.add.params.data">data (advanced_alchemy.repository.SQLAlchemyAsyncRepository.add parameter)</a>
+
+      <ul>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.add_many.params.data">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.add_many parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.update.params.data">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.update parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.update_many.params.data">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.update_many parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.upsert.params.data">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.upsert parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.upsert_many.params.data">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.upsert_many parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.add.params.data">(advanced_alchemy.repository.SQLAlchemySyncRepository.add parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.add_many.params.data">(advanced_alchemy.repository.SQLAlchemySyncRepository.add_many parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.update.params.data">(advanced_alchemy.repository.SQLAlchemySyncRepository.update parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.update_many.params.data">(advanced_alchemy.repository.SQLAlchemySyncRepository.update_many parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.upsert.params.data">(advanced_alchemy.repository.SQLAlchemySyncRepository.upsert parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.upsert_many.params.data">(advanced_alchemy.repository.SQLAlchemySyncRepository.upsert_many parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.to_model.params.data">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.to_model parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.to_schema.params.data">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.to_schema parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.create.params.data">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.create parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.create_many.params.data">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.create_many parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.update.params.data">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.update parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.update_many.params.data">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.update_many parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.upsert.params.data">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.upsert parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.upsert_many.params.data">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.upsert_many parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.to_model.params.data">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.to_model parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.to_schema.params.data">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.to_schema parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.create.params.data">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.create parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.create_many.params.data">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.create_many parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.update.params.data">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.update parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.update_many.params.data">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.update_many parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.upsert.params.data">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.upsert parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.upsert_many.params.data">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.upsert_many parameter)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/types.html#advanced_alchemy.types.DateTimeUTC">DateTimeUTC (class in advanced_alchemy.types)</a>
 </li>
       <li><a href="reference/extensions/litestar/plugins/init/config/asyncio.html#advanced_alchemy.extensions.litestar.plugins.init.config.asyncio.default_before_send_handler">default_before_send_handler() (in module advanced_alchemy.extensions.litestar.plugins.init.config.asyncio)</a>
@@ -803,8 +1413,6 @@ html.dark {
         <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.delete">(advanced_alchemy.service.SQLAlchemySyncRepositoryService method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.delete_many">delete_many() (advanced_alchemy.repository.SQLAlchemyAsyncRepository method)</a>
 
       <ul>
@@ -815,8 +1423,34 @@ html.dark {
         <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.delete_many">(advanced_alchemy.service.SQLAlchemySyncRepositoryService method)</a>
 </li>
       </ul></li>
+      <li><a href="reference/exceptions.html#advanced_alchemy.exceptions.AdvancedAlchemyError.params.detail">detail (advanced_alchemy.exceptions.AdvancedAlchemyError parameter)</a>
+
+      <ul>
+        <li><a href="reference/exceptions.html#advanced_alchemy.exceptions.ConflictError.params.detail">(advanced_alchemy.exceptions.ConflictError parameter)</a>
+</li>
+        <li><a href="reference/exceptions.html#advanced_alchemy.exceptions.MissingDependencyError.params.detail">(advanced_alchemy.exceptions.MissingDependencyError parameter)</a>
+</li>
+      </ul></li>
       <li><a href="reference/extensions/litestar/dto.html#advanced_alchemy.extensions.litestar.dto.SQLAlchemyDTO.detect_nested_field">detect_nested_field() (advanced_alchemy.extensions.litestar.dto.SQLAlchemyDTO class method)</a>
 </li>
+      <li><a href="reference/types.html#advanced_alchemy.types.DateTimeUTC.process_bind_param.params.dialect">dialect (advanced_alchemy.types.DateTimeUTC.process_bind_param parameter)</a>
+
+      <ul>
+        <li><a href="reference/types.html#advanced_alchemy.types.DateTimeUTC.process_result_value.params.dialect">(advanced_alchemy.types.DateTimeUTC.process_result_value parameter)</a>
+</li>
+        <li><a href="reference/types.html#advanced_alchemy.types.EncryptedString.process_bind_param.params.dialect">(advanced_alchemy.types.EncryptedString.process_bind_param parameter)</a>
+</li>
+        <li><a href="reference/types.html#advanced_alchemy.types.EncryptedString.process_result_value.params.dialect">(advanced_alchemy.types.EncryptedString.process_result_value parameter)</a>
+</li>
+        <li><a href="reference/types.html#advanced_alchemy.types.GUID.process_bind_param.params.dialect">(advanced_alchemy.types.GUID.process_bind_param parameter)</a>
+</li>
+        <li><a href="reference/types.html#advanced_alchemy.types.GUID.process_result_value.params.dialect">(advanced_alchemy.types.GUID.process_result_value parameter)</a>
+</li>
+        <li><a href="reference/types.html#advanced_alchemy.types.ORA_JSONB.process_bind_param.params.dialect">(advanced_alchemy.types.ORA_JSONB.process_bind_param parameter)</a>
+</li>
+        <li><a href="reference/types.html#advanced_alchemy.types.ORA_JSONB.process_result_value.params.dialect">(advanced_alchemy.types.ORA_JSONB.process_result_value parameter)</a>
+</li>
+      </ul></li>
       <li>
     DIRECTORY
 
@@ -898,6 +1532,14 @@ html.dark {
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/types.html#advanced_alchemy.types.FernetBackend">FernetBackend (class in advanced_alchemy.types)</a>
 </li>
+      <li><a href="reference/extensions/litestar/dto.html#advanced_alchemy.extensions.litestar.dto.SQLAlchemyDTO.detect_nested_field.params.field_definition">field_definition (advanced_alchemy.extensions.litestar.dto.SQLAlchemyDTO.detect_nested_field parameter)</a>
+
+      <ul>
+        <li><a href="reference/extensions/litestar/plugins/serialization.html#advanced_alchemy.extensions.litestar.plugins.serialization.SQLAlchemySerializationPlugin.create_dto_for_type.params.field_definition">(advanced_alchemy.extensions.litestar.plugins.serialization.SQLAlchemySerializationPlugin.create_dto_for_type parameter)</a>
+</li>
+        <li><a href="reference/extensions/litestar/plugins/serialization.html#advanced_alchemy.extensions.litestar.plugins.serialization.SQLAlchemySerializationPlugin.supports_type.params.field_definition">(advanced_alchemy.extensions.litestar.plugins.serialization.SQLAlchemySerializationPlugin.supports_type parameter)</a>
+</li>
+      </ul></li>
       <li><a href="reference/filters.html#advanced_alchemy.filters.BeforeAfter.field_name">field_name (advanced_alchemy.filters.BeforeAfter attribute)</a>
 
       <ul>
@@ -922,8 +1564,24 @@ html.dark {
         <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.filter_collection_by_kwargs">(advanced_alchemy.repository.SQLAlchemySyncRepository method)</a>
 </li>
       </ul></li>
+      <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.to_schema.params.filters">filters (advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.to_schema parameter)</a>
+
+      <ul>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.to_schema.params.filters">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.to_schema parameter)</a>
+</li>
+      </ul></li>
       <li><a href="reference/filters.html#advanced_alchemy.filters.FilterTypes">FilterTypes (in module advanced_alchemy.filters)</a>
 </li>
+      <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.list_and_count.params.force_basic_query_mode">force_basic_query_mode (advanced_alchemy.repository.SQLAlchemyAsyncRepository.list_and_count parameter)</a>
+
+      <ul>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.list_and_count.params.force_basic_query_mode">(advanced_alchemy.repository.SQLAlchemySyncRepository.list_and_count parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.list_and_count.params.force_basic_query_mode">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.list_and_count parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.list_and_count.params.force_basic_query_mode">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.list_and_count parameter)</a>
+</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -1046,6 +1704,48 @@ html.dark {
         <li><a href="reference/base.html#advanced_alchemy.base.UUIDv7PrimaryKey.id">(advanced_alchemy.base.UUIDv7PrimaryKey attribute)</a>
 </li>
       </ul></li>
+      <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.delete.params.id_attribute">id_attribute (advanced_alchemy.repository.SQLAlchemyAsyncRepository.delete parameter)</a>
+
+      <ul>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.delete_many.params.id_attribute">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.delete_many parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.get.params.id_attribute">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.get parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_id_attribute_value.params.id_attribute">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_id_attribute_value parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.set_id_attribute_value.params.id_attribute">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.set_id_attribute_value parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.update.params.id_attribute">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.update parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.delete.params.id_attribute">(advanced_alchemy.repository.SQLAlchemySyncRepository.delete parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.delete_many.params.id_attribute">(advanced_alchemy.repository.SQLAlchemySyncRepository.delete_many parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.get.params.id_attribute">(advanced_alchemy.repository.SQLAlchemySyncRepository.get parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.get_id_attribute_value.params.id_attribute">(advanced_alchemy.repository.SQLAlchemySyncRepository.get_id_attribute_value parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.set_id_attribute_value.params.id_attribute">(advanced_alchemy.repository.SQLAlchemySyncRepository.set_id_attribute_value parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.update.params.id_attribute">(advanced_alchemy.repository.SQLAlchemySyncRepository.update parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.get.params.id_attribute">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.get parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.delete.params.id_attribute">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.delete parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.delete_many.params.id_attribute">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.delete_many parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.update.params.id_attribute">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.update parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.get.params.id_attribute">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.get parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.delete.params.id_attribute">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.delete parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.delete_many.params.id_attribute">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.delete_many parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.update.params.id_attribute">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.update parameter)</a>
+</li>
+      </ul></li>
       <li><a href="reference/filters.html#advanced_alchemy.filters.NotInSearchFilter.ignore_case">ignore_case (advanced_alchemy.filters.NotInSearchFilter attribute)</a>
 
       <ul>
@@ -1060,10 +1760,10 @@ html.dark {
         <li><a href="reference/types.html#advanced_alchemy.types.ORA_JSONB.impl">(advanced_alchemy.types.ORA_JSONB attribute)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/exceptions.html#advanced_alchemy.exceptions.ImproperConfigurationError">ImproperConfigurationError</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/config/common.html#advanced_alchemy.config.common.GenericSessionConfig.info">info (advanced_alchemy.config.common.GenericSessionConfig attribute)</a>
 </li>
       <li><a href="reference/operations.html#advanced_alchemy.operations.Merge.inherit_cache">inherit_cache (advanced_alchemy.operations.Merge attribute)</a>
@@ -1074,6 +1774,62 @@ html.dark {
 </li>
       <li><a href="reference/config/engine.html#advanced_alchemy.config.engine.EngineConfig.isolation_level">isolation_level (advanced_alchemy.config.engine.EngineConfig attribute)</a>
 </li>
+      <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_id_attribute_value.params.item">item (advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_id_attribute_value parameter)</a>
+
+      <ul>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.set_id_attribute_value.params.item">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.set_id_attribute_value parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.get_id_attribute_value.params.item">(advanced_alchemy.repository.SQLAlchemySyncRepository.get_id_attribute_value parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.set_id_attribute_value.params.item">(advanced_alchemy.repository.SQLAlchemySyncRepository.set_id_attribute_value parameter)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.delete.params.item_id">item_id (advanced_alchemy.repository.SQLAlchemyAsyncRepository.delete parameter)</a>
+
+      <ul>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.get.params.item_id">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.get parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.set_id_attribute_value.params.item_id">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.set_id_attribute_value parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.delete.params.item_id">(advanced_alchemy.repository.SQLAlchemySyncRepository.delete parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.get.params.item_id">(advanced_alchemy.repository.SQLAlchemySyncRepository.get parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.set_id_attribute_value.params.item_id">(advanced_alchemy.repository.SQLAlchemySyncRepository.set_id_attribute_value parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.get.params.item_id">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.get parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.delete.params.item_id">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.delete parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.update.params.item_id">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.update parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.upsert.params.item_id">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.upsert parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.get.params.item_id">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.get parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.delete.params.item_id">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.delete parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.update.params.item_id">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.update parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.upsert.params.item_id">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.upsert parameter)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.delete_many.params.item_ids">item_ids (advanced_alchemy.repository.SQLAlchemyAsyncRepository.delete_many parameter)</a>
+
+      <ul>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.delete_many.params.item_ids">(advanced_alchemy.repository.SQLAlchemySyncRepository.delete_many parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.delete_many.params.item_ids">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.delete_many parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.delete_many.params.item_ids">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.delete_many parameter)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.check_not_found.params.item_or_none">item_or_none (advanced_alchemy.repository.SQLAlchemyAsyncRepository.check_not_found parameter)</a>
+
+      <ul>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.check_not_found.params.item_or_none">(advanced_alchemy.repository.SQLAlchemySyncRepository.check_not_found parameter)</a>
+</li>
+      </ul></li>
       <li><a href="reference/service.html#advanced_alchemy.service.OffsetPagination.items">items (advanced_alchemy.service.OffsetPagination attribute)</a>
 </li>
   </ul></td>
@@ -1259,6 +2015,44 @@ html.dark {
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_and_update.params.match_fields">match_fields (advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_and_update parameter)</a>
+
+      <ul>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_or_create.params.match_fields">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_or_create parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_or_upsert.params.match_fields">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_or_upsert parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.upsert.params.match_fields">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.upsert parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.upsert_many.params.match_fields">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.upsert_many parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.get_and_update.params.match_fields">(advanced_alchemy.repository.SQLAlchemySyncRepository.get_and_update parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.get_or_create.params.match_fields">(advanced_alchemy.repository.SQLAlchemySyncRepository.get_or_create parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.get_or_upsert.params.match_fields">(advanced_alchemy.repository.SQLAlchemySyncRepository.get_or_upsert parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.upsert.params.match_fields">(advanced_alchemy.repository.SQLAlchemySyncRepository.upsert parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.upsert_many.params.match_fields">(advanced_alchemy.repository.SQLAlchemySyncRepository.upsert_many parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.get_and_update.params.match_fields">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.get_and_update parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.get_or_upsert.params.match_fields">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.get_or_upsert parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.upsert.params.match_fields">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.upsert parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.upsert_many.params.match_fields">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.upsert_many parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.get_and_update.params.match_fields">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.get_and_update parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.get_or_upsert.params.match_fields">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.get_or_upsert parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.upsert.params.match_fields">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.upsert parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.upsert_many.params.match_fields">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.upsert_many parameter)</a>
+</li>
+      </ul></li>
       <li><a href="reference/config/engine.html#advanced_alchemy.config.engine.EngineConfig.max_identifier_length">max_identifier_length (advanced_alchemy.config.engine.EngineConfig attribute)</a>
 </li>
       <li><a href="reference/config/engine.html#advanced_alchemy.config.engine.EngineConfig.max_overflow">max_overflow (advanced_alchemy.config.engine.EngineConfig attribute)</a>
@@ -1269,6 +2063,16 @@ html.dark {
 </li>
       <li><a href="reference/operations.html#advanced_alchemy.operations.MergeClause">MergeClause (class in advanced_alchemy.operations)</a>
 </li>
+      <li><a href="reference/extensions/litestar/plugins/init/config/asyncio.html#advanced_alchemy.extensions.litestar.plugins.init.config.asyncio.autocommit_before_send_handler.params.message">message (advanced_alchemy.extensions.litestar.plugins.init.config.asyncio.autocommit_before_send_handler parameter)</a>
+
+      <ul>
+        <li><a href="reference/extensions/litestar/plugins/init/config/asyncio.html#advanced_alchemy.extensions.litestar.plugins.init.config.asyncio.default_before_send_handler.params.message">(advanced_alchemy.extensions.litestar.plugins.init.config.asyncio.default_before_send_handler parameter)</a>
+</li>
+        <li><a href="reference/extensions/litestar/plugins/init/config/sync.html#advanced_alchemy.extensions.litestar.plugins.init.config.sync.autocommit_before_send_handler.params.message">(advanced_alchemy.extensions.litestar.plugins.init.config.sync.autocommit_before_send_handler parameter)</a>
+</li>
+        <li><a href="reference/extensions/litestar/plugins/init/config/sync.html#advanced_alchemy.extensions.litestar.plugins.init.config.sync.default_before_send_handler.params.message">(advanced_alchemy.extensions.litestar.plugins.init.config.sync.default_before_send_handler parameter)</a>
+</li>
+      </ul></li>
       <li><a href="reference/base.html#advanced_alchemy.base.BigIntAuditBase.metadata">metadata (advanced_alchemy.base.BigIntAuditBase attribute)</a>
 
       <ul>
@@ -1291,6 +2095,8 @@ html.dark {
         <li><a href="reference/config/common.html#advanced_alchemy.config.common.GenericSQLAlchemyConfig.metadata">(advanced_alchemy.config.common.GenericSQLAlchemyConfig attribute)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/exceptions.html#advanced_alchemy.exceptions.MissingDependencyError">MissingDependencyError</a>
 </li>
       <li><a href="reference/repository.html#advanced_alchemy.repository.model_from_dict">model_from_dict() (in module advanced_alchemy.repository)</a>
@@ -1352,8 +2158,6 @@ html.dark {
         <li><a href="reference/utils.html#module-advanced_alchemy.utils">advanced_alchemy.utils</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/config/engine.html#advanced_alchemy.config.engine.EngineConfig.module">module (advanced_alchemy.config.engine.EngineConfig attribute)</a>
 </li>
       <li><a href="reference/exceptions.html#advanced_alchemy.exceptions.MultipleResultsFoundError">MultipleResultsFoundError</a>
@@ -1368,6 +2172,16 @@ html.dark {
 
       <ul>
         <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.new">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService class method)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.upsert_many.params.no_merge">no_merge (advanced_alchemy.repository.SQLAlchemyAsyncRepository.upsert_many parameter)</a>
+
+      <ul>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.upsert_many.params.no_merge">(advanced_alchemy.repository.SQLAlchemySyncRepository.upsert_many parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.upsert_many.params.no_merge">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.upsert_many parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.upsert_many.params.no_merge">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.upsert_many parameter)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -1396,14 +2210,20 @@ html.dark {
 </li>
       <li><a href="reference/extensions/litestar/plugins/init/plugin.html#advanced_alchemy.extensions.litestar.plugins.init.plugin.SQLAlchemyInitPlugin.on_cli_init">on_cli_init() (advanced_alchemy.extensions.litestar.plugins.init.plugin.SQLAlchemyInitPlugin method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/filters.html#advanced_alchemy.filters.OnBeforeAfter.on_or_after">on_or_after (advanced_alchemy.filters.OnBeforeAfter attribute)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/filters.html#advanced_alchemy.filters.OnBeforeAfter.on_or_before">on_or_before (advanced_alchemy.filters.OnBeforeAfter attribute)</a>
 </li>
       <li><a href="reference/filters.html#advanced_alchemy.filters.OnBeforeAfter">OnBeforeAfter (class in advanced_alchemy.filters)</a>
 </li>
+      <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.to_model.params.operation">operation (advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.to_model parameter)</a>
+
+      <ul>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.to_model.params.operation">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.to_model parameter)</a>
+</li>
+      </ul></li>
       <li><a href="reference/types.html#advanced_alchemy.types.ORA_JSONB">ORA_JSONB (class in advanced_alchemy.types)</a>
 </li>
       <li><a href="reference/filters.html#advanced_alchemy.filters.OrderBy">OrderBy (class in advanced_alchemy.filters)</a>
@@ -1549,6 +2369,26 @@ html.dark {
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/extensions/sanic.html#advanced_alchemy.extensions.sanic.SanicAdvancedAlchemy">SanicAdvancedAlchemy (class in advanced_alchemy.extensions.sanic)</a>
 </li>
+      <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.to_schema.params.schema_type">schema_type (advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.to_schema parameter)</a>
+
+      <ul>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.to_schema.params.schema_type">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.to_schema parameter)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/extensions/litestar/plugins/init/config/asyncio.html#advanced_alchemy.extensions.litestar.plugins.init.config.asyncio.autocommit_before_send_handler.params.scope">scope (advanced_alchemy.extensions.litestar.plugins.init.config.asyncio.autocommit_before_send_handler parameter)</a>
+
+      <ul>
+        <li><a href="reference/extensions/litestar/plugins/init/config/asyncio.html#advanced_alchemy.extensions.litestar.plugins.init.config.asyncio.default_before_send_handler.params.scope">(advanced_alchemy.extensions.litestar.plugins.init.config.asyncio.default_before_send_handler parameter)</a>
+</li>
+        <li><a href="reference/extensions/litestar/plugins/init/config/asyncio.html#advanced_alchemy.extensions.litestar.plugins.init.config.asyncio.SQLAlchemyAsyncConfig.provide_session.params.scope">(advanced_alchemy.extensions.litestar.plugins.init.config.asyncio.SQLAlchemyAsyncConfig.provide_session parameter)</a>
+</li>
+        <li><a href="reference/extensions/litestar/plugins/init/config/sync.html#advanced_alchemy.extensions.litestar.plugins.init.config.sync.autocommit_before_send_handler.params.scope">(advanced_alchemy.extensions.litestar.plugins.init.config.sync.autocommit_before_send_handler parameter)</a>
+</li>
+        <li><a href="reference/extensions/litestar/plugins/init/config/sync.html#advanced_alchemy.extensions.litestar.plugins.init.config.sync.default_before_send_handler.params.scope">(advanced_alchemy.extensions.litestar.plugins.init.config.sync.default_before_send_handler parameter)</a>
+</li>
+        <li><a href="reference/extensions/litestar/plugins/init/config/sync.html#advanced_alchemy.extensions.litestar.plugins.init.config.sync.SQLAlchemySyncConfig.provide_session.params.scope">(advanced_alchemy.extensions.litestar.plugins.init.config.sync.SQLAlchemySyncConfig.provide_session parameter)</a>
+</li>
+      </ul></li>
       <li><a href="reference/config/common.html#advanced_alchemy.config.common.GenericAlembicConfig.script_config">script_config (advanced_alchemy.config.common.GenericAlembicConfig attribute)</a>
 </li>
       <li><a href="reference/config/common.html#advanced_alchemy.config.common.GenericAlembicConfig.script_location">script_location (advanced_alchemy.config.common.GenericAlembicConfig attribute)</a>
@@ -1557,6 +2397,24 @@ html.dark {
 </li>
       <li><a href="reference/exceptions.html#advanced_alchemy.exceptions.SerializationError">SerializationError</a>
 </li>
+      <li><a href="reference/mixins/unique.html#advanced_alchemy.mixins.unique.UniqueMixin.as_unique_async.params.session">session (advanced_alchemy.mixins.unique.UniqueMixin.as_unique_async parameter)</a>
+
+      <ul>
+        <li><a href="reference/mixins/unique.html#advanced_alchemy.mixins.unique.UniqueMixin.as_unique_sync.params.session">(advanced_alchemy.mixins.unique.UniqueMixin.as_unique_sync parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.params.session">(advanced_alchemy.repository.SQLAlchemyAsyncRepository parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.check_health.params.session">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.check_health parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.params.session">(advanced_alchemy.repository.SQLAlchemySyncRepository parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.check_health.params.session">(advanced_alchemy.repository.SQLAlchemySyncRepository.check_health parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.params.session">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.params.session">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService parameter)</a>
+</li>
+      </ul></li>
       <li><a href="reference/config/asyncio.html#advanced_alchemy.config.asyncio.SQLAlchemyAsyncConfig.session_config">session_config (advanced_alchemy.config.asyncio.SQLAlchemyAsyncConfig attribute)</a>
 
       <ul>
@@ -1605,8 +2463,6 @@ html.dark {
         <li><a href="reference/extensions/litestar/plugins/init/config/sync.html#advanced_alchemy.extensions.litestar.plugins.init.config.sync.SQLAlchemySyncConfig.signature_namespace">(advanced_alchemy.extensions.litestar.plugins.init.config.sync.SQLAlchemySyncConfig property)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/base.html#advanced_alchemy.base.SlugKey">SlugKey (class in advanced_alchemy.base)</a>
 </li>
       <li><a href="reference/filters.html#advanced_alchemy.filters.OrderBy.sort_order">sort_order (advanced_alchemy.filters.OrderBy attribute)</a>
@@ -1625,6 +2481,8 @@ html.dark {
 </li>
       <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncSlugRepository">SQLAlchemyAsyncSlugRepository (class in advanced_alchemy.repository)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/extensions/litestar/dto.html#advanced_alchemy.extensions.litestar.dto.SQLAlchemyDTO">SQLAlchemyDTO (class in advanced_alchemy.extensions.litestar.dto)</a>
 </li>
       <li><a href="reference/extensions/litestar/plugins/init/plugin.html#advanced_alchemy.extensions.litestar.plugins.init.plugin.SQLAlchemyInitPlugin">SQLAlchemyInitPlugin (class in advanced_alchemy.extensions.litestar.plugins.init.plugin)</a>
@@ -1651,6 +2509,74 @@ html.dark {
 </li>
       <li><a href="reference/extensions/sanic.html#advanced_alchemy.extensions.sanic.SanicAdvancedAlchemy.startup">startup() (advanced_alchemy.extensions.sanic.SanicAdvancedAlchemy method)</a>
 </li>
+      <li><a href="reference/extensions/litestar/plugins/init/config/asyncio.html#advanced_alchemy.extensions.litestar.plugins.init.config.asyncio.SQLAlchemyAsyncConfig.provide_engine.params.state">state (advanced_alchemy.extensions.litestar.plugins.init.config.asyncio.SQLAlchemyAsyncConfig.provide_engine parameter)</a>
+
+      <ul>
+        <li><a href="reference/extensions/litestar/plugins/init/config/asyncio.html#advanced_alchemy.extensions.litestar.plugins.init.config.asyncio.SQLAlchemyAsyncConfig.provide_session.params.state">(advanced_alchemy.extensions.litestar.plugins.init.config.asyncio.SQLAlchemyAsyncConfig.provide_session parameter)</a>
+</li>
+        <li><a href="reference/extensions/litestar/plugins/init/config/sync.html#advanced_alchemy.extensions.litestar.plugins.init.config.sync.SQLAlchemySyncConfig.provide_engine.params.state">(advanced_alchemy.extensions.litestar.plugins.init.config.sync.SQLAlchemySyncConfig.provide_engine parameter)</a>
+</li>
+        <li><a href="reference/extensions/litestar/plugins/init/config/sync.html#advanced_alchemy.extensions.litestar.plugins.init.config.sync.SQLAlchemySyncConfig.provide_session.params.state">(advanced_alchemy.extensions.litestar.plugins.init.config.sync.SQLAlchemySyncConfig.provide_session parameter)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.params.statement">statement (advanced_alchemy.repository.SQLAlchemyAsyncRepository parameter)</a>
+
+      <ul>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.count.params.statement">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.count parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.get.params.statement">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.get parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_one.params.statement">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_one parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_one_or_none.params.statement">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_one_or_none parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.list.params.statement">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.list parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.list_and_count.params.statement">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.list_and_count parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.params.statement">(advanced_alchemy.repository.SQLAlchemySyncRepository parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.count.params.statement">(advanced_alchemy.repository.SQLAlchemySyncRepository.count parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.get.params.statement">(advanced_alchemy.repository.SQLAlchemySyncRepository.get parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.get_one.params.statement">(advanced_alchemy.repository.SQLAlchemySyncRepository.get_one parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.get_one_or_none.params.statement">(advanced_alchemy.repository.SQLAlchemySyncRepository.get_one_or_none parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.list.params.statement">(advanced_alchemy.repository.SQLAlchemySyncRepository.list parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.list_and_count.params.statement">(advanced_alchemy.repository.SQLAlchemySyncRepository.list_and_count parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.params.statement">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.count.params.statement">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.count parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.get.params.statement">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.get parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.get_one.params.statement">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.get_one parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.get_one_or_none.params.statement">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.get_one_or_none parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.list.params.statement">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.list parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.list_and_count.params.statement">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.list_and_count parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.params.statement">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.count.params.statement">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.count parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.get.params.statement">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.get parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.get_one.params.statement">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.get_one parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.get_one_or_none.params.statement">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.get_one_or_none parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.list.params.statement">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.list parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.list_and_count.params.statement">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.list_and_count parameter)</a>
+</li>
+      </ul></li>
       <li><a href="reference/extensions/litestar/plugins/serialization.html#advanced_alchemy.extensions.litestar.plugins.serialization.SQLAlchemySerializationPlugin.supports_type">supports_type() (advanced_alchemy.extensions.litestar.plugins.serialization.SQLAlchemySerializationPlugin method)</a>
 </li>
       <li><a href="reference/config/asyncio.html#advanced_alchemy.config.asyncio.AsyncSessionConfig.sync_session_class">sync_session_class (advanced_alchemy.config.asyncio.AsyncSessionConfig attribute)</a>
@@ -1663,6 +2589,8 @@ html.dark {
 <h2 id="T">T</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/base.html#advanced_alchemy.base.merge_table_arguments.params.table_args">table_args (advanced_alchemy.base.merge_table_arguments parameter)</a>
+</li>
       <li><a href="reference/config/common.html#advanced_alchemy.config.common.GenericAlembicConfig.target_metadata">target_metadata (advanced_alchemy.config.common.GenericAlembicConfig attribute)</a>
 </li>
       <li><a href="reference/config/common.html#advanced_alchemy.config.common.GenericAlembicConfig.template_path">template_path (advanced_alchemy.config.common.GenericAlembicConfig attribute)</a>
@@ -1690,7 +2618,13 @@ html.dark {
 </li>
       </ul></li>
       <li><a href="reference/service.html#advanced_alchemy.service.OffsetPagination.total">total (advanced_alchemy.service.OffsetPagination attribute)</a>
+
+      <ul>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.to_schema.params.total">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.to_schema parameter)</a>
 </li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.to_schema.params.total">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.to_schema parameter)</a>
+</li>
+      </ul></li>
       <li><a href="reference/config/common.html#advanced_alchemy.config.common.GenericSessionConfig.twophase">twophase (advanced_alchemy.config.common.GenericSessionConfig attribute)</a>
 </li>
       <li><a href="reference/config/types.html#advanced_alchemy.config.types.TypeDecodersSequence">TypeDecodersSequence (in module advanced_alchemy.config.types)</a>
@@ -1733,6 +2667,22 @@ html.dark {
       </ul></li>
       <li><a href="reference/base.html#advanced_alchemy.base.AuditColumns.updated_at">updated_at (advanced_alchemy.base.AuditColumns attribute)</a>
 </li>
+      <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_or_create.params.upsert">upsert (advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_or_create parameter)</a>
+
+      <ul>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_or_upsert.params.upsert">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_or_upsert parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.get_or_create.params.upsert">(advanced_alchemy.repository.SQLAlchemySyncRepository.get_or_create parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.get_or_upsert.params.upsert">(advanced_alchemy.repository.SQLAlchemySyncRepository.get_or_upsert parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.get_or_upsert.params.upsert">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.get_or_upsert parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.get_or_upsert.params.upsert">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.get_or_upsert parameter)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.upsert">upsert() (advanced_alchemy.repository.SQLAlchemyAsyncRepository method)</a>
 
       <ul>
@@ -1743,8 +2693,6 @@ html.dark {
         <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.upsert">(advanced_alchemy.service.SQLAlchemySyncRepositoryService method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.upsert_many">upsert_many() (advanced_alchemy.repository.SQLAlchemyAsyncRepository method)</a>
 
       <ul>
@@ -1788,6 +2736,30 @@ html.dark {
       <ul>
         <li><a href="reference/filters.html#advanced_alchemy.filters.SearchFilter.value">(advanced_alchemy.filters.SearchFilter attribute)</a>
 </li>
+        <li><a href="reference/types.html#advanced_alchemy.types.DateTimeUTC.process_bind_param.params.value">(advanced_alchemy.types.DateTimeUTC.process_bind_param parameter)</a>
+</li>
+        <li><a href="reference/types.html#advanced_alchemy.types.DateTimeUTC.process_result_value.params.value">(advanced_alchemy.types.DateTimeUTC.process_result_value parameter)</a>
+</li>
+        <li><a href="reference/types.html#advanced_alchemy.types.EncryptedString.process_bind_param.params.value">(advanced_alchemy.types.EncryptedString.process_bind_param parameter)</a>
+</li>
+        <li><a href="reference/types.html#advanced_alchemy.types.EncryptedString.process_result_value.params.value">(advanced_alchemy.types.EncryptedString.process_result_value parameter)</a>
+</li>
+        <li><a href="reference/types.html#advanced_alchemy.types.GUID.process_bind_param.params.value">(advanced_alchemy.types.GUID.process_bind_param parameter)</a>
+</li>
+        <li><a href="reference/types.html#advanced_alchemy.types.GUID.process_result_value.params.value">(advanced_alchemy.types.GUID.process_result_value parameter)</a>
+</li>
+        <li><a href="reference/types.html#advanced_alchemy.types.ORA_JSONB.process_bind_param.params.value">(advanced_alchemy.types.ORA_JSONB.process_bind_param parameter)</a>
+</li>
+        <li><a href="reference/types.html#advanced_alchemy.types.ORA_JSONB.process_result_value.params.value">(advanced_alchemy.types.ORA_JSONB.process_result_value parameter)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncSlugRepository.get_available_slug.params.value_to_slugify">value_to_slugify (advanced_alchemy.repository.SQLAlchemyAsyncSlugRepository.get_available_slug parameter)</a>
+
+      <ul>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncSlugRepository.get_available_slug.params.value_to_slugify">(advanced_alchemy.repository.SQLAlchemySyncSlugRepository.get_available_slug parameter)</a>
+</li>
       </ul></li>
       <li><a href="reference/filters.html#advanced_alchemy.filters.CollectionFilter.values">values (advanced_alchemy.filters.CollectionFilter attribute)</a>
 
@@ -1795,8 +2767,6 @@ html.dark {
         <li><a href="reference/filters.html#advanced_alchemy.filters.NotInCollectionFilter.values">(advanced_alchemy.filters.NotInCollectionFilter attribute)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/config/common.html#advanced_alchemy.config.common.GenericAlembicConfig.version_table_name">version_table_name (advanced_alchemy.config.common.GenericAlembicConfig attribute)</a>
 </li>
       <li><a href="reference/config/common.html#advanced_alchemy.config.common.GenericAlembicConfig.version_table_schema">version_table_schema (advanced_alchemy.config.common.GenericAlembicConfig attribute)</a>
@@ -1807,6 +2777,46 @@ html.dark {
 <h2 id="W">W</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_and_update.params.with_for_update">with_for_update (advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_and_update parameter)</a>
+
+      <ul>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_or_create.params.with_for_update">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_or_create parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_or_upsert.params.with_for_update">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_or_upsert parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.update.params.with_for_update">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.update parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.upsert.params.with_for_update">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.upsert parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.get_and_update.params.with_for_update">(advanced_alchemy.repository.SQLAlchemySyncRepository.get_and_update parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.get_or_create.params.with_for_update">(advanced_alchemy.repository.SQLAlchemySyncRepository.get_or_create parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.get_or_upsert.params.with_for_update">(advanced_alchemy.repository.SQLAlchemySyncRepository.get_or_upsert parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.update.params.with_for_update">(advanced_alchemy.repository.SQLAlchemySyncRepository.update parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.upsert.params.with_for_update">(advanced_alchemy.repository.SQLAlchemySyncRepository.upsert parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.get_and_update.params.with_for_update">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.get_and_update parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.get_or_upsert.params.with_for_update">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.get_or_upsert parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.update.params.with_for_update">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.update parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.upsert.params.with_for_update">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.upsert parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.get_and_update.params.with_for_update">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.get_and_update parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.get_or_upsert.params.with_for_update">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.get_or_upsert parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.update.params.with_for_update">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.update parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.upsert.params.with_for_update">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.upsert parameter)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/exceptions.html#advanced_alchemy.exceptions.wrap_sqlalchemy_exception">wrap_sqlalchemy_exception() (in module advanced_alchemy.exceptions)</a>
 </li>
   </ul></td>
@@ -1815,34 +2825,44 @@ html.dark {
 
 
       </article>
+      
     </main>
   </div><footer class="sy-foot">
   <div class="sy-foot-inner sy-container mx-auto">
     
     <div class="sy-foot-reserved md:flex justify-between items-center">
-      <div class="sy-foot-copyright"><p>2023, Jolt Org</p>
-        
-        <p>
-          Made with
-          
-          <a href="https://www.sphinx-doc.org/">Sphinx</a> and
-          
-          <a href="https://shibuya.lepture.com">Shibuya theme</a>.
-        </p>
-      </div>
+      <div class="sy-foot-copyright"><p>2024, Litestar Organization</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
       <div class="sy-foot-socials">
-          <a href="https://github.com/jolt-org/advanced-alchemy" aria-label="GitHub"><i class="i-icon github"></i></a>
-      </div>
+  <a href="https://twitter.com/LitestarAPI" aria-label="X (Twitter)"><i class="i-simpleicons x-twitter"></i></a>
+  <a href="https://discord.gg/litestar-919193495116337154" aria-label="Discord"><i class="i-simpleicons discord"></i></a>
+  <a href="https://www.reddit.com/r/LitestarAPI" aria-label="Reddit"><i class="i-simpleicons reddit"></i></a>
+</div>
     </div>
   </div>
 </footer></div>
-      <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=e43216b9"></script>
+      <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=2c5cfeb5"></script>
       <script src="_static/doctools.js?v=888ff710"></script>
       <script src="_static/sphinx_highlight.js?v=4825356b"></script>
       <script src="_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="_static/copybutton.js?v=f281be69"></script>
+      <script src="_static/litestar-theme.js?v=ab2dcc9e"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="_static/togglebutton.js?v=4a39c7ea"></script>
       <script src="_static/design-tabs.js?v=36754332"></script>
-      <script src="_static/shibuya.js?v=3e5c8598"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script src="_static/shibuya.js?v=9aab5f5b"></script>
+      <script src="_static/versioning.js"></script>
     
 </body>
 </html>

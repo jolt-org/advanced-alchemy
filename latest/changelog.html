@@ -1,97 +1,142 @@
-<!DOCTYPE html>
-<html lang="en">
+
+  <!DOCTYPE html>
+<html lang="en" data-accent-color="amber" data-content_root="">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Changelog - Docs</title>
-    <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Contribution guide" href="contribution-guide.html" /><link rel="prev" title="unique" href="reference/mixins/unique.html" />
+      <title>Changelog - Litestar Framework</title>
+    <link rel="shortcut icon" href="_static/favicon.svg"/><link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Contribution guide" href="contribution-guide.html" /><link rel="prev" title="unique" href="reference/mixins/unique.html" />
+
   <script>
-    const isDarkTheme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const sessionTheme = sessionStorage['_theme']
-    if (sessionTheme) {
-      document.documentElement.classList.add(sessionTheme)
-    } else if (isDarkTheme) {
-      document.documentElement.classList.add('dark')
-    }
-  </script><link rel="shortcut icon" href="_static/logo.png"/><link rel="stylesheet" type="text/css" href="_static/pygments.css?v=aecf457f" />
-    <link rel="stylesheet" type="text/css" href="_static/shibuya.css?v=28c32440" />
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(sessionStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="_static/pygments.css?v=aecf457f" />
+    <link rel="stylesheet" type="text/css" href="_static/shibuya.css?v=aef655f6" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
-    <link media="print" rel="stylesheet" type="text/css" href="_static/print.css?v=ee381b95" />
-    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=bf5addad" />
-    <style>
-:root {
-  --sy-f-sys:-apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Droid Sans, Helvetica Neue;--sy-f-cjk:PingFang SC, Hiragino Sans GB, Droid Sans Fallback, Microsoft YaHei;--sy-f-heading:var(--sy-f-sys), var(--sy-f-cjk), sans-serif;--sy-f-text:var(--sy-f-sys), var(--sy-f-cjk), sans-serif;--sy-f-mono:Menlo, Monaco, Consolas, "Courier New", monospace;--sy-c-divider:rgba(var(--sy-rc-text), 0.1);--sy-c-divider-weak:rgba(var(--sy-rc-text), 0.05);--sy-c-border:rgba(var(--sy-rc-text), 0.14);--sy-s-banner-height:0rem;--sy-s-navbar-height:56px;--sy-s-offset-top:calc(var(--sy-s-navbar-height) + var(--sy-s-banner-height));--sy-c-link:rgb(var(--sy-rc-theme));--sy-c-link-weak:rgba(var(--sy-rc-theme), 0.86);
-  --sy-rc-theme:245, 0, 87;--sy-rc-bg:255, 255, 255;--sy-rc-invert:245, 0, 87;--sy-rc-text:245, 0, 87;--sy-c-bg:#fff;--sy-c-bg-weak:0, 0, 0;--sy-c-text:#000000;--sy-c-text-weak:#f50057;--sy-c-heading:#f50057;--sy-c-bold:#f50057;--sy-c-foot-text:#000000;--sy-c-foot-bg:#fafafa;--sy-c-foot-divider:#f50057;
-}
-@media (prefers-color-scheme: light) {
-  :root {
-    --sy-rc-theme:245, 0, 87;--sy-rc-bg:255, 255, 255;--sy-rc-invert:245, 0, 87;--sy-rc-text:245, 0, 87;--sy-c-bg:#fff;--sy-c-bg-weak:0, 0, 0;--sy-c-text:#000000;--sy-c-text-weak:#f50057;--sy-c-heading:#f50057;--sy-c-bold:#f50057;--sy-c-foot-text:#000000;--sy-c-foot-bg:#fafafa;--sy-c-foot-divider:#f50057;
-  }
-}
-@media (prefers-color-scheme: dark) {
-  :root {
-    --sy-rc-theme:245, 0, 87;--sy-rc-bg:0, 0, 0;--sy-rc-invert:245, 0, 87;--sy-rc-text:245, 0, 87;--sy-c-bg:#f50057;--sy-c-bg-weak:#000000;--sy-c-text:#ebdddd;--sy-c-text-weak:#f50057;--sy-c-heading:#f50057;--sy-c-bold:#f50057;--sy-c-foot-text:#ebdddd;--sy-c-foot-bg:#000000;--sy-c-foot-divider:#f50057;
-  }
-}
-html.light {
-  --sy-rc-theme:245, 0, 87;--sy-rc-bg:255, 255, 255;--sy-rc-invert:245, 0, 87;--sy-rc-text:245, 0, 87;--sy-c-bg:#fff;--sy-c-bg-weak:0, 0, 0;--sy-c-text:#000000;--sy-c-text-weak:#f50057;--sy-c-heading:#f50057;--sy-c-bold:#f50057;--sy-c-foot-text:#000000;--sy-c-foot-bg:#fafafa;--sy-c-foot-divider:#f50057;
-}
-html.dark {
-  --sy-rc-theme:245, 0, 87;--sy-rc-bg:0, 0, 0;--sy-rc-invert:245, 0, 87;--sy-rc-text:245, 0, 87;--sy-c-bg:#f50057;--sy-c-bg-weak:#000000;--sy-c-text:#ebdddd;--sy-c-text-weak:#f50057;--sy-c-heading:#f50057;--sy-c-bold:#f50057;--sy-c-foot-text:#ebdddd;--sy-c-foot-bg:#000000;--sy-c-foot-divider:#f50057;
-}
-</style>
+    <link rel="stylesheet" type="text/css" href="_static/sphinx_paramlinks.css" />
+    <link media="print" rel="stylesheet" type="text/css" href="_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="_static/style.css" />
+    <link rel="stylesheet" type="text/css" href="_static/litestar-sphinx-theme.css?v=9fce248e" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --sy-f-heading: Inter, var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
 }
 </style>
     <meta property="og:type" content="website"/><meta property="og:title" content="Changelog"/>
-<meta name="twitter:card" content="summary"/></head>
-<body><div class="document"><div class="announcement">
-    <div class="announcement-inner">
-      <p>This documentation is currently under development.</p>
-      <button class="announcement-close" aria-label="Close announcement">
-        <i class="i-icon close"></i>
-      </button>
-    </div>
-  </div><div class="sy-head">
+<meta name="twitter:card" content="summary"/>
+<meta property="og:image" content="_static/logo-light.svg"/>
+  </head>
+<body><div class="document"><div class="sy-head">
   <div class="sy-head-blur"></div>
   <div class="sy-head-inner sy-container mx-auto">
     <a class="sy-head-brand mr-4" href="/">
-      <img class="light-logo" src="_static/logo.png" alt="advanced_alchemy" height="28" />
-      <img class="dark-logo" src="_static/logo.png" alt="advanced_alchemy" height="28" />
+      <img class="light-logo" src="_static/logo-light.svg" alt="advanced_alchemy" height="28" />
+      <img class="dark-logo" src="_static/logo-dark.svg" alt="advanced_alchemy" height="28" />
       <strong>advanced_alchemy</strong>
     </a>
     <div class="sy-head-links" id="NavLinks">
       <nav class="sy-head-nav">
 
-<ul><li class="link">
-          <a href="https://advanced-alchemy.jolt.rs"><span>Home</span><i class="i-icon external-link"></i></a>
-        </li><li class="link">
-          <a href="https://docs.advanced-alchemy.jolt.rs"><span>Docs</span><i class="i-icon external-link"></i></a>
-        </li><li class="link">
-          <a href="https://github.com/jolt-org/advanced-alchemy"><span>Code</span><i class="i-icon external-link"></i></a>
+<ul><li class="link"><a href="index.html">Home</a></li>
+      <li class="link"><button type="button">
+            <span>Community</span>
+            <i class="i-lucid chevron"></i>
+          </button>
+        <ul>
+          <li><a href="contribution-guide.html">
+                <span>Contributing</span>
+                <small>Learn how to contribute to the Advanced Alchemy project</small>
+              </a></li><li><a href="https://github.com/litestar-org/.github?tab=coc-ov-file">
+                <span>Code of Conduct</span>
+                <small>Review the etiquette for interacting with the Litestar community</small>
+              </a></li><li><a href="https://github.com/litestar-org/.github?tab=coc-ov-file#security-ov-file">
+                <span>Security</span>
+                <small>Overview of Litestar's security protocols</small>
+              </a></li></ul>
+      </li>
+      <li class="link"><button type="button">
+            <span>About</span>
+            <i class="i-lucid chevron"></i>
+          </button>
+        <ul>
+          <li><a href="https://litestar.dev/about/organization">
+                <span>Litestar Organization</span>
+                <small>Details about the Litestar organization</small>
+              </a></li><li><a href="releases.html">
+                <span>Releases</span>
+                <small>Explore the release process, versioning, and deprecation policy for Litestar</small>
+              </a></li></ul>
+      </li>
+      <li class="link"><button type="button">
+            <span>Release notes</span>
+            <i class="i-lucid chevron"></i>
+          </button>
+        <ul>
+          <li><a href="#">
+                <span>1.x Changelog</span>
+                <small>All changes in the 2.x series</small>
+              </a></li></ul>
+      </li>
+      <li class="link"><button type="button">
+            <span>Help</span>
+            <i class="i-lucid chevron"></i>
+          </button>
+        <ul>
+          <li><a href="https://discord.gg/litestar">
+                <span>Discord Help Forum</span>
+                <small>Dedicated Discord help forum</small>
+              </a></li><li><a href="https://github.com/litestar-org/advanced-alchemy/discussions">
+                <span>GitHub Discussions</span>
+                <small>GitHub Discussions</small>
+              </a></li><li><a href="https://stackoverflow.com/questions/tagged/litestar">
+                <span>Stack Overflow</span>
+                <small>We monitor the <code><b>litestar</b></code> tag on Stack Overflow</small>
+              </a></li></ul>
+      </li><li class="link">
+          <a href="https://github.com/sponsors/Litestar-Org">
+            <span>Sponsor</span>
+            
+          </a>
         </li></ul></nav>
-      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="search.html" method="get">
+      <div class="sy-head-extra flex items-center print:hidden">
+        
+<form class="searchbox flex items-center" action="search.html" method="get">
   <input type="text" name="q" placeholder="Search" />
   <kbd>/</kbd>
 </form>
         
+  <div class="nav-versions">
+    <button type="button" aria-label="Versions">
+      <span class="md:hidden">Versions</span>
+      <span class="hidden md:inline">latest</span>
+      <i class="i-lucid chevron"></i>
+    </button>
+    <div class="nav-versions-choices">
+      <ul><li><a href="/latest">latest</a></li><li><a href="/main">development</a></li></ul></div>
+  </div>
         
-        <div class="sy-head-social flex items-center">
-            <a class="flex items-center" href="https://github.com/jolt-org/advanced-alchemy" aria-label="GitHub">
-              <i class="i-icon github"></i>
-            </a>
-        </div>
+        <div class="sy-head-socials flex items-center">
+  <a href="https://twitter.com/LitestarAPI" aria-label="X (Twitter)">
+    <i class="i-simpleicons x-twitter"></i>
+  </a>
+    <a href="https://discord.gg/litestar-919193495116337154" aria-label="Discord">
+      <i class="i-simpleicons discord"></i>
+    </a>
+</div>
       </div>
     </div>
     <div class="sy-head-actions flex items-center shrink-0 print:hidden">
-      <button class="js-theme theme-switch flex items-center" data-aria-light="Switch to dark mode" data-aria-dark="Switch to light mode">
-        <i class="i-icon theme-icon"></i>
+      <button class="js-theme theme-switch flex items-center"
+        data-aria-auto="Switch to light color mode"
+        data-aria-light="Switch to dark color mode"
+        data-aria-dark="Switch to auto color mode">
+        <i class="i-lucid theme-icon"></i>
       </button>
       <button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="NavLinks" aria-expanded="false">
         <div class="hamburger">
@@ -107,7 +152,23 @@ html.dark {
   <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
     <div class="sy-lside-inner md:sticky">
       <div class="sy-scrollbar p-6">
-        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading"><span class="caption-text">Advanced Alchemy Documentation</span></p>
+<div class="sidebar-links">
+  <ul>
+    <li><a class="icon-link" href="https://github.com/orgs/litestar-org/discussions">
+  <span class="icon">
+    <svg viewBox="0 0 24 24" fill="none">
+      <path fill="var(--accent-9)" fill-rule="evenodd" clip-rule="evenodd" d="M11 5a6 6 0 0 0-4.687 9.746c.215.27.315.62.231.954l-.514 2.058a1 1 0 0 0 1.485 1.1l2.848-1.71c.174-.104.374-.15.576-.148H13a6 6 0 0 0 0-12h-2Z"/>
+      <circle fill="white" cx="12" cy="11" r="1"/>
+      <circle fill="white" cx="9" cy="11" r="1"/>
+      <circle fill="white" cx="15" cy="11" r="1"/>
+    </svg>
+  </span>
+  <span class="text">Discussion</span>
+</a></li>
+  </ul>
+</div>
+
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="usage/index.html">Usage</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="usage/placeholder.html">Placeholder</a></li>
@@ -178,6 +239,8 @@ html.dark {
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contribution-guide.html">Contribution guide</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/search?q=user%3Alitestar-org+state%3Aopen+label%3A%22good+first+issue%22+++no%3Aassignee+repo%3A%22advanced-alchemy%22&amp;type=issues">Available Issues</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/litestar-org/.github?tab=coc-ov-file#readme">Code of Conduct</a></li>
 </ul>
 
         </div>
@@ -188,7 +251,7 @@ html.dark {
   <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
   <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
     <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
-      <i class="i-icon close"></i>
+      <i class="i-lucid close"></i>
     </button>
     <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4">
   <div class="localtoc">
@@ -351,26 +414,26 @@ html.dark {
 </li>
 </ul>
 
-  </div><a class="js-repo-stats repo-stats flex items-center" href="https://github.com/jolt-org/advanced-alchemy"
-  data-type="github" data-user="jolt-org" data-repo="advanced-alchemy">
-  <span class="w-8 flex items-center justify-around shrink-0 text-2xl">
-    <i class="i-icon github"></i>
+  </div><a class="js-repo-stats repo-stats flex items-center" href="https://github.com/litestar-org/advanced-alchemy"
+  data-type="github" data-user="litestar-org" data-repo="advanced-alchemy">
+  <span class="w-8 flex items-center justify-around shrink-0 text-3xl">
+    <i class="i-simpleicons github"></i>
   </span>
   <span class="flex-grow px-2">
-    <span>jolt-org/advanced-alchemy</span>
+    <span>litestar-org/advanced-alchemy</span>
     <span class="flex text-sm repo-stats-count">
       <span class="flex items-center pr-3">
-        <i class="i-icon star"></i>
+        <i class="i-lucid star"></i>
         <strong class="js-repo-stars ml-1">0</strong>
       </span>
       <span class="flex items-center">
-        <i class="i-icon git-fork"></i>
+        <i class="i-lucid git-fork"></i>
         <strong class="js-repo-forks ml-1">0</strong>
       </span>
     </span>
   </span>
 </a><div class="edit-this-page">
-  <a href="https://github.com/jolt-org/advanced-alchemy/blob/master/docs/changelog.rst">Edit this page</a>
+  <a href="https://github.com/litestar-org/advanced-alchemy/blob/master/docs/changelog.rst">Edit this page</a>
 </div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div>
     </div>
   </aside>
@@ -380,22 +443,29 @@ html.dark {
   <div class="sy-breadcrumbs-inner flex items-center">
     <div class="md:hidden mr-3">
       <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
-        <i class="i-icon menu"></i>
+        <i class="i-lucid menu"></i>
       </button>
     </div>
-    <ul class="flex-1">
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList">
       
       
-      <li><a href="index.html">advanced_alchemy</a><span>/</span></li>
+      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="index.html"><span itemprop="name">advanced_alchemy</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li>
       
-      <li><strong>Changelog</strong></li>
+      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">Changelog</strong>
+        <meta itemprop="position" content="2" />
+      </li>
       
       
-    </ul>
+    </ol>
     <div class="xl:hidden ml-1">
       <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
         aria-expanded="false">
-        <i class="i-icon outdent"></i>
+        <i class="i-lucid outdent"></i>
       </button>
     </div>
   </div>
@@ -407,689 +477,689 @@ html.dark {
 <h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this heading">¶</a></h1>
 <p>All commits to this project will be documented in this file.</p>
 <section id="id1">
-<h2><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/releases/tag/v0.7.4">Release [v0.7.4] - 2024-03-05</a><a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
+<h2><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/releases/tag/v0.7.4">Release [v0.7.4] - 2024-03-05</a><a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commits/v0.7.4">See All commits in v0.7.4</a></p></li>
+<li><p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commits/v0.7.4">See All commits in v0.7.4</a></p></li>
 </ul>
-<p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/c318394c157790016a645eceee9b7a8cc2207096">c318394</a> … <a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/d8a92cd9458b530d1e46fd530d59dfa352946649">d8a92cd</a> | <a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/compare/c318394c157790016a645eceee9b7a8cc2207096...d8a92cd9458b530d1e46fd530d59dfa352946649">See diff for 0.7.4</a></p>
+<p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/c318394c157790016a645eceee9b7a8cc2207096">c318394</a> … <a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/d8a92cd9458b530d1e46fd530d59dfa352946649">d8a92cd</a> | <a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/compare/c318394c157790016a645eceee9b7a8cc2207096...d8a92cd9458b530d1e46fd530d59dfa352946649">See diff for 0.7.4</a></p>
 <section id="documentation">
 <h3>Documentation<a class="headerlink" href="#documentation" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/c95d7568794573cd0b00b30ece2bc7a4148c84af">c95d756</a>)  - Add missing section (Jacob Coffee)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/d8a92cd9458b530d1e46fd530d59dfa352946649">d8a92cd</a>)  - Pin <cite>shubiya</cite> to <cite>2023.10.26</cite> (Jacob Coffee)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/c95d7568794573cd0b00b30ece2bc7a4148c84af">c95d756</a>)  - Add missing section (Jacob Coffee)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/d8a92cd9458b530d1e46fd530d59dfa352946649">d8a92cd</a>)  - Pin <cite>shubiya</cite> to <cite>2023.10.26</cite> (Jacob Coffee)</p></li>
 </ul>
 </section>
 <section id="miscellaneous-tasks">
 <h3>Miscellaneous Tasks<a class="headerlink" href="#miscellaneous-tasks" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/d319c8a18c853d665d1c2a1f5b4e979502daec13">d319c8a</a>)  - Collapse large sections in readme (Jacob Coffee)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/d319c8a18c853d665d1c2a1f5b4e979502daec13">d319c8a</a>)  - Collapse large sections in readme (Jacob Coffee)</p></li>
 </ul>
 </section>
 </section>
 <section id="id3">
-<h2><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/releases/tag/v0.7.4">Release [v0.7.4] - 2024-02-19</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
+<h2><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/releases/tag/v0.7.4">Release [v0.7.4] - 2024-02-19</a><a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commits/v0.7.4">See All commits in v0.7.4</a></p></li>
+<li><p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commits/v0.7.4">See All commits in v0.7.4</a></p></li>
 </ul>
-<p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/bbae5c040a4f210f7b2c5fb44fd248c4026b0b17">bbae5c0</a> … <a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/c318394c157790016a645eceee9b7a8cc2207096">c318394</a> | <a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/compare/bbae5c040a4f210f7b2c5fb44fd248c4026b0b17...c318394c157790016a645eceee9b7a8cc2207096">See diff for 0.7.4</a></p>
+<p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/bbae5c040a4f210f7b2c5fb44fd248c4026b0b17">bbae5c0</a> … <a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/c318394c157790016a645eceee9b7a8cc2207096">c318394</a> | <a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/compare/bbae5c040a4f210f7b2c5fb44fd248c4026b0b17...c318394c157790016a645eceee9b7a8cc2207096">See diff for 0.7.4</a></p>
 <section id="bug-fixes">
 <h3>Bug Fixes<a class="headerlink" href="#bug-fixes" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/03711c6bb368063895b586be839a6bee0b64db76">03711c6</a>)  - Adjusted type hints for <cite>UUID</cite> when <cite>uuid-utils</cite> is not installed (#133) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/03711c6bb368063895b586be839a6bee0b64db76">03711c6</a>)  - Adjusted type hints for <cite>UUID</cite> when <cite>uuid-utils</cite> is not installed (#133) (Cody Fincher)</p></li>
 </ul>
 </section>
 <section id="id7">
 <h3>Miscellaneous Tasks<a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/c318394c157790016a645eceee9b7a8cc2207096">c318394</a>)  - Bump to <cite>v0.7.4</cite> (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/c318394c157790016a645eceee9b7a8cc2207096">c318394</a>)  - Bump to <cite>v0.7.4</cite> (Cody Fincher)</p></li>
 </ul>
 </section>
 </section>
 <section id="id9">
-<h2><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/releases/tag/v0.7.3">Release [v0.7.3] - 2024-02-18</a><a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h2>
+<h2><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/releases/tag/v0.7.3">Release [v0.7.3] - 2024-02-18</a><a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commits/v0.7.3">See All commits in v0.7.3</a></p></li>
+<li><p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commits/v0.7.3">See All commits in v0.7.3</a></p></li>
 </ul>
-<p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/1d4c100c03fdedb91f55b52b3d9ed5fe85caf99e">1d4c100</a> … <a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/bbae5c040a4f210f7b2c5fb44fd248c4026b0b17">bbae5c0</a> | <a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/compare/1d4c100c03fdedb91f55b52b3d9ed5fe85caf99e...bbae5c040a4f210f7b2c5fb44fd248c4026b0b17">See diff for 0.7.3</a></p>
+<p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/1d4c100c03fdedb91f55b52b3d9ed5fe85caf99e">1d4c100</a> … <a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/bbae5c040a4f210f7b2c5fb44fd248c4026b0b17">bbae5c0</a> | <a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/compare/1d4c100c03fdedb91f55b52b3d9ed5fe85caf99e...bbae5c040a4f210f7b2c5fb44fd248c4026b0b17">See diff for 0.7.3</a></p>
 <section id="features">
 <h3>Features<a class="headerlink" href="#features" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/5e3eca58b32aa7518a3d7e726dc615df653d04a0">5e3eca5</a>)  - Adds a <cite>uuid_utils</cite> encoder if it is installed (#131) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/5e3eca58b32aa7518a3d7e726dc615df653d04a0">5e3eca5</a>)  - Adds a <cite>uuid_utils</cite> encoder if it is installed (#131) (Cody Fincher)</p></li>
 </ul>
 </section>
 <section id="id11">
 <h3>Miscellaneous Tasks<a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/60d672786f90b793d92fc788381effbbd79a67ee">60d6727</a>)  - Enable Python 3.12 tests (#82) (Cody Fincher)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/bbae5c040a4f210f7b2c5fb44fd248c4026b0b17">bbae5c0</a>)  - Bump version to <cite>v0.7.3</cite> (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/60d672786f90b793d92fc788381effbbd79a67ee">60d6727</a>)  - Enable Python 3.12 tests (#82) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/bbae5c040a4f210f7b2c5fb44fd248c4026b0b17">bbae5c0</a>)  - Bump version to <cite>v0.7.3</cite> (Cody Fincher)</p></li>
 </ul>
 </section>
 </section>
 <section id="id13">
-<h2><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/releases/tag/v0.7.2">Release [v0.7.2] - 2024-02-04</a><a class="headerlink" href="#id13" title="Permalink to this heading">¶</a></h2>
+<h2><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/releases/tag/v0.7.2">Release [v0.7.2] - 2024-02-04</a><a class="headerlink" href="#id13" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commits/v0.7.2">See All commits in v0.7.2</a></p></li>
+<li><p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commits/v0.7.2">See All commits in v0.7.2</a></p></li>
 </ul>
-<p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/3e74b9e636a805fa0cc804738ced5ac99116b697">3e74b9e</a> … <a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/1d4c100c03fdedb91f55b52b3d9ed5fe85caf99e">1d4c100</a> | <a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/compare/3e74b9e636a805fa0cc804738ced5ac99116b697...1d4c100c03fdedb91f55b52b3d9ed5fe85caf99e">See diff for 0.7.2</a></p>
+<p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/3e74b9e636a805fa0cc804738ced5ac99116b697">3e74b9e</a> … <a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/1d4c100c03fdedb91f55b52b3d9ed5fe85caf99e">1d4c100</a> | <a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/compare/3e74b9e636a805fa0cc804738ced5ac99116b697...1d4c100c03fdedb91f55b52b3d9ed5fe85caf99e">See diff for 0.7.2</a></p>
 <section id="id15">
 <h3>Bug Fixes<a class="headerlink" href="#id15" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/7a54b1a9866336ff2e19aee1223431afe7ef8b60">7a54b1a</a>)  - Adjust <cite>lambda_stmt</cite> statement tracking (#128) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/7a54b1a9866336ff2e19aee1223431afe7ef8b60">7a54b1a</a>)  - Adjust <cite>lambda_stmt</cite> statement tracking (#128) (Cody Fincher)</p></li>
 </ul>
 </section>
 <section id="id16">
 <h3>Features<a class="headerlink" href="#id16" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/0c4e8de42eb6a8b85aec317eab3fef53a3af40ed">0c4e8de</a>)  - Replace <cite>ConflictError</cite> with <cite>IntegrityError</cite> (#129) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/0c4e8de42eb6a8b85aec317eab3fef53a3af40ed">0c4e8de</a>)  - Replace <cite>ConflictError</cite> with <cite>IntegrityError</cite> (#129) (Cody Fincher)</p></li>
 </ul>
 </section>
 <section id="id17">
 <h3>Miscellaneous Tasks<a class="headerlink" href="#id17" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/1d4c100c03fdedb91f55b52b3d9ed5fe85caf99e">1d4c100</a>)  - Bump version to <cite>v0.7.2</cite> (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/1d4c100c03fdedb91f55b52b3d9ed5fe85caf99e">1d4c100</a>)  - Bump version to <cite>v0.7.2</cite> (Cody Fincher)</p></li>
 </ul>
 </section>
 </section>
 <section id="id19">
-<h2><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/releases/tag/v0.7.1">Release [v0.7.1] - 2024-02-01</a><a class="headerlink" href="#id19" title="Permalink to this heading">¶</a></h2>
+<h2><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/releases/tag/v0.7.1">Release [v0.7.1] - 2024-02-01</a><a class="headerlink" href="#id19" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commits/v0.7.1">See All commits in v0.7.1</a></p></li>
+<li><p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commits/v0.7.1">See All commits in v0.7.1</a></p></li>
 </ul>
-<p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/6420050c1f02d2b70dd45245bdafa0954851b74d">6420050</a> … <a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/3e74b9e636a805fa0cc804738ced5ac99116b697">3e74b9e</a> | <a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/compare/6420050c1f02d2b70dd45245bdafa0954851b74d...3e74b9e636a805fa0cc804738ced5ac99116b697">See diff for 0.7.1</a></p>
+<p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/6420050c1f02d2b70dd45245bdafa0954851b74d">6420050</a> … <a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/3e74b9e636a805fa0cc804738ced5ac99116b697">3e74b9e</a> | <a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/compare/6420050c1f02d2b70dd45245bdafa0954851b74d...3e74b9e636a805fa0cc804738ced5ac99116b697">See diff for 0.7.1</a></p>
 <section id="id22">
 <h3>Bug Fixes<a class="headerlink" href="#id22" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/0f40a1cb93839228209826c0266c365dd3bd960f">0f40a1c</a>)  - Specify generic type for <cite>DateTimeUTC</cite>  (#124) (Kim Minki)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/0f40a1cb93839228209826c0266c365dd3bd960f">0f40a1c</a>)  - Specify generic type for <cite>DateTimeUTC</cite>  (#124) (Kim Minki)</p></li>
 </ul>
 </section>
 <section id="id23">
 <h3>Features<a class="headerlink" href="#id23" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/3e74b9e636a805fa0cc804738ced5ac99116b697">3e74b9e</a>)  - Updated type hint and revert <cite>SentinelColumn</cite> change (#127) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/3e74b9e636a805fa0cc804738ced5ac99116b697">3e74b9e</a>)  - Updated type hint and revert <cite>SentinelColumn</cite> change (#127) (Cody Fincher)</p></li>
 </ul>
 </section>
 <section id="refactor">
 <h3>Refactor<a class="headerlink" href="#refactor" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/765394e888f3a12acd1d09d588c12f4f4b4a86cb">765394e</a>)  - Remove unnecessary Optional type (#125) (Boseong Choi)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/765394e888f3a12acd1d09d588c12f4f4b4a86cb">765394e</a>)  - Remove unnecessary Optional type (#125) (Boseong Choi)</p></li>
 </ul>
 </section>
 </section>
 <section id="id25">
-<h2><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/releases/tag/v0.7.0">Release [v0.7.0] - 2024-01-30</a><a class="headerlink" href="#id25" title="Permalink to this heading">¶</a></h2>
+<h2><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/releases/tag/v0.7.0">Release [v0.7.0] - 2024-01-30</a><a class="headerlink" href="#id25" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commits/v0.7.0">See All commits in v0.7.0</a></p></li>
+<li><p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commits/v0.7.0">See All commits in v0.7.0</a></p></li>
 </ul>
-<p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/795f79e5d32c9f3ddb24f269bc2a40c99cca2d94">795f79e</a> … <a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/6420050c1f02d2b70dd45245bdafa0954851b74d">6420050</a> | <a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/compare/795f79e5d32c9f3ddb24f269bc2a40c99cca2d94...6420050c1f02d2b70dd45245bdafa0954851b74d">See diff for 0.7.0</a></p>
+<p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/795f79e5d32c9f3ddb24f269bc2a40c99cca2d94">795f79e</a> … <a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/6420050c1f02d2b70dd45245bdafa0954851b74d">6420050</a> | <a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/compare/795f79e5d32c9f3ddb24f269bc2a40c99cca2d94...6420050c1f02d2b70dd45245bdafa0954851b74d">See diff for 0.7.0</a></p>
 <section id="id27">
 <h3>Features<a class="headerlink" href="#id27" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/77aea5dfd325db032c5e422bf4442e30a3ed5672">77aea5d</a>)  - Adds support for uuid v6 and v7 (#121) (Cody Fincher)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/d9453cdc139432e3b9bc778ed42495844b1b1a27">d9453cd</a>)  - Use sqlserver’s unique identifier for GUID (#123) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/77aea5dfd325db032c5e422bf4442e30a3ed5672">77aea5d</a>)  - Adds support for uuid v6 and v7 (#121) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/d9453cdc139432e3b9bc778ed42495844b1b1a27">d9453cd</a>)  - Use sqlserver’s unique identifier for GUID (#123) (Cody Fincher)</p></li>
 </ul>
 </section>
 <section id="id28">
 <h3>Miscellaneous Tasks<a class="headerlink" href="#id28" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/65f28034beb662560ae3b27bfe47f58189f6c24c">65f2803</a>)  - Adjust docs for litestar config (#122) (Cody Fincher)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/6420050c1f02d2b70dd45245bdafa0954851b74d">6420050</a>)  - Bump to version <cite>v0.7.0</cite> (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/65f28034beb662560ae3b27bfe47f58189f6c24c">65f2803</a>)  - Adjust docs for litestar config (#122) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/6420050c1f02d2b70dd45245bdafa0954851b74d">6420050</a>)  - Bump to version <cite>v0.7.0</cite> (Cody Fincher)</p></li>
 </ul>
 </section>
 </section>
 <section id="id30">
-<h2><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/releases/tag/v0.6.2">Release [v0.6.2] - 2024-01-05</a><a class="headerlink" href="#id30" title="Permalink to this heading">¶</a></h2>
+<h2><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/releases/tag/v0.6.2">Release [v0.6.2] - 2024-01-05</a><a class="headerlink" href="#id30" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commits/v0.6.2">See All commits in v0.6.2</a></p></li>
+<li><p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commits/v0.6.2">See All commits in v0.6.2</a></p></li>
 </ul>
-<p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/5da93a2d22ee70777be11a5e27d205d6699cbfae">5da93a2</a> … <a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/795f79e5d32c9f3ddb24f269bc2a40c99cca2d94">795f79e</a> | <a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/compare/5da93a2d22ee70777be11a5e27d205d6699cbfae...795f79e5d32c9f3ddb24f269bc2a40c99cca2d94">See diff for 0.6.2</a></p>
+<p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/5da93a2d22ee70777be11a5e27d205d6699cbfae">5da93a2</a> … <a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/795f79e5d32c9f3ddb24f269bc2a40c99cca2d94">795f79e</a> | <a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/compare/5da93a2d22ee70777be11a5e27d205d6699cbfae...795f79e5d32c9f3ddb24f269bc2a40c99cca2d94">See diff for 0.6.2</a></p>
 <section id="id32">
 <h3>Features<a class="headerlink" href="#id32" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/c0f04b513257028f40d98259e1882257cb689587">c0f04b5</a>)  - Updated parameters to match <cite>add</cite> method (#116) (Cody Fincher)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/ab1d96078625b335e019f881d88672ec10e0c9f2">ab1d960</a>)  - <cite>oracle</cite> async support &amp; json fix (#118) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/c0f04b513257028f40d98259e1882257cb689587">c0f04b5</a>)  - Updated parameters to match <cite>add</cite> method (#116) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/ab1d96078625b335e019f881d88672ec10e0c9f2">ab1d960</a>)  - <cite>oracle</cite> async support &amp; json fix (#118) (Cody Fincher)</p></li>
 </ul>
 </section>
 <section id="id33">
 <h3>Miscellaneous Tasks<a class="headerlink" href="#id33" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/795f79e5d32c9f3ddb24f269bc2a40c99cca2d94">795f79e</a>)  - Bump version to <cite>v0.6.2</cite> (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/795f79e5d32c9f3ddb24f269bc2a40c99cca2d94">795f79e</a>)  - Bump version to <cite>v0.6.2</cite> (Cody Fincher)</p></li>
 </ul>
 </section>
 </section>
 <section id="id35">
-<h2><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/releases/tag/v0.6.1">Release [v0.6.1] - 2023-12-07</a><a class="headerlink" href="#id35" title="Permalink to this heading">¶</a></h2>
+<h2><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/releases/tag/v0.6.1">Release [v0.6.1] - 2023-12-07</a><a class="headerlink" href="#id35" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commits/v0.6.1">See All commits in v0.6.1</a></p></li>
+<li><p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commits/v0.6.1">See All commits in v0.6.1</a></p></li>
 </ul>
-<p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/2aa4cca083d16c5e0f62b0d19beb1aec3209a8d7">2aa4cca</a> … <a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/5da93a2d22ee70777be11a5e27d205d6699cbfae">5da93a2</a> | <a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/compare/2aa4cca083d16c5e0f62b0d19beb1aec3209a8d7...5da93a2d22ee70777be11a5e27d205d6699cbfae">See diff for 0.6.1</a></p>
+<p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/2aa4cca083d16c5e0f62b0d19beb1aec3209a8d7">2aa4cca</a> … <a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/5da93a2d22ee70777be11a5e27d205d6699cbfae">5da93a2</a> | <a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/compare/2aa4cca083d16c5e0f62b0d19beb1aec3209a8d7...5da93a2d22ee70777be11a5e27d205d6699cbfae">See diff for 0.6.1</a></p>
 <section id="id37">
 <h3>Bug Fixes<a class="headerlink" href="#id37" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/68c8501be5379cac2f0d48af8b81447c072feafc">68c8501</a>)  - Add Alembic template for Encrypted String (#112) (Cody Fincher)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/2f76af05c99e9647a7cb953b17fd7570ac9b317c">2f76af0</a>)  - Adds <cite>MISSING</cite> placeholder (#113) (Cody Fincher)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/5da93a2d22ee70777be11a5e27d205d6699cbfae">5da93a2</a>)  - Ignore unused warning for tests. (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/68c8501be5379cac2f0d48af8b81447c072feafc">68c8501</a>)  - Add Alembic template for Encrypted String (#112) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/2f76af05c99e9647a7cb953b17fd7570ac9b317c">2f76af0</a>)  - Adds <cite>MISSING</cite> placeholder (#113) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/5da93a2d22ee70777be11a5e27d205d6699cbfae">5da93a2</a>)  - Ignore unused warning for tests. (Cody Fincher)</p></li>
 </ul>
 </section>
 <section id="id39">
 <h3>Miscellaneous Tasks<a class="headerlink" href="#id39" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/a1267578bd467857fca278f780f3666ab1223be3">a126757</a>)  - Bump version to <cite>v0.6.1</cite> (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/a1267578bd467857fca278f780f3666ab1223be3">a126757</a>)  - Bump version to <cite>v0.6.1</cite> (Cody Fincher)</p></li>
 </ul>
 </section>
 </section>
 <section id="id40">
-<h2><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/releases/tag/v0.6.0">Release [v0.6.0] - 2023-12-03</a><a class="headerlink" href="#id40" title="Permalink to this heading">¶</a></h2>
+<h2><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/releases/tag/v0.6.0">Release [v0.6.0] - 2023-12-03</a><a class="headerlink" href="#id40" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commits/v0.6.0">See All commits in v0.6.0</a></p></li>
+<li><p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commits/v0.6.0">See All commits in v0.6.0</a></p></li>
 </ul>
-<p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/f41c4121824907f3cf2a81080bd388a62ecd7181">f41c412</a> … <a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/2aa4cca083d16c5e0f62b0d19beb1aec3209a8d7">2aa4cca</a> | <a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/compare/f41c4121824907f3cf2a81080bd388a62ecd7181...2aa4cca083d16c5e0f62b0d19beb1aec3209a8d7">See diff for 0.6.0</a></p>
+<p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/f41c4121824907f3cf2a81080bd388a62ecd7181">f41c412</a> … <a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/2aa4cca083d16c5e0f62b0d19beb1aec3209a8d7">2aa4cca</a> | <a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/compare/f41c4121824907f3cf2a81080bd388a62ecd7181...2aa4cca083d16c5e0f62b0d19beb1aec3209a8d7">See diff for 0.6.0</a></p>
 <section id="id42">
 <h3>Bug Fixes<a class="headerlink" href="#id42" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/39118b0450c96ba6253b1f34097e81d32bcb8e1b">39118b0</a>)  - Add <cite>str</cite> to <cite>match_fields</cite> type hint (#96) (Cody Fincher)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/ba58db712db057d65e14b79930c39a3778e8c758">ba58db7</a>)  - Add <code class="docutils literal notranslate"><span class="pre">orm_registry</span></code> to <code class="docutils literal notranslate"><span class="pre">__all__</span></code> (#99) (Jacob Coffee)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/5ade9841cd3c13647f72aff3e436c134b7f5d54b">5ade984</a>)  - Correct <cite>count</cite> and <cite>list_and_count</cite> signatures (#108) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/39118b0450c96ba6253b1f34097e81d32bcb8e1b">39118b0</a>)  - Add <cite>str</cite> to <cite>match_fields</cite> type hint (#96) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/ba58db712db057d65e14b79930c39a3778e8c758">ba58db7</a>)  - Add <code class="docutils literal notranslate"><span class="pre">orm_registry</span></code> to <code class="docutils literal notranslate"><span class="pre">__all__</span></code> (#99) (Jacob Coffee)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/5ade9841cd3c13647f72aff3e436c134b7f5d54b">5ade984</a>)  - Correct <cite>count</cite> and <cite>list_and_count</cite> signatures (#108) (Cody Fincher)</p></li>
 </ul>
 </section>
 <section id="id43">
 <h3>Documentation<a class="headerlink" href="#id43" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/f7465d227a10242b1ec7fbe6a549ef6b08c8657d">f7465d2</a>)  - Update changelog (Jacob Coffee)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/f7465d227a10242b1ec7fbe6a549ef6b08c8657d">f7465d2</a>)  - Update changelog (Jacob Coffee)</p></li>
 </ul>
 </section>
 <section id="id44">
 <h3>Features<a class="headerlink" href="#id44" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/cf8a9e43d97354abfd3c91ddd5d5451a914a0116">cf8a9e4</a>)  - Mock repository (#100) (Matthieu MN)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/23dc65d8dea19f7f0904a15a6bb9eae9a6548c95">23dc65d</a>)  - Make <cite>touch_updated_timestamp</cite> optional (#98) (Cody Fincher)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/7cb4f8eabf74dd72ec4ad3e87ce92424a022c26a">7cb4f8e</a>)  - SQLAlchemy encrypted field (#47) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/cf8a9e43d97354abfd3c91ddd5d5451a914a0116">cf8a9e4</a>)  - Mock repository (#100) (Matthieu MN)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/23dc65d8dea19f7f0904a15a6bb9eae9a6548c95">23dc65d</a>)  - Make <cite>touch_updated_timestamp</cite> optional (#98) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/7cb4f8eabf74dd72ec4ad3e87ce92424a022c26a">7cb4f8e</a>)  - SQLAlchemy encrypted field (#47) (Cody Fincher)</p></li>
 </ul>
 </section>
 <section id="id45">
 <h3>Miscellaneous Tasks<a class="headerlink" href="#id45" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/2aa4cca083d16c5e0f62b0d19beb1aec3209a8d7">2aa4cca</a>)  - Bump version to <cite>v0.6.0</cite> (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/2aa4cca083d16c5e0f62b0d19beb1aec3209a8d7">2aa4cca</a>)  - Bump version to <cite>v0.6.0</cite> (Cody Fincher)</p></li>
 </ul>
 </section>
 <section id="id47">
 <h3>Refactor<a class="headerlink" href="#id47" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/9b0cb60e3f594fef9952bef12ce865845021dc72">9b0cb60</a>)  - Use internal utilities for scope state storage. (#104) (Peter Schutt)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/9b0cb60e3f594fef9952bef12ce865845021dc72">9b0cb60</a>)  - Use internal utilities for scope state storage. (#104) (Peter Schutt)</p></li>
 </ul>
 </section>
 </section>
 <section id="id48">
-<h2><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/releases/tag/v0.5.5">Release [v0.5.5] - 2023-11-09</a><a class="headerlink" href="#id48" title="Permalink to this heading">¶</a></h2>
+<h2><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/releases/tag/v0.5.5">Release [v0.5.5] - 2023-11-09</a><a class="headerlink" href="#id48" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commits/v0.5.5">See All commits in v0.5.5</a></p></li>
+<li><p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commits/v0.5.5">See All commits in v0.5.5</a></p></li>
 </ul>
-<p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/7a91a8bce3cb606f69dd1a13a139388bd35a32cc">7a91a8b</a> … <a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/f41c4121824907f3cf2a81080bd388a62ecd7181">f41c412</a> | <a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/compare/7a91a8bce3cb606f69dd1a13a139388bd35a32cc...f41c4121824907f3cf2a81080bd388a62ecd7181">See diff for 0.5.5</a></p>
+<p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/7a91a8bce3cb606f69dd1a13a139388bd35a32cc">7a91a8b</a> … <a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/f41c4121824907f3cf2a81080bd388a62ecd7181">f41c412</a> | <a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/compare/7a91a8bce3cb606f69dd1a13a139388bd35a32cc...f41c4121824907f3cf2a81080bd388a62ecd7181">See diff for 0.5.5</a></p>
 <section id="id50">
 <h3>Bug Fixes<a class="headerlink" href="#id50" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/a255c03d54b9d289835e2263874612f1ced2627a">a255c03</a>)  - Adds the <cite>python_type</cite> property.   (#95) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/a255c03d54b9d289835e2263874612f1ced2627a">a255c03</a>)  - Adds the <cite>python_type</cite> property.   (#95) (Cody Fincher)</p></li>
 </ul>
 </section>
 <section id="id51">
 <h3>Miscellaneous Tasks<a class="headerlink" href="#id51" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/f41c4121824907f3cf2a81080bd388a62ecd7181">f41c412</a>)  - Bump version to <cite>v0.5.5</cite> (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/f41c4121824907f3cf2a81080bd388a62ecd7181">f41c412</a>)  - Bump version to <cite>v0.5.5</cite> (Cody Fincher)</p></li>
 </ul>
 </section>
 <section id="testing">
 <h3>Testing<a class="headerlink" href="#testing" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/f6d433047bd6c391921214ab6ca378f51c4feb35">f6d4330</a>)  - Support for the Microsoft SQL Server database via the aioodbc driver. (#94) (Alc-Alc), Co-authored-by:Alc-Alc &lt;alc&#64;localhost&gt;</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/f6d433047bd6c391921214ab6ca378f51c4feb35">f6d4330</a>)  - Support for the Microsoft SQL Server database via the aioodbc driver. (#94) (Alc-Alc), Co-authored-by:Alc-Alc &lt;alc&#64;localhost&gt;</p></li>
 </ul>
 </section>
 </section>
 <section id="id53">
-<h2><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/releases/tag/v0.5.4">Release [v0.5.4] - 2023-11-04</a><a class="headerlink" href="#id53" title="Permalink to this heading">¶</a></h2>
+<h2><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/releases/tag/v0.5.4">Release [v0.5.4] - 2023-11-04</a><a class="headerlink" href="#id53" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commits/v0.5.4">See All commits in v0.5.4</a></p></li>
+<li><p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commits/v0.5.4">See All commits in v0.5.4</a></p></li>
 </ul>
-<p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/15a7d763e0fcd768303886de148f77cd8b15a1a7">15a7d76</a> … <a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/7a91a8bce3cb606f69dd1a13a139388bd35a32cc">7a91a8b</a> | <a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/compare/15a7d763e0fcd768303886de148f77cd8b15a1a7...7a91a8bce3cb606f69dd1a13a139388bd35a32cc">See diff for 0.5.4</a></p>
+<p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/15a7d763e0fcd768303886de148f77cd8b15a1a7">15a7d76</a> … <a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/7a91a8bce3cb606f69dd1a13a139388bd35a32cc">7a91a8b</a> | <a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/compare/15a7d763e0fcd768303886de148f77cd8b15a1a7...7a91a8bce3cb606f69dd1a13a139388bd35a32cc">See diff for 0.5.4</a></p>
 <section id="id55">
 <h3>Bug Fixes<a class="headerlink" href="#id55" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/f9dea95a97b5cc69c1c490085cec30177636f79d">f9dea95</a>)  - Update broken links in <code class="docutils literal notranslate"><span class="pre">README.md</span></code> (#88) (Igor)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/7a7d75563921be1dde1530a739855e3612addd72">7a7d755</a>)  - Change <cite>upsert_many</cite> behavior (#90) (Cody Fincher), Co-authored-by:Janek Nouvertné &lt;provinzkraut&#64;posteo.de&gt;, Co-authored-by:sourcery-ai[bot] &lt;58596630+sourcery-ai[bot]&#64;users.noreply.github.com&gt;</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/f9dea95a97b5cc69c1c490085cec30177636f79d">f9dea95</a>)  - Update broken links in <code class="docutils literal notranslate"><span class="pre">README.md</span></code> (#88) (Igor)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/7a7d75563921be1dde1530a739855e3612addd72">7a7d755</a>)  - Change <cite>upsert_many</cite> behavior (#90) (Cody Fincher), Co-authored-by:Janek Nouvertné &lt;provinzkraut&#64;posteo.de&gt;, Co-authored-by:sourcery-ai[bot] &lt;58596630+sourcery-ai[bot]&#64;users.noreply.github.com&gt;</p></li>
 </ul>
 </section>
 <section id="id56">
 <h3>Documentation<a class="headerlink" href="#id56" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/c53b2eacd031f0e929e96e07de2fb30982b1c931">c53b2ea</a>)  - Fix typo in README.md (#89) (Michiel W. Beijen)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/c53b2eacd031f0e929e96e07de2fb30982b1c931">c53b2ea</a>)  - Fix typo in README.md (#89) (Michiel W. Beijen)</p></li>
 </ul>
 </section>
 <section id="id57">
 <h3>Features<a class="headerlink" href="#id57" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/5b192ad89974bd0757eb276fefb4c5f6d43d02e4">5b192ad</a>)  - Updates typing to handle scoped sessions (#87) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/5b192ad89974bd0757eb276fefb4c5f6d43d02e4">5b192ad</a>)  - Updates typing to handle scoped sessions (#87) (Cody Fincher)</p></li>
 </ul>
 </section>
 <section id="id58">
 <h3>Miscellaneous Tasks<a class="headerlink" href="#id58" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/7a91a8bce3cb606f69dd1a13a139388bd35a32cc">7a91a8b</a>)  - Bump version to <cite>v0.5.4</cite> (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/7a91a8bce3cb606f69dd1a13a139388bd35a32cc">7a91a8b</a>)  - Bump version to <cite>v0.5.4</cite> (Cody Fincher)</p></li>
 </ul>
 </section>
 </section>
 <section id="id60">
-<h2><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/releases/tag/v0.5.3">Release [v0.5.3] - 2023-10-31</a><a class="headerlink" href="#id60" title="Permalink to this heading">¶</a></h2>
+<h2><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/releases/tag/v0.5.3">Release [v0.5.3] - 2023-10-31</a><a class="headerlink" href="#id60" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commits/v0.5.3">See All commits in v0.5.3</a></p></li>
+<li><p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commits/v0.5.3">See All commits in v0.5.3</a></p></li>
 </ul>
-<p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/103f9bf5d4ed77dc3b15a0814f1a2b6d37a34ad9">103f9bf</a> … <a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/15a7d763e0fcd768303886de148f77cd8b15a1a7">15a7d76</a> | <a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/compare/103f9bf5d4ed77dc3b15a0814f1a2b6d37a34ad9...15a7d763e0fcd768303886de148f77cd8b15a1a7">See diff for 0.5.3</a></p>
+<p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/103f9bf5d4ed77dc3b15a0814f1a2b6d37a34ad9">103f9bf</a> … <a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/15a7d763e0fcd768303886de148f77cd8b15a1a7">15a7d76</a> | <a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/compare/103f9bf5d4ed77dc3b15a0814f1a2b6d37a34ad9...15a7d763e0fcd768303886de148f77cd8b15a1a7">See diff for 0.5.3</a></p>
 <section id="id62">
 <h3>Features<a class="headerlink" href="#id62" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/15a7d763e0fcd768303886de148f77cd8b15a1a7">15a7d76</a>)  - Enable <cite>flask</cite> support (#86) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/15a7d763e0fcd768303886de148f77cd8b15a1a7">15a7d76</a>)  - Enable <cite>flask</cite> support (#86) (Cody Fincher)</p></li>
 </ul>
 </section>
 </section>
 <section id="id64">
-<h2><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/releases/tag/v0.5.2">Release [v0.5.2] - 2023-10-31</a><a class="headerlink" href="#id64" title="Permalink to this heading">¶</a></h2>
+<h2><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/releases/tag/v0.5.2">Release [v0.5.2] - 2023-10-31</a><a class="headerlink" href="#id64" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commits/v0.5.2">See All commits in v0.5.2</a></p></li>
+<li><p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commits/v0.5.2">See All commits in v0.5.2</a></p></li>
 </ul>
-<p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/da035409f6348deb741ff94d1d38f862250cc775">da03540</a> … <a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/103f9bf5d4ed77dc3b15a0814f1a2b6d37a34ad9">103f9bf</a> | <a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/compare/da035409f6348deb741ff94d1d38f862250cc775...103f9bf5d4ed77dc3b15a0814f1a2b6d37a34ad9">See diff for 0.5.2</a></p>
+<p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/da035409f6348deb741ff94d1d38f862250cc775">da03540</a> … <a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/103f9bf5d4ed77dc3b15a0814f1a2b6d37a34ad9">103f9bf</a> | <a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/compare/da035409f6348deb741ff94d1d38f862250cc775...103f9bf5d4ed77dc3b15a0814f1a2b6d37a34ad9">See diff for 0.5.2</a></p>
 <section id="id66">
 <h3>Bug Fixes<a class="headerlink" href="#id66" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/82251f91438ec0291d52dc2f472390f69c57600a">82251f9</a>)  - Adds <cite>greenlet</cite> as a dependencies for Mac OS (#84) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/82251f91438ec0291d52dc2f472390f69c57600a">82251f9</a>)  - Adds <cite>greenlet</cite> as a dependencies for Mac OS (#84) (Cody Fincher)</p></li>
 </ul>
 </section>
 <section id="id67">
 <h3>Features<a class="headerlink" href="#id67" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/fc8f2b809c9df0048f5a45311081929a587489fc">fc8f2b8</a>)  - Re-export modules to make importing easier (#81) (Cody Fincher)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/1800fe7700a6f462981e134b4ecca2f239756b2f">1800fe7</a>)  - Adds a <cite>get_session</cite> context manager to the config (#83) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/fc8f2b809c9df0048f5a45311081929a587489fc">fc8f2b8</a>)  - Re-export modules to make importing easier (#81) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/1800fe7700a6f462981e134b4ecca2f239756b2f">1800fe7</a>)  - Adds a <cite>get_session</cite> context manager to the config (#83) (Cody Fincher)</p></li>
 </ul>
 </section>
 <section id="id68">
 <h3>Miscellaneous Tasks<a class="headerlink" href="#id68" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/103f9bf5d4ed77dc3b15a0814f1a2b6d37a34ad9">103f9bf</a>)  - Bump version to <cite>v0.5.2</cite> (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/103f9bf5d4ed77dc3b15a0814f1a2b6d37a34ad9">103f9bf</a>)  - Bump version to <cite>v0.5.2</cite> (Cody Fincher)</p></li>
 </ul>
 </section>
 </section>
 <section id="id70">
-<h2><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/releases/tag/v0.5.1">Release [v0.5.1] - 2023-10-28</a><a class="headerlink" href="#id70" title="Permalink to this heading">¶</a></h2>
+<h2><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/releases/tag/v0.5.1">Release [v0.5.1] - 2023-10-28</a><a class="headerlink" href="#id70" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commits/v0.5.1">See All commits in v0.5.1</a></p></li>
+<li><p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commits/v0.5.1">See All commits in v0.5.1</a></p></li>
 </ul>
-<p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/4caadbfc2aa3cf59e9036d6b927aabf2b2e99e26">4caadbf</a> … <a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/da035409f6348deb741ff94d1d38f862250cc775">da03540</a> | <a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/compare/4caadbfc2aa3cf59e9036d6b927aabf2b2e99e26...da035409f6348deb741ff94d1d38f862250cc775">See diff for 0.5.1</a></p>
+<p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/4caadbfc2aa3cf59e9036d6b927aabf2b2e99e26">4caadbf</a> … <a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/da035409f6348deb741ff94d1d38f862250cc775">da03540</a> | <a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/compare/4caadbfc2aa3cf59e9036d6b927aabf2b2e99e26...da035409f6348deb741ff94d1d38f862250cc775">See diff for 0.5.1</a></p>
 <section id="id72">
 <h3>Features<a class="headerlink" href="#id72" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/fd5c20febf40d8e181b70331727f931b7e1f9a38">fd5c20f</a>)  - Add <cite>simple_asdict</cite> and use the ASGI lifecycle to manage state on restart (#80) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/fd5c20febf40d8e181b70331727f931b7e1f9a38">fd5c20f</a>)  - Add <cite>simple_asdict</cite> and use the ASGI lifecycle to manage state on restart (#80) (Cody Fincher)</p></li>
 </ul>
 </section>
 <section id="id73">
 <h3>Miscellaneous Tasks<a class="headerlink" href="#id73" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/da035409f6348deb741ff94d1d38f862250cc775">da03540</a>)  - Bump version to <cite>v0.5.1</cite> (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/da035409f6348deb741ff94d1d38f862250cc775">da03540</a>)  - Bump version to <cite>v0.5.1</cite> (Cody Fincher)</p></li>
 </ul>
 </section>
 </section>
 <section id="id75">
-<h2><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/releases/tag/v0.5.0">Release [v0.5.0] - 2023-10-27</a><a class="headerlink" href="#id75" title="Permalink to this heading">¶</a></h2>
+<h2><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/releases/tag/v0.5.0">Release [v0.5.0] - 2023-10-27</a><a class="headerlink" href="#id75" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commits/v0.5.0">See All commits in v0.5.0</a></p></li>
+<li><p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commits/v0.5.0">See All commits in v0.5.0</a></p></li>
 </ul>
-<p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/090725a9a8e9a598d52b370766ff30aca073b022">090725a</a> … <a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/4caadbfc2aa3cf59e9036d6b927aabf2b2e99e26">4caadbf</a> | <a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/compare/090725a9a8e9a598d52b370766ff30aca073b022...4caadbfc2aa3cf59e9036d6b927aabf2b2e99e26">See diff for 0.5.0</a></p>
+<p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/090725a9a8e9a598d52b370766ff30aca073b022">090725a</a> … <a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/4caadbfc2aa3cf59e9036d6b927aabf2b2e99e26">4caadbf</a> | <a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/compare/090725a9a8e9a598d52b370766ff30aca073b022...4caadbfc2aa3cf59e9036d6b927aabf2b2e99e26">See diff for 0.5.0</a></p>
 <section id="id77">
 <h3>Bug Fixes<a class="headerlink" href="#id77" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/c17c83ee3d34bde803049bfb7d3dc1af28429b31">c17c83e</a>)  - Sqlalchemy dto for models non <cite>Column</cite> fields (#75) (Abdulhaq Emhemmed)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/d5ca3f826cda539135cf159d7b19e233ea17d7ba">d5ca3f8</a>)  - Reference column names from <cite>Mapper</cite> object in <cite>model_from_dict</cite> (#78) (cemrehancavdar), Co-authored-by:ysnbyzli &lt;yasinbeyazli29&#64;gmail.com&gt;</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/c17c83ee3d34bde803049bfb7d3dc1af28429b31">c17c83e</a>)  - Sqlalchemy dto for models non <cite>Column</cite> fields (#75) (Abdulhaq Emhemmed)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/d5ca3f826cda539135cf159d7b19e233ea17d7ba">d5ca3f8</a>)  - Reference column names from <cite>Mapper</cite> object in <cite>model_from_dict</cite> (#78) (cemrehancavdar), Co-authored-by:ysnbyzli &lt;yasinbeyazli29&#64;gmail.com&gt;</p></li>
 </ul>
 </section>
 <section id="id78">
 <h3>Documentation<a class="headerlink" href="#id78" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/bc51751897ff6ca56e2a21ddc9897248cc6e62ef">bc51751</a>)  - Add odbc note to contributing guide (#76) (Abdulhaq Emhemmed)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/bc51751897ff6ca56e2a21ddc9897248cc6e62ef">bc51751</a>)  - Add odbc note to contributing guide (#76) (Abdulhaq Emhemmed)</p></li>
 </ul>
 </section>
 <section id="id79">
 <h3>Features<a class="headerlink" href="#id79" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/1e50d412d9d1345cf87175ebb185aac2dd0cb187">1e50d41</a>)  - Add <cite>get_and_update</cite> to the repository and services (#77) (Cody Fincher), Co-authored-by:Peter Schutt &lt;peter.github&#64;proton.me&gt;</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/6b27fab33fec3be48f78e01e32974ee9176cd127">6b27fab</a>)  - <cite>upsert</cite> and <cite>upsert_many</cite> now support <cite>match_fields</cite> (#79) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/1e50d412d9d1345cf87175ebb185aac2dd0cb187">1e50d41</a>)  - Add <cite>get_and_update</cite> to the repository and services (#77) (Cody Fincher), Co-authored-by:Peter Schutt &lt;peter.github&#64;proton.me&gt;</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/6b27fab33fec3be48f78e01e32974ee9176cd127">6b27fab</a>)  - <cite>upsert</cite> and <cite>upsert_many</cite> now support <cite>match_fields</cite> (#79) (Cody Fincher)</p></li>
 </ul>
 </section>
 <section id="id80">
 <h3>Miscellaneous Tasks<a class="headerlink" href="#id80" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/4caadbfc2aa3cf59e9036d6b927aabf2b2e99e26">4caadbf</a>)  - Bump version to <cite>v0.5.0</cite> (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/4caadbfc2aa3cf59e9036d6b927aabf2b2e99e26">4caadbf</a>)  - Bump version to <cite>v0.5.0</cite> (Cody Fincher)</p></li>
 </ul>
 </section>
 </section>
 <section id="id82">
-<h2><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/releases/tag/v0.4.0">Release [v0.4.0] - 2023-10-24</a><a class="headerlink" href="#id82" title="Permalink to this heading">¶</a></h2>
+<h2><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/releases/tag/v0.4.0">Release [v0.4.0] - 2023-10-24</a><a class="headerlink" href="#id82" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commits/v0.4.0">See All commits in v0.4.0</a></p></li>
+<li><p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commits/v0.4.0">See All commits in v0.4.0</a></p></li>
 </ul>
-<p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/cef874556d9e35c3f8a9f30f19096c1dc6ee580a">cef8745</a> … <a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/090725a9a8e9a598d52b370766ff30aca073b022">090725a</a> | <a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/compare/cef874556d9e35c3f8a9f30f19096c1dc6ee580a...090725a9a8e9a598d52b370766ff30aca073b022">See diff for 0.4.0</a></p>
+<p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/cef874556d9e35c3f8a9f30f19096c1dc6ee580a">cef8745</a> … <a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/090725a9a8e9a598d52b370766ff30aca073b022">090725a</a> | <a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/compare/cef874556d9e35c3f8a9f30f19096c1dc6ee580a...090725a9a8e9a598d52b370766ff30aca073b022">See diff for 0.4.0</a></p>
 <section id="id84">
 <h3>Bug Fixes<a class="headerlink" href="#id84" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/f74cad4c371b27ed6e93bc08b9ccbf7261b5ba62">f74cad4</a>)  - Revert eager merge (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/f74cad4c371b27ed6e93bc08b9ccbf7261b5ba62">f74cad4</a>)  - Revert eager merge (Cody Fincher)</p></li>
 </ul>
 </section>
 <section id="id85">
 <h3>Features<a class="headerlink" href="#id85" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/296ae02d0607aa842612e4b57a9d2041ff289787">296ae02</a>)  - Verify the service has an identity before updating. (Cody Fincher)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/3a2ced45efa99a56830accd23ebb0196f823dd5c">3a2ced4</a>)  - Verify the service has an identity before updating. (#71) (Cody Fincher), Co-authored-by:Peter Schutt &lt;peter.github&#64;proton.me&gt;</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/54d6a6319b5ee8f9327b6b774e7e0e504b282fd5">54d6a63</a>)  - Add <cite>create_all</cite> configuration parameter for Litestar (#70) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/296ae02d0607aa842612e4b57a9d2041ff289787">296ae02</a>)  - Verify the service has an identity before updating. (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/3a2ced45efa99a56830accd23ebb0196f823dd5c">3a2ced4</a>)  - Verify the service has an identity before updating. (#71) (Cody Fincher), Co-authored-by:Peter Schutt &lt;peter.github&#64;proton.me&gt;</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/54d6a6319b5ee8f9327b6b774e7e0e504b282fd5">54d6a63</a>)  - Add <cite>create_all</cite> configuration parameter for Litestar (#70) (Cody Fincher)</p></li>
 </ul>
 </section>
 <section id="id86">
 <h3>Miscellaneous Tasks<a class="headerlink" href="#id86" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/090725a9a8e9a598d52b370766ff30aca073b022">090725a</a>)  - Bump version to <cite>v0.4.0</cite> (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/090725a9a8e9a598d52b370766ff30aca073b022">090725a</a>)  - Bump version to <cite>v0.4.0</cite> (Cody Fincher)</p></li>
 </ul>
 </section>
 </section>
 <section id="id88">
-<h2><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/releases/tag/v0.3.5">Release [v0.3.5] - 2023-10-23</a><a class="headerlink" href="#id88" title="Permalink to this heading">¶</a></h2>
+<h2><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/releases/tag/v0.3.5">Release [v0.3.5] - 2023-10-23</a><a class="headerlink" href="#id88" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commits/v0.3.5">See All commits in v0.3.5</a></p></li>
+<li><p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commits/v0.3.5">See All commits in v0.3.5</a></p></li>
 </ul>
-<p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/f40e497feb098ace05bfbc87a332b7dd4597f97d">f40e497</a> … <a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/cef874556d9e35c3f8a9f30f19096c1dc6ee580a">cef8745</a> | <a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/compare/f40e497feb098ace05bfbc87a332b7dd4597f97d...cef874556d9e35c3f8a9f30f19096c1dc6ee580a">See diff for 0.3.5</a></p>
+<p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/f40e497feb098ace05bfbc87a332b7dd4597f97d">f40e497</a> … <a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/cef874556d9e35c3f8a9f30f19096c1dc6ee580a">cef8745</a> | <a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/compare/f40e497feb098ace05bfbc87a332b7dd4597f97d...cef874556d9e35c3f8a9f30f19096c1dc6ee580a">See diff for 0.3.5</a></p>
 <section id="id90">
 <h3>Bug Fixes<a class="headerlink" href="#id90" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/9d902102f21f10ea07ef640e3a42b96e98b69b7a">9d90210</a>)  - Service <cite>exists</cite> should use <cite>exists</cite> from repository (#68) (Cody Fincher)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/78b7529b7f4be1d50f03f1ef1b31e28471c0a19c">78b7529</a>)  - Do not set <cite>id</cite> with <cite>item_id</cite> when <cite>None</cite> (#67) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/9d902102f21f10ea07ef640e3a42b96e98b69b7a">9d90210</a>)  - Service <cite>exists</cite> should use <cite>exists</cite> from repository (#68) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/78b7529b7f4be1d50f03f1ef1b31e28471c0a19c">78b7529</a>)  - Do not set <cite>id</cite> with <cite>item_id</cite> when <cite>None</cite> (#67) (Cody Fincher)</p></li>
 </ul>
 </section>
 <section id="id91">
 <h3>Features<a class="headerlink" href="#id91" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/5521ac15bf39ef7c69abfb092b87f1af886f1248">5521ac1</a>)  - Deprecate <cite>get_or_create</cite> in favor of <cite>get_or_upsert</cite> (#69) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/5521ac15bf39ef7c69abfb092b87f1af886f1248">5521ac1</a>)  - Deprecate <cite>get_or_create</cite> in favor of <cite>get_or_upsert</cite> (#69) (Cody Fincher)</p></li>
 </ul>
 </section>
 <section id="id92">
 <h3>Miscellaneous Tasks<a class="headerlink" href="#id92" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/cef874556d9e35c3f8a9f30f19096c1dc6ee580a">cef8745</a>)  - Bump version to <cite>v0.3.5</cite> (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/cef874556d9e35c3f8a9f30f19096c1dc6ee580a">cef8745</a>)  - Bump version to <cite>v0.3.5</cite> (Cody Fincher)</p></li>
 </ul>
 </section>
 </section>
 <section id="id94">
-<h2><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/releases/tag/v0.3.4">Release [v0.3.4] - 2023-10-19</a><a class="headerlink" href="#id94" title="Permalink to this heading">¶</a></h2>
+<h2><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/releases/tag/v0.3.4">Release [v0.3.4] - 2023-10-19</a><a class="headerlink" href="#id94" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commits/v0.3.4">See All commits in v0.3.4</a></p></li>
+<li><p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commits/v0.3.4">See All commits in v0.3.4</a></p></li>
 </ul>
-<p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/5f91dab4e0ce2462034e155782dc4a548016a010">5f91dab</a> … <a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/f40e497feb098ace05bfbc87a332b7dd4597f97d">f40e497</a> | <a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/compare/5f91dab4e0ce2462034e155782dc4a548016a010...f40e497feb098ace05bfbc87a332b7dd4597f97d">See diff for 0.3.4</a></p>
+<p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/5f91dab4e0ce2462034e155782dc4a548016a010">5f91dab</a> … <a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/f40e497feb098ace05bfbc87a332b7dd4597f97d">f40e497</a> | <a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/compare/5f91dab4e0ce2462034e155782dc4a548016a010...f40e497feb098ace05bfbc87a332b7dd4597f97d">See diff for 0.3.4</a></p>
 <section id="id96">
 <h3>Bug Fixes<a class="headerlink" href="#id96" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/70a4233c9301adefbf1836e0a08f526f30280bb0">70a4233</a>)  - Handle empty lists and <cite>None</cite> collection filters (#62) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/70a4233c9301adefbf1836e0a08f526f30280bb0">70a4233</a>)  - Handle empty lists and <cite>None</cite> collection filters (#62) (Cody Fincher)</p></li>
 </ul>
 </section>
 <section id="id97">
 <h3>Miscellaneous Tasks<a class="headerlink" href="#id97" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/7240627475b7d1aee33ecab08ad178aaf28450f7">7240627</a>)  - Remove commented line from code example (#63) (Cody Fincher)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/e6b940f31e9ad90a5a331af6f10811edc9f609b3">e6b940f</a>)  - Optimized test build &amp; coverage collection (#61) (Cody Fincher)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/f40e497feb098ace05bfbc87a332b7dd4597f97d">f40e497</a>)  - Bump version to <cite>v0.3.4</cite> (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/7240627475b7d1aee33ecab08ad178aaf28450f7">7240627</a>)  - Remove commented line from code example (#63) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/e6b940f31e9ad90a5a331af6f10811edc9f609b3">e6b940f</a>)  - Optimized test build &amp; coverage collection (#61) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/f40e497feb098ace05bfbc87a332b7dd4597f97d">f40e497</a>)  - Bump version to <cite>v0.3.4</cite> (Cody Fincher)</p></li>
 </ul>
 </section>
 </section>
 <section id="id100">
-<h2><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/releases/tag/v0.3.3">Release [v0.3.3] - 2023-10-18</a><a class="headerlink" href="#id100" title="Permalink to this heading">¶</a></h2>
+<h2><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/releases/tag/v0.3.3">Release [v0.3.3] - 2023-10-18</a><a class="headerlink" href="#id100" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commits/v0.3.3">See All commits in v0.3.3</a></p></li>
+<li><p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commits/v0.3.3">See All commits in v0.3.3</a></p></li>
 </ul>
-<p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/65d8876614dae76fa0fb1f86bf3ca1d9a222edc3">65d8876</a> … <a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/5f91dab4e0ce2462034e155782dc4a548016a010">5f91dab</a> | <a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/compare/65d8876614dae76fa0fb1f86bf3ca1d9a222edc3...5f91dab4e0ce2462034e155782dc4a548016a010">See diff for 0.3.3</a></p>
+<p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/65d8876614dae76fa0fb1f86bf3ca1d9a222edc3">65d8876</a> … <a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/5f91dab4e0ce2462034e155782dc4a548016a010">5f91dab</a> | <a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/compare/65d8876614dae76fa0fb1f86bf3ca1d9a222edc3...5f91dab4e0ce2462034e155782dc4a548016a010">See diff for 0.3.3</a></p>
 <section id="id102">
 <h3>Features<a class="headerlink" href="#id102" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/9d8cf62d47c0fb8961700424660276b616e7d16d">9d8cf62</a>)  - Prefer <cite>ANY</cite> over <cite>IN</cite> for <cite>postgres</cite> (#60) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/9d8cf62d47c0fb8961700424660276b616e7d16d">9d8cf62</a>)  - Prefer <cite>ANY</cite> over <cite>IN</cite> for <cite>postgres</cite> (#60) (Cody Fincher)</p></li>
 </ul>
 </section>
 <section id="id103">
 <h3>Miscellaneous Tasks<a class="headerlink" href="#id103" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/454e38252901bd55f4185afd59d9036556c6cefb">454e382</a>)  - Include a services example in the README (#56) (Cody Fincher)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/9262cc99893014568490134144fc25919925ec35">9262cc9</a>)  - Fix examples in README.md (#58) (Stefane Fermigier)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/48265257ccd810960f51b4ad5bd83e14d4abd469">4826525</a>)  - Add sonarcloud to CI (#57) (Cody Fincher)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/5f91dab4e0ce2462034e155782dc4a548016a010">5f91dab</a>)  - Bump version to <cite>v0.3.3</cite> (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/454e38252901bd55f4185afd59d9036556c6cefb">454e382</a>)  - Include a services example in the README (#56) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/9262cc99893014568490134144fc25919925ec35">9262cc9</a>)  - Fix examples in README.md (#58) (Stefane Fermigier)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/48265257ccd810960f51b4ad5bd83e14d4abd469">4826525</a>)  - Add sonarcloud to CI (#57) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/5f91dab4e0ce2462034e155782dc4a548016a010">5f91dab</a>)  - Bump version to <cite>v0.3.3</cite> (Cody Fincher)</p></li>
 </ul>
 </section>
 </section>
 <section id="id106">
-<h2><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/releases/tag/v0.3.2">Release [v0.3.2] - 2023-10-15</a><a class="headerlink" href="#id106" title="Permalink to this heading">¶</a></h2>
+<h2><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/releases/tag/v0.3.2">Release [v0.3.2] - 2023-10-15</a><a class="headerlink" href="#id106" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commits/v0.3.2">See All commits in v0.3.2</a></p></li>
+<li><p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commits/v0.3.2">See All commits in v0.3.2</a></p></li>
 </ul>
-<p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/46d3e7acbc7a391b4bab06fe7e64f3d45826270a">46d3e7a</a> … <a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/65d8876614dae76fa0fb1f86bf3ca1d9a222edc3">65d8876</a> | <a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/compare/46d3e7acbc7a391b4bab06fe7e64f3d45826270a...65d8876614dae76fa0fb1f86bf3ca1d9a222edc3">See diff for 0.3.2</a></p>
+<p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/46d3e7acbc7a391b4bab06fe7e64f3d45826270a">46d3e7a</a> … <a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/65d8876614dae76fa0fb1f86bf3ca1d9a222edc3">65d8876</a> | <a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/compare/46d3e7acbc7a391b4bab06fe7e64f3d45826270a...65d8876614dae76fa0fb1f86bf3ca1d9a222edc3">See diff for 0.3.2</a></p>
 <section id="id108">
 <h3>Bug Fixes<a class="headerlink" href="#id108" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/67ca4ab7ff550e1bc80ebdf1f6ed7c69db958ac0">67ca4ab</a>)  - CollectionFilter returns all entries if values is empty (#52) (Cody Fincher)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/c93f17e5907e9b35d2ca60a8277725866d28a888">c93f17e</a>)  - Correct assertion for test case (#55) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/67ca4ab7ff550e1bc80ebdf1f6ed7c69db958ac0">67ca4ab</a>)  - CollectionFilter returns all entries if values is empty (#52) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/c93f17e5907e9b35d2ca60a8277725866d28a888">c93f17e</a>)  - Correct assertion for test case (#55) (Cody Fincher)</p></li>
 </ul>
 </section>
 <section id="id109">
 <h3>Features<a class="headerlink" href="#id109" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/0dcce8e4afb22f8658656aa1ec7873e3864b673d">0dcce8e</a>)  - Configurable autocommit handler factory function for Litestar plugin (#50) (geeshta)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/33a6cc627efaa35b204490d829c289e64f2be080">33a6cc6</a>)  - Add support for <cite>cockroachdb</cite> (#48) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/0dcce8e4afb22f8658656aa1ec7873e3864b673d">0dcce8e</a>)  - Configurable autocommit handler factory function for Litestar plugin (#50) (geeshta)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/33a6cc627efaa35b204490d829c289e64f2be080">33a6cc6</a>)  - Add support for <cite>cockroachdb</cite> (#48) (Cody Fincher)</p></li>
 </ul>
 </section>
 <section id="id110">
 <h3>Miscellaneous Tasks<a class="headerlink" href="#id110" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/406d83ace7df21aec1c1f684c1f74c3394ab5b45">406d83a</a>)  - Updated README.md (#53) (Cody Fincher), Co-authored-by:Jacob Coffee &lt;jacob&#64;z7x.org&gt;</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/65d8876614dae76fa0fb1f86bf3ca1d9a222edc3">65d8876</a>)  - Bump version to <cite>v0.3.2</cite> (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/406d83ace7df21aec1c1f684c1f74c3394ab5b45">406d83a</a>)  - Updated README.md (#53) (Cody Fincher), Co-authored-by:Jacob Coffee &lt;jacob&#64;z7x.org&gt;</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/65d8876614dae76fa0fb1f86bf3ca1d9a222edc3">65d8876</a>)  - Bump version to <cite>v0.3.2</cite> (Cody Fincher)</p></li>
 </ul>
 </section>
 </section>
 <section id="id112">
-<h2><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/releases/tag/v0.3.1">Release [v0.3.1] - 2023-10-09</a><a class="headerlink" href="#id112" title="Permalink to this heading">¶</a></h2>
+<h2><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/releases/tag/v0.3.1">Release [v0.3.1] - 2023-10-09</a><a class="headerlink" href="#id112" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commits/v0.3.1">See All commits in v0.3.1</a></p></li>
+<li><p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commits/v0.3.1">See All commits in v0.3.1</a></p></li>
 </ul>
-<p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/029049ddf548c2aad2ef1ca0f81bdca5a2a5d5b1">029049d</a> … <a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/46d3e7acbc7a391b4bab06fe7e64f3d45826270a">46d3e7a</a> | <a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/compare/029049ddf548c2aad2ef1ca0f81bdca5a2a5d5b1...46d3e7acbc7a391b4bab06fe7e64f3d45826270a">See diff for 0.3.1</a></p>
+<p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/029049ddf548c2aad2ef1ca0f81bdca5a2a5d5b1">029049d</a> … <a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/46d3e7acbc7a391b4bab06fe7e64f3d45826270a">46d3e7a</a> | <a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/compare/029049ddf548c2aad2ef1ca0f81bdca5a2a5d5b1...46d3e7acbc7a391b4bab06fe7e64f3d45826270a">See diff for 0.3.1</a></p>
 <section id="id114">
 <h3>Features<a class="headerlink" href="#id114" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/46d3e7acbc7a391b4bab06fe7e64f3d45826270a">46d3e7a</a>)  - Consolidate litestar extension imports (#49) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/46d3e7acbc7a391b4bab06fe7e64f3d45826270a">46d3e7a</a>)  - Consolidate litestar extension imports (#49) (Cody Fincher)</p></li>
 </ul>
 </section>
 </section>
 <section id="id116">
-<h2><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/releases/tag/v0.3.0">Release [v0.3.0] - 2023-10-08</a><a class="headerlink" href="#id116" title="Permalink to this heading">¶</a></h2>
+<h2><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/releases/tag/v0.3.0">Release [v0.3.0] - 2023-10-08</a><a class="headerlink" href="#id116" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commits/v0.3.0">See All commits in v0.3.0</a></p></li>
+<li><p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commits/v0.3.0">See All commits in v0.3.0</a></p></li>
 </ul>
-<p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/e59ee241bc4d29c601b51d2a22de9f667aecdf79">e59ee24</a> … <a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/029049ddf548c2aad2ef1ca0f81bdca5a2a5d5b1">029049d</a> | <a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/compare/e59ee241bc4d29c601b51d2a22de9f667aecdf79...029049ddf548c2aad2ef1ca0f81bdca5a2a5d5b1">See diff for 0.3.0</a></p>
+<p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/e59ee241bc4d29c601b51d2a22de9f667aecdf79">e59ee24</a> … <a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/029049ddf548c2aad2ef1ca0f81bdca5a2a5d5b1">029049d</a> | <a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/compare/e59ee241bc4d29c601b51d2a22de9f667aecdf79...029049ddf548c2aad2ef1ca0f81bdca5a2a5d5b1">See diff for 0.3.0</a></p>
 <section id="id118">
 <h3>Bug Fixes<a class="headerlink" href="#id118" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/a1dd8cac3808d316a250fe742ab5eeed72ebf8a4">a1dd8ca</a>)  - Convert to f-strings (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/a1dd8cac3808d316a250fe742ab5eeed72ebf8a4">a1dd8ca</a>)  - Convert to f-strings (Cody Fincher)</p></li>
 </ul>
 </section>
 <section id="id119">
 <h3>Features<a class="headerlink" href="#id119" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/029049ddf548c2aad2ef1ca0f81bdca5a2a5d5b1">029049d</a>)  - Service layer abstraction (#45) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/029049ddf548c2aad2ef1ca0f81bdca5a2a5d5b1">029049d</a>)  - Service layer abstraction (#45) (Cody Fincher)</p></li>
 </ul>
 </section>
 </section>
 <section id="id121">
-<h2><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/releases/tag/v0.2.2">Release [v0.2.2] - 2023-09-30</a><a class="headerlink" href="#id121" title="Permalink to this heading">¶</a></h2>
+<h2><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/releases/tag/v0.2.2">Release [v0.2.2] - 2023-09-30</a><a class="headerlink" href="#id121" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commits/v0.2.2">See All commits in v0.2.2</a></p></li>
+<li><p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commits/v0.2.2">See All commits in v0.2.2</a></p></li>
 </ul>
-<p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/4fd039e1e0ce5ea10d9cc166a8ef74890ef6ad8d">4fd039e</a> … <a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/e59ee241bc4d29c601b51d2a22de9f667aecdf79">e59ee24</a> | <a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/compare/4fd039e1e0ce5ea10d9cc166a8ef74890ef6ad8d...e59ee241bc4d29c601b51d2a22de9f667aecdf79">See diff for 0.2.2</a></p>
+<p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/4fd039e1e0ce5ea10d9cc166a8ef74890ef6ad8d">4fd039e</a> … <a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/e59ee241bc4d29c601b51d2a22de9f667aecdf79">e59ee24</a> | <a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/compare/4fd039e1e0ce5ea10d9cc166a8ef74890ef6ad8d...e59ee241bc4d29c601b51d2a22de9f667aecdf79">See diff for 0.2.2</a></p>
 <section id="id123">
 <h3>Bug Fixes<a class="headerlink" href="#id123" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/efc4561c3de733e5911948d7bde94ce59b057f3e">efc4561</a>)  - Use <cite>asyncio.run</cite> (#42) (Cody Fincher)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/2295b3ed7ef6b688cbae2958d640e124c2bc4d60">2295b3e</a>)  - Remove extra filter imports (#43) (Cody Fincher)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/e59ee241bc4d29c601b51d2a22de9f667aecdf79">e59ee24</a>)  - Remove extra __all__ methods (#44) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/efc4561c3de733e5911948d7bde94ce59b057f3e">efc4561</a>)  - Use <cite>asyncio.run</cite> (#42) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/2295b3ed7ef6b688cbae2958d640e124c2bc4d60">2295b3e</a>)  - Remove extra filter imports (#43) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/e59ee241bc4d29c601b51d2a22de9f667aecdf79">e59ee24</a>)  - Remove extra __all__ methods (#44) (Cody Fincher)</p></li>
 </ul>
 </section>
 <section id="id125">
 <h3>Miscellaneous Tasks<a class="headerlink" href="#id125" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/8803800ca27379b9b710cd2209e6e26cef4d814c">8803800</a>)  - Sonar exclusions and example updates (#37) (Cody Fincher)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/3126ac61b178666b7bebaa4a8d3e3312bc28dcfd">3126ac6</a>)  - Address code duplication (#38) (Cody Fincher)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/ed3296b54cf755b072a218a4fbd9eea5e830b6be">ed3296b</a>)  - Install all pre-commit hook types by default (#41) (guacs)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/8803800ca27379b9b710cd2209e6e26cef4d814c">8803800</a>)  - Sonar exclusions and example updates (#37) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/3126ac61b178666b7bebaa4a8d3e3312bc28dcfd">3126ac6</a>)  - Address code duplication (#38) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/ed3296b54cf755b072a218a4fbd9eea5e830b6be">ed3296b</a>)  - Install all pre-commit hook types by default (#41) (guacs)</p></li>
 </ul>
 </section>
 <section id="id127">
 <h3>Refactor<a class="headerlink" href="#id127" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/d2410a6827058f1d64b8e17b1eb4488b0525904b">d2410a6</a>)  - Move serialization helpers into one place (#40) (guacs)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/d2410a6827058f1d64b8e17b1eb4488b0525904b">d2410a6</a>)  - Move serialization helpers into one place (#40) (guacs)</p></li>
 </ul>
 </section>
 </section>
 <section id="id128">
-<h2><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/releases/tag/v0.2.1">Release [v0.2.1] - 2023-09-27</a><a class="headerlink" href="#id128" title="Permalink to this heading">¶</a></h2>
+<h2><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/releases/tag/v0.2.1">Release [v0.2.1] - 2023-09-27</a><a class="headerlink" href="#id128" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commits/v0.2.1">See All commits in v0.2.1</a></p></li>
+<li><p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commits/v0.2.1">See All commits in v0.2.1</a></p></li>
 </ul>
-<p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/1250d94e23046cd4f6abb161d87af6b9d34a728a">1250d94</a> … <a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/4fd039e1e0ce5ea10d9cc166a8ef74890ef6ad8d">4fd039e</a> | <a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/compare/1250d94e23046cd4f6abb161d87af6b9d34a728a...4fd039e1e0ce5ea10d9cc166a8ef74890ef6ad8d">See diff for 0.2.1</a></p>
+<p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/1250d94e23046cd4f6abb161d87af6b9d34a728a">1250d94</a> … <a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/4fd039e1e0ce5ea10d9cc166a8ef74890ef6ad8d">4fd039e</a> | <a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/compare/1250d94e23046cd4f6abb161d87af6b9d34a728a...4fd039e1e0ce5ea10d9cc166a8ef74890ef6ad8d">See diff for 0.2.1</a></p>
 <section id="id130">
 <h3>Bug Fixes<a class="headerlink" href="#id130" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/b38c6f5d05e9e2207e2b6b29753d4f590f801891">b38c6f5</a>)  - Correct reference to plugin for litestar (#35) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/b38c6f5d05e9e2207e2b6b29753d4f590f801891">b38c6f5</a>)  - Correct reference to plugin for litestar (#35) (Cody Fincher)</p></li>
 </ul>
 </section>
 <section id="id131">
 <h3>Documentation<a class="headerlink" href="#id131" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/93671c0e09ad02e0f14477ff2877e19c77c0a45e">93671c0</a>)  - Updated readme &amp; Sanic example (#36) (Cody Fincher)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/4fd039e1e0ce5ea10d9cc166a8ef74890ef6ad8d">4fd039e</a>)  - Remove extra import (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/93671c0e09ad02e0f14477ff2877e19c77c0a45e">93671c0</a>)  - Updated readme &amp; Sanic example (#36) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/4fd039e1e0ce5ea10d9cc166a8ef74890ef6ad8d">4fd039e</a>)  - Remove extra import (Cody Fincher)</p></li>
 </ul>
 </section>
 </section>
 <section id="id133">
-<h2><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/releases/tag/v0.2.0">Release [v0.2.0] - 2023-09-20</a><a class="headerlink" href="#id133" title="Permalink to this heading">¶</a></h2>
+<h2><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/releases/tag/v0.2.0">Release [v0.2.0] - 2023-09-20</a><a class="headerlink" href="#id133" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commits/v0.2.0">See All commits in v0.2.0</a></p></li>
+<li><p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commits/v0.2.0">See All commits in v0.2.0</a></p></li>
 </ul>
-<p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/43e188a19cc8c071658b9e76391a09e50d719fa4">43e188a</a> … <a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/1250d94e23046cd4f6abb161d87af6b9d34a728a">1250d94</a> | <a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/compare/43e188a19cc8c071658b9e76391a09e50d719fa4...1250d94e23046cd4f6abb161d87af6b9d34a728a">See diff for 0.2.0</a></p>
+<p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/43e188a19cc8c071658b9e76391a09e50d719fa4">43e188a</a> … <a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/1250d94e23046cd4f6abb161d87af6b9d34a728a">1250d94</a> | <a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/compare/43e188a19cc8c071658b9e76391a09e50d719fa4...1250d94e23046cd4f6abb161d87af6b9d34a728a">See diff for 0.2.0</a></p>
 <section id="id135">
 <h3>Features<a class="headerlink" href="#id135" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/ae0cb759d9fb80bd6ea1be39308905c31f3591f1">ae0cb75</a>)  - Adds a <cite>fastapi</cite> and standalone example (#33) (Cody Fincher)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/1250d94e23046cd4f6abb161d87af6b9d34a728a">1250d94</a>)  - Add <cite>mssql</cite> support (#34) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/ae0cb759d9fb80bd6ea1be39308905c31f3591f1">ae0cb75</a>)  - Adds a <cite>fastapi</cite> and standalone example (#33) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/1250d94e23046cd4f6abb161d87af6b9d34a728a">1250d94</a>)  - Add <cite>mssql</cite> support (#34) (Cody Fincher)</p></li>
 </ul>
 </section>
 </section>
 <section id="id137">
-<h2><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/releases/tag/v0.1.1">Release [v0.1.1] - 2023-09-18</a><a class="headerlink" href="#id137" title="Permalink to this heading">¶</a></h2>
+<h2><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/releases/tag/v0.1.1">Release [v0.1.1] - 2023-09-18</a><a class="headerlink" href="#id137" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commits/v0.1.1">See All commits in v0.1.1</a></p></li>
+<li><p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commits/v0.1.1">See All commits in v0.1.1</a></p></li>
 </ul>
-<p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/0736cd9b738b283bc99ab7e483aa055ada133898">0736cd9</a> … <a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/43e188a19cc8c071658b9e76391a09e50d719fa4">43e188a</a> | <a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/compare/0736cd9b738b283bc99ab7e483aa055ada133898...43e188a19cc8c071658b9e76391a09e50d719fa4">See diff for 0.1.1</a></p>
+<p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/0736cd9b738b283bc99ab7e483aa055ada133898">0736cd9</a> … <a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/43e188a19cc8c071658b9e76391a09e50d719fa4">43e188a</a> | <a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/compare/0736cd9b738b283bc99ab7e483aa055ada133898...43e188a19cc8c071658b9e76391a09e50d719fa4">See diff for 0.1.1</a></p>
 <section id="id139">
 <h3>Bug Fixes<a class="headerlink" href="#id139" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/5239399936d5216d5533232c73b35904aeb71f93">5239399</a>)  - Fix pdm version (Jacob Coffee)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/d909d6ad53a2950d5fecf11477d0ecbbbc0c0df9">d909d6a</a>)  - Fix contributing section spacing (Jacob Coffee)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/1753709f4016b3d348d8558bc2063de1f65e445e">1753709</a>)  - Temporary fix to ensure compat with litestar filters (#32) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/5239399936d5216d5533232c73b35904aeb71f93">5239399</a>)  - Fix pdm version (Jacob Coffee)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/d909d6ad53a2950d5fecf11477d0ecbbbc0c0df9">d909d6a</a>)  - Fix contributing section spacing (Jacob Coffee)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/1753709f4016b3d348d8558bc2063de1f65e445e">1753709</a>)  - Temporary fix to ensure compat with litestar filters (#32) (Cody Fincher)</p></li>
 </ul>
 </section>
 <section id="id142">
 <h3>Documentation<a class="headerlink" href="#id142" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/066c7ba28ce8d028b11285c71fdadbd026b03c4c">066c7ba</a>)  - Add documentation and PR preview documentation (#21) (Jacob Coffee)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/84f1f5316e999be0f8b11c237e633e974af181d3">84f1f53</a>)  - Update changelog (Jacob Coffee)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/135a5d1138302574f64755c7cba6e9856d764b0c">135a5d1</a>)  - Update release guide in CONTRIBUTING.rst (Jacob Coffee)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/aef6b27ebbbccca1006f1a8f1e22f1c71cf1958d">aef6b27</a>)  - Update readme (Jacob Coffee)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/e966fbe696c860d522baf20d2263ea3f5ace6d3a">e966fbe</a>)  - Update changelog (Jacob Coffee)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/f70a0378938ff13f47ec0a53094aac9da130b69b">f70a037</a>)  - Add api docs (#27) (Jacob Coffee), Co-authored-by:Cody Fincher &lt;204685+cofin&#64;users.noreply.github.com&gt;</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/10b3dfddc446039f2f8fb39ab2673cd375fd9844">10b3dfd</a>)  - Adjust theme for light mode users (#31) (Jacob Coffee)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/0d1d900baa2451a06c9dc97f9fce8236d11d2d2d">0d1d900</a>)  - Fix typo in CONTRIBUTING.rst (Jacob Coffee)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/e6b5159f45505ab38cfabaebe966364ff4e0f9e9">e6b5159</a>)  - Adjust styling for <code class="docutils literal notranslate"><span class="pre">yue-c-code</span></code> (Jacob Coffee)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/066c7ba28ce8d028b11285c71fdadbd026b03c4c">066c7ba</a>)  - Add documentation and PR preview documentation (#21) (Jacob Coffee)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/84f1f5316e999be0f8b11c237e633e974af181d3">84f1f53</a>)  - Update changelog (Jacob Coffee)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/135a5d1138302574f64755c7cba6e9856d764b0c">135a5d1</a>)  - Update release guide in CONTRIBUTING.rst (Jacob Coffee)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/aef6b27ebbbccca1006f1a8f1e22f1c71cf1958d">aef6b27</a>)  - Update readme (Jacob Coffee)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/e966fbe696c860d522baf20d2263ea3f5ace6d3a">e966fbe</a>)  - Update changelog (Jacob Coffee)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/f70a0378938ff13f47ec0a53094aac9da130b69b">f70a037</a>)  - Add api docs (#27) (Jacob Coffee), Co-authored-by:Cody Fincher &lt;204685+cofin&#64;users.noreply.github.com&gt;</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/10b3dfddc446039f2f8fb39ab2673cd375fd9844">10b3dfd</a>)  - Adjust theme for light mode users (#31) (Jacob Coffee)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/0d1d900baa2451a06c9dc97f9fce8236d11d2d2d">0d1d900</a>)  - Fix typo in CONTRIBUTING.rst (Jacob Coffee)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/e6b5159f45505ab38cfabaebe966364ff4e0f9e9">e6b5159</a>)  - Adjust styling for <code class="docutils literal notranslate"><span class="pre">yue-c-code</span></code> (Jacob Coffee)</p></li>
 </ul>
 </section>
 <section id="id143">
 <h3>Miscellaneous Tasks<a class="headerlink" href="#id143" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/c409e7895384faaae9f32689ebae0c4d20e91fc2">c409e78</a>)  - Adjust tab hover color (Jacob Coffee)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/a520293971ba57d4a627105b0e27f2616cd612e7">a520293</a>)  - Add pypi project links (Jacob Coffee)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/43e188a19cc8c071658b9e76391a09e50d719fa4">43e188a</a>)  - Bump version (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/c409e7895384faaae9f32689ebae0c4d20e91fc2">c409e78</a>)  - Adjust tab hover color (Jacob Coffee)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/a520293971ba57d4a627105b0e27f2616cd612e7">a520293</a>)  - Add pypi project links (Jacob Coffee)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/43e188a19cc8c071658b9e76391a09e50d719fa4">43e188a</a>)  - Bump version (Cody Fincher)</p></li>
 </ul>
 </section>
 <section id="ci">
 <h3>Ci<a class="headerlink" href="#ci" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/b8952a2af72a54ae83d49cad3fe10f3371bcad4a">b8952a2</a>)  - Add git cliff for changelog generation (#26) (Jacob Coffee)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/964b3197a30e24d8d7d4c97135c5ea2cbeb45a14">964b319</a>)  - Add sphinx-lint (#30) (Jacob Coffee)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/b8952a2af72a54ae83d49cad3fe10f3371bcad4a">b8952a2</a>)  - Add git cliff for changelog generation (#26) (Jacob Coffee)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/964b3197a30e24d8d7d4c97135c5ea2cbeb45a14">964b319</a>)  - Add sphinx-lint (#30) (Jacob Coffee)</p></li>
 </ul>
 </section>
 <section id="infra">
 <h3>Infra<a class="headerlink" href="#infra" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/b15426b73b887c125fc90d62f9342e7766cd2b28">b15426b</a>)  - Add sonar config (Jacob Coffee)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/d5ddef265b64895b8afb7b9fc2c7b35f2008bdbb">d5ddef2</a>)  - Add sourcery config (Jacob Coffee)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/60fd313380cf529cde8f5f1636259ca16aeabb6a">60fd313</a>)  - Fix Makefile (Jacob Coffee)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/b15426b73b887c125fc90d62f9342e7766cd2b28">b15426b</a>)  - Add sonar config (Jacob Coffee)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/d5ddef265b64895b8afb7b9fc2c7b35f2008bdbb">d5ddef2</a>)  - Add sourcery config (Jacob Coffee)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/60fd313380cf529cde8f5f1636259ca16aeabb6a">60fd313</a>)  - Fix Makefile (Jacob Coffee)</p></li>
 </ul>
 </section>
 </section>
 <section id="id145">
-<h2><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/releases/tag/v0.1.0">Release [v0.1.0] - 2023-09-17</a><a class="headerlink" href="#id145" title="Permalink to this heading">¶</a></h2>
+<h2><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/releases/tag/v0.1.0">Release [v0.1.0] - 2023-09-17</a><a class="headerlink" href="#id145" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commits/v0.1.0">See All commits in v0.1.0</a></p></li>
+<li><p><a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commits/v0.1.0">See All commits in v0.1.0</a></p></li>
 </ul>
 <section id="id146">
 <h3>Bug Fixes<a class="headerlink" href="#id146" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/a5a290e28f39afb26fbf8c49e273538d3931d2ea">a5a290e</a>)  - Correct <cite>install-pdm</cite> target in the Makefile (#18) (guacs)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/b6adda34c3a300d2c6d1f699d9811b9176866c61">b6adda3</a>)  - Reuse msgspec Encoder and Decoder instances (#19) (guacs)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/a5a290e28f39afb26fbf8c49e273538d3931d2ea">a5a290e</a>)  - Correct <cite>install-pdm</cite> target in the Makefile (#18) (guacs)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/b6adda34c3a300d2c6d1f699d9811b9176866c61">b6adda3</a>)  - Reuse msgspec Encoder and Decoder instances (#19) (guacs)</p></li>
 </ul>
 </section>
 <section id="id147">
 <h3>Documentation<a class="headerlink" href="#id147" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/4a74c71a4f0369e8af3e0f64601d9ed55737a10e">4a74c71</a>)  - Add a readme (#8) (Janek Nouvertné)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/01a307faa9064fb164d08a6a5286f048b8f2d340">01a307f</a>)  - Add badging (Jacob Coffee)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/4a74c71a4f0369e8af3e0f64601d9ed55737a10e">4a74c71</a>)  - Add a readme (#8) (Janek Nouvertné)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/01a307faa9064fb164d08a6a5286f048b8f2d340">01a307f</a>)  - Add badging (Jacob Coffee)</p></li>
 </ul>
 </section>
 <section id="id148">
 <h3>Features<a class="headerlink" href="#id148" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/a03cec850edd56a0969f3fa62977f2f3beec30b8">a03cec8</a>)  - <cite>alembic</cite> and various framework integrations (#2) (Cody Fincher), Co-authored-by:Janek Nouvertné &lt;provinzkraut&#64;posteo.de&gt;, Co-authored-by:Janek Nouvertné &lt;25355197+provinzkraut&#64;users.noreply.github.com&gt;</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/de371c555f321f728cda404c8a6fba4928871e9f">de371c5</a>)  - Remove generic and abstract repositories (#11) (Janek Nouvertné)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/a1ebb06b5cffc69cea7c6fe5d95b0e99d0750ffa">a1ebb06</a>)  - Remove customized JSON en/decoders (#15) (Janek Nouvertné)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/1cf35dba8e42ecc562f3da6d6e05d1e932307289">1cf35db</a>)  - Move full litestar plugin (#17) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/a03cec850edd56a0969f3fa62977f2f3beec30b8">a03cec8</a>)  - <cite>alembic</cite> and various framework integrations (#2) (Cody Fincher), Co-authored-by:Janek Nouvertné &lt;provinzkraut&#64;posteo.de&gt;, Co-authored-by:Janek Nouvertné &lt;25355197+provinzkraut&#64;users.noreply.github.com&gt;</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/de371c555f321f728cda404c8a6fba4928871e9f">de371c5</a>)  - Remove generic and abstract repositories (#11) (Janek Nouvertné)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/a1ebb06b5cffc69cea7c6fe5d95b0e99d0750ffa">a1ebb06</a>)  - Remove customized JSON en/decoders (#15) (Janek Nouvertné)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/1cf35dba8e42ecc562f3da6d6e05d1e932307289">1cf35db</a>)  - Move full litestar plugin (#17) (Cody Fincher)</p></li>
 </ul>
 </section>
 <section id="id149">
 <h3>Miscellaneous Tasks<a class="headerlink" href="#id149" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/a98dee0ac6ad0067ce51e6d543ecd6f5e45a169c">a98dee0</a>)  - Update README (Jacob Coffee)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/380545d9341fd3cd5f64aa2ea2d08134cea0e963">380545d</a>)  - Add LICENSE (#13) (Cody Fincher)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/65c90313aa92f98a18fac356ebe270ca3f88be8d">65c9031</a>)  - Add ci badges (Jacob Coffee)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/a98dee0ac6ad0067ce51e6d543ecd6f5e45a169c">a98dee0</a>)  - Update README (Jacob Coffee)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/380545d9341fd3cd5f64aa2ea2d08134cea0e963">380545d</a>)  - Add LICENSE (#13) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/65c90313aa92f98a18fac356ebe270ca3f88be8d">65c9031</a>)  - Add ci badges (Jacob Coffee)</p></li>
 </ul>
 </section>
 <section id="build">
 <h3>Build<a class="headerlink" href="#build" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/8ef7edf4189381c09e56f6a220ae996edab1ae9f">8ef7edf</a>)  - Includes <cite>Makefile</cite> to manage developer setup (#1) (Cody Fincher)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/8ef7edf4189381c09e56f6a220ae996edab1ae9f">8ef7edf</a>)  - Includes <cite>Makefile</cite> to manage developer setup (#1) (Cody Fincher)</p></li>
 </ul>
 </section>
 <section id="id151">
 <h3>Ci<a class="headerlink" href="#id151" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/0323ebc77881772d4409c15a81fbfef2701c061a">0323ebc</a>)  - Update to checkout v4 (#14) (Jacob Coffee)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/3abb2812c533248d2af0cb8a3863428435b82e30">3abb281</a>)  - Add publishing workflow (#16) (Janek Nouvertné)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/0323ebc77881772d4409c15a81fbfef2701c061a">0323ebc</a>)  - Update to checkout v4 (#14) (Jacob Coffee)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/3abb2812c533248d2af0cb8a3863428435b82e30">3abb281</a>)  - Add publishing workflow (#16) (Janek Nouvertné)</p></li>
 </ul>
 </section>
 <section id="meta">
 <h3>Meta<a class="headerlink" href="#meta" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/jolt-org/advanced-alchemy/commit/998e50436b230efe135c5ea1a12d7347b656b0fc">998e504</a>)  - Update documentation branding and style (#10) (Jacob Coffee)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/litestar-org/advanced-alchemy/commit/998e50436b230efe135c5ea1a12d7347b656b0fc">998e504</a>)  - Update documentation branding and style (#10) (Jacob Coffee)</p></li>
 </ul>
 <p>Advanced Alchemy Changelog</p>
 </section>
@@ -1097,11 +1167,17 @@ html.dark {
 </section>
 
         </article>
+        <button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button>
         
         <div class="navigation flex print:hidden">
   <div class="navigation-prev">
     <a href="reference/mixins/unique.html">
-      <i class="i-icon chevron"></i>
+      <i class="i-lucid chevron"></i>
       <div class="page-info">
         <span>Previous</span>
         
@@ -1116,7 +1192,7 @@ html.dark {
         <span>Next</span>
         <div class="title">Contribution guide</div>
       </div>
-      <i class="i-icon chevron"></i>
+      <i class="i-lucid chevron"></i>
     </a>
   </div>
 </div>
@@ -1129,29 +1205,38 @@ html.dark {
   <div class="sy-foot-inner sy-container mx-auto">
     
     <div class="sy-foot-reserved md:flex justify-between items-center">
-      <div class="sy-foot-copyright"><p>2023, Jolt Org</p>
-        
-        <p>
-          Made with
-          
-          <a href="https://www.sphinx-doc.org/">Sphinx</a> and
-          
-          <a href="https://shibuya.lepture.com">Shibuya theme</a>.
-        </p>
-      </div>
+      <div class="sy-foot-copyright"><p>2024, Litestar Organization</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
       <div class="sy-foot-socials">
-          <a href="https://github.com/jolt-org/advanced-alchemy" aria-label="GitHub"><i class="i-icon github"></i></a>
-      </div>
+  <a href="https://twitter.com/LitestarAPI" aria-label="X (Twitter)"><i class="i-simpleicons x-twitter"></i></a>
+  <a href="https://discord.gg/litestar-919193495116337154" aria-label="Discord"><i class="i-simpleicons discord"></i></a>
+  <a href="https://www.reddit.com/r/LitestarAPI" aria-label="Reddit"><i class="i-simpleicons reddit"></i></a>
+</div>
     </div>
   </div>
 </footer></div>
-      <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=e43216b9"></script>
+      <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=2c5cfeb5"></script>
       <script src="_static/doctools.js?v=888ff710"></script>
       <script src="_static/sphinx_highlight.js?v=4825356b"></script>
       <script src="_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="_static/copybutton.js?v=f281be69"></script>
+      <script src="_static/litestar-theme.js?v=ab2dcc9e"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="_static/togglebutton.js?v=4a39c7ea"></script>
       <script src="_static/design-tabs.js?v=36754332"></script>
-      <script src="_static/shibuya.js?v=3e5c8598"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script src="_static/shibuya.js?v=9aab5f5b"></script>
+      <script src="_static/versioning.js"></script>
     
 </body>
 </html>
