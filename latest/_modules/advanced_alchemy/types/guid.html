@@ -336,7 +336,7 @@
 </span><span data-line="17"><span class="n">UUID_UTILS_INSTALLED</span> <span class="o">=</span> <span class="n">find_spec</span><span class="p">(</span><span class="s2">&quot;uuid_utils&quot;</span><span class="p">)</span>
 </span><span data-line="18">
 </span><span data-line="19">
-<div class="viewcode-block" id="GUID"><a class="viewcode-back" href="../../../reference/types.html#advanced_alchemy.types.GUID">[docs]</a></span><span data-line="20"><span class="k">class</span> <span class="nc">GUID</span><span class="p">(</span><span class="n">TypeDecorator</span><span class="p">):</span>
+<div class="viewcode-block" id="GUID"><a class="viewcode-back" href="../../../reference/types.html#advanced_alchemy.types.GUID">[docs]</a></span><span data-line="20"><span class="k">class</span> <span class="nc">GUID</span><span class="p">(</span><span class="n">TypeDecorator</span><span class="p">[</span><span class="n">UUID</span><span class="p">]):</span>
 </span><span data-line="21"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Platform-independent GUID type.</span>
 </span><span data-line="22">
 </span><span data-line="23"><span class="sd">    Uses PostgreSQL&#39;s UUID type (Postgres, DuckDB, Cockroach),</span>
