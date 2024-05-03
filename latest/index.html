@@ -1,24 +1,23 @@
-
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" data-accent-color="amber" data-content_root="">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Litestar Framework</title>
-    <link rel="shortcut icon" href="_static/favicon.svg"/><link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Usage" href="usage/index.html" />
+    <link rel="shortcut icon" href="_static/favicon.svg"/><link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Getting Started" href="getting-started.html" />
 
   <script>
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(sessionStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="_static/pygments.css?v=aecf457f" />
-    <link rel="stylesheet" type="text/css" href="_static/shibuya.css?v=aef655f6" />
+    <link rel="stylesheet" type="text/css" href="_static/shibuya.css?v=f2d5353f" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx_paramlinks.css" />
     <link media="print" rel="stylesheet" type="text/css" href="_static/print.css?v=20ff2c19" />
     <link rel="stylesheet" type="text/css" href="_static/style.css" />
-    <link rel="stylesheet" type="text/css" href="_static/litestar-sphinx-theme.css?v=9fce248e" />
+    <link rel="stylesheet" type="text/css" href="_static/litestar-sphinx-theme.css?v=9989272a" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -28,16 +27,33 @@
   --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
 }
 </style>
-    <meta property="og:type" content="website"/><meta property="og:title" content="Advanced Alchemy"/>
+    
+<style>
+  .yue {
+    padding-bottom: 2rem;
+  }
+  .yue section:first-of-type h1 {
+    font-size: 4.2rem;
+    margin-top: 3.4rem;
+    margin-bottom: 1rem;
+  }
+
+  .yue a.headerlink {
+    display: none;
+  }
+</style>
+
+  <meta property="og:type" content="website"/><meta property="og:title" content="Sponsors"/>
 <meta name="twitter:card" content="summary"/>
-<meta property="og:image" content="_static/logo-light.svg"/>
-  </head>
+<meta property="og:image" content="_static/logo-light.png"/>
+<meta name="description" content="Advanced Alchemy is a carefully crafted, thoroughly tested, optimized companion library for SQLAlchemy, offering useful and easy-to-use features for your database projects."/>
+<meta property="og:description" content="Advanced Alchemy is a carefully crafted, thoroughly tested, optimized companion library for SQLAlchemy, offering useful and easy-to-use features for your database projects."/></head>
 <body><div class="document"><div class="sy-head">
   <div class="sy-head-blur"></div>
   <div class="sy-head-inner sy-container mx-auto">
     <a class="sy-head-brand mr-4" href="/">
-      <img class="light-logo" src="_static/logo-light.svg" alt="advanced_alchemy" height="28" />
-      <img class="dark-logo" src="_static/logo-dark.svg" alt="advanced_alchemy" height="28" />
+      <img class="light-logo" src="_static/logo-light.png" alt="advanced_alchemy" height="28" />
+      <img class="dark-logo" src="_static/logo-dark.png" alt="advanced_alchemy" height="28" />
       <strong>advanced_alchemy</strong>
     </a>
     <div class="sy-head-links" id="NavLinks">
@@ -46,7 +62,7 @@
 <ul><li class="link"><a href="#">Home</a></li>
       <li class="link"><button type="button">
             <span>Community</span>
-            <i class="i-lucid chevron"></i>
+            <i class="i-lucide chevron-down"></i>
           </button>
         <ul>
           <li><a href="contribution-guide.html">
@@ -62,7 +78,7 @@
       </li>
       <li class="link"><button type="button">
             <span>About</span>
-            <i class="i-lucid chevron"></i>
+            <i class="i-lucide chevron-down"></i>
           </button>
         <ul>
           <li><a href="https://litestar.dev/about/organization">
@@ -75,7 +91,7 @@
       </li>
       <li class="link"><button type="button">
             <span>Release notes</span>
-            <i class="i-lucid chevron"></i>
+            <i class="i-lucide chevron-down"></i>
           </button>
         <ul>
           <li><a href="changelog.html">
@@ -85,7 +101,7 @@
       </li>
       <li class="link"><button type="button">
             <span>Help</span>
-            <i class="i-lucid chevron"></i>
+            <i class="i-lucide chevron-down"></i>
           </button>
         <ul>
           <li><a href="https://discord.gg/litestar">
@@ -115,7 +131,7 @@
     <button type="button" aria-label="Versions">
       <span class="md:hidden">Versions</span>
       <span class="hidden md:inline">latest</span>
-      <i class="i-lucid chevron"></i>
+      <i class="i-lucide chevron-down"></i>
     </button>
     <div class="nav-versions-choices">
       <ul><li><a href="/latest">latest</a></li><li><a href="/main">development</a></li></ul></div>
@@ -125,7 +141,7 @@
   <a href="https://twitter.com/LitestarAPI" aria-label="X (Twitter)">
     <i class="i-simpleicons x-twitter"></i>
   </a>
-    <a href="https://discord.gg/litestar-919193495116337154" aria-label="Discord">
+    <a href="https://discord.gg/litestar" aria-label="Discord">
       <i class="i-simpleicons discord"></i>
     </a>
 </div>
@@ -136,7 +152,7 @@
         data-aria-auto="Switch to light color mode"
         data-aria-light="Switch to dark color mode"
         data-aria-dark="Switch to auto color mode">
-        <i class="i-lucid theme-icon"></i>
+        <i class="i-lucide theme-icon"></i>
       </button>
       <button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="NavLinks" aria-expanded="false">
         <div class="hamburger">
@@ -147,280 +163,124 @@
       </button>
     </div>
   </div>
-</div>
-<div class="sy-page sy-container flex mx-auto">
-  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
-    <div class="sy-lside-inner md:sticky">
-      <div class="sy-scrollbar p-6">
-<div class="sidebar-links">
-  <ul>
-    <li><a class="icon-link" href="https://github.com/orgs/litestar-org/discussions">
-  <span class="icon">
-    <svg viewBox="0 0 24 24" fill="none">
-      <path fill="var(--accent-9)" fill-rule="evenodd" clip-rule="evenodd" d="M11 5a6 6 0 0 0-4.687 9.746c.215.27.315.62.231.954l-.514 2.058a1 1 0 0 0 1.485 1.1l2.848-1.71c.174-.104.374-.15.576-.148H13a6 6 0 0 0 0-12h-2Z"/>
-      <circle fill="white" cx="12" cy="11" r="1"/>
-      <circle fill="white" cx="9" cy="11" r="1"/>
-      <circle fill="white" cx="15" cy="11" r="1"/>
-    </svg>
-  </span>
-  <span class="text">Discussion</span>
-</a></li>
-  </ul>
-</div>
-
-        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="usage/index.html">Usage</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="usage/placeholder.html">Placeholder</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="reference/index.html">API Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="reference/base.html">base</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/exceptions.html">exceptions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/filters.html">filters</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/operations.html">operations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/repository.html">repositories</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/types.html">types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/service.html">services</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/utils.html">utils</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/alembic/index.html">alembic</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="reference/alembic/commands.html">commands</a></li>
-<li class="toctree-l3"><a class="reference internal" href="reference/alembic/templates/asyncio/index.html">asyncio</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="reference/alembic/templates/asyncio/alembic-ini.html">alembic.ini</a></li>
-<li class="toctree-l4"><a class="reference internal" href="reference/alembic/templates/asyncio/env.html">env</a></li>
-<li class="toctree-l4"><a class="reference internal" href="reference/alembic/templates/asyncio/script-py.html">script.py</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="reference/alembic/templates/sync/index.html">sync</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="reference/alembic/templates/sync/alembic-ini.html">alembic.ini</a></li>
-<li class="toctree-l4"><a class="reference internal" href="reference/alembic/templates/sync/env.html">env</a></li>
-<li class="toctree-l4"><a class="reference internal" href="reference/alembic/templates/sync/script-py.html">script.py</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="reference/config/index.html">config</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="reference/config/asyncio.html">asyncio</a></li>
-<li class="toctree-l3"><a class="reference internal" href="reference/config/common.html">common</a></li>
-<li class="toctree-l3"><a class="reference internal" href="reference/config/engine.html">engine</a></li>
-<li class="toctree-l3"><a class="reference internal" href="reference/config/sync.html">sync</a></li>
-<li class="toctree-l3"><a class="reference internal" href="reference/config/types.html">types</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="reference/extensions/index.html">extensions</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="reference/extensions/litestar/index.html">litestar</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="reference/extensions/litestar/alembic.html">alembic</a></li>
-<li class="toctree-l4"><a class="reference internal" href="reference/extensions/litestar/cli.html">cli</a></li>
-<li class="toctree-l4"><a class="reference internal" href="reference/extensions/litestar/dto.html">dto</a></li>
-<li class="toctree-l4"><a class="reference internal" href="reference/extensions/litestar/plugins/index.html">plugins</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="reference/extensions/litestar/plugins/serialization.html">serialization</a></li>
-<li class="toctree-l5"><a class="reference internal" href="reference/extensions/litestar/plugins/init/plugin.html">plugin</a></li>
-<li class="toctree-l5"><a class="reference internal" href="reference/extensions/litestar/plugins/init/config/asyncio.html">asyncio</a></li>
-<li class="toctree-l5"><a class="reference internal" href="reference/extensions/litestar/plugins/init/config/common.html">common</a></li>
-<li class="toctree-l5"><a class="reference internal" href="reference/extensions/litestar/plugins/init/config/engine.html">engine</a></li>
-<li class="toctree-l5"><a class="reference internal" href="reference/extensions/litestar/plugins/init/config/sync.html">sync</a></li>
-<li class="toctree-l5"><a class="reference internal" href="reference/extensions/litestar/plugins/init/config/types.html">types</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="reference/extensions/sanic.html">sanic</a></li>
-<li class="toctree-l3"><a class="reference internal" href="reference/extensions/starlette.html">starlette</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="reference/mixins/index.html">mixins</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="reference/mixins/unique.html">unique</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Development</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contribution-guide.html">Contribution guide</a></li>
-<li class="toctree-l1"><a class="reference external" href="https://github.com/search?q=user%3Alitestar-org+state%3Aopen+label%3A%22good+first+issue%22+++no%3Aassignee+repo%3A%22advanced-alchemy%22&amp;type=issues">Available Issues</a></li>
-<li class="toctree-l1"><a class="reference external" href="https://github.com/litestar-org/.github?tab=coc-ov-file#readme">Code of Conduct</a></li>
-</ul>
-
-        </div>
-      </div>
-      
-    </div>
-  </aside>
-  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
-  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
-    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
-      <i class="i-lucid close"></i>
-    </button>
-    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4">
-  <div class="localtoc">
-    <h3>On this page</h3>
-    <ul>
-<li><a class="reference internal" href="#installation">Installation</a></li>
-<li><a class="reference internal" href="#usage">Usage</a><ul>
-</ul>
-</li>
-</ul>
-
-  </div><a class="js-repo-stats repo-stats flex items-center" href="https://github.com/litestar-org/advanced-alchemy"
-  data-type="github" data-user="litestar-org" data-repo="advanced-alchemy">
-  <span class="w-8 flex items-center justify-around shrink-0 text-3xl">
-    <i class="i-simpleicons github"></i>
-  </span>
-  <span class="flex-grow px-2">
-    <span>litestar-org/advanced-alchemy</span>
-    <span class="flex text-sm repo-stats-count">
-      <span class="flex items-center pr-3">
-        <i class="i-lucid star"></i>
-        <strong class="js-repo-stars ml-1">0</strong>
-      </span>
-      <span class="flex items-center">
-        <i class="i-lucid git-fork"></i>
-        <strong class="js-repo-forks ml-1">0</strong>
-      </span>
-    </span>
-  </span>
-</a><div class="edit-this-page">
-  <a href="https://github.com/litestar-org/advanced-alchemy/blob/master/docs/index.rst">Edit this page</a>
-</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div>
-    </div>
-  </aside>
-  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
-  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
-    <div class="sy-breadcrumbs" role="navigation">
-  <div class="sy-breadcrumbs-inner flex items-center">
-    <div class="md:hidden mr-3">
-      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
-        <i class="i-lucid menu"></i>
-      </button>
-    </div>
-    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList">
-      
-      
-      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <a itemprop="item" href="#"><span itemprop="name">advanced_alchemy</span></a>
-        <span>/</span>
-        <meta itemprop="position" content="1" />
-      </li>
-      
-      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <strong itemprop="name">Advanced Alchemy</strong>
-        <meta itemprop="position" content="2" />
-      </li>
-      
-      
-    </ol>
-    <div class="xl:hidden ml-1">
-      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
-        aria-expanded="false">
-        <i class="i-lucid outdent"></i>
-      </button>
-    </div>
-  </div>
-</div>
-    <div class="flex flex-col break-words justify-between">
-      <div class="min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
-        <article class="yue" role="main">
-          <section id="advanced-alchemy">
-<h1>Advanced Alchemy<a class="headerlink" href="#advanced-alchemy" title="Permalink to this heading">¶</a></h1>
-<p>Advanced Alchemy is a carefully crafted, thoroughly tested, optimized companion library for SQLAlchemy,
-offering useful and easy-to-use features for your database projects.</p>
-<div class="admonition seealso">
-<p class="admonition-title">See also</p>
-<p>It is built on:</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://www.sqlalchemy.org/">SQLAlchemy</a></p></li>
-<li><p><a class="reference external" href="https://jcristharif.com/msgspec/">msgspec</a></p></li>
-<li><p><a class="reference external" href="https://alembic.sqlalchemy.org/en/latest/">Alembic</a></p></li>
-<li><p><a class="reference external" href="https://typing-extensions.readthedocs.io/en/latest/">Typing Extensions</a></p></li>
-</ul>
-</div>
-<section id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">¶</a></h2>
-<p>Installing <code class="docutils literal notranslate"><span class="pre">advanced-alchemy</span></code> is as easy as calling your favorite Python package manager:</p>
-<div class="sd-tab-set docutils">
-<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
-</input><label class="sd-tab-label" data-sync-id="key1" for="sd-tab-item-0">
-pip</label><div class="sd-tab-content docutils">
-<div class="literal-block-wrapper docutils container" id="id2">
-<div class="code-block-caption"><span class="caption-text">Using pip</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>advanced-alchemy
-</span></pre></div>
+</div><div class="sy-container mx-auto body">
+    <main class="sy-content mx-auto pt-12 px-6 xl:px-12 break-words">
+      <article class="yue" role="main">
+        <div class="docutils container" id="home-head">
+<a class="reference internal image-reference" href="https://raw.githubusercontent.com/litestar-org/branding/main/assets/Branding%20-%20SVG%20-%20Transparent/Badge%20-%20Blue%20and%20Yellow.svg"><img alt="Litestar - Advanced Alchemy" height="400" src="https://raw.githubusercontent.com/litestar-org/branding/main/assets/Branding%20-%20SVG%20-%20Transparent/Badge%20-%20Blue%20and%20Yellow.svg" width="400" /></a>
+<div class="docutils container">
+<h1>Advanced Alchemy</h1><div class="badges docutils container" id="badges">
+<blockquote>
+<div><img alt="GitHub Actions Latest Release Workflow Status" src="https://img.shields.io/github/actions/workflow/status/litestar-org/advanced-alchemy/publish.yml?labelColor=202235&amp;logo=github&amp;logoColor=edb641&amp;label=Release" />
+<img alt="GitHub Actions CI Workflow Status" src="https://img.shields.io/github/actions/workflow/status/litestar-org/advanced-alchemy/ci.yml?labelColor=202235&amp;logo=github&amp;logoColor=edb641&amp;label=Tests%20And%20Linting" />
+<img alt="GitHub Actions Docs Build Workflow Status" src="https://img.shields.io/github/actions/workflow/status/litestar-org/advanced-alchemy/docs.yml?labelColor=202235&amp;logo=github&amp;logoColor=edb641&amp;label=Docs%20Build" />
+<img alt="Coverage" src="https://img.shields.io/codecov/c/github/litestar-org/advanced-alchemy?labelColor=202235&amp;logo=codecov&amp;logoColor=edb641&amp;label=Coverage" />
+<img alt="PyPI Version" src="https://img.shields.io/pypi/v/advanced-alchemy?labelColor=202235&amp;color=edb641&amp;logo=python&amp;logoColor=edb641" />
+<img alt="PyPI Downloads" src="https://img.shields.io/pypi/dm/advanced-alchemy?logo=python&amp;label=advanced-alchemy%20downloads&amp;labelColor=202235&amp;color=edb641&amp;logoColor=edb641" />
+<img alt="Supported Python Versions" src="https://img.shields.io/pypi/pyversions/advanced-alchemy?labelColor=202235&amp;color=edb641&amp;logo=python&amp;logoColor=edb641" />
+</div></blockquote>
 </div>
 </div>
 </div>
-<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
-</input><label class="sd-tab-label" data-sync-id="key2" for="sd-tab-item-1">
-pipx</label><div class="sd-tab-content docutils">
-<div class="literal-block-wrapper docutils container" id="id3">
-<div class="code-block-caption"><span class="caption-text">Using <a class="reference external" href="https://pypa.github.io/pipx/">pipx</a></span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">pipx<span class="w"> </span>install<span class="w"> </span>advanced-alchemy
-</span></pre></div>
+<p class="lead">Advanced Alchemy is a carefully crafted, thoroughly tested, optimized companion library for
+<a class="reference external" href="https://docs.sqlalchemy.org/en/20/index.html" title="(in SQLAlchemy v2.0)"><span class="xref std std-doc">SQLAlchemy</span></a>, offering useful and easy-to-use features for your database projects.</p>
+<div class="buttons docutils container">
+<p><a class="reference internal" href="getting-started.html"><span class="doc">Get Started</span></a>
+<a class="reference external" href="usage">Usage Docs</a>
+<a class="reference external" href="reference">API Docs</a>
+<a class="reference external" href="https://blog.litestar.dev">Blog</a></p>
+</div>
+<div class="sd-container-fluid sd-sphinx-override sd-mb-4 sd-p-0 docutils">
+<div class="sd-row sd-row-cols-1 sd-row-cols-xs-1 sd-row-cols-sm-1 sd-row-cols-md-2 sd-row-cols-lg-2 sd-g-2 sd-g-xs-2 sd-g-sm-2 sd-g-md-2 sd-g-lg-2 docutils">
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+<svg version="1.1" width="1.0em" height="1.0em" class="sd-octicon sd-octicon-versions" viewBox="0 0 16 16" aria-hidden="true"><path fill-rule="evenodd" d="M7.75 14A1.75 1.75 0 016 12.25v-8.5C6 2.784 6.784 2 7.75 2h6.5c.966 0 1.75.784 1.75 1.75v8.5A1.75 1.75 0 0114.25 14h-6.5zm-.25-1.75c0 .138.112.25.25.25h6.5a.25.25 0 00.25-.25v-8.5a.25.25 0 00-.25-.25h-6.5a.25.25 0 00-.25.25v8.5zM4.9 3.508a.75.75 0 01-.274 1.025.25.25 0 00-.126.217v6.5a.25.25 0 00.126.217.75.75 0 01-.752 1.298A1.75 1.75 0 013 11.25v-6.5c0-.649.353-1.214.874-1.516a.75.75 0 011.025.274zM1.625 5.533a.75.75 0 10-.752-1.299A1.75 1.75 0 000 5.75v4.5c0 .649.353 1.214.874 1.515a.75.75 0 10.752-1.298.25.25 0 01-.126-.217v-4.5a.25.25 0 01.126-.217z"></path></svg> Changelog</div>
+<p class="sd-card-text">The latest updates and enhancements to Advanced-Alchemy</p>
+</div>
+<a class="sd-stretched-link reference internal" href="changelog.html"><span class="doc"></span></a></div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+<svg version="1.1" width="1.0em" height="1.0em" class="sd-octicon sd-octicon-comment-discussion" viewBox="0 0 16 16" aria-hidden="true"><path fill-rule="evenodd" d="M1.5 2.75a.25.25 0 01.25-.25h8.5a.25.25 0 01.25.25v5.5a.25.25 0 01-.25.25h-3.5a.75.75 0 00-.53.22L3.5 11.44V9.25a.75.75 0 00-.75-.75h-1a.25.25 0 01-.25-.25v-5.5zM1.75 1A1.75 1.75 0 000 2.75v5.5C0 9.216.784 10 1.75 10H2v1.543a1.457 1.457 0 002.487 1.03L7.061 10h3.189A1.75 1.75 0 0012 8.25v-5.5A1.75 1.75 0 0010.25 1h-8.5zM14.5 4.75a.25.25 0 00-.25-.25h-.5a.75.75 0 110-1.5h.5c.966 0 1.75.784 1.75 1.75v5.5A1.75 1.75 0 0114.25 12H14v1.543a1.457 1.457 0 01-2.487 1.03L9.22 12.28a.75.75 0 111.06-1.06l2.22 2.22v-2.19a.75.75 0 01.75-.75h1a.25.25 0 00.25-.25v-5.5z"></path></svg> Discussions</div>
+<p class="sd-card-text">Join discussions, pose questions, or share insights.</p>
+</div>
+<a class="sd-stretched-link reference external" href="https://github.com/litestar-org/advanced-alchemy/discussions"></a></div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+<svg version="1.1" width="1.0em" height="1.0em" class="sd-octicon sd-octicon-issue-opened" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path><path fill-rule="evenodd" d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"></path></svg> Issues</div>
+<p class="sd-card-text">Report issues or suggest new features.</p>
+</div>
+<a class="sd-stretched-link reference external" href="https://github.com/litestar-org/advanced-alchemy/issues"></a></div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+<svg version="1.1" width="1.0em" height="1.0em" class="sd-octicon sd-octicon-beaker" viewBox="0 0 16 16" aria-hidden="true"><path fill-rule="evenodd" d="M5 5.782V2.5h-.25a.75.75 0 010-1.5h6.5a.75.75 0 010 1.5H11v3.282l3.666 5.76C15.619 13.04 14.543 15 12.767 15H3.233c-1.776 0-2.852-1.96-1.899-3.458L5 5.782zM9.5 2.5h-3V6a.75.75 0 01-.117.403L4.73 9h6.54L9.617 6.403A.75.75 0 019.5 6V2.5zm-6.9 9.847L3.775 10.5h8.45l1.175 1.847a.75.75 0 01-.633 1.153H3.233a.75.75 0 01-.633-1.153z"></path></svg> Contributing</div>
+<p class="sd-card-text">Contribute to Litestar’s growth with code, docs, and more.</p>
+</div>
+<a class="sd-stretched-link reference internal" href="contribution-guide.html"><span class="doc"></span></a></div>
 </div>
 </div>
 </div>
-<input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
-</input><label class="sd-tab-label" for="sd-tab-item-2">
-pdm</label><div class="sd-tab-content docutils">
-<div class="literal-block-wrapper docutils container" id="id4">
-<div class="code-block-caption"><span class="caption-text">Using <a class="reference external" href="https://pdm.fming.dev/">PDM</a></span><a class="headerlink" href="#id4" title="Permalink to this code">¶</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">pdm<span class="w"> </span>add<span class="w"> </span>advanced-alchemy
-</span></pre></div>
+<section id="sponsors">
+<h1>Sponsors<a class="headerlink" href="#sponsors" title="Permalink to this heading">¶</a></h1>
+<p class="lead">Litestar is a community-driven, open-source initiative that thrives on the generous contributions of our sponsors,
+enabling us to pursue innovative developments and continue our mission to provide exceptional tools and resources
+to our users.</p>
+<p>A huge thank you to our current sponsors:</p>
+<div class="docutils container" id="sponsors-section">
+<div class="sd-container-fluid sd-sphinx-override sd-mb-4 sd-p-0 docutils">
+<div class="sd-row sd-row-cols-3 sd-row-cols-xs-3 sd-row-cols-sm-3 sd-row-cols-md-3 sd-row-cols-lg-3 sd-g-2 sd-g-xs-2 sd-g-sm-2 sd-g-md-2 sd-g-lg-2 surface docutils">
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
+<div class="sd-card-body docutils">
+<img alt="Scalar.com" class="sponsor" src="https://raw.githubusercontent.com/litestar-org/branding/main/assets/sponsors/scalar.svg" /><p class="sd-card-text"><a class="reference external" href="https://github.com/scalar/scalar">Scalar.com</a></p>
 </div>
+<a class="sd-stretched-link reference external" href="https://github.com/scalar/scalar"></a></div>
 </div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
+<div class="sd-card-body docutils">
+<img alt="Telemetry Sports" class="sponsor" src="https://raw.githubusercontent.com/litestar-org/branding/main/assets/sponsors/telemetry-sports/unofficial-telemetry-whitebg.svg" /><p class="sd-card-text"><a class="reference external" href="https://telemetrysports.com/">Telemetry Sports</a></p>
 </div>
-<input id="sd-tab-item-3" name="sd-tab-set-0" type="radio">
-</input><label class="sd-tab-label" for="sd-tab-item-3">
-Poetry</label><div class="sd-tab-content docutils">
-<div class="literal-block-wrapper docutils container" id="id5">
-<div class="code-block-caption"><span class="caption-text">Using <a class="reference external" href="https://python-poetry.org/">Poetry</a></span><a class="headerlink" href="#id5" title="Permalink to this code">¶</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">poetry<span class="w"> </span>add<span class="w"> </span>advanced-alchemy
-</span></pre></div>
+<a class="sd-stretched-link reference external" href="https://telemetrysports.com/"></a></div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
+<div class="sd-card-body docutils">
+<img alt="Stok" class="sponsor" src="https://avatars.githubusercontent.com/u/144093421" />
+<p class="sd-card-text"><a class="reference external" href="https://www.stok.kr/">Stok</a></p>
+</div>
+<a class="sd-stretched-link reference external" href="https://www.stok.kr/"></a></div>
 </div>
 </div>
 </div>
 </div>
-</section>
-<section id="usage">
-<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">¶</a></h2>
-<div class="admonition-todo admonition" id="id1">
-<p class="admonition-title">Todo</p>
-<p>Add usage instructions</p>
-</div>
+<p>We invite organizations and individuals to join our sponsorship program.
+By becoming a sponsor on platforms like <a class="reference external" href="https://polar.sh/litestar-org">Polar</a>, <a class="reference external" href="https://github.com/sponsors/litestar-org">GitHub</a>
+and <a class="reference external" href="https://opencollective.com/litestar">Open Collective</a>, you can play a pivotal role in our project’s growth.</p>
+<p>On top of regular sponsorship, we engage in pledge-based sponsorship opportunities through <a class="reference external" href="https://polar.sh/litestar-org">Polar</a>,
+where you can pledge an amount towards an issue or feature you would like to see implemented.</p>
 <div class="toctree-wrapper compound">
 </div>
 <div class="toctree-wrapper compound">
 </div>
 </section>
-</section>
 
-        </article>
-        <button class="back-to-top" type="button">
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
-  </svg>
-  <span>Back to top</span>
-</button>
-        
-        <div class="navigation flex print:hidden">
-  
-  <div class="navigation-next">
-    <a href="usage/index.html">
-      <div class="page-info">
-        <span>Next</span>
-        <div class="title">Usage</div>
-      </div>
-      <i class="i-lucid chevron"></i>
-    </a>
-  </div>
-</div>
-        
-      </div>
-    </div>
-  </main>
-</div>
-<footer class="sy-foot">
+      </article>
+      
+
+
+    </main>
+  </div><footer class="sy-foot">
   <div class="sy-foot-inner sy-container mx-auto">
     
     <div class="sy-foot-reserved md:flex justify-between items-center">
@@ -436,7 +296,7 @@ Poetry</label><div class="sd-tab-content docutils">
 </div>
       <div class="sy-foot-socials">
   <a href="https://twitter.com/LitestarAPI" aria-label="X (Twitter)"><i class="i-simpleicons x-twitter"></i></a>
-  <a href="https://discord.gg/litestar-919193495116337154" aria-label="Discord"><i class="i-simpleicons discord"></i></a>
+  <a href="https://discord.gg/litestar" aria-label="Discord"><i class="i-simpleicons discord"></i></a>
   <a href="https://www.reddit.com/r/LitestarAPI" aria-label="Reddit"><i class="i-simpleicons reddit"></i></a>
 </div>
     </div>
@@ -454,7 +314,7 @@ Poetry</label><div class="sd-tab-content docutils">
       <script src="_static/togglebutton.js?v=4a39c7ea"></script>
       <script src="_static/design-tabs.js?v=36754332"></script>
       <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-      <script src="_static/shibuya.js?v=9aab5f5b"></script>
+      <script src="_static/shibuya.js?v=5f0e4c24"></script>
       <script src="_static/versioning.js"></script>
     
 </body>
