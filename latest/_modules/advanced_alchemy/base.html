@@ -514,167 +514,168 @@
 </span><span data-line="194">    <span class="n">updated_at</span><span class="p">:</span> <span class="n">Mapped</span><span class="p">[</span><span class="n">datetime</span><span class="p">]</span> <span class="o">=</span> <span class="n">mapped_column</span><span class="p">(</span>
 </span><span data-line="195">        <span class="n">DateTimeUTC</span><span class="p">(</span><span class="n">timezone</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
 </span><span data-line="196">        <span class="n">default</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">timezone</span><span class="o">.</span><span class="n">utc</span><span class="p">),</span>
-</span><span data-line="197">    <span class="p">)</span>
-</span><span data-line="198"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Date/time of instance last update.&quot;&quot;&quot;</span></div>
-</span><span data-line="199">
+</span><span data-line="197">        <span class="n">onupdate</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">timezone</span><span class="o">.</span><span class="n">utc</span><span class="p">),</span>
+</span><span data-line="198">    <span class="p">)</span>
+</span><span data-line="199"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Date/time of instance last update.&quot;&quot;&quot;</span></div>
 </span><span data-line="200">
-<div class="viewcode-block" id="CommonTableAttributes"><a class="viewcode-back" href="../../reference/base.html#advanced_alchemy.base.CommonTableAttributes">[docs]</a></span><span data-line="201"><span class="k">class</span> <span class="nc">CommonTableAttributes</span><span class="p">:</span>
-</span><span data-line="202"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Common attributes for SQLALchemy tables.&quot;&quot;&quot;</span>
-</span><span data-line="203">
-</span><span data-line="204">    <span class="vm">__name__</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
-</span><span data-line="205">    <span class="n">__table__</span><span class="p">:</span> <span class="n">FromClause</span>
-</span><span data-line="206">    <span class="n">__mapper__</span><span class="p">:</span> <span class="n">Mapper</span>
-</span><span data-line="207">
-</span><span data-line="208">    <span class="c1"># noinspection PyMethodParameters</span>
-</span><span data-line="209">    <span class="nd">@declared_attr</span><span class="o">.</span><span class="n">directive</span>
-</span><span data-line="210">    <span class="k">def</span> <span class="nf">__tablename__</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span data-line="211"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Infer table name from class name.&quot;&quot;&quot;</span>
-</span><span data-line="212">        <span class="n">regexp</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;((?&lt;=[a-z0-9])[A-Z]|(?!^)[A-Z](?=[a-z]))&quot;</span><span class="p">)</span>
-</span><span data-line="213">        <span class="k">return</span> <span class="n">regexp</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;_\1&quot;</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
-</span><span data-line="214">
-<div class="viewcode-block" id="CommonTableAttributes.to_dict"><a class="viewcode-back" href="../../reference/base.html#advanced_alchemy.base.CommonTableAttributes.to_dict">[docs]</a></span><span data-line="215">    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exclude</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-</span><span data-line="216"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert model to dictionary.</span>
-</span><span data-line="217">
-</span><span data-line="218"><span class="sd">        Returns:</span>
-</span><span data-line="219"><span class="sd">            dict[str, Any]: A dict representation of the model</span>
-</span><span data-line="220"><span class="sd">        &quot;&quot;&quot;</span>
-</span><span data-line="221">        <span class="n">exclude</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;sa_orm_sentinel&quot;</span><span class="p">,</span> <span class="s2">&quot;_sentinel&quot;</span><span class="p">}</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sa_instance_state</span><span class="o">.</span><span class="n">unloaded</span><span class="p">)</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">exclude</span> <span class="ow">or</span> <span class="p">[])</span>  <span class="c1"># type: ignore[attr-defined]</span>
-</span><span data-line="222">        <span class="k">return</span> <span class="p">{</span>
-</span><span data-line="223">            <span class="n">field</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field</span><span class="p">)</span>
-</span><span data-line="224">            <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__mapper__</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>  <span class="c1"># noqa: SIM118</span>
-</span><span data-line="225">            <span class="k">if</span> <span class="n">field</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">exclude</span>
-</span><span data-line="226">        <span class="p">}</span></div></div>
-</span><span data-line="227">
+</span><span data-line="201">
+<div class="viewcode-block" id="CommonTableAttributes"><a class="viewcode-back" href="../../reference/base.html#advanced_alchemy.base.CommonTableAttributes">[docs]</a></span><span data-line="202"><span class="k">class</span> <span class="nc">CommonTableAttributes</span><span class="p">:</span>
+</span><span data-line="203"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Common attributes for SQLALchemy tables.&quot;&quot;&quot;</span>
+</span><span data-line="204">
+</span><span data-line="205">    <span class="vm">__name__</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+</span><span data-line="206">    <span class="n">__table__</span><span class="p">:</span> <span class="n">FromClause</span>
+</span><span data-line="207">    <span class="n">__mapper__</span><span class="p">:</span> <span class="n">Mapper</span>
+</span><span data-line="208">
+</span><span data-line="209">    <span class="c1"># noinspection PyMethodParameters</span>
+</span><span data-line="210">    <span class="nd">@declared_attr</span><span class="o">.</span><span class="n">directive</span>
+</span><span data-line="211">    <span class="k">def</span> <span class="nf">__tablename__</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span data-line="212"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Infer table name from class name.&quot;&quot;&quot;</span>
+</span><span data-line="213">        <span class="n">regexp</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;((?&lt;=[a-z0-9])[A-Z]|(?!^)[A-Z](?=[a-z]))&quot;</span><span class="p">)</span>
+</span><span data-line="214">        <span class="k">return</span> <span class="n">regexp</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;_\1&quot;</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+</span><span data-line="215">
+<div class="viewcode-block" id="CommonTableAttributes.to_dict"><a class="viewcode-back" href="../../reference/base.html#advanced_alchemy.base.CommonTableAttributes.to_dict">[docs]</a></span><span data-line="216">    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exclude</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+</span><span data-line="217"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert model to dictionary.</span>
+</span><span data-line="218">
+</span><span data-line="219"><span class="sd">        Returns:</span>
+</span><span data-line="220"><span class="sd">            dict[str, Any]: A dict representation of the model</span>
+</span><span data-line="221"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span data-line="222">        <span class="n">exclude</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;sa_orm_sentinel&quot;</span><span class="p">,</span> <span class="s2">&quot;_sentinel&quot;</span><span class="p">}</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sa_instance_state</span><span class="o">.</span><span class="n">unloaded</span><span class="p">)</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">exclude</span> <span class="ow">or</span> <span class="p">[])</span>  <span class="c1"># type: ignore[attr-defined]</span>
+</span><span data-line="223">        <span class="k">return</span> <span class="p">{</span>
+</span><span data-line="224">            <span class="n">field</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field</span><span class="p">)</span>
+</span><span data-line="225">            <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__mapper__</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>  <span class="c1"># noqa: SIM118</span>
+</span><span data-line="226">            <span class="k">if</span> <span class="n">field</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">exclude</span>
+</span><span data-line="227">        <span class="p">}</span></div></div>
 </span><span data-line="228">
-<div class="viewcode-block" id="SlugKey"><a class="viewcode-back" href="../../reference/base.html#advanced_alchemy.base.SlugKey">[docs]</a></span><span data-line="229"><span class="nd">@declarative_mixin</span>
-</span><span data-line="230"><span class="k">class</span> <span class="nc">SlugKey</span><span class="p">:</span>
-</span><span data-line="231"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Slug unique Field Model Mixin.&quot;&quot;&quot;</span>
-</span><span data-line="232">
-</span><span data-line="233">    <span class="nd">@declared_attr</span>
-</span><span data-line="234">    <span class="k">def</span> <span class="nf">slug</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Mapped</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-</span><span data-line="235"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Slug field.&quot;&quot;&quot;</span>
-</span><span data-line="236">        <span class="k">return</span> <span class="n">mapped_column</span><span class="p">(</span>
-</span><span data-line="237">            <span class="n">String</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">100</span><span class="p">),</span>
-</span><span data-line="238">            <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-</span><span data-line="239">        <span class="p">)</span>
-</span><span data-line="240">
-</span><span data-line="241">    <span class="nd">@staticmethod</span>
-</span><span data-line="242">    <span class="k">def</span> <span class="nf">_create_unique_slug_index</span><span class="p">(</span><span class="o">*</span><span class="n">_args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-</span><span data-line="243">        <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;dialect&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;spanner&quot;</span><span class="p">))</span>
-</span><span data-line="244">
-</span><span data-line="245">    <span class="nd">@staticmethod</span>
-</span><span data-line="246">    <span class="k">def</span> <span class="nf">_create_unique_slug_constraint</span><span class="p">(</span><span class="o">*</span><span class="n">_args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-</span><span data-line="247">        <span class="k">return</span> <span class="ow">not</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;dialect&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;spanner&quot;</span><span class="p">)</span>
-</span><span data-line="248">
-</span><span data-line="249">    <span class="nd">@declared_attr</span><span class="o">.</span><span class="n">directive</span>
-</span><span data-line="250">    <span class="k">def</span> <span class="nf">__table_args__</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span> <span class="o">|</span> <span class="nb">dict</span><span class="p">:</span>
-</span><span data-line="251">        <span class="k">return</span> <span class="p">(</span>
-</span><span data-line="252">            <span class="n">UniqueConstraint</span><span class="p">(</span>
-</span><span data-line="253">                <span class="bp">cls</span><span class="o">.</span><span class="n">slug</span><span class="p">,</span>
-</span><span data-line="254">                <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;uq_</span><span class="si">{</span><span class="bp">cls</span><span class="o">.</span><span class="n">__tablename__</span><span class="si">}</span><span class="s2">_slug&quot;</span><span class="p">,</span>  <span class="c1"># type: ignore[attr-defined]</span>
-</span><span data-line="255">            <span class="p">)</span><span class="o">.</span><span class="n">ddl_if</span><span class="p">(</span><span class="n">callable_</span><span class="o">=</span><span class="bp">cls</span><span class="o">.</span><span class="n">_create_unique_slug_constraint</span><span class="p">),</span>
-</span><span data-line="256">            <span class="n">Index</span><span class="p">(</span>
-</span><span data-line="257">                <span class="sa">f</span><span class="s2">&quot;ix_</span><span class="si">{</span><span class="bp">cls</span><span class="o">.</span><span class="n">__tablename__</span><span class="si">}</span><span class="s2">_slug_unique&quot;</span><span class="p">,</span>  <span class="c1"># type: ignore[attr-defined]</span>
-</span><span data-line="258">                <span class="bp">cls</span><span class="o">.</span><span class="n">slug</span><span class="p">,</span>
-</span><span data-line="259">                <span class="n">unique</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-</span><span data-line="260">            <span class="p">)</span><span class="o">.</span><span class="n">ddl_if</span><span class="p">(</span><span class="n">callable_</span><span class="o">=</span><span class="bp">cls</span><span class="o">.</span><span class="n">_create_unique_slug_index</span><span class="p">),</span>
-</span><span data-line="261">        <span class="p">)</span></div>
-</span><span data-line="262">
+</span><span data-line="229">
+<div class="viewcode-block" id="SlugKey"><a class="viewcode-back" href="../../reference/base.html#advanced_alchemy.base.SlugKey">[docs]</a></span><span data-line="230"><span class="nd">@declarative_mixin</span>
+</span><span data-line="231"><span class="k">class</span> <span class="nc">SlugKey</span><span class="p">:</span>
+</span><span data-line="232"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Slug unique Field Model Mixin.&quot;&quot;&quot;</span>
+</span><span data-line="233">
+</span><span data-line="234">    <span class="nd">@declared_attr</span>
+</span><span data-line="235">    <span class="k">def</span> <span class="nf">slug</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Mapped</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+</span><span data-line="236"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Slug field.&quot;&quot;&quot;</span>
+</span><span data-line="237">        <span class="k">return</span> <span class="n">mapped_column</span><span class="p">(</span>
+</span><span data-line="238">            <span class="n">String</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">100</span><span class="p">),</span>
+</span><span data-line="239">            <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span data-line="240">        <span class="p">)</span>
+</span><span data-line="241">
+</span><span data-line="242">    <span class="nd">@staticmethod</span>
+</span><span data-line="243">    <span class="k">def</span> <span class="nf">_create_unique_slug_index</span><span class="p">(</span><span class="o">*</span><span class="n">_args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+</span><span data-line="244">        <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;dialect&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;spanner&quot;</span><span class="p">))</span>
+</span><span data-line="245">
+</span><span data-line="246">    <span class="nd">@staticmethod</span>
+</span><span data-line="247">    <span class="k">def</span> <span class="nf">_create_unique_slug_constraint</span><span class="p">(</span><span class="o">*</span><span class="n">_args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+</span><span data-line="248">        <span class="k">return</span> <span class="ow">not</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;dialect&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;spanner&quot;</span><span class="p">)</span>
+</span><span data-line="249">
+</span><span data-line="250">    <span class="nd">@declared_attr</span><span class="o">.</span><span class="n">directive</span>
+</span><span data-line="251">    <span class="k">def</span> <span class="nf">__table_args__</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span> <span class="o">|</span> <span class="nb">dict</span><span class="p">:</span>
+</span><span data-line="252">        <span class="k">return</span> <span class="p">(</span>
+</span><span data-line="253">            <span class="n">UniqueConstraint</span><span class="p">(</span>
+</span><span data-line="254">                <span class="bp">cls</span><span class="o">.</span><span class="n">slug</span><span class="p">,</span>
+</span><span data-line="255">                <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;uq_</span><span class="si">{</span><span class="bp">cls</span><span class="o">.</span><span class="n">__tablename__</span><span class="si">}</span><span class="s2">_slug&quot;</span><span class="p">,</span>  <span class="c1"># type: ignore[attr-defined]</span>
+</span><span data-line="256">            <span class="p">)</span><span class="o">.</span><span class="n">ddl_if</span><span class="p">(</span><span class="n">callable_</span><span class="o">=</span><span class="bp">cls</span><span class="o">.</span><span class="n">_create_unique_slug_constraint</span><span class="p">),</span>
+</span><span data-line="257">            <span class="n">Index</span><span class="p">(</span>
+</span><span data-line="258">                <span class="sa">f</span><span class="s2">&quot;ix_</span><span class="si">{</span><span class="bp">cls</span><span class="o">.</span><span class="n">__tablename__</span><span class="si">}</span><span class="s2">_slug_unique&quot;</span><span class="p">,</span>  <span class="c1"># type: ignore[attr-defined]</span>
+</span><span data-line="259">                <span class="bp">cls</span><span class="o">.</span><span class="n">slug</span><span class="p">,</span>
+</span><span data-line="260">                <span class="n">unique</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span><span data-line="261">            <span class="p">)</span><span class="o">.</span><span class="n">ddl_if</span><span class="p">(</span><span class="n">callable_</span><span class="o">=</span><span class="bp">cls</span><span class="o">.</span><span class="n">_create_unique_slug_index</span><span class="p">),</span>
+</span><span data-line="262">        <span class="p">)</span></div>
 </span><span data-line="263">
-<div class="viewcode-block" id="create_registry"><a class="viewcode-back" href="../../reference/base.html#advanced_alchemy.base.create_registry">[docs]</a></span><span data-line="264"><span class="k">def</span> <span class="nf">create_registry</span><span class="p">(</span>
-</span><span data-line="265">    <span class="n">custom_annotation_map</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">type</span><span class="p">,</span> <span class="nb">type</span><span class="p">[</span><span class="n">TypeEngine</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span> <span class="o">|</span> <span class="n">TypeEngine</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span data-line="266"><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">registry</span><span class="p">:</span>
-</span><span data-line="267"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a new SQLAlchemy registry.&quot;&quot;&quot;</span>
-</span><span data-line="268">    <span class="kn">import</span> <span class="nn">uuid</span> <span class="k">as</span> <span class="nn">core_uuid</span>
-</span><span data-line="269">
-</span><span data-line="270">    <span class="n">meta</span> <span class="o">=</span> <span class="n">MetaData</span><span class="p">(</span><span class="n">naming_convention</span><span class="o">=</span><span class="n">convention</span><span class="p">)</span>
-</span><span data-line="271">    <span class="n">type_annotation_map</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">type</span><span class="p">,</span> <span class="nb">type</span><span class="p">[</span><span class="n">TypeEngine</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span> <span class="o">|</span> <span class="n">TypeEngine</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
-</span><span data-line="272">        <span class="n">UUID</span><span class="p">:</span> <span class="n">GUID</span><span class="p">,</span>
-</span><span data-line="273">        <span class="n">core_uuid</span><span class="o">.</span><span class="n">UUID</span><span class="p">:</span> <span class="n">GUID</span><span class="p">,</span>
-</span><span data-line="274">        <span class="n">datetime</span><span class="p">:</span> <span class="n">DateTimeUTC</span><span class="p">,</span>
-</span><span data-line="275">        <span class="n">date</span><span class="p">:</span> <span class="n">Date</span><span class="p">,</span>
-</span><span data-line="276">        <span class="nb">dict</span><span class="p">:</span> <span class="n">JsonB</span><span class="p">,</span>
-</span><span data-line="277">    <span class="p">}</span>
-</span><span data-line="278">    <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">suppress</span><span class="p">(</span><span class="ne">ImportError</span><span class="p">):</span>
-</span><span data-line="279">        <span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">AnyHttpUrl</span><span class="p">,</span> <span class="n">AnyUrl</span><span class="p">,</span> <span class="n">EmailStr</span><span class="p">,</span> <span class="n">Json</span>
-</span><span data-line="280">
-</span><span data-line="281">        <span class="n">type_annotation_map</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>  <span class="c1"># pyright: ignore[reportCallIssue]</span>
-</span><span data-line="282">            <span class="p">{</span><span class="n">EmailStr</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="n">AnyUrl</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="n">AnyHttpUrl</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="n">Json</span><span class="p">:</span> <span class="n">JsonB</span><span class="p">},</span>  <span class="c1"># pyright: ignore[reportArgumentType]</span>
-</span><span data-line="283">        <span class="p">)</span>
-</span><span data-line="284">    <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">suppress</span><span class="p">(</span><span class="ne">ImportError</span><span class="p">):</span>
-</span><span data-line="285">        <span class="kn">from</span> <span class="nn">msgspec</span> <span class="kn">import</span> <span class="n">Struct</span>
-</span><span data-line="286">
-</span><span data-line="287">        <span class="n">type_annotation_map</span><span class="p">[</span><span class="n">Struct</span><span class="p">]</span> <span class="o">=</span> <span class="n">JsonB</span>
-</span><span data-line="288">    <span class="k">if</span> <span class="n">custom_annotation_map</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-</span><span data-line="289">        <span class="n">type_annotation_map</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">custom_annotation_map</span><span class="p">)</span>
-</span><span data-line="290">    <span class="k">return</span> <span class="n">registry</span><span class="p">(</span><span class="n">metadata</span><span class="o">=</span><span class="n">meta</span><span class="p">,</span> <span class="n">type_annotation_map</span><span class="o">=</span><span class="n">type_annotation_map</span><span class="p">)</span></div>
-</span><span data-line="291">
+</span><span data-line="264">
+<div class="viewcode-block" id="create_registry"><a class="viewcode-back" href="../../reference/base.html#advanced_alchemy.base.create_registry">[docs]</a></span><span data-line="265"><span class="k">def</span> <span class="nf">create_registry</span><span class="p">(</span>
+</span><span data-line="266">    <span class="n">custom_annotation_map</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">type</span><span class="p">,</span> <span class="nb">type</span><span class="p">[</span><span class="n">TypeEngine</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span> <span class="o">|</span> <span class="n">TypeEngine</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="267"><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">registry</span><span class="p">:</span>
+</span><span data-line="268"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a new SQLAlchemy registry.&quot;&quot;&quot;</span>
+</span><span data-line="269">    <span class="kn">import</span> <span class="nn">uuid</span> <span class="k">as</span> <span class="nn">core_uuid</span>
+</span><span data-line="270">
+</span><span data-line="271">    <span class="n">meta</span> <span class="o">=</span> <span class="n">MetaData</span><span class="p">(</span><span class="n">naming_convention</span><span class="o">=</span><span class="n">convention</span><span class="p">)</span>
+</span><span data-line="272">    <span class="n">type_annotation_map</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">type</span><span class="p">,</span> <span class="nb">type</span><span class="p">[</span><span class="n">TypeEngine</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span> <span class="o">|</span> <span class="n">TypeEngine</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
+</span><span data-line="273">        <span class="n">UUID</span><span class="p">:</span> <span class="n">GUID</span><span class="p">,</span>
+</span><span data-line="274">        <span class="n">core_uuid</span><span class="o">.</span><span class="n">UUID</span><span class="p">:</span> <span class="n">GUID</span><span class="p">,</span>
+</span><span data-line="275">        <span class="n">datetime</span><span class="p">:</span> <span class="n">DateTimeUTC</span><span class="p">,</span>
+</span><span data-line="276">        <span class="n">date</span><span class="p">:</span> <span class="n">Date</span><span class="p">,</span>
+</span><span data-line="277">        <span class="nb">dict</span><span class="p">:</span> <span class="n">JsonB</span><span class="p">,</span>
+</span><span data-line="278">    <span class="p">}</span>
+</span><span data-line="279">    <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">suppress</span><span class="p">(</span><span class="ne">ImportError</span><span class="p">):</span>
+</span><span data-line="280">        <span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">AnyHttpUrl</span><span class="p">,</span> <span class="n">AnyUrl</span><span class="p">,</span> <span class="n">EmailStr</span><span class="p">,</span> <span class="n">Json</span>
+</span><span data-line="281">
+</span><span data-line="282">        <span class="n">type_annotation_map</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>  <span class="c1"># pyright: ignore[reportCallIssue]</span>
+</span><span data-line="283">            <span class="p">{</span><span class="n">EmailStr</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="n">AnyUrl</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="n">AnyHttpUrl</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="n">Json</span><span class="p">:</span> <span class="n">JsonB</span><span class="p">},</span>  <span class="c1"># pyright: ignore[reportArgumentType]</span>
+</span><span data-line="284">        <span class="p">)</span>
+</span><span data-line="285">    <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">suppress</span><span class="p">(</span><span class="ne">ImportError</span><span class="p">):</span>
+</span><span data-line="286">        <span class="kn">from</span> <span class="nn">msgspec</span> <span class="kn">import</span> <span class="n">Struct</span>
+</span><span data-line="287">
+</span><span data-line="288">        <span class="n">type_annotation_map</span><span class="p">[</span><span class="n">Struct</span><span class="p">]</span> <span class="o">=</span> <span class="n">JsonB</span>
+</span><span data-line="289">    <span class="k">if</span> <span class="n">custom_annotation_map</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="290">        <span class="n">type_annotation_map</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">custom_annotation_map</span><span class="p">)</span>
+</span><span data-line="291">    <span class="k">return</span> <span class="n">registry</span><span class="p">(</span><span class="n">metadata</span><span class="o">=</span><span class="n">meta</span><span class="p">,</span> <span class="n">type_annotation_map</span><span class="o">=</span><span class="n">type_annotation_map</span><span class="p">)</span></div>
 </span><span data-line="292">
-</span><span data-line="293"><span class="n">orm_registry</span> <span class="o">=</span> <span class="n">create_registry</span><span class="p">()</span>
-</span><span data-line="294">
+</span><span data-line="293">
+</span><span data-line="294"><span class="n">orm_registry</span> <span class="o">=</span> <span class="n">create_registry</span><span class="p">()</span>
 </span><span data-line="295">
-<div class="viewcode-block" id="UUIDBase"><a class="viewcode-back" href="../../reference/base.html#advanced_alchemy.base.UUIDBase">[docs]</a></span><span data-line="296"><span class="k">class</span> <span class="nc">UUIDBase</span><span class="p">(</span><span class="n">UUIDPrimaryKey</span><span class="p">,</span> <span class="n">CommonTableAttributes</span><span class="p">,</span> <span class="n">DeclarativeBase</span><span class="p">):</span>
-</span><span data-line="297"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Base for all SQLAlchemy declarative models with UUID primary keys.&quot;&quot;&quot;</span>
-</span><span data-line="298">
-</span><span data-line="299">    <span class="n">registry</span> <span class="o">=</span> <span class="n">orm_registry</span></div>
-</span><span data-line="300">
+</span><span data-line="296">
+<div class="viewcode-block" id="UUIDBase"><a class="viewcode-back" href="../../reference/base.html#advanced_alchemy.base.UUIDBase">[docs]</a></span><span data-line="297"><span class="k">class</span> <span class="nc">UUIDBase</span><span class="p">(</span><span class="n">UUIDPrimaryKey</span><span class="p">,</span> <span class="n">CommonTableAttributes</span><span class="p">,</span> <span class="n">DeclarativeBase</span><span class="p">):</span>
+</span><span data-line="298"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Base for all SQLAlchemy declarative models with UUID primary keys.&quot;&quot;&quot;</span>
+</span><span data-line="299">
+</span><span data-line="300">    <span class="n">registry</span> <span class="o">=</span> <span class="n">orm_registry</span></div>
 </span><span data-line="301">
-<div class="viewcode-block" id="UUIDAuditBase"><a class="viewcode-back" href="../../reference/base.html#advanced_alchemy.base.UUIDAuditBase">[docs]</a></span><span data-line="302"><span class="k">class</span> <span class="nc">UUIDAuditBase</span><span class="p">(</span><span class="n">CommonTableAttributes</span><span class="p">,</span> <span class="n">UUIDPrimaryKey</span><span class="p">,</span> <span class="n">AuditColumns</span><span class="p">,</span> <span class="n">DeclarativeBase</span><span class="p">):</span>
-</span><span data-line="303"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Base for declarative models with UUID primary keys and audit columns.&quot;&quot;&quot;</span>
-</span><span data-line="304">
-</span><span data-line="305">    <span class="n">registry</span> <span class="o">=</span> <span class="n">orm_registry</span></div>
-</span><span data-line="306">
+</span><span data-line="302">
+<div class="viewcode-block" id="UUIDAuditBase"><a class="viewcode-back" href="../../reference/base.html#advanced_alchemy.base.UUIDAuditBase">[docs]</a></span><span data-line="303"><span class="k">class</span> <span class="nc">UUIDAuditBase</span><span class="p">(</span><span class="n">CommonTableAttributes</span><span class="p">,</span> <span class="n">UUIDPrimaryKey</span><span class="p">,</span> <span class="n">AuditColumns</span><span class="p">,</span> <span class="n">DeclarativeBase</span><span class="p">):</span>
+</span><span data-line="304"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Base for declarative models with UUID primary keys and audit columns.&quot;&quot;&quot;</span>
+</span><span data-line="305">
+</span><span data-line="306">    <span class="n">registry</span> <span class="o">=</span> <span class="n">orm_registry</span></div>
 </span><span data-line="307">
-<div class="viewcode-block" id="UUIDv6Base"><a class="viewcode-back" href="../../reference/base.html#advanced_alchemy.base.UUIDv6Base">[docs]</a></span><span data-line="308"><span class="k">class</span> <span class="nc">UUIDv6Base</span><span class="p">(</span><span class="n">UUIDv6PrimaryKey</span><span class="p">,</span> <span class="n">CommonTableAttributes</span><span class="p">,</span> <span class="n">DeclarativeBase</span><span class="p">):</span>
-</span><span data-line="309"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Base for all SQLAlchemy declarative models with UUID primary keys.&quot;&quot;&quot;</span>
-</span><span data-line="310">
-</span><span data-line="311">    <span class="n">registry</span> <span class="o">=</span> <span class="n">orm_registry</span></div>
-</span><span data-line="312">
+</span><span data-line="308">
+<div class="viewcode-block" id="UUIDv6Base"><a class="viewcode-back" href="../../reference/base.html#advanced_alchemy.base.UUIDv6Base">[docs]</a></span><span data-line="309"><span class="k">class</span> <span class="nc">UUIDv6Base</span><span class="p">(</span><span class="n">UUIDv6PrimaryKey</span><span class="p">,</span> <span class="n">CommonTableAttributes</span><span class="p">,</span> <span class="n">DeclarativeBase</span><span class="p">):</span>
+</span><span data-line="310"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Base for all SQLAlchemy declarative models with UUID primary keys.&quot;&quot;&quot;</span>
+</span><span data-line="311">
+</span><span data-line="312">    <span class="n">registry</span> <span class="o">=</span> <span class="n">orm_registry</span></div>
 </span><span data-line="313">
-<div class="viewcode-block" id="UUIDv6AuditBase"><a class="viewcode-back" href="../../reference/base.html#advanced_alchemy.base.UUIDv6AuditBase">[docs]</a></span><span data-line="314"><span class="k">class</span> <span class="nc">UUIDv6AuditBase</span><span class="p">(</span><span class="n">CommonTableAttributes</span><span class="p">,</span> <span class="n">UUIDv6PrimaryKey</span><span class="p">,</span> <span class="n">AuditColumns</span><span class="p">,</span> <span class="n">DeclarativeBase</span><span class="p">):</span>
-</span><span data-line="315"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Base for declarative models with UUID primary keys and audit columns.&quot;&quot;&quot;</span>
-</span><span data-line="316">
-</span><span data-line="317">    <span class="n">registry</span> <span class="o">=</span> <span class="n">orm_registry</span></div>
-</span><span data-line="318">
+</span><span data-line="314">
+<div class="viewcode-block" id="UUIDv6AuditBase"><a class="viewcode-back" href="../../reference/base.html#advanced_alchemy.base.UUIDv6AuditBase">[docs]</a></span><span data-line="315"><span class="k">class</span> <span class="nc">UUIDv6AuditBase</span><span class="p">(</span><span class="n">CommonTableAttributes</span><span class="p">,</span> <span class="n">UUIDv6PrimaryKey</span><span class="p">,</span> <span class="n">AuditColumns</span><span class="p">,</span> <span class="n">DeclarativeBase</span><span class="p">):</span>
+</span><span data-line="316"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Base for declarative models with UUID primary keys and audit columns.&quot;&quot;&quot;</span>
+</span><span data-line="317">
+</span><span data-line="318">    <span class="n">registry</span> <span class="o">=</span> <span class="n">orm_registry</span></div>
 </span><span data-line="319">
-<div class="viewcode-block" id="UUIDv7Base"><a class="viewcode-back" href="../../reference/base.html#advanced_alchemy.base.UUIDv7Base">[docs]</a></span><span data-line="320"><span class="k">class</span> <span class="nc">UUIDv7Base</span><span class="p">(</span><span class="n">UUIDv7PrimaryKey</span><span class="p">,</span> <span class="n">CommonTableAttributes</span><span class="p">,</span> <span class="n">DeclarativeBase</span><span class="p">):</span>
-</span><span data-line="321"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Base for all SQLAlchemy declarative models with UUID primary keys.&quot;&quot;&quot;</span>
-</span><span data-line="322">
-</span><span data-line="323">    <span class="n">registry</span> <span class="o">=</span> <span class="n">orm_registry</span></div>
-</span><span data-line="324">
+</span><span data-line="320">
+<div class="viewcode-block" id="UUIDv7Base"><a class="viewcode-back" href="../../reference/base.html#advanced_alchemy.base.UUIDv7Base">[docs]</a></span><span data-line="321"><span class="k">class</span> <span class="nc">UUIDv7Base</span><span class="p">(</span><span class="n">UUIDv7PrimaryKey</span><span class="p">,</span> <span class="n">CommonTableAttributes</span><span class="p">,</span> <span class="n">DeclarativeBase</span><span class="p">):</span>
+</span><span data-line="322"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Base for all SQLAlchemy declarative models with UUID primary keys.&quot;&quot;&quot;</span>
+</span><span data-line="323">
+</span><span data-line="324">    <span class="n">registry</span> <span class="o">=</span> <span class="n">orm_registry</span></div>
 </span><span data-line="325">
-<div class="viewcode-block" id="UUIDv7AuditBase"><a class="viewcode-back" href="../../reference/base.html#advanced_alchemy.base.UUIDv7AuditBase">[docs]</a></span><span data-line="326"><span class="k">class</span> <span class="nc">UUIDv7AuditBase</span><span class="p">(</span><span class="n">CommonTableAttributes</span><span class="p">,</span> <span class="n">UUIDv7PrimaryKey</span><span class="p">,</span> <span class="n">AuditColumns</span><span class="p">,</span> <span class="n">DeclarativeBase</span><span class="p">):</span>
-</span><span data-line="327"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Base for declarative models with UUID primary keys and audit columns.&quot;&quot;&quot;</span>
-</span><span data-line="328">
-</span><span data-line="329">    <span class="n">registry</span> <span class="o">=</span> <span class="n">orm_registry</span></div>
-</span><span data-line="330">
+</span><span data-line="326">
+<div class="viewcode-block" id="UUIDv7AuditBase"><a class="viewcode-back" href="../../reference/base.html#advanced_alchemy.base.UUIDv7AuditBase">[docs]</a></span><span data-line="327"><span class="k">class</span> <span class="nc">UUIDv7AuditBase</span><span class="p">(</span><span class="n">CommonTableAttributes</span><span class="p">,</span> <span class="n">UUIDv7PrimaryKey</span><span class="p">,</span> <span class="n">AuditColumns</span><span class="p">,</span> <span class="n">DeclarativeBase</span><span class="p">):</span>
+</span><span data-line="328"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Base for declarative models with UUID primary keys and audit columns.&quot;&quot;&quot;</span>
+</span><span data-line="329">
+</span><span data-line="330">    <span class="n">registry</span> <span class="o">=</span> <span class="n">orm_registry</span></div>
 </span><span data-line="331">
-<div class="viewcode-block" id="BigIntBase"><a class="viewcode-back" href="../../reference/base.html#advanced_alchemy.base.BigIntBase">[docs]</a></span><span data-line="332"><span class="k">class</span> <span class="nc">BigIntBase</span><span class="p">(</span><span class="n">BigIntPrimaryKey</span><span class="p">,</span> <span class="n">CommonTableAttributes</span><span class="p">,</span> <span class="n">DeclarativeBase</span><span class="p">):</span>
-</span><span data-line="333"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Base for all SQLAlchemy declarative models with BigInt primary keys.&quot;&quot;&quot;</span>
-</span><span data-line="334">
-</span><span data-line="335">    <span class="n">registry</span> <span class="o">=</span> <span class="n">orm_registry</span></div>
-</span><span data-line="336">
+</span><span data-line="332">
+<div class="viewcode-block" id="BigIntBase"><a class="viewcode-back" href="../../reference/base.html#advanced_alchemy.base.BigIntBase">[docs]</a></span><span data-line="333"><span class="k">class</span> <span class="nc">BigIntBase</span><span class="p">(</span><span class="n">BigIntPrimaryKey</span><span class="p">,</span> <span class="n">CommonTableAttributes</span><span class="p">,</span> <span class="n">DeclarativeBase</span><span class="p">):</span>
+</span><span data-line="334"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Base for all SQLAlchemy declarative models with BigInt primary keys.&quot;&quot;&quot;</span>
+</span><span data-line="335">
+</span><span data-line="336">    <span class="n">registry</span> <span class="o">=</span> <span class="n">orm_registry</span></div>
 </span><span data-line="337">
-<div class="viewcode-block" id="BigIntAuditBase"><a class="viewcode-back" href="../../reference/base.html#advanced_alchemy.base.BigIntAuditBase">[docs]</a></span><span data-line="338"><span class="k">class</span> <span class="nc">BigIntAuditBase</span><span class="p">(</span><span class="n">CommonTableAttributes</span><span class="p">,</span> <span class="n">BigIntPrimaryKey</span><span class="p">,</span> <span class="n">AuditColumns</span><span class="p">,</span> <span class="n">DeclarativeBase</span><span class="p">):</span>
-</span><span data-line="339"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Base for declarative models with BigInt primary keys and audit columns.&quot;&quot;&quot;</span>
-</span><span data-line="340">
-</span><span data-line="341">    <span class="n">registry</span> <span class="o">=</span> <span class="n">orm_registry</span></div>
-</span><span data-line="342">
+</span><span data-line="338">
+<div class="viewcode-block" id="BigIntAuditBase"><a class="viewcode-back" href="../../reference/base.html#advanced_alchemy.base.BigIntAuditBase">[docs]</a></span><span data-line="339"><span class="k">class</span> <span class="nc">BigIntAuditBase</span><span class="p">(</span><span class="n">CommonTableAttributes</span><span class="p">,</span> <span class="n">BigIntPrimaryKey</span><span class="p">,</span> <span class="n">AuditColumns</span><span class="p">,</span> <span class="n">DeclarativeBase</span><span class="p">):</span>
+</span><span data-line="340"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Base for declarative models with BigInt primary keys and audit columns.&quot;&quot;&quot;</span>
+</span><span data-line="341">
+</span><span data-line="342">    <span class="n">registry</span> <span class="o">=</span> <span class="n">orm_registry</span></div>
 </span><span data-line="343">
-<div class="viewcode-block" id="SQLQuery"><a class="viewcode-back" href="../../reference/base.html#advanced_alchemy.base.SQLQuery">[docs]</a></span><span data-line="344"><span class="k">class</span> <span class="nc">SQLQuery</span><span class="p">(</span><span class="n">DeclarativeBase</span><span class="p">):</span>
-</span><span data-line="345"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Base for all SQLAlchemy custom mapped objects.&quot;&quot;&quot;</span>
-</span><span data-line="346">
-</span><span data-line="347">    <span class="n">__allow_unmapped__</span> <span class="o">=</span> <span class="kc">True</span>
-</span><span data-line="348">    <span class="n">registry</span> <span class="o">=</span> <span class="n">orm_registry</span>
-</span><span data-line="349">
-<div class="viewcode-block" id="SQLQuery.to_dict"><a class="viewcode-back" href="../../reference/base.html#advanced_alchemy.base.SQLQuery.to_dict">[docs]</a></span><span data-line="350">    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exclude</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-</span><span data-line="351"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert model to dictionary.</span>
-</span><span data-line="352">
-</span><span data-line="353"><span class="sd">        Returns:</span>
-</span><span data-line="354"><span class="sd">            dict[str, Any]: A dict representation of the model</span>
-</span><span data-line="355"><span class="sd">        &quot;&quot;&quot;</span>
-</span><span data-line="356">        <span class="n">exclude</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;sa_orm_sentinel&quot;</span><span class="p">,</span> <span class="s2">&quot;_sentinel&quot;</span><span class="p">}</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sa_instance_state</span><span class="o">.</span><span class="n">unloaded</span><span class="p">)</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">exclude</span> <span class="ow">or</span> <span class="p">[])</span>  <span class="c1"># type: ignore[attr-defined]</span>
-</span><span data-line="357">        <span class="k">return</span> <span class="p">{</span><span class="n">field</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">field</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">exclude</span><span class="p">}</span></div></div>
+</span><span data-line="344">
+<div class="viewcode-block" id="SQLQuery"><a class="viewcode-back" href="../../reference/base.html#advanced_alchemy.base.SQLQuery">[docs]</a></span><span data-line="345"><span class="k">class</span> <span class="nc">SQLQuery</span><span class="p">(</span><span class="n">DeclarativeBase</span><span class="p">):</span>
+</span><span data-line="346"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Base for all SQLAlchemy custom mapped objects.&quot;&quot;&quot;</span>
+</span><span data-line="347">
+</span><span data-line="348">    <span class="n">__allow_unmapped__</span> <span class="o">=</span> <span class="kc">True</span>
+</span><span data-line="349">    <span class="n">registry</span> <span class="o">=</span> <span class="n">orm_registry</span>
+</span><span data-line="350">
+<div class="viewcode-block" id="SQLQuery.to_dict"><a class="viewcode-back" href="../../reference/base.html#advanced_alchemy.base.SQLQuery.to_dict">[docs]</a></span><span data-line="351">    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exclude</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+</span><span data-line="352"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert model to dictionary.</span>
+</span><span data-line="353">
+</span><span data-line="354"><span class="sd">        Returns:</span>
+</span><span data-line="355"><span class="sd">            dict[str, Any]: A dict representation of the model</span>
+</span><span data-line="356"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span data-line="357">        <span class="n">exclude</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;sa_orm_sentinel&quot;</span><span class="p">,</span> <span class="s2">&quot;_sentinel&quot;</span><span class="p">}</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sa_instance_state</span><span class="o">.</span><span class="n">unloaded</span><span class="p">)</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">exclude</span> <span class="ow">or</span> <span class="p">[])</span>  <span class="c1"># type: ignore[attr-defined]</span>
+</span><span data-line="358">        <span class="k">return</span> <span class="p">{</span><span class="n">field</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">field</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">exclude</span><span class="p">}</span></div></div>
 </span></pre></div>
         </article>
         <button class="back-to-top" type="button">
