@@ -259,7 +259,7 @@
     <h3>On this page</h3>
     <ul>
 <li><a class="reference internal" href="#advanced_alchemy.repository.SQLAlchemyAsyncRepository"><code class="docutils literal notranslate"><span class="pre">SQLAlchemyAsyncRepository</span></code></a><ul>
-<li><a class="reference internal" href="#advanced_alchemy.repository.SQLAlchemyAsyncRepository.prefer_any_dialects"><code class="docutils literal notranslate"><span class="pre">SQLAlchemyAsyncRepository.prefer_any_dialects</span></code></a></li>
+<li><a class="reference internal" href="#advanced_alchemy.repository.SQLAlchemyAsyncRepository.match_fields"><code class="docutils literal notranslate"><span class="pre">SQLAlchemyAsyncRepository.match_fields</span></code></a></li>
 <li><a class="reference internal" href="#advanced_alchemy.repository.SQLAlchemyAsyncRepository.__init__"><code class="docutils literal notranslate"><span class="pre">SQLAlchemyAsyncRepository.__init__()</span></code></a></li>
 <li><a class="reference internal" href="#advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_id_attribute_value"><code class="docutils literal notranslate"><span class="pre">SQLAlchemyAsyncRepository.get_id_attribute_value()</span></code></a></li>
 <li><a class="reference internal" href="#advanced_alchemy.repository.SQLAlchemyAsyncRepository.set_id_attribute_value"><code class="docutils literal notranslate"><span class="pre">SQLAlchemyAsyncRepository.set_id_attribute_value()</span></code></a></li>
@@ -286,6 +286,16 @@
 <li><a class="reference internal" href="#advanced_alchemy.repository.SQLAlchemyAsyncRepository.check_health"><code class="docutils literal notranslate"><span class="pre">SQLAlchemyAsyncRepository.check_health()</span></code></a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#advanced_alchemy.repository.SQLAlchemyAsyncQueryRepository"><code class="docutils literal notranslate"><span class="pre">SQLAlchemyAsyncQueryRepository</span></code></a><ul>
+<li><a class="reference internal" href="#advanced_alchemy.repository.SQLAlchemyAsyncQueryRepository.__init__"><code class="docutils literal notranslate"><span class="pre">SQLAlchemyAsyncQueryRepository.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#advanced_alchemy.repository.SQLAlchemyAsyncQueryRepository.get_one"><code class="docutils literal notranslate"><span class="pre">SQLAlchemyAsyncQueryRepository.get_one()</span></code></a></li>
+<li><a class="reference internal" href="#advanced_alchemy.repository.SQLAlchemyAsyncQueryRepository.get_one_or_none"><code class="docutils literal notranslate"><span class="pre">SQLAlchemyAsyncQueryRepository.get_one_or_none()</span></code></a></li>
+<li><a class="reference internal" href="#advanced_alchemy.repository.SQLAlchemyAsyncQueryRepository.count"><code class="docutils literal notranslate"><span class="pre">SQLAlchemyAsyncQueryRepository.count()</span></code></a></li>
+<li><a class="reference internal" href="#advanced_alchemy.repository.SQLAlchemyAsyncQueryRepository.list_and_count"><code class="docutils literal notranslate"><span class="pre">SQLAlchemyAsyncQueryRepository.list_and_count()</span></code></a></li>
+<li><a class="reference internal" href="#advanced_alchemy.repository.SQLAlchemyAsyncQueryRepository.list"><code class="docutils literal notranslate"><span class="pre">SQLAlchemyAsyncQueryRepository.list()</span></code></a></li>
+<li><a class="reference internal" href="#advanced_alchemy.repository.SQLAlchemyAsyncQueryRepository.check_not_found"><code class="docutils literal notranslate"><span class="pre">SQLAlchemyAsyncQueryRepository.check_not_found()</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#advanced_alchemy.repository.SQLAlchemyAsyncSlugRepository"><code class="docutils literal notranslate"><span class="pre">SQLAlchemyAsyncSlugRepository</span></code></a><ul>
 <li><a class="reference internal" href="#advanced_alchemy.repository.SQLAlchemyAsyncSlugRepository.get_by_slug"><code class="docutils literal notranslate"><span class="pre">SQLAlchemyAsyncSlugRepository.get_by_slug()</span></code></a></li>
 <li><a class="reference internal" href="#advanced_alchemy.repository.SQLAlchemyAsyncSlugRepository.get_available_slug"><code class="docutils literal notranslate"><span class="pre">SQLAlchemyAsyncSlugRepository.get_available_slug()</span></code></a></li>
@@ -297,7 +307,7 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#advanced_alchemy.repository.SQLAlchemySyncRepository"><code class="docutils literal notranslate"><span class="pre">SQLAlchemySyncRepository</span></code></a><ul>
-<li><a class="reference internal" href="#advanced_alchemy.repository.SQLAlchemySyncRepository.prefer_any_dialects"><code class="docutils literal notranslate"><span class="pre">SQLAlchemySyncRepository.prefer_any_dialects</span></code></a></li>
+<li><a class="reference internal" href="#advanced_alchemy.repository.SQLAlchemySyncRepository.match_fields"><code class="docutils literal notranslate"><span class="pre">SQLAlchemySyncRepository.match_fields</span></code></a></li>
 <li><a class="reference internal" href="#advanced_alchemy.repository.SQLAlchemySyncRepository.__init__"><code class="docutils literal notranslate"><span class="pre">SQLAlchemySyncRepository.__init__()</span></code></a></li>
 <li><a class="reference internal" href="#advanced_alchemy.repository.SQLAlchemySyncRepository.get_id_attribute_value"><code class="docutils literal notranslate"><span class="pre">SQLAlchemySyncRepository.get_id_attribute_value()</span></code></a></li>
 <li><a class="reference internal" href="#advanced_alchemy.repository.SQLAlchemySyncRepository.set_id_attribute_value"><code class="docutils literal notranslate"><span class="pre">SQLAlchemySyncRepository.set_id_attribute_value()</span></code></a></li>
@@ -322,6 +332,16 @@
 <li><a class="reference internal" href="#advanced_alchemy.repository.SQLAlchemySyncRepository.list"><code class="docutils literal notranslate"><span class="pre">SQLAlchemySyncRepository.list()</span></code></a></li>
 <li><a class="reference internal" href="#advanced_alchemy.repository.SQLAlchemySyncRepository.filter_collection_by_kwargs"><code class="docutils literal notranslate"><span class="pre">SQLAlchemySyncRepository.filter_collection_by_kwargs()</span></code></a></li>
 <li><a class="reference internal" href="#advanced_alchemy.repository.SQLAlchemySyncRepository.check_health"><code class="docutils literal notranslate"><span class="pre">SQLAlchemySyncRepository.check_health()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#advanced_alchemy.repository.SQLAlchemySyncQueryRepository"><code class="docutils literal notranslate"><span class="pre">SQLAlchemySyncQueryRepository</span></code></a><ul>
+<li><a class="reference internal" href="#advanced_alchemy.repository.SQLAlchemySyncQueryRepository.__init__"><code class="docutils literal notranslate"><span class="pre">SQLAlchemySyncQueryRepository.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#advanced_alchemy.repository.SQLAlchemySyncQueryRepository.get_one"><code class="docutils literal notranslate"><span class="pre">SQLAlchemySyncQueryRepository.get_one()</span></code></a></li>
+<li><a class="reference internal" href="#advanced_alchemy.repository.SQLAlchemySyncQueryRepository.get_one_or_none"><code class="docutils literal notranslate"><span class="pre">SQLAlchemySyncQueryRepository.get_one_or_none()</span></code></a></li>
+<li><a class="reference internal" href="#advanced_alchemy.repository.SQLAlchemySyncQueryRepository.count"><code class="docutils literal notranslate"><span class="pre">SQLAlchemySyncQueryRepository.count()</span></code></a></li>
+<li><a class="reference internal" href="#advanced_alchemy.repository.SQLAlchemySyncQueryRepository.list_and_count"><code class="docutils literal notranslate"><span class="pre">SQLAlchemySyncQueryRepository.list_and_count()</span></code></a></li>
+<li><a class="reference internal" href="#advanced_alchemy.repository.SQLAlchemySyncQueryRepository.list"><code class="docutils literal notranslate"><span class="pre">SQLAlchemySyncQueryRepository.list()</span></code></a></li>
+<li><a class="reference internal" href="#advanced_alchemy.repository.SQLAlchemySyncQueryRepository.check_not_found"><code class="docutils literal notranslate"><span class="pre">SQLAlchemySyncQueryRepository.check_not_found()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#advanced_alchemy.repository.model_from_dict"><code class="docutils literal notranslate"><span class="pre">model_from_dict()</span></code></a></li>
@@ -397,11 +417,11 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="advanced_alchemy.repository.SQLAlchemyAsyncRepository">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">advanced_alchemy.repository.</span></span><span class="sig-name descname"><span class="pre">SQLAlchemyAsyncRepository</span></span><a class="reference internal" href="../_modules/advanced_alchemy/repository/_async.html#SQLAlchemyAsyncRepository"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#advanced_alchemy.repository.SQLAlchemyAsyncRepository" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Generic" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">ModelT</span></code>]</p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">FilterableRepository</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">ModelT</span></code>]</p>
 <p>SQLAlchemy based implementation of the repository interface.</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="advanced_alchemy.repository.SQLAlchemyAsyncRepository.prefer_any_dialects">
-<span class="sig-name descname"><span class="pre">prefer_any_dialects</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.12)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('postgresql',)</span></em><a class="headerlink" href="#advanced_alchemy.repository.SQLAlchemyAsyncRepository.prefer_any_dialects" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="advanced_alchemy.repository.SQLAlchemyAsyncRepository.match_fields">
+<span class="sig-name descname"><span class="pre">match_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#advanced_alchemy.repository.SQLAlchemyAsyncRepository.match_fields" title="Permalink to this definition">¶</a></dt>
 <dd><p>List of dialects that prefer to use <code class="docutils literal notranslate"><span class="pre">field.id</span> <span class="pre">=</span> <span class="pre">ANY(:1)</span></code> instead of <code class="docutils literal notranslate"><span class="pre">field.id</span> <span class="pre">IN</span> <span class="pre">(...)</span></code>.</p>
 </dd></dl>
 
@@ -974,6 +994,131 @@ have the property that their attribute named <cite>key</cite> has value equal to
 </dd></dl>
 
 <dl class="py class">
+<dt class="sig sig-object py" id="advanced_alchemy.repository.SQLAlchemyAsyncQueryRepository">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">advanced_alchemy.repository.</span></span><span class="sig-name descname"><span class="pre">SQLAlchemyAsyncQueryRepository</span></span><a class="reference internal" href="../_modules/advanced_alchemy/repository/_async.html#SQLAlchemyAsyncQueryRepository"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#advanced_alchemy.repository.SQLAlchemyAsyncQueryRepository" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>SQLAlchemy Query Repository.</p>
+<p>This is a loosely typed helper to query for when you need to select data in ways that don’t align to the normal repository pattern.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="advanced_alchemy.repository.SQLAlchemyAsyncQueryRepository.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AsyncSession</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">async_scoped_session</span><span class="p"><span class="pre">[</span></span><span class="pre">AsyncSession</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/advanced_alchemy/repository/_async.html#SQLAlchemyAsyncQueryRepository.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#advanced_alchemy.repository.SQLAlchemyAsyncQueryRepository.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Repository pattern for SQLAlchemy models.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="advanced_alchemy.repository.SQLAlchemyAsyncQueryRepository.params.session"></span><strong>session</strong><a class="paramlink headerlink reference internal" href="#advanced_alchemy.repository.SQLAlchemyAsyncQueryRepository.params.session">¶</a> – Session managing the unit-of-work for the operation.</p></li>
+<li><p><span class="target" id="advanced_alchemy.repository.SQLAlchemyAsyncQueryRepository.params.auto_expunge"></span><strong>auto_expunge</strong><a class="paramlink headerlink reference internal" href="#advanced_alchemy.repository.SQLAlchemyAsyncQueryRepository.params.auto_expunge">¶</a> – Remove object from session before returning.</p></li>
+<li><p><span class="target" id="advanced_alchemy.repository.SQLAlchemyAsyncQueryRepository.params.**kwargs"></span><strong>**kwargs</strong><a class="paramlink headerlink reference internal" href="#advanced_alchemy.repository.SQLAlchemyAsyncQueryRepository.params.**kwargs">¶</a> – Additional arguments.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="advanced_alchemy.repository.SQLAlchemyAsyncQueryRepository.get_one">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_one</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">statement</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.sqlalchemy.org/en/20/core/selectable.html#sqlalchemy.sql.expression.Select" title="(in SQLAlchemy v2.0)"><span class="pre">Select</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.sqlalchemy.org/en/20/core/connections.html#sqlalchemy.engine.RowMapping" title="(in SQLAlchemy v2.0)"><span class="pre">RowMapping</span></a></span></span><a class="reference internal" href="../_modules/advanced_alchemy/repository/_async.html#SQLAlchemyAsyncQueryRepository.get_one"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#advanced_alchemy.repository.SQLAlchemyAsyncQueryRepository.get_one" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get instance identified by <code class="docutils literal notranslate"><span class="pre">kwargs</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="advanced_alchemy.repository.SQLAlchemyAsyncQueryRepository.get_one.params.statement"></span><strong>statement</strong><a class="paramlink headerlink reference internal" href="#advanced_alchemy.repository.SQLAlchemyAsyncQueryRepository.get_one.params.statement">¶</a> – To facilitate customization of the underlying select query.
+Defaults to <a class="reference internal" href="#advanced_alchemy.repository.SQLAlchemyAsyncRepository" title="advanced_alchemy.repository.SQLAlchemyAsyncRepository"><code class="xref py py-class docutils literal notranslate"><span class="pre">SQLAlchemyAsyncRepository.statement</span></code></a></p></li>
+<li><p><span class="target" id="advanced_alchemy.repository.SQLAlchemyAsyncQueryRepository.get_one.params.**kwargs"></span><strong>**kwargs</strong><a class="paramlink headerlink reference internal" href="#advanced_alchemy.repository.SQLAlchemyAsyncQueryRepository.get_one.params.**kwargs">¶</a> – Instance attribute value filters.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The retrieved instance.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="exceptions.html#advanced_alchemy.exceptions.NotFoundError" title="advanced_alchemy.exceptions.NotFoundError"><strong>NotFoundError</strong></a> – If no instance found identified by <cite>item_id</cite>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="advanced_alchemy.repository.SQLAlchemyAsyncQueryRepository.get_one_or_none">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_one_or_none</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">statement</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.sqlalchemy.org/en/20/core/selectable.html#sqlalchemy.sql.expression.Select" title="(in SQLAlchemy v2.0)"><span class="pre">Select</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.sqlalchemy.org/en/20/core/connections.html#sqlalchemy.engine.RowMapping" title="(in SQLAlchemy v2.0)"><span class="pre">RowMapping</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/advanced_alchemy/repository/_async.html#SQLAlchemyAsyncQueryRepository.get_one_or_none"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#advanced_alchemy.repository.SQLAlchemyAsyncQueryRepository.get_one_or_none" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get instance identified by <code class="docutils literal notranslate"><span class="pre">kwargs</span></code> or None if not found.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="target" id="advanced_alchemy.repository.SQLAlchemyAsyncQueryRepository.get_one_or_none.params.statement"></span><strong>statement</strong><a class="paramlink headerlink reference internal" href="#advanced_alchemy.repository.SQLAlchemyAsyncQueryRepository.get_one_or_none.params.statement">¶</a> – To facilitate customization of the underlying select query.            <a href="#id1"><span class="problematic" id="id2">**</span></a>kwargs: Instance attribute value filters.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The retrieved instance or None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="advanced_alchemy.repository.SQLAlchemyAsyncQueryRepository.count">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">statement</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.sqlalchemy.org/en/20/core/selectable.html#sqlalchemy.sql.expression.Select" title="(in SQLAlchemy v2.0)"><span class="pre">Select</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span></span><a class="reference internal" href="../_modules/advanced_alchemy/repository/_async.html#SQLAlchemyAsyncQueryRepository.count"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#advanced_alchemy.repository.SQLAlchemyAsyncQueryRepository.count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the count of records returned by a query.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="advanced_alchemy.repository.SQLAlchemyAsyncQueryRepository.count.params.statement"></span><strong>statement</strong><a class="paramlink headerlink reference internal" href="#advanced_alchemy.repository.SQLAlchemyAsyncQueryRepository.count.params.statement">¶</a> – To facilitate customization of the underlying select query.</p></li>
+<li><p><span class="target" id="advanced_alchemy.repository.SQLAlchemyAsyncQueryRepository.count.params.**kwargs"></span><strong>**kwargs</strong><a class="paramlink headerlink reference internal" href="#advanced_alchemy.repository.SQLAlchemyAsyncQueryRepository.count.params.**kwargs">¶</a> – Instance attribute value filters.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Count of records returned by query, ignoring pagination.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="advanced_alchemy.repository.SQLAlchemyAsyncQueryRepository.list_and_count">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">list_and_count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">statement</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.sqlalchemy.org/en/20/core/selectable.html#sqlalchemy.sql.expression.Select" title="(in SQLAlchemy v2.0)"><span class="pre">Select</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_basic_query_mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.12)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.sqlalchemy.org/en/20/core/connections.html#sqlalchemy.engine.RowMapping" title="(in SQLAlchemy v2.0)"><span class="pre">sqlalchemy.engine.row.RowMapping</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/advanced_alchemy/repository/_async.html#SQLAlchemyAsyncQueryRepository.list_and_count"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#advanced_alchemy.repository.SQLAlchemyAsyncQueryRepository.list_and_count" title="Permalink to this definition">¶</a></dt>
+<dd><p>List records with total count.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="advanced_alchemy.repository.SQLAlchemyAsyncQueryRepository.list_and_count.params.statement"></span><strong>statement</strong><a class="paramlink headerlink reference internal" href="#advanced_alchemy.repository.SQLAlchemyAsyncQueryRepository.list_and_count.params.statement">¶</a> – To facilitate customization of the underlying select query.
+Defaults to <a class="reference internal" href="#advanced_alchemy.repository.SQLAlchemyAsyncRepository" title="advanced_alchemy.repository.SQLAlchemyAsyncRepository"><code class="xref py py-class docutils literal notranslate"><span class="pre">SQLAlchemyAsyncRepository.statement</span></code></a></p></li>
+<li><p><span class="target" id="advanced_alchemy.repository.SQLAlchemyAsyncQueryRepository.list_and_count.params.force_basic_query_mode"></span><strong>force_basic_query_mode</strong><a class="paramlink headerlink reference internal" href="#advanced_alchemy.repository.SQLAlchemyAsyncQueryRepository.list_and_count.params.force_basic_query_mode">¶</a> – Force list and count to use two queries instead of an analytical window function.</p></li>
+<li><p><span class="target" id="advanced_alchemy.repository.SQLAlchemyAsyncQueryRepository.list_and_count.params.**kwargs"></span><strong>**kwargs</strong><a class="paramlink headerlink reference internal" href="#advanced_alchemy.repository.SQLAlchemyAsyncQueryRepository.list_and_count.params.**kwargs">¶</a> – Instance attribute value filters.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Count of records returned by query, ignoring pagination.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="advanced_alchemy.repository.SQLAlchemyAsyncQueryRepository.list">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">statement</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.sqlalchemy.org/en/20/core/selectable.html#sqlalchemy.sql.expression.Select" title="(in SQLAlchemy v2.0)"><span class="pre">Select</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.sqlalchemy.org/en/20/core/connections.html#sqlalchemy.engine.RowMapping" title="(in SQLAlchemy v2.0)"><span class="pre">sqlalchemy.engine.row.RowMapping</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/advanced_alchemy/repository/_async.html#SQLAlchemyAsyncQueryRepository.list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#advanced_alchemy.repository.SQLAlchemyAsyncQueryRepository.list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of instances, optionally filtered.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="advanced_alchemy.repository.SQLAlchemyAsyncQueryRepository.list.params.statement"></span><strong>statement</strong><a class="paramlink headerlink reference internal" href="#advanced_alchemy.repository.SQLAlchemyAsyncQueryRepository.list.params.statement">¶</a> – To facilitate customization of the underlying select query.</p></li>
+<li><p><span class="target" id="advanced_alchemy.repository.SQLAlchemyAsyncQueryRepository.list.params.**kwargs"></span><strong>**kwargs</strong><a class="paramlink headerlink reference internal" href="#advanced_alchemy.repository.SQLAlchemyAsyncQueryRepository.list.params.**kwargs">¶</a> – Instance attribute value filters.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The list of instances, after filtering applied.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="advanced_alchemy.repository.SQLAlchemyAsyncQueryRepository.check_not_found">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">check_not_found</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item_or_none</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">T</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">T</span></span></span><a class="reference internal" href="../_modules/advanced_alchemy/repository/_async.html#SQLAlchemyAsyncQueryRepository.check_not_found"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#advanced_alchemy.repository.SQLAlchemyAsyncQueryRepository.check_not_found" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raise <code class="xref py py-class docutils literal notranslate"><span class="pre">RepositoryNotFoundException</span></code> if <code class="docutils literal notranslate"><span class="pre">item_or_none</span></code> is <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="target" id="advanced_alchemy.repository.SQLAlchemyAsyncQueryRepository.check_not_found.params.item_or_none"></span><strong>item_or_none</strong><a class="paramlink headerlink reference internal" href="#advanced_alchemy.repository.SQLAlchemyAsyncQueryRepository.check_not_found.params.item_or_none">¶</a> – Item to be tested for existence.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The item, if it exists.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="advanced_alchemy.repository.SQLAlchemyAsyncSlugRepository">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">advanced_alchemy.repository.</span></span><span class="sig-name descname"><span class="pre">SQLAlchemyAsyncSlugRepository</span></span><a class="reference internal" href="../_modules/advanced_alchemy/repository/_async.html#SQLAlchemyAsyncSlugRepository"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#advanced_alchemy.repository.SQLAlchemyAsyncSlugRepository" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#advanced_alchemy.repository.SQLAlchemyAsyncRepository" title="advanced_alchemy.repository._async.SQLAlchemyAsyncRepository"><code class="xref py py-class docutils literal notranslate"><span class="pre">SQLAlchemyAsyncRepository</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">ModelT</span></code>]</p>
@@ -1046,11 +1191,11 @@ have the property that their attribute named <cite>key</cite> has value equal to
 <dl class="py class">
 <dt class="sig sig-object py" id="advanced_alchemy.repository.SQLAlchemySyncRepository">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">advanced_alchemy.repository.</span></span><span class="sig-name descname"><span class="pre">SQLAlchemySyncRepository</span></span><a class="reference internal" href="../_modules/advanced_alchemy/repository/_sync.html#SQLAlchemySyncRepository"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#advanced_alchemy.repository.SQLAlchemySyncRepository" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Generic" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">ModelT</span></code>]</p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">FilterableRepository</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">ModelT</span></code>]</p>
 <p>SQLAlchemy based implementation of the repository interface.</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="advanced_alchemy.repository.SQLAlchemySyncRepository.prefer_any_dialects">
-<span class="sig-name descname"><span class="pre">prefer_any_dialects</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.12)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('postgresql',)</span></em><a class="headerlink" href="#advanced_alchemy.repository.SQLAlchemySyncRepository.prefer_any_dialects" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="advanced_alchemy.repository.SQLAlchemySyncRepository.match_fields">
+<span class="sig-name descname"><span class="pre">match_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#advanced_alchemy.repository.SQLAlchemySyncRepository.match_fields" title="Permalink to this definition">¶</a></dt>
 <dd><p>List of dialects that prefer to use <code class="docutils literal notranslate"><span class="pre">field.id</span> <span class="pre">=</span> <span class="pre">ANY(:1)</span></code> instead of <code class="docutils literal notranslate"><span class="pre">field.id</span> <span class="pre">IN</span> <span class="pre">(...)</span></code>.</p>
 </dd></dl>
 
@@ -1622,9 +1767,134 @@ have the property that their attribute named <cite>key</cite> has value equal to
 
 </dd></dl>
 
+<dl class="py class">
+<dt class="sig sig-object py" id="advanced_alchemy.repository.SQLAlchemySyncQueryRepository">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">advanced_alchemy.repository.</span></span><span class="sig-name descname"><span class="pre">SQLAlchemySyncQueryRepository</span></span><a class="reference internal" href="../_modules/advanced_alchemy/repository/_sync.html#SQLAlchemySyncQueryRepository"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#advanced_alchemy.repository.SQLAlchemySyncQueryRepository" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>SQLAlchemy Query Repository.</p>
+<p>This is a loosely typed helper to query for when you need to select data in ways that don’t align to the normal repository pattern.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="advanced_alchemy.repository.SQLAlchemySyncQueryRepository.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">scoped_session</span><span class="p"><span class="pre">[</span></span><span class="pre">Session</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/advanced_alchemy/repository/_sync.html#SQLAlchemySyncQueryRepository.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#advanced_alchemy.repository.SQLAlchemySyncQueryRepository.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Repository pattern for SQLAlchemy models.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="advanced_alchemy.repository.SQLAlchemySyncQueryRepository.params.session"></span><strong>session</strong><a class="paramlink headerlink reference internal" href="#advanced_alchemy.repository.SQLAlchemySyncQueryRepository.params.session">¶</a> – Session managing the unit-of-work for the operation.</p></li>
+<li><p><span class="target" id="advanced_alchemy.repository.SQLAlchemySyncQueryRepository.params.auto_expunge"></span><strong>auto_expunge</strong><a class="paramlink headerlink reference internal" href="#advanced_alchemy.repository.SQLAlchemySyncQueryRepository.params.auto_expunge">¶</a> – Remove object from session before returning.</p></li>
+<li><p><span class="target" id="advanced_alchemy.repository.SQLAlchemySyncQueryRepository.params.**kwargs"></span><strong>**kwargs</strong><a class="paramlink headerlink reference internal" href="#advanced_alchemy.repository.SQLAlchemySyncQueryRepository.params.**kwargs">¶</a> – Additional arguments.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="advanced_alchemy.repository.SQLAlchemySyncQueryRepository.get_one">
+<span class="sig-name descname"><span class="pre">get_one</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">statement</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.sqlalchemy.org/en/20/core/selectable.html#sqlalchemy.sql.expression.Select" title="(in SQLAlchemy v2.0)"><span class="pre">Select</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.sqlalchemy.org/en/20/core/connections.html#sqlalchemy.engine.RowMapping" title="(in SQLAlchemy v2.0)"><span class="pre">RowMapping</span></a></span></span><a class="reference internal" href="../_modules/advanced_alchemy/repository/_sync.html#SQLAlchemySyncQueryRepository.get_one"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#advanced_alchemy.repository.SQLAlchemySyncQueryRepository.get_one" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get instance identified by <code class="docutils literal notranslate"><span class="pre">kwargs</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="advanced_alchemy.repository.SQLAlchemySyncQueryRepository.get_one.params.statement"></span><strong>statement</strong><a class="paramlink headerlink reference internal" href="#advanced_alchemy.repository.SQLAlchemySyncQueryRepository.get_one.params.statement">¶</a> – To facilitate customization of the underlying select query.
+Defaults to <a class="reference internal" href="#advanced_alchemy.repository.SQLAlchemyAsyncRepository" title="advanced_alchemy.repository.SQLAlchemyAsyncRepository"><code class="xref py py-class docutils literal notranslate"><span class="pre">SQLAlchemyAsyncRepository.statement</span></code></a></p></li>
+<li><p><span class="target" id="advanced_alchemy.repository.SQLAlchemySyncQueryRepository.get_one.params.**kwargs"></span><strong>**kwargs</strong><a class="paramlink headerlink reference internal" href="#advanced_alchemy.repository.SQLAlchemySyncQueryRepository.get_one.params.**kwargs">¶</a> – Instance attribute value filters.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The retrieved instance.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="exceptions.html#advanced_alchemy.exceptions.NotFoundError" title="advanced_alchemy.exceptions.NotFoundError"><strong>NotFoundError</strong></a> – If no instance found identified by <cite>item_id</cite>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="advanced_alchemy.repository.SQLAlchemySyncQueryRepository.get_one_or_none">
+<span class="sig-name descname"><span class="pre">get_one_or_none</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">statement</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.sqlalchemy.org/en/20/core/selectable.html#sqlalchemy.sql.expression.Select" title="(in SQLAlchemy v2.0)"><span class="pre">Select</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.sqlalchemy.org/en/20/core/connections.html#sqlalchemy.engine.RowMapping" title="(in SQLAlchemy v2.0)"><span class="pre">RowMapping</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/advanced_alchemy/repository/_sync.html#SQLAlchemySyncQueryRepository.get_one_or_none"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#advanced_alchemy.repository.SQLAlchemySyncQueryRepository.get_one_or_none" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get instance identified by <code class="docutils literal notranslate"><span class="pre">kwargs</span></code> or None if not found.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="target" id="advanced_alchemy.repository.SQLAlchemySyncQueryRepository.get_one_or_none.params.statement"></span><strong>statement</strong><a class="paramlink headerlink reference internal" href="#advanced_alchemy.repository.SQLAlchemySyncQueryRepository.get_one_or_none.params.statement">¶</a> – To facilitate customization of the underlying select query.            <a href="#id3"><span class="problematic" id="id4">**</span></a>kwargs: Instance attribute value filters.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The retrieved instance or None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="advanced_alchemy.repository.SQLAlchemySyncQueryRepository.count">
+<span class="sig-name descname"><span class="pre">count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">statement</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.sqlalchemy.org/en/20/core/selectable.html#sqlalchemy.sql.expression.Select" title="(in SQLAlchemy v2.0)"><span class="pre">Select</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span></span><a class="reference internal" href="../_modules/advanced_alchemy/repository/_sync.html#SQLAlchemySyncQueryRepository.count"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#advanced_alchemy.repository.SQLAlchemySyncQueryRepository.count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the count of records returned by a query.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="advanced_alchemy.repository.SQLAlchemySyncQueryRepository.count.params.statement"></span><strong>statement</strong><a class="paramlink headerlink reference internal" href="#advanced_alchemy.repository.SQLAlchemySyncQueryRepository.count.params.statement">¶</a> – To facilitate customization of the underlying select query.</p></li>
+<li><p><span class="target" id="advanced_alchemy.repository.SQLAlchemySyncQueryRepository.count.params.**kwargs"></span><strong>**kwargs</strong><a class="paramlink headerlink reference internal" href="#advanced_alchemy.repository.SQLAlchemySyncQueryRepository.count.params.**kwargs">¶</a> – Instance attribute value filters.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Count of records returned by query, ignoring pagination.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="advanced_alchemy.repository.SQLAlchemySyncQueryRepository.list_and_count">
+<span class="sig-name descname"><span class="pre">list_and_count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">statement</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.sqlalchemy.org/en/20/core/selectable.html#sqlalchemy.sql.expression.Select" title="(in SQLAlchemy v2.0)"><span class="pre">Select</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_basic_query_mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.12)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.sqlalchemy.org/en/20/core/connections.html#sqlalchemy.engine.RowMapping" title="(in SQLAlchemy v2.0)"><span class="pre">sqlalchemy.engine.row.RowMapping</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/advanced_alchemy/repository/_sync.html#SQLAlchemySyncQueryRepository.list_and_count"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#advanced_alchemy.repository.SQLAlchemySyncQueryRepository.list_and_count" title="Permalink to this definition">¶</a></dt>
+<dd><p>List records with total count.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="advanced_alchemy.repository.SQLAlchemySyncQueryRepository.list_and_count.params.statement"></span><strong>statement</strong><a class="paramlink headerlink reference internal" href="#advanced_alchemy.repository.SQLAlchemySyncQueryRepository.list_and_count.params.statement">¶</a> – To facilitate customization of the underlying select query.
+Defaults to <a class="reference internal" href="#advanced_alchemy.repository.SQLAlchemyAsyncRepository" title="advanced_alchemy.repository.SQLAlchemyAsyncRepository"><code class="xref py py-class docutils literal notranslate"><span class="pre">SQLAlchemyAsyncRepository.statement</span></code></a></p></li>
+<li><p><span class="target" id="advanced_alchemy.repository.SQLAlchemySyncQueryRepository.list_and_count.params.force_basic_query_mode"></span><strong>force_basic_query_mode</strong><a class="paramlink headerlink reference internal" href="#advanced_alchemy.repository.SQLAlchemySyncQueryRepository.list_and_count.params.force_basic_query_mode">¶</a> – Force list and count to use two queries instead of an analytical window function.</p></li>
+<li><p><span class="target" id="advanced_alchemy.repository.SQLAlchemySyncQueryRepository.list_and_count.params.**kwargs"></span><strong>**kwargs</strong><a class="paramlink headerlink reference internal" href="#advanced_alchemy.repository.SQLAlchemySyncQueryRepository.list_and_count.params.**kwargs">¶</a> – Instance attribute value filters.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Count of records returned by query, ignoring pagination.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="advanced_alchemy.repository.SQLAlchemySyncQueryRepository.list">
+<span class="sig-name descname"><span class="pre">list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">statement</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.sqlalchemy.org/en/20/core/selectable.html#sqlalchemy.sql.expression.Select" title="(in SQLAlchemy v2.0)"><span class="pre">Select</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.sqlalchemy.org/en/20/core/connections.html#sqlalchemy.engine.RowMapping" title="(in SQLAlchemy v2.0)"><span class="pre">sqlalchemy.engine.row.RowMapping</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/advanced_alchemy/repository/_sync.html#SQLAlchemySyncQueryRepository.list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#advanced_alchemy.repository.SQLAlchemySyncQueryRepository.list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of instances, optionally filtered.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="advanced_alchemy.repository.SQLAlchemySyncQueryRepository.list.params.statement"></span><strong>statement</strong><a class="paramlink headerlink reference internal" href="#advanced_alchemy.repository.SQLAlchemySyncQueryRepository.list.params.statement">¶</a> – To facilitate customization of the underlying select query.</p></li>
+<li><p><span class="target" id="advanced_alchemy.repository.SQLAlchemySyncQueryRepository.list.params.**kwargs"></span><strong>**kwargs</strong><a class="paramlink headerlink reference internal" href="#advanced_alchemy.repository.SQLAlchemySyncQueryRepository.list.params.**kwargs">¶</a> – Instance attribute value filters.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The list of instances, after filtering applied.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="advanced_alchemy.repository.SQLAlchemySyncQueryRepository.check_not_found">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">check_not_found</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item_or_none</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">T</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">T</span></span></span><a class="reference internal" href="../_modules/advanced_alchemy/repository/_sync.html#SQLAlchemySyncQueryRepository.check_not_found"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#advanced_alchemy.repository.SQLAlchemySyncQueryRepository.check_not_found" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raise <code class="xref py py-class docutils literal notranslate"><span class="pre">RepositoryNotFoundException</span></code> if <code class="docutils literal notranslate"><span class="pre">item_or_none</span></code> is <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="target" id="advanced_alchemy.repository.SQLAlchemySyncQueryRepository.check_not_found.params.item_or_none"></span><strong>item_or_none</strong><a class="paramlink headerlink reference internal" href="#advanced_alchemy.repository.SQLAlchemySyncQueryRepository.check_not_found.params.item_or_none">¶</a> – Item to be tested for existence.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The item, if it exists.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="advanced_alchemy.repository.model_from_dict">
-<span class="sig-prename descclassname"><span class="pre">advanced_alchemy.repository.</span></span><span class="sig-name descname"><span class="pre">model_from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ModelT</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ModelT</span></span></span><a class="reference internal" href="../_modules/advanced_alchemy/repository/_util.html#model_from_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#advanced_alchemy.repository.model_from_dict" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">advanced_alchemy.repository.</span></span><span class="sig-name descname"><span class="pre">model_from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ModelT</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ModelT</span></span></span><a class="reference internal" href="../_modules/advanced_alchemy/repository/_util.html#model_from_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#advanced_alchemy.repository.model_from_dict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return ORM Object from Dictionary.</p>
 </dd></dl>
 

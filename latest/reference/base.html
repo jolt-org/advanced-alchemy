@@ -279,10 +279,7 @@
 <li><a class="reference internal" href="#advanced_alchemy.base.BigIntPrimaryKey.id"><code class="docutils literal notranslate"><span class="pre">BigIntPrimaryKey.id</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#advanced_alchemy.base.CommonTableAttributes"><code class="docutils literal notranslate"><span class="pre">CommonTableAttributes</span></code></a><ul>
-<li><a class="reference internal" href="#advanced_alchemy.base.CommonTableAttributes.to_dict"><code class="docutils literal notranslate"><span class="pre">CommonTableAttributes.to_dict()</span></code></a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#advanced_alchemy.base.CommonTableAttributes"><code class="docutils literal notranslate"><span class="pre">CommonTableAttributes</span></code></a></li>
 <li><a class="reference internal" href="#advanced_alchemy.base.create_registry"><code class="docutils literal notranslate"><span class="pre">create_registry()</span></code></a></li>
 <li><a class="reference internal" href="#advanced_alchemy.base.ModelProtocol"><code class="docutils literal notranslate"><span class="pre">ModelProtocol</span></code></a><ul>
 <li><a class="reference internal" href="#advanced_alchemy.base.ModelProtocol.to_dict"><code class="docutils literal notranslate"><span class="pre">ModelProtocol.to_dict()</span></code></a></li>
@@ -320,9 +317,9 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#advanced_alchemy.base.UUIDv7Base"><code class="docutils literal notranslate"><span class="pre">UUIDv7Base</span></code></a><ul>
-<li><a class="reference internal" href="#advanced_alchemy.base.UUIDv7Base.registry"><code class="docutils literal notranslate"><span class="pre">UUIDv7Base.registry</span></code></a></li>
 <li><a class="reference internal" href="#advanced_alchemy.base.UUIDv7Base.__init__"><code class="docutils literal notranslate"><span class="pre">UUIDv7Base.__init__()</span></code></a></li>
 <li><a class="reference internal" href="#advanced_alchemy.base.UUIDv7Base.metadata"><code class="docutils literal notranslate"><span class="pre">UUIDv7Base.metadata</span></code></a></li>
+<li><a class="reference internal" href="#advanced_alchemy.base.UUIDv7Base.registry"><code class="docutils literal notranslate"><span class="pre">UUIDv7Base.registry</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#advanced_alchemy.base.UUIDPrimaryKey"><code class="docutils literal notranslate"><span class="pre">UUIDPrimaryKey</span></code></a><ul>
@@ -342,7 +339,6 @@
 <li><a class="reference internal" href="#advanced_alchemy.base.SQLQuery.__init__"><code class="docutils literal notranslate"><span class="pre">SQLQuery.__init__()</span></code></a></li>
 <li><a class="reference internal" href="#advanced_alchemy.base.SQLQuery.metadata"><code class="docutils literal notranslate"><span class="pre">SQLQuery.metadata</span></code></a></li>
 <li><a class="reference internal" href="#advanced_alchemy.base.SQLQuery.registry"><code class="docutils literal notranslate"><span class="pre">SQLQuery.registry</span></code></a></li>
-<li><a class="reference internal" href="#advanced_alchemy.base.SQLQuery.to_dict"><code class="docutils literal notranslate"><span class="pre">SQLQuery.to_dict()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#advanced_alchemy.base.merge_table_arguments"><code class="docutils literal notranslate"><span class="pre">merge_table_arguments()</span></code></a></li>
@@ -523,22 +519,8 @@ for new <code class="xref py py-class docutils literal notranslate"><span class=
 <dl class="py class">
 <dt class="sig sig-object py" id="advanced_alchemy.base.CommonTableAttributes">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">advanced_alchemy.base.</span></span><span class="sig-name descname"><span class="pre">CommonTableAttributes</span></span><a class="reference internal" href="../_modules/advanced_alchemy/base.html#CommonTableAttributes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#advanced_alchemy.base.CommonTableAttributes" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BasicAttributes</span></code></p>
 <p>Common attributes for SQLALchemy tables.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="advanced_alchemy.base.CommonTableAttributes.to_dict">
-<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.12)"><span class="pre">set</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/advanced_alchemy/base.html#CommonTableAttributes.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#advanced_alchemy.base.CommonTableAttributes.to_dict" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convert model to dictionary.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>A dict representation of the model</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)">dict</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>, Any]</p>
-</dd>
-</dl>
-</dd></dl>
-
 </dd></dl>
 
 <dl class="py function">
@@ -758,13 +740,6 @@ for new <code class="xref py py-class docutils literal notranslate"><span class=
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">advanced_alchemy.base.</span></span><span class="sig-name descname"><span class="pre">UUIDv7Base</span></span><a class="reference internal" href="../_modules/advanced_alchemy/base.html#UUIDv7Base"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#advanced_alchemy.base.UUIDv7Base" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#advanced_alchemy.base.UUIDv7PrimaryKey" title="advanced_alchemy.base.UUIDv7PrimaryKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">UUIDv7PrimaryKey</span></code></a>, <a class="reference internal" href="#advanced_alchemy.base.CommonTableAttributes" title="advanced_alchemy.base.CommonTableAttributes"><code class="xref py py-class docutils literal notranslate"><span class="pre">CommonTableAttributes</span></code></a>, <a class="reference external" href="https://docs.sqlalchemy.org/en/20/orm/mapping_api.html#sqlalchemy.orm.DeclarativeBase" title="(in SQLAlchemy v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DeclarativeBase</span></code></a></p>
 <p>Base for all SQLAlchemy declarative models with UUID primary keys.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="advanced_alchemy.base.UUIDv7Base.registry">
-<span class="sig-name descname"><span class="pre">registry</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">_RegistryType</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;sqlalchemy.orm.decl_api.registry</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#advanced_alchemy.base.UUIDv7Base.registry" title="Permalink to this definition">¶</a></dt>
-<dd><p>Refers to the <code class="xref py py-class docutils literal notranslate"><span class="pre">_orm.registry</span></code> in use where new
-<code class="xref py py-class docutils literal notranslate"><span class="pre">_orm.Mapper</span></code> objects will be associated.</p>
-</dd></dl>
-
 <dl class="py method">
 <dt class="sig sig-object py" id="advanced_alchemy.base.UUIDv7Base.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#advanced_alchemy.base.UUIDv7Base.__init__" title="Permalink to this definition">¶</a></dt>
@@ -785,6 +760,13 @@ for new <code class="xref py py-class docutils literal notranslate"><span class=
 <p class="admonition-title">See also</p>
 <p><a class="reference external" href="https://docs.sqlalchemy.org/en/20/orm/declarative_tables.html#orm-declarative-metadata" title="(in SQLAlchemy v2.0)"><span>Accessing Table and Metadata</span></a></p>
 </div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="advanced_alchemy.base.UUIDv7Base.registry">
+<span class="sig-name descname"><span class="pre">registry</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">_RegistryType</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;sqlalchemy.orm.decl_api.registry</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#advanced_alchemy.base.UUIDv7Base.registry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Refers to the <code class="xref py py-class docutils literal notranslate"><span class="pre">_orm.registry</span></code> in use where new
+<code class="xref py py-class docutils literal notranslate"><span class="pre">_orm.Mapper</span></code> objects will be associated.</p>
 </dd></dl>
 
 </dd></dl>
@@ -838,7 +820,7 @@ for new <code class="xref py py-class docutils literal notranslate"><span class=
 <dl class="py class">
 <dt class="sig sig-object py" id="advanced_alchemy.base.SQLQuery">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">advanced_alchemy.base.</span></span><span class="sig-name descname"><span class="pre">SQLQuery</span></span><a class="reference internal" href="../_modules/advanced_alchemy/base.html#SQLQuery"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#advanced_alchemy.base.SQLQuery" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.sqlalchemy.org/en/20/orm/mapping_api.html#sqlalchemy.orm.DeclarativeBase" title="(in SQLAlchemy v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DeclarativeBase</span></code></a></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BasicAttributes</span></code>, <a class="reference external" href="https://docs.sqlalchemy.org/en/20/orm/mapping_api.html#sqlalchemy.orm.DeclarativeBase" title="(in SQLAlchemy v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DeclarativeBase</span></code></a></p>
 <p>Base for all SQLAlchemy custom mapped objects.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="advanced_alchemy.base.SQLQuery.__init__">
@@ -867,20 +849,6 @@ for new <code class="xref py py-class docutils literal notranslate"><span class=
 <span class="sig-name descname"><span class="pre">registry</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">_RegistryType</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;sqlalchemy.orm.decl_api.registry</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#advanced_alchemy.base.SQLQuery.registry" title="Permalink to this definition">¶</a></dt>
 <dd><p>Refers to the <code class="xref py py-class docutils literal notranslate"><span class="pre">_orm.registry</span></code> in use where new
 <code class="xref py py-class docutils literal notranslate"><span class="pre">_orm.Mapper</span></code> objects will be associated.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="advanced_alchemy.base.SQLQuery.to_dict">
-<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.12)"><span class="pre">set</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/advanced_alchemy/base.html#SQLQuery.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#advanced_alchemy.base.SQLQuery.to_dict" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convert model to dictionary.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>A dict representation of the model</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)">dict</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a>, Any]</p>
-</dd>
-</dl>
 </dd></dl>
 
 </dd></dl>
