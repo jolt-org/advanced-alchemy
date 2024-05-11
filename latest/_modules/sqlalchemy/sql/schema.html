@@ -5939,503 +5939,535 @@
 </span><span data-line="5616">            <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">key</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
 </span><span data-line="5617">        <span class="p">)</span>
 </span><span data-line="5618">
-</span><span data-line="5619">    <span class="nd">@util</span><span class="o">.</span><span class="n">preload_module</span><span class="p">(</span><span class="s2">&quot;sqlalchemy.engine.reflection&quot;</span><span class="p">)</span>
-</span><span data-line="5620">    <span class="k">def</span> <span class="nf">reflect</span><span class="p">(</span>
-</span><span data-line="5621">        <span class="bp">self</span><span class="p">,</span>
-</span><span data-line="5622">        <span class="n">bind</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Engine</span><span class="p">,</span> <span class="n">Connection</span><span class="p">],</span>
-</span><span data-line="5623">        <span class="n">schema</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span data-line="5624">        <span class="n">views</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-</span><span data-line="5625">        <span class="n">only</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span>
-</span><span data-line="5626">            <span class="n">_typing_Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">,</span> <span class="n">MetaData</span><span class="p">],</span> <span class="nb">bool</span><span class="p">],</span> <span class="kc">None</span>
-</span><span data-line="5627">        <span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span data-line="5628">        <span class="n">extend_existing</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-</span><span data-line="5629">        <span class="n">autoload_replace</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-</span><span data-line="5630">        <span class="n">resolve_fks</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-</span><span data-line="5631">        <span class="o">**</span><span class="n">dialect_kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
-</span><span data-line="5632">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span data-line="5633"><span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Load all available table definitions from the database.</span>
-</span><span data-line="5634">
-</span><span data-line="5635"><span class="sd">        Automatically creates ``Table`` entries in this ``MetaData`` for any</span>
-</span><span data-line="5636"><span class="sd">        table available in the database but not yet present in the</span>
-</span><span data-line="5637"><span class="sd">        ``MetaData``.  May be called multiple times to pick up tables recently</span>
-</span><span data-line="5638"><span class="sd">        added to the database, however no special action is taken if a table</span>
-</span><span data-line="5639"><span class="sd">        in this ``MetaData`` no longer exists in the database.</span>
-</span><span data-line="5640">
-</span><span data-line="5641"><span class="sd">        :param bind:</span>
-</span><span data-line="5642"><span class="sd">          A :class:`.Connection` or :class:`.Engine` used to access the</span>
-</span><span data-line="5643"><span class="sd">          database.</span>
-</span><span data-line="5644">
-</span><span data-line="5645"><span class="sd">        :param schema:</span>
-</span><span data-line="5646"><span class="sd">          Optional, query and reflect tables from an alternate schema.</span>
-</span><span data-line="5647"><span class="sd">          If None, the schema associated with this :class:`_schema.MetaData`</span>
-</span><span data-line="5648"><span class="sd">          is used, if any.</span>
-</span><span data-line="5649">
-</span><span data-line="5650"><span class="sd">        :param views:</span>
-</span><span data-line="5651"><span class="sd">          If True, also reflect views (materialized and plain).</span>
-</span><span data-line="5652">
-</span><span data-line="5653"><span class="sd">        :param only:</span>
-</span><span data-line="5654"><span class="sd">          Optional.  Load only a sub-set of available named tables.  May be</span>
-</span><span data-line="5655"><span class="sd">          specified as a sequence of names or a callable.</span>
-</span><span data-line="5656">
-</span><span data-line="5657"><span class="sd">          If a sequence of names is provided, only those tables will be</span>
-</span><span data-line="5658"><span class="sd">          reflected.  An error is raised if a table is requested but not</span>
-</span><span data-line="5659"><span class="sd">          available.  Named tables already present in this ``MetaData`` are</span>
-</span><span data-line="5660"><span class="sd">          ignored.</span>
-</span><span data-line="5661">
-</span><span data-line="5662"><span class="sd">          If a callable is provided, it will be used as a boolean predicate to</span>
-</span><span data-line="5663"><span class="sd">          filter the list of potential table names.  The callable is called</span>
-</span><span data-line="5664"><span class="sd">          with a table name and this ``MetaData`` instance as positional</span>
-</span><span data-line="5665"><span class="sd">          arguments and should return a true value for any table to reflect.</span>
+</span><span data-line="5619">    <span class="c1"># overload needed to work around mypy this mypy</span>
+</span><span data-line="5620">    <span class="c1"># https://github.com/python/mypy/issues/17093</span>
+</span><span data-line="5621">    <span class="nd">@overload</span>
+</span><span data-line="5622">    <span class="k">def</span> <span class="nf">reflect</span><span class="p">(</span>
+</span><span data-line="5623">        <span class="bp">self</span><span class="p">,</span>
+</span><span data-line="5624">        <span class="n">bind</span><span class="p">:</span> <span class="n">Engine</span><span class="p">,</span>
+</span><span data-line="5625">        <span class="n">schema</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+</span><span data-line="5626">        <span class="n">views</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+</span><span data-line="5627">        <span class="n">only</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span>
+</span><span data-line="5628">            <span class="n">_typing_Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">,</span> <span class="n">MetaData</span><span class="p">],</span> <span class="nb">bool</span><span class="p">],</span> <span class="kc">None</span>
+</span><span data-line="5629">        <span class="p">]</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+</span><span data-line="5630">        <span class="n">extend_existing</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+</span><span data-line="5631">        <span class="n">autoload_replace</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+</span><span data-line="5632">        <span class="n">resolve_fks</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+</span><span data-line="5633">        <span class="o">**</span><span class="n">dialect_kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+</span><span data-line="5634">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
+</span><span data-line="5635">
+</span><span data-line="5636">    <span class="nd">@overload</span>
+</span><span data-line="5637">    <span class="k">def</span> <span class="nf">reflect</span><span class="p">(</span>
+</span><span data-line="5638">        <span class="bp">self</span><span class="p">,</span>
+</span><span data-line="5639">        <span class="n">bind</span><span class="p">:</span> <span class="n">Connection</span><span class="p">,</span>
+</span><span data-line="5640">        <span class="n">schema</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+</span><span data-line="5641">        <span class="n">views</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+</span><span data-line="5642">        <span class="n">only</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span>
+</span><span data-line="5643">            <span class="n">_typing_Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">,</span> <span class="n">MetaData</span><span class="p">],</span> <span class="nb">bool</span><span class="p">],</span> <span class="kc">None</span>
+</span><span data-line="5644">        <span class="p">]</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+</span><span data-line="5645">        <span class="n">extend_existing</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+</span><span data-line="5646">        <span class="n">autoload_replace</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+</span><span data-line="5647">        <span class="n">resolve_fks</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+</span><span data-line="5648">        <span class="o">**</span><span class="n">dialect_kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+</span><span data-line="5649">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
+</span><span data-line="5650">
+</span><span data-line="5651">    <span class="nd">@util</span><span class="o">.</span><span class="n">preload_module</span><span class="p">(</span><span class="s2">&quot;sqlalchemy.engine.reflection&quot;</span><span class="p">)</span>
+</span><span data-line="5652">    <span class="k">def</span> <span class="nf">reflect</span><span class="p">(</span>
+</span><span data-line="5653">        <span class="bp">self</span><span class="p">,</span>
+</span><span data-line="5654">        <span class="n">bind</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Engine</span><span class="p">,</span> <span class="n">Connection</span><span class="p">],</span>
+</span><span data-line="5655">        <span class="n">schema</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="5656">        <span class="n">views</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+</span><span data-line="5657">        <span class="n">only</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span>
+</span><span data-line="5658">            <span class="n">_typing_Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">,</span> <span class="n">MetaData</span><span class="p">],</span> <span class="nb">bool</span><span class="p">],</span> <span class="kc">None</span>
+</span><span data-line="5659">        <span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="5660">        <span class="n">extend_existing</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+</span><span data-line="5661">        <span class="n">autoload_replace</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+</span><span data-line="5662">        <span class="n">resolve_fks</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+</span><span data-line="5663">        <span class="o">**</span><span class="n">dialect_kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+</span><span data-line="5664">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="5665"><span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Load all available table definitions from the database.</span>
 </span><span data-line="5666">
-</span><span data-line="5667"><span class="sd">        :param extend_existing: Passed along to each :class:`_schema.Table` as</span>
-</span><span data-line="5668"><span class="sd">          :paramref:`_schema.Table.extend_existing`.</span>
-</span><span data-line="5669">
-</span><span data-line="5670"><span class="sd">        :param autoload_replace: Passed along to each :class:`_schema.Table`</span>
-</span><span data-line="5671"><span class="sd">          as</span>
-</span><span data-line="5672"><span class="sd">          :paramref:`_schema.Table.autoload_replace`.</span>
-</span><span data-line="5673">
-</span><span data-line="5674"><span class="sd">        :param resolve_fks: if True, reflect :class:`_schema.Table`</span>
-</span><span data-line="5675"><span class="sd">         objects linked</span>
-</span><span data-line="5676"><span class="sd">         to :class:`_schema.ForeignKey` objects located in each</span>
-</span><span data-line="5677"><span class="sd">         :class:`_schema.Table`.</span>
-</span><span data-line="5678"><span class="sd">         For :meth:`_schema.MetaData.reflect`,</span>
-</span><span data-line="5679"><span class="sd">         this has the effect of reflecting</span>
-</span><span data-line="5680"><span class="sd">         related tables that might otherwise not be in the list of tables</span>
-</span><span data-line="5681"><span class="sd">         being reflected, for example if the referenced table is in a</span>
-</span><span data-line="5682"><span class="sd">         different schema or is omitted via the</span>
-</span><span data-line="5683"><span class="sd">         :paramref:`.MetaData.reflect.only` parameter.  When False,</span>
-</span><span data-line="5684"><span class="sd">         :class:`_schema.ForeignKey` objects are not followed to the</span>
-</span><span data-line="5685"><span class="sd">         :class:`_schema.Table`</span>
-</span><span data-line="5686"><span class="sd">         in which they link, however if the related table is also part of the</span>
-</span><span data-line="5687"><span class="sd">         list of tables that would be reflected in any case, the</span>
-</span><span data-line="5688"><span class="sd">         :class:`_schema.ForeignKey` object will still resolve to its related</span>
-</span><span data-line="5689"><span class="sd">         :class:`_schema.Table` after the :meth:`_schema.MetaData.reflect`</span>
-</span><span data-line="5690"><span class="sd">         operation is</span>
-</span><span data-line="5691"><span class="sd">         complete.   Defaults to True.</span>
-</span><span data-line="5692">
-</span><span data-line="5693"><span class="sd">         .. versionadded:: 1.3.0</span>
-</span><span data-line="5694">
-</span><span data-line="5695"><span class="sd">         .. seealso::</span>
-</span><span data-line="5696">
-</span><span data-line="5697"><span class="sd">            :paramref:`_schema.Table.resolve_fks`</span>
+</span><span data-line="5667"><span class="sd">        Automatically creates ``Table`` entries in this ``MetaData`` for any</span>
+</span><span data-line="5668"><span class="sd">        table available in the database but not yet present in the</span>
+</span><span data-line="5669"><span class="sd">        ``MetaData``.  May be called multiple times to pick up tables recently</span>
+</span><span data-line="5670"><span class="sd">        added to the database, however no special action is taken if a table</span>
+</span><span data-line="5671"><span class="sd">        in this ``MetaData`` no longer exists in the database.</span>
+</span><span data-line="5672">
+</span><span data-line="5673"><span class="sd">        :param bind:</span>
+</span><span data-line="5674"><span class="sd">          A :class:`.Connection` or :class:`.Engine` used to access the</span>
+</span><span data-line="5675"><span class="sd">          database.</span>
+</span><span data-line="5676">
+</span><span data-line="5677"><span class="sd">        :param schema:</span>
+</span><span data-line="5678"><span class="sd">          Optional, query and reflect tables from an alternate schema.</span>
+</span><span data-line="5679"><span class="sd">          If None, the schema associated with this :class:`_schema.MetaData`</span>
+</span><span data-line="5680"><span class="sd">          is used, if any.</span>
+</span><span data-line="5681">
+</span><span data-line="5682"><span class="sd">        :param views:</span>
+</span><span data-line="5683"><span class="sd">          If True, also reflect views (materialized and plain).</span>
+</span><span data-line="5684">
+</span><span data-line="5685"><span class="sd">        :param only:</span>
+</span><span data-line="5686"><span class="sd">          Optional.  Load only a sub-set of available named tables.  May be</span>
+</span><span data-line="5687"><span class="sd">          specified as a sequence of names or a callable.</span>
+</span><span data-line="5688">
+</span><span data-line="5689"><span class="sd">          If a sequence of names is provided, only those tables will be</span>
+</span><span data-line="5690"><span class="sd">          reflected.  An error is raised if a table is requested but not</span>
+</span><span data-line="5691"><span class="sd">          available.  Named tables already present in this ``MetaData`` are</span>
+</span><span data-line="5692"><span class="sd">          ignored.</span>
+</span><span data-line="5693">
+</span><span data-line="5694"><span class="sd">          If a callable is provided, it will be used as a boolean predicate to</span>
+</span><span data-line="5695"><span class="sd">          filter the list of potential table names.  The callable is called</span>
+</span><span data-line="5696"><span class="sd">          with a table name and this ``MetaData`` instance as positional</span>
+</span><span data-line="5697"><span class="sd">          arguments and should return a true value for any table to reflect.</span>
 </span><span data-line="5698">
-</span><span data-line="5699"><span class="sd">        :param \**dialect_kwargs: Additional keyword arguments not mentioned</span>
-</span><span data-line="5700"><span class="sd">         above are dialect specific, and passed in the form</span>
-</span><span data-line="5701"><span class="sd">         ``&lt;dialectname&gt;_&lt;argname&gt;``.  See the documentation regarding an</span>
-</span><span data-line="5702"><span class="sd">         individual dialect at :ref:`dialect_toplevel` for detail on</span>
-</span><span data-line="5703"><span class="sd">         documented arguments.</span>
-</span><span data-line="5704">
-</span><span data-line="5705"><span class="sd">        .. seealso::</span>
-</span><span data-line="5706">
-</span><span data-line="5707"><span class="sd">            :ref:`metadata_reflection_toplevel`</span>
-</span><span data-line="5708">
-</span><span data-line="5709"><span class="sd">            :meth:`_events.DDLEvents.column_reflect` - Event used to customize</span>
-</span><span data-line="5710"><span class="sd">            the reflected columns. Usually used to generalize the types using</span>
-</span><span data-line="5711"><span class="sd">            :meth:`_types.TypeEngine.as_generic`</span>
-</span><span data-line="5712">
-</span><span data-line="5713"><span class="sd">            :ref:`metadata_reflection_dbagnostic_types` - describes how to</span>
-</span><span data-line="5714"><span class="sd">            reflect tables using general types.</span>
-</span><span data-line="5715">
-</span><span data-line="5716"><span class="sd">        &quot;&quot;&quot;</span>
-</span><span data-line="5717">
-</span><span data-line="5718">        <span class="k">with</span> <span class="n">inspection</span><span class="o">.</span><span class="n">inspect</span><span class="p">(</span><span class="n">bind</span><span class="p">)</span><span class="o">.</span><span class="n">_inspection_context</span><span class="p">()</span> <span class="k">as</span> <span class="n">insp</span><span class="p">:</span>
-</span><span data-line="5719">            <span class="n">reflect_opts</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="p">{</span>
-</span><span data-line="5720">                <span class="s2">&quot;autoload_with&quot;</span><span class="p">:</span> <span class="n">insp</span><span class="p">,</span>
-</span><span data-line="5721">                <span class="s2">&quot;extend_existing&quot;</span><span class="p">:</span> <span class="n">extend_existing</span><span class="p">,</span>
-</span><span data-line="5722">                <span class="s2">&quot;autoload_replace&quot;</span><span class="p">:</span> <span class="n">autoload_replace</span><span class="p">,</span>
-</span><span data-line="5723">                <span class="s2">&quot;resolve_fks&quot;</span><span class="p">:</span> <span class="n">resolve_fks</span><span class="p">,</span>
-</span><span data-line="5724">                <span class="s2">&quot;_extend_on&quot;</span><span class="p">:</span> <span class="nb">set</span><span class="p">(),</span>
-</span><span data-line="5725">            <span class="p">}</span>
+</span><span data-line="5699"><span class="sd">        :param extend_existing: Passed along to each :class:`_schema.Table` as</span>
+</span><span data-line="5700"><span class="sd">          :paramref:`_schema.Table.extend_existing`.</span>
+</span><span data-line="5701">
+</span><span data-line="5702"><span class="sd">        :param autoload_replace: Passed along to each :class:`_schema.Table`</span>
+</span><span data-line="5703"><span class="sd">          as</span>
+</span><span data-line="5704"><span class="sd">          :paramref:`_schema.Table.autoload_replace`.</span>
+</span><span data-line="5705">
+</span><span data-line="5706"><span class="sd">        :param resolve_fks: if True, reflect :class:`_schema.Table`</span>
+</span><span data-line="5707"><span class="sd">         objects linked</span>
+</span><span data-line="5708"><span class="sd">         to :class:`_schema.ForeignKey` objects located in each</span>
+</span><span data-line="5709"><span class="sd">         :class:`_schema.Table`.</span>
+</span><span data-line="5710"><span class="sd">         For :meth:`_schema.MetaData.reflect`,</span>
+</span><span data-line="5711"><span class="sd">         this has the effect of reflecting</span>
+</span><span data-line="5712"><span class="sd">         related tables that might otherwise not be in the list of tables</span>
+</span><span data-line="5713"><span class="sd">         being reflected, for example if the referenced table is in a</span>
+</span><span data-line="5714"><span class="sd">         different schema or is omitted via the</span>
+</span><span data-line="5715"><span class="sd">         :paramref:`.MetaData.reflect.only` parameter.  When False,</span>
+</span><span data-line="5716"><span class="sd">         :class:`_schema.ForeignKey` objects are not followed to the</span>
+</span><span data-line="5717"><span class="sd">         :class:`_schema.Table`</span>
+</span><span data-line="5718"><span class="sd">         in which they link, however if the related table is also part of the</span>
+</span><span data-line="5719"><span class="sd">         list of tables that would be reflected in any case, the</span>
+</span><span data-line="5720"><span class="sd">         :class:`_schema.ForeignKey` object will still resolve to its related</span>
+</span><span data-line="5721"><span class="sd">         :class:`_schema.Table` after the :meth:`_schema.MetaData.reflect`</span>
+</span><span data-line="5722"><span class="sd">         operation is</span>
+</span><span data-line="5723"><span class="sd">         complete.   Defaults to True.</span>
+</span><span data-line="5724">
+</span><span data-line="5725"><span class="sd">         .. versionadded:: 1.3.0</span>
 </span><span data-line="5726">
-</span><span data-line="5727">            <span class="n">reflect_opts</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">dialect_kwargs</span><span class="p">)</span>
+</span><span data-line="5727"><span class="sd">         .. seealso::</span>
 </span><span data-line="5728">
-</span><span data-line="5729">            <span class="k">if</span> <span class="n">schema</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-</span><span data-line="5730">                <span class="n">schema</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">schema</span>
-</span><span data-line="5731">
-</span><span data-line="5732">            <span class="k">if</span> <span class="n">schema</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-</span><span data-line="5733">                <span class="n">reflect_opts</span><span class="p">[</span><span class="s2">&quot;schema&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">schema</span>
-</span><span data-line="5734">
-</span><span data-line="5735">            <span class="n">kind</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">preloaded</span><span class="o">.</span><span class="n">engine_reflection</span><span class="o">.</span><span class="n">ObjectKind</span><span class="o">.</span><span class="n">TABLE</span>
-</span><span data-line="5736">            <span class="n">available</span><span class="p">:</span> <span class="n">util</span><span class="o">.</span><span class="n">OrderedSet</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">OrderedSet</span><span class="p">(</span>
-</span><span data-line="5737">                <span class="n">insp</span><span class="o">.</span><span class="n">get_table_names</span><span class="p">(</span><span class="n">schema</span><span class="p">)</span>
-</span><span data-line="5738">            <span class="p">)</span>
-</span><span data-line="5739">            <span class="k">if</span> <span class="n">views</span><span class="p">:</span>
-</span><span data-line="5740">                <span class="n">kind</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">preloaded</span><span class="o">.</span><span class="n">engine_reflection</span><span class="o">.</span><span class="n">ObjectKind</span><span class="o">.</span><span class="n">ANY</span>
-</span><span data-line="5741">                <span class="n">available</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">insp</span><span class="o">.</span><span class="n">get_view_names</span><span class="p">(</span><span class="n">schema</span><span class="p">))</span>
-</span><span data-line="5742">                <span class="k">try</span><span class="p">:</span>
-</span><span data-line="5743">                    <span class="n">available</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">insp</span><span class="o">.</span><span class="n">get_materialized_view_names</span><span class="p">(</span><span class="n">schema</span><span class="p">))</span>
-</span><span data-line="5744">                <span class="k">except</span> <span class="ne">NotImplementedError</span><span class="p">:</span>
-</span><span data-line="5745">                    <span class="k">pass</span>
-</span><span data-line="5746">
-</span><span data-line="5747">            <span class="k">if</span> <span class="n">schema</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-</span><span data-line="5748">                <span class="n">available_w_schema</span><span class="p">:</span> <span class="n">util</span><span class="o">.</span><span class="n">OrderedSet</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">OrderedSet</span><span class="p">(</span>
-</span><span data-line="5749">                    <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">schema</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">available</span><span class="p">]</span>
-</span><span data-line="5750">                <span class="p">)</span>
-</span><span data-line="5751">            <span class="k">else</span><span class="p">:</span>
-</span><span data-line="5752">                <span class="n">available_w_schema</span> <span class="o">=</span> <span class="n">available</span>
-</span><span data-line="5753">
-</span><span data-line="5754">            <span class="n">current</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tables</span><span class="p">)</span>
-</span><span data-line="5755">
-</span><span data-line="5756">            <span class="k">if</span> <span class="n">only</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-</span><span data-line="5757">                <span class="n">load</span> <span class="o">=</span> <span class="p">[</span>
-</span><span data-line="5758">                    <span class="n">name</span>
-</span><span data-line="5759">                    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">schname</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">available</span><span class="p">,</span> <span class="n">available_w_schema</span><span class="p">)</span>
-</span><span data-line="5760">                    <span class="k">if</span> <span class="n">extend_existing</span> <span class="ow">or</span> <span class="n">schname</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">current</span>
-</span><span data-line="5761">                <span class="p">]</span>
-</span><span data-line="5762">            <span class="k">elif</span> <span class="nb">callable</span><span class="p">(</span><span class="n">only</span><span class="p">):</span>
-</span><span data-line="5763">                <span class="n">load</span> <span class="o">=</span> <span class="p">[</span>
-</span><span data-line="5764">                    <span class="n">name</span>
-</span><span data-line="5765">                    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">schname</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">available</span><span class="p">,</span> <span class="n">available_w_schema</span><span class="p">)</span>
-</span><span data-line="5766">                    <span class="k">if</span> <span class="p">(</span><span class="n">extend_existing</span> <span class="ow">or</span> <span class="n">schname</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">current</span><span class="p">)</span>
-</span><span data-line="5767">                    <span class="ow">and</span> <span class="n">only</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
-</span><span data-line="5768">                <span class="p">]</span>
-</span><span data-line="5769">            <span class="k">else</span><span class="p">:</span>
-</span><span data-line="5770">                <span class="n">missing</span> <span class="o">=</span> <span class="p">[</span><span class="n">name</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">only</span> <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">available</span><span class="p">]</span>
-</span><span data-line="5771">                <span class="k">if</span> <span class="n">missing</span><span class="p">:</span>
-</span><span data-line="5772">                    <span class="n">s</span> <span class="o">=</span> <span class="n">schema</span> <span class="ow">and</span> <span class="p">(</span><span class="s2">&quot; schema &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="n">schema</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
-</span><span data-line="5773">                    <span class="n">missing_str</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">missing</span><span class="p">)</span>
-</span><span data-line="5774">                    <span class="k">raise</span> <span class="n">exc</span><span class="o">.</span><span class="n">InvalidRequestError</span><span class="p">(</span>
-</span><span data-line="5775">                        <span class="sa">f</span><span class="s2">&quot;Could not reflect: requested table(s) not available &quot;</span>
-</span><span data-line="5776">                        <span class="sa">f</span><span class="s2">&quot;in </span><span class="si">{</span><span class="n">bind</span><span class="o">.</span><span class="n">engine</span><span class="si">!r}{</span><span class="n">s</span><span class="si">}</span><span class="s2">: (</span><span class="si">{</span><span class="n">missing_str</span><span class="si">}</span><span class="s2">)&quot;</span>
-</span><span data-line="5777">                    <span class="p">)</span>
-</span><span data-line="5778">                <span class="n">load</span> <span class="o">=</span> <span class="p">[</span>
-</span><span data-line="5779">                    <span class="n">name</span>
-</span><span data-line="5780">                    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">only</span>
-</span><span data-line="5781">                    <span class="k">if</span> <span class="n">extend_existing</span> <span class="ow">or</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">current</span>
-</span><span data-line="5782">                <span class="p">]</span>
-</span><span data-line="5783">            <span class="c1"># pass the available tables so the inspector can</span>
-</span><span data-line="5784">            <span class="c1"># choose to ignore the filter_names</span>
-</span><span data-line="5785">            <span class="n">_reflect_info</span> <span class="o">=</span> <span class="n">insp</span><span class="o">.</span><span class="n">_get_reflection_info</span><span class="p">(</span>
-</span><span data-line="5786">                <span class="n">schema</span><span class="o">=</span><span class="n">schema</span><span class="p">,</span>
-</span><span data-line="5787">                <span class="n">filter_names</span><span class="o">=</span><span class="n">load</span><span class="p">,</span>
-</span><span data-line="5788">                <span class="n">available</span><span class="o">=</span><span class="n">available</span><span class="p">,</span>
-</span><span data-line="5789">                <span class="n">kind</span><span class="o">=</span><span class="n">kind</span><span class="p">,</span>
-</span><span data-line="5790">                <span class="n">scope</span><span class="o">=</span><span class="n">util</span><span class="o">.</span><span class="n">preloaded</span><span class="o">.</span><span class="n">engine_reflection</span><span class="o">.</span><span class="n">ObjectScope</span><span class="o">.</span><span class="n">ANY</span><span class="p">,</span>
-</span><span data-line="5791">                <span class="o">**</span><span class="n">dialect_kwargs</span><span class="p">,</span>
-</span><span data-line="5792">            <span class="p">)</span>
-</span><span data-line="5793">            <span class="n">reflect_opts</span><span class="p">[</span><span class="s2">&quot;_reflect_info&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_reflect_info</span>
-</span><span data-line="5794">
-</span><span data-line="5795">            <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">load</span><span class="p">:</span>
-</span><span data-line="5796">                <span class="k">try</span><span class="p">:</span>
-</span><span data-line="5797">                    <span class="n">Table</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">reflect_opts</span><span class="p">)</span>
-</span><span data-line="5798">                <span class="k">except</span> <span class="n">exc</span><span class="o">.</span><span class="n">UnreflectableTableError</span> <span class="k">as</span> <span class="n">uerr</span><span class="p">:</span>
-</span><span data-line="5799">                    <span class="n">util</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Skipping table </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">uerr</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</span><span data-line="5800">
-</span><span data-line="5801">    <span class="k">def</span> <span class="nf">create_all</span><span class="p">(</span>
-</span><span data-line="5802">        <span class="bp">self</span><span class="p">,</span>
-</span><span data-line="5803">        <span class="n">bind</span><span class="p">:</span> <span class="n">_CreateDropBind</span><span class="p">,</span>
-</span><span data-line="5804">        <span class="n">tables</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_typing_Sequence</span><span class="p">[</span><span class="n">Table</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span data-line="5805">        <span class="n">checkfirst</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-</span><span data-line="5806">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span data-line="5807"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Create all tables stored in this metadata.</span>
-</span><span data-line="5808">
-</span><span data-line="5809"><span class="sd">        Conditional by default, will not attempt to recreate tables already</span>
-</span><span data-line="5810"><span class="sd">        present in the target database.</span>
-</span><span data-line="5811">
-</span><span data-line="5812"><span class="sd">        :param bind:</span>
-</span><span data-line="5813"><span class="sd">          A :class:`.Connection` or :class:`.Engine` used to access the</span>
-</span><span data-line="5814"><span class="sd">          database.</span>
-</span><span data-line="5815">
-</span><span data-line="5816"><span class="sd">        :param tables:</span>
-</span><span data-line="5817"><span class="sd">          Optional list of ``Table`` objects, which is a subset of the total</span>
-</span><span data-line="5818"><span class="sd">          tables in the ``MetaData`` (others are ignored).</span>
-</span><span data-line="5819">
-</span><span data-line="5820"><span class="sd">        :param checkfirst:</span>
-</span><span data-line="5821"><span class="sd">          Defaults to True, don&#39;t issue CREATEs for tables already present</span>
-</span><span data-line="5822"><span class="sd">          in the target database.</span>
-</span><span data-line="5823">
-</span><span data-line="5824"><span class="sd">        &quot;&quot;&quot;</span>
-</span><span data-line="5825">        <span class="n">bind</span><span class="o">.</span><span class="n">_run_ddl_visitor</span><span class="p">(</span>
-</span><span data-line="5826">            <span class="n">ddl</span><span class="o">.</span><span class="n">SchemaGenerator</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">checkfirst</span><span class="o">=</span><span class="n">checkfirst</span><span class="p">,</span> <span class="n">tables</span><span class="o">=</span><span class="n">tables</span>
-</span><span data-line="5827">        <span class="p">)</span>
-</span><span data-line="5828">
-</span><span data-line="5829">    <span class="k">def</span> <span class="nf">drop_all</span><span class="p">(</span>
-</span><span data-line="5830">        <span class="bp">self</span><span class="p">,</span>
-</span><span data-line="5831">        <span class="n">bind</span><span class="p">:</span> <span class="n">_CreateDropBind</span><span class="p">,</span>
-</span><span data-line="5832">        <span class="n">tables</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_typing_Sequence</span><span class="p">[</span><span class="n">Table</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span data-line="5833">        <span class="n">checkfirst</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-</span><span data-line="5834">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span data-line="5835"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Drop all tables stored in this metadata.</span>
-</span><span data-line="5836">
-</span><span data-line="5837"><span class="sd">        Conditional by default, will not attempt to drop tables not present in</span>
-</span><span data-line="5838"><span class="sd">        the target database.</span>
-</span><span data-line="5839">
-</span><span data-line="5840"><span class="sd">        :param bind:</span>
-</span><span data-line="5841"><span class="sd">          A :class:`.Connection` or :class:`.Engine` used to access the</span>
-</span><span data-line="5842"><span class="sd">          database.</span>
+</span><span data-line="5729"><span class="sd">            :paramref:`_schema.Table.resolve_fks`</span>
+</span><span data-line="5730">
+</span><span data-line="5731"><span class="sd">        :param \**dialect_kwargs: Additional keyword arguments not mentioned</span>
+</span><span data-line="5732"><span class="sd">         above are dialect specific, and passed in the form</span>
+</span><span data-line="5733"><span class="sd">         ``&lt;dialectname&gt;_&lt;argname&gt;``.  See the documentation regarding an</span>
+</span><span data-line="5734"><span class="sd">         individual dialect at :ref:`dialect_toplevel` for detail on</span>
+</span><span data-line="5735"><span class="sd">         documented arguments.</span>
+</span><span data-line="5736">
+</span><span data-line="5737"><span class="sd">        .. seealso::</span>
+</span><span data-line="5738">
+</span><span data-line="5739"><span class="sd">            :ref:`metadata_reflection_toplevel`</span>
+</span><span data-line="5740">
+</span><span data-line="5741"><span class="sd">            :meth:`_events.DDLEvents.column_reflect` - Event used to customize</span>
+</span><span data-line="5742"><span class="sd">            the reflected columns. Usually used to generalize the types using</span>
+</span><span data-line="5743"><span class="sd">            :meth:`_types.TypeEngine.as_generic`</span>
+</span><span data-line="5744">
+</span><span data-line="5745"><span class="sd">            :ref:`metadata_reflection_dbagnostic_types` - describes how to</span>
+</span><span data-line="5746"><span class="sd">            reflect tables using general types.</span>
+</span><span data-line="5747">
+</span><span data-line="5748"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span data-line="5749">
+</span><span data-line="5750">        <span class="k">with</span> <span class="n">inspection</span><span class="o">.</span><span class="n">inspect</span><span class="p">(</span><span class="n">bind</span><span class="p">)</span><span class="o">.</span><span class="n">_inspection_context</span><span class="p">()</span> <span class="k">as</span> <span class="n">insp</span><span class="p">:</span>
+</span><span data-line="5751">            <span class="n">reflect_opts</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="p">{</span>
+</span><span data-line="5752">                <span class="s2">&quot;autoload_with&quot;</span><span class="p">:</span> <span class="n">insp</span><span class="p">,</span>
+</span><span data-line="5753">                <span class="s2">&quot;extend_existing&quot;</span><span class="p">:</span> <span class="n">extend_existing</span><span class="p">,</span>
+</span><span data-line="5754">                <span class="s2">&quot;autoload_replace&quot;</span><span class="p">:</span> <span class="n">autoload_replace</span><span class="p">,</span>
+</span><span data-line="5755">                <span class="s2">&quot;resolve_fks&quot;</span><span class="p">:</span> <span class="n">resolve_fks</span><span class="p">,</span>
+</span><span data-line="5756">                <span class="s2">&quot;_extend_on&quot;</span><span class="p">:</span> <span class="nb">set</span><span class="p">(),</span>
+</span><span data-line="5757">            <span class="p">}</span>
+</span><span data-line="5758">
+</span><span data-line="5759">            <span class="n">reflect_opts</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">dialect_kwargs</span><span class="p">)</span>
+</span><span data-line="5760">
+</span><span data-line="5761">            <span class="k">if</span> <span class="n">schema</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="5762">                <span class="n">schema</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">schema</span>
+</span><span data-line="5763">
+</span><span data-line="5764">            <span class="k">if</span> <span class="n">schema</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="5765">                <span class="n">reflect_opts</span><span class="p">[</span><span class="s2">&quot;schema&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">schema</span>
+</span><span data-line="5766">
+</span><span data-line="5767">            <span class="n">kind</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">preloaded</span><span class="o">.</span><span class="n">engine_reflection</span><span class="o">.</span><span class="n">ObjectKind</span><span class="o">.</span><span class="n">TABLE</span>
+</span><span data-line="5768">            <span class="n">available</span><span class="p">:</span> <span class="n">util</span><span class="o">.</span><span class="n">OrderedSet</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">OrderedSet</span><span class="p">(</span>
+</span><span data-line="5769">                <span class="n">insp</span><span class="o">.</span><span class="n">get_table_names</span><span class="p">(</span><span class="n">schema</span><span class="p">)</span>
+</span><span data-line="5770">            <span class="p">)</span>
+</span><span data-line="5771">            <span class="k">if</span> <span class="n">views</span><span class="p">:</span>
+</span><span data-line="5772">                <span class="n">kind</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">preloaded</span><span class="o">.</span><span class="n">engine_reflection</span><span class="o">.</span><span class="n">ObjectKind</span><span class="o">.</span><span class="n">ANY</span>
+</span><span data-line="5773">                <span class="n">available</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">insp</span><span class="o">.</span><span class="n">get_view_names</span><span class="p">(</span><span class="n">schema</span><span class="p">))</span>
+</span><span data-line="5774">                <span class="k">try</span><span class="p">:</span>
+</span><span data-line="5775">                    <span class="n">available</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">insp</span><span class="o">.</span><span class="n">get_materialized_view_names</span><span class="p">(</span><span class="n">schema</span><span class="p">))</span>
+</span><span data-line="5776">                <span class="k">except</span> <span class="ne">NotImplementedError</span><span class="p">:</span>
+</span><span data-line="5777">                    <span class="k">pass</span>
+</span><span data-line="5778">
+</span><span data-line="5779">            <span class="k">if</span> <span class="n">schema</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="5780">                <span class="n">available_w_schema</span><span class="p">:</span> <span class="n">util</span><span class="o">.</span><span class="n">OrderedSet</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">OrderedSet</span><span class="p">(</span>
+</span><span data-line="5781">                    <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">schema</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">available</span><span class="p">]</span>
+</span><span data-line="5782">                <span class="p">)</span>
+</span><span data-line="5783">            <span class="k">else</span><span class="p">:</span>
+</span><span data-line="5784">                <span class="n">available_w_schema</span> <span class="o">=</span> <span class="n">available</span>
+</span><span data-line="5785">
+</span><span data-line="5786">            <span class="n">current</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tables</span><span class="p">)</span>
+</span><span data-line="5787">
+</span><span data-line="5788">            <span class="k">if</span> <span class="n">only</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="5789">                <span class="n">load</span> <span class="o">=</span> <span class="p">[</span>
+</span><span data-line="5790">                    <span class="n">name</span>
+</span><span data-line="5791">                    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">schname</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">available</span><span class="p">,</span> <span class="n">available_w_schema</span><span class="p">)</span>
+</span><span data-line="5792">                    <span class="k">if</span> <span class="n">extend_existing</span> <span class="ow">or</span> <span class="n">schname</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">current</span>
+</span><span data-line="5793">                <span class="p">]</span>
+</span><span data-line="5794">            <span class="k">elif</span> <span class="nb">callable</span><span class="p">(</span><span class="n">only</span><span class="p">):</span>
+</span><span data-line="5795">                <span class="n">load</span> <span class="o">=</span> <span class="p">[</span>
+</span><span data-line="5796">                    <span class="n">name</span>
+</span><span data-line="5797">                    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">schname</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">available</span><span class="p">,</span> <span class="n">available_w_schema</span><span class="p">)</span>
+</span><span data-line="5798">                    <span class="k">if</span> <span class="p">(</span><span class="n">extend_existing</span> <span class="ow">or</span> <span class="n">schname</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">current</span><span class="p">)</span>
+</span><span data-line="5799">                    <span class="ow">and</span> <span class="n">only</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+</span><span data-line="5800">                <span class="p">]</span>
+</span><span data-line="5801">            <span class="k">else</span><span class="p">:</span>
+</span><span data-line="5802">                <span class="n">missing</span> <span class="o">=</span> <span class="p">[</span><span class="n">name</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">only</span> <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">available</span><span class="p">]</span>
+</span><span data-line="5803">                <span class="k">if</span> <span class="n">missing</span><span class="p">:</span>
+</span><span data-line="5804">                    <span class="n">s</span> <span class="o">=</span> <span class="n">schema</span> <span class="ow">and</span> <span class="p">(</span><span class="s2">&quot; schema &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="n">schema</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
+</span><span data-line="5805">                    <span class="n">missing_str</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">missing</span><span class="p">)</span>
+</span><span data-line="5806">                    <span class="k">raise</span> <span class="n">exc</span><span class="o">.</span><span class="n">InvalidRequestError</span><span class="p">(</span>
+</span><span data-line="5807">                        <span class="sa">f</span><span class="s2">&quot;Could not reflect: requested table(s) not available &quot;</span>
+</span><span data-line="5808">                        <span class="sa">f</span><span class="s2">&quot;in </span><span class="si">{</span><span class="n">bind</span><span class="o">.</span><span class="n">engine</span><span class="si">!r}{</span><span class="n">s</span><span class="si">}</span><span class="s2">: (</span><span class="si">{</span><span class="n">missing_str</span><span class="si">}</span><span class="s2">)&quot;</span>
+</span><span data-line="5809">                    <span class="p">)</span>
+</span><span data-line="5810">                <span class="n">load</span> <span class="o">=</span> <span class="p">[</span>
+</span><span data-line="5811">                    <span class="n">name</span>
+</span><span data-line="5812">                    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">only</span>
+</span><span data-line="5813">                    <span class="k">if</span> <span class="n">extend_existing</span> <span class="ow">or</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">current</span>
+</span><span data-line="5814">                <span class="p">]</span>
+</span><span data-line="5815">            <span class="c1"># pass the available tables so the inspector can</span>
+</span><span data-line="5816">            <span class="c1"># choose to ignore the filter_names</span>
+</span><span data-line="5817">            <span class="n">_reflect_info</span> <span class="o">=</span> <span class="n">insp</span><span class="o">.</span><span class="n">_get_reflection_info</span><span class="p">(</span>
+</span><span data-line="5818">                <span class="n">schema</span><span class="o">=</span><span class="n">schema</span><span class="p">,</span>
+</span><span data-line="5819">                <span class="n">filter_names</span><span class="o">=</span><span class="n">load</span><span class="p">,</span>
+</span><span data-line="5820">                <span class="n">available</span><span class="o">=</span><span class="n">available</span><span class="p">,</span>
+</span><span data-line="5821">                <span class="n">kind</span><span class="o">=</span><span class="n">kind</span><span class="p">,</span>
+</span><span data-line="5822">                <span class="n">scope</span><span class="o">=</span><span class="n">util</span><span class="o">.</span><span class="n">preloaded</span><span class="o">.</span><span class="n">engine_reflection</span><span class="o">.</span><span class="n">ObjectScope</span><span class="o">.</span><span class="n">ANY</span><span class="p">,</span>
+</span><span data-line="5823">                <span class="o">**</span><span class="n">dialect_kwargs</span><span class="p">,</span>
+</span><span data-line="5824">            <span class="p">)</span>
+</span><span data-line="5825">            <span class="n">reflect_opts</span><span class="p">[</span><span class="s2">&quot;_reflect_info&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_reflect_info</span>
+</span><span data-line="5826">
+</span><span data-line="5827">            <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">load</span><span class="p">:</span>
+</span><span data-line="5828">                <span class="k">try</span><span class="p">:</span>
+</span><span data-line="5829">                    <span class="n">Table</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">reflect_opts</span><span class="p">)</span>
+</span><span data-line="5830">                <span class="k">except</span> <span class="n">exc</span><span class="o">.</span><span class="n">UnreflectableTableError</span> <span class="k">as</span> <span class="n">uerr</span><span class="p">:</span>
+</span><span data-line="5831">                    <span class="n">util</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Skipping table </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">uerr</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span data-line="5832">
+</span><span data-line="5833">    <span class="k">def</span> <span class="nf">create_all</span><span class="p">(</span>
+</span><span data-line="5834">        <span class="bp">self</span><span class="p">,</span>
+</span><span data-line="5835">        <span class="n">bind</span><span class="p">:</span> <span class="n">_CreateDropBind</span><span class="p">,</span>
+</span><span data-line="5836">        <span class="n">tables</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_typing_Sequence</span><span class="p">[</span><span class="n">Table</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="5837">        <span class="n">checkfirst</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+</span><span data-line="5838">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="5839"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Create all tables stored in this metadata.</span>
+</span><span data-line="5840">
+</span><span data-line="5841"><span class="sd">        Conditional by default, will not attempt to recreate tables already</span>
+</span><span data-line="5842"><span class="sd">        present in the target database.</span>
 </span><span data-line="5843">
-</span><span data-line="5844"><span class="sd">        :param tables:</span>
-</span><span data-line="5845"><span class="sd">          Optional list of ``Table`` objects, which is a subset of the</span>
-</span><span data-line="5846"><span class="sd">          total tables in the ``MetaData`` (others are ignored).</span>
+</span><span data-line="5844"><span class="sd">        :param bind:</span>
+</span><span data-line="5845"><span class="sd">          A :class:`.Connection` or :class:`.Engine` used to access the</span>
+</span><span data-line="5846"><span class="sd">          database.</span>
 </span><span data-line="5847">
-</span><span data-line="5848"><span class="sd">        :param checkfirst:</span>
-</span><span data-line="5849"><span class="sd">          Defaults to True, only issue DROPs for tables confirmed to be</span>
-</span><span data-line="5850"><span class="sd">          present in the target database.</span>
+</span><span data-line="5848"><span class="sd">        :param tables:</span>
+</span><span data-line="5849"><span class="sd">          Optional list of ``Table`` objects, which is a subset of the total</span>
+</span><span data-line="5850"><span class="sd">          tables in the ``MetaData`` (others are ignored).</span>
 </span><span data-line="5851">
-</span><span data-line="5852"><span class="sd">        &quot;&quot;&quot;</span>
-</span><span data-line="5853">        <span class="n">bind</span><span class="o">.</span><span class="n">_run_ddl_visitor</span><span class="p">(</span>
-</span><span data-line="5854">            <span class="n">ddl</span><span class="o">.</span><span class="n">SchemaDropper</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">checkfirst</span><span class="o">=</span><span class="n">checkfirst</span><span class="p">,</span> <span class="n">tables</span><span class="o">=</span><span class="n">tables</span>
-</span><span data-line="5855">        <span class="p">)</span>
-</span><span data-line="5856">
-</span><span data-line="5857">
-</span><span data-line="5858"><span class="k">class</span> <span class="nc">Computed</span><span class="p">(</span><span class="n">FetchedValue</span><span class="p">,</span> <span class="n">SchemaItem</span><span class="p">):</span>
-</span><span data-line="5859"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Defines a generated column, i.e. &quot;GENERATED ALWAYS AS&quot; syntax.</span>
+</span><span data-line="5852"><span class="sd">        :param checkfirst:</span>
+</span><span data-line="5853"><span class="sd">          Defaults to True, don&#39;t issue CREATEs for tables already present</span>
+</span><span data-line="5854"><span class="sd">          in the target database.</span>
+</span><span data-line="5855">
+</span><span data-line="5856"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span data-line="5857">        <span class="n">bind</span><span class="o">.</span><span class="n">_run_ddl_visitor</span><span class="p">(</span>
+</span><span data-line="5858">            <span class="n">ddl</span><span class="o">.</span><span class="n">SchemaGenerator</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">checkfirst</span><span class="o">=</span><span class="n">checkfirst</span><span class="p">,</span> <span class="n">tables</span><span class="o">=</span><span class="n">tables</span>
+</span><span data-line="5859">        <span class="p">)</span>
 </span><span data-line="5860">
-</span><span data-line="5861"><span class="sd">    The :class:`.Computed` construct is an inline construct added to the</span>
-</span><span data-line="5862"><span class="sd">    argument list of a :class:`_schema.Column` object::</span>
-</span><span data-line="5863">
-</span><span data-line="5864"><span class="sd">        from sqlalchemy import Computed</span>
-</span><span data-line="5865">
-</span><span data-line="5866"><span class="sd">        Table(&#39;square&#39;, metadata_obj,</span>
-</span><span data-line="5867"><span class="sd">            Column(&#39;side&#39;, Float, nullable=False),</span>
-</span><span data-line="5868"><span class="sd">            Column(&#39;area&#39;, Float, Computed(&#39;side * side&#39;))</span>
-</span><span data-line="5869"><span class="sd">        )</span>
-</span><span data-line="5870">
-</span><span data-line="5871"><span class="sd">    See the linked documentation below for complete details.</span>
-</span><span data-line="5872">
-</span><span data-line="5873"><span class="sd">    .. versionadded:: 1.3.11</span>
-</span><span data-line="5874">
-</span><span data-line="5875"><span class="sd">    .. seealso::</span>
-</span><span data-line="5876">
-</span><span data-line="5877"><span class="sd">        :ref:`computed_ddl`</span>
-</span><span data-line="5878">
-</span><span data-line="5879"><span class="sd">    &quot;&quot;&quot;</span>
-</span><span data-line="5880">
-</span><span data-line="5881">    <span class="n">__visit_name__</span> <span class="o">=</span> <span class="s2">&quot;computed_column&quot;</span>
-</span><span data-line="5882">
-</span><span data-line="5883">    <span class="n">column</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Column</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span>
-</span><span data-line="5884">
-</span><span data-line="5885">    <span class="nd">@_document_text_coercion</span><span class="p">(</span>
-</span><span data-line="5886">        <span class="s2">&quot;sqltext&quot;</span><span class="p">,</span> <span class="s2">&quot;:class:`.Computed`&quot;</span><span class="p">,</span> <span class="s2">&quot;:paramref:`.Computed.sqltext`&quot;</span>
-</span><span data-line="5887">    <span class="p">)</span>
-</span><span data-line="5888">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-</span><span data-line="5889">        <span class="bp">self</span><span class="p">,</span> <span class="n">sqltext</span><span class="p">:</span> <span class="n">_DDLColumnArgument</span><span class="p">,</span> <span class="n">persisted</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-</span><span data-line="5890">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span data-line="5891"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Construct a GENERATED ALWAYS AS DDL construct to accompany a</span>
-</span><span data-line="5892"><span class="sd">        :class:`_schema.Column`.</span>
-</span><span data-line="5893">
-</span><span data-line="5894"><span class="sd">        :param sqltext:</span>
-</span><span data-line="5895"><span class="sd">          A string containing the column generation expression, which will be</span>
-</span><span data-line="5896"><span class="sd">          used verbatim, or a SQL expression construct, such as a</span>
-</span><span data-line="5897"><span class="sd">          :func:`_expression.text`</span>
-</span><span data-line="5898"><span class="sd">          object.   If given as a string, the object is converted to a</span>
-</span><span data-line="5899"><span class="sd">          :func:`_expression.text` object.</span>
-</span><span data-line="5900">
-</span><span data-line="5901"><span class="sd">        :param persisted:</span>
-</span><span data-line="5902"><span class="sd">          Optional, controls how this column should be persisted by the</span>
-</span><span data-line="5903"><span class="sd">          database.   Possible values are:</span>
+</span><span data-line="5861">    <span class="k">def</span> <span class="nf">drop_all</span><span class="p">(</span>
+</span><span data-line="5862">        <span class="bp">self</span><span class="p">,</span>
+</span><span data-line="5863">        <span class="n">bind</span><span class="p">:</span> <span class="n">_CreateDropBind</span><span class="p">,</span>
+</span><span data-line="5864">        <span class="n">tables</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_typing_Sequence</span><span class="p">[</span><span class="n">Table</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="5865">        <span class="n">checkfirst</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+</span><span data-line="5866">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="5867"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Drop all tables stored in this metadata.</span>
+</span><span data-line="5868">
+</span><span data-line="5869"><span class="sd">        Conditional by default, will not attempt to drop tables not present in</span>
+</span><span data-line="5870"><span class="sd">        the target database.</span>
+</span><span data-line="5871">
+</span><span data-line="5872"><span class="sd">        :param bind:</span>
+</span><span data-line="5873"><span class="sd">          A :class:`.Connection` or :class:`.Engine` used to access the</span>
+</span><span data-line="5874"><span class="sd">          database.</span>
+</span><span data-line="5875">
+</span><span data-line="5876"><span class="sd">        :param tables:</span>
+</span><span data-line="5877"><span class="sd">          Optional list of ``Table`` objects, which is a subset of the</span>
+</span><span data-line="5878"><span class="sd">          total tables in the ``MetaData`` (others are ignored).</span>
+</span><span data-line="5879">
+</span><span data-line="5880"><span class="sd">        :param checkfirst:</span>
+</span><span data-line="5881"><span class="sd">          Defaults to True, only issue DROPs for tables confirmed to be</span>
+</span><span data-line="5882"><span class="sd">          present in the target database.</span>
+</span><span data-line="5883">
+</span><span data-line="5884"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span data-line="5885">        <span class="n">bind</span><span class="o">.</span><span class="n">_run_ddl_visitor</span><span class="p">(</span>
+</span><span data-line="5886">            <span class="n">ddl</span><span class="o">.</span><span class="n">SchemaDropper</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">checkfirst</span><span class="o">=</span><span class="n">checkfirst</span><span class="p">,</span> <span class="n">tables</span><span class="o">=</span><span class="n">tables</span>
+</span><span data-line="5887">        <span class="p">)</span>
+</span><span data-line="5888">
+</span><span data-line="5889">
+</span><span data-line="5890"><span class="k">class</span> <span class="nc">Computed</span><span class="p">(</span><span class="n">FetchedValue</span><span class="p">,</span> <span class="n">SchemaItem</span><span class="p">):</span>
+</span><span data-line="5891"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Defines a generated column, i.e. &quot;GENERATED ALWAYS AS&quot; syntax.</span>
+</span><span data-line="5892">
+</span><span data-line="5893"><span class="sd">    The :class:`.Computed` construct is an inline construct added to the</span>
+</span><span data-line="5894"><span class="sd">    argument list of a :class:`_schema.Column` object::</span>
+</span><span data-line="5895">
+</span><span data-line="5896"><span class="sd">        from sqlalchemy import Computed</span>
+</span><span data-line="5897">
+</span><span data-line="5898"><span class="sd">        Table(&#39;square&#39;, metadata_obj,</span>
+</span><span data-line="5899"><span class="sd">            Column(&#39;side&#39;, Float, nullable=False),</span>
+</span><span data-line="5900"><span class="sd">            Column(&#39;area&#39;, Float, Computed(&#39;side * side&#39;))</span>
+</span><span data-line="5901"><span class="sd">        )</span>
+</span><span data-line="5902">
+</span><span data-line="5903"><span class="sd">    See the linked documentation below for complete details.</span>
 </span><span data-line="5904">
-</span><span data-line="5905"><span class="sd">          * ``None``, the default, it will use the default persistence</span>
-</span><span data-line="5906"><span class="sd">            defined by the database.</span>
-</span><span data-line="5907"><span class="sd">          * ``True``, will render ``GENERATED ALWAYS AS ... STORED``, or the</span>
-</span><span data-line="5908"><span class="sd">            equivalent for the target database if supported.</span>
-</span><span data-line="5909"><span class="sd">          * ``False``, will render ``GENERATED ALWAYS AS ... VIRTUAL``, or</span>
-</span><span data-line="5910"><span class="sd">            the equivalent for the target database if supported.</span>
-</span><span data-line="5911">
-</span><span data-line="5912"><span class="sd">          Specifying ``True`` or ``False`` may raise an error when the DDL</span>
-</span><span data-line="5913"><span class="sd">          is emitted to the target database if the database does not support</span>
-</span><span data-line="5914"><span class="sd">          that persistence option.   Leaving this parameter at its default</span>
-</span><span data-line="5915"><span class="sd">          of ``None`` is guaranteed to succeed for all databases that support</span>
-</span><span data-line="5916"><span class="sd">          ``GENERATED ALWAYS AS``.</span>
-</span><span data-line="5917">
-</span><span data-line="5918"><span class="sd">        &quot;&quot;&quot;</span>
-</span><span data-line="5919">        <span class="bp">self</span><span class="o">.</span><span class="n">sqltext</span> <span class="o">=</span> <span class="n">coercions</span><span class="o">.</span><span class="n">expect</span><span class="p">(</span><span class="n">roles</span><span class="o">.</span><span class="n">DDLExpressionRole</span><span class="p">,</span> <span class="n">sqltext</span><span class="p">)</span>
-</span><span data-line="5920">        <span class="bp">self</span><span class="o">.</span><span class="n">persisted</span> <span class="o">=</span> <span class="n">persisted</span>
-</span><span data-line="5921">        <span class="bp">self</span><span class="o">.</span><span class="n">column</span> <span class="o">=</span> <span class="kc">None</span>
-</span><span data-line="5922">
-</span><span data-line="5923">    <span class="k">def</span> <span class="nf">_set_parent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">:</span> <span class="n">SchemaEventTarget</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span data-line="5924">        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">Column</span><span class="p">)</span>
+</span><span data-line="5905"><span class="sd">    .. versionadded:: 1.3.11</span>
+</span><span data-line="5906">
+</span><span data-line="5907"><span class="sd">    .. seealso::</span>
+</span><span data-line="5908">
+</span><span data-line="5909"><span class="sd">        :ref:`computed_ddl`</span>
+</span><span data-line="5910">
+</span><span data-line="5911"><span class="sd">    &quot;&quot;&quot;</span>
+</span><span data-line="5912">
+</span><span data-line="5913">    <span class="n">__visit_name__</span> <span class="o">=</span> <span class="s2">&quot;computed_column&quot;</span>
+</span><span data-line="5914">
+</span><span data-line="5915">    <span class="n">column</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Column</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span>
+</span><span data-line="5916">
+</span><span data-line="5917">    <span class="nd">@_document_text_coercion</span><span class="p">(</span>
+</span><span data-line="5918">        <span class="s2">&quot;sqltext&quot;</span><span class="p">,</span> <span class="s2">&quot;:class:`.Computed`&quot;</span><span class="p">,</span> <span class="s2">&quot;:paramref:`.Computed.sqltext`&quot;</span>
+</span><span data-line="5919">    <span class="p">)</span>
+</span><span data-line="5920">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+</span><span data-line="5921">        <span class="bp">self</span><span class="p">,</span> <span class="n">sqltext</span><span class="p">:</span> <span class="n">_DDLColumnArgument</span><span class="p">,</span> <span class="n">persisted</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span data-line="5922">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="5923"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Construct a GENERATED ALWAYS AS DDL construct to accompany a</span>
+</span><span data-line="5924"><span class="sd">        :class:`_schema.Column`.</span>
 </span><span data-line="5925">
-</span><span data-line="5926">        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span>
-</span><span data-line="5927">            <span class="n">parent</span><span class="o">.</span><span class="n">server_default</span><span class="p">,</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="kc">None</span><span class="p">),</span> <span class="n">Computed</span><span class="p">)</span>
-</span><span data-line="5928">        <span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">server_onupdate</span><span class="p">,</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="kc">None</span><span class="p">),</span> <span class="n">Computed</span><span class="p">)):</span>
-</span><span data-line="5929">            <span class="k">raise</span> <span class="n">exc</span><span class="o">.</span><span class="n">ArgumentError</span><span class="p">(</span>
-</span><span data-line="5930">                <span class="s2">&quot;A generated column cannot specify a server_default or a &quot;</span>
-</span><span data-line="5931">                <span class="s2">&quot;server_onupdate argument&quot;</span>
-</span><span data-line="5932">            <span class="p">)</span>
-</span><span data-line="5933">        <span class="bp">self</span><span class="o">.</span><span class="n">column</span> <span class="o">=</span> <span class="n">parent</span>
-</span><span data-line="5934">        <span class="n">parent</span><span class="o">.</span><span class="n">computed</span> <span class="o">=</span> <span class="bp">self</span>
-</span><span data-line="5935">        <span class="bp">self</span><span class="o">.</span><span class="n">column</span><span class="o">.</span><span class="n">server_onupdate</span> <span class="o">=</span> <span class="bp">self</span>
-</span><span data-line="5936">        <span class="bp">self</span><span class="o">.</span><span class="n">column</span><span class="o">.</span><span class="n">server_default</span> <span class="o">=</span> <span class="bp">self</span>
-</span><span data-line="5937">
-</span><span data-line="5938">    <span class="k">def</span> <span class="nf">_as_for_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">for_update</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FetchedValue</span><span class="p">:</span>
-</span><span data-line="5939">        <span class="k">return</span> <span class="bp">self</span>
-</span><span data-line="5940">
-</span><span data-line="5941">    <span class="nd">@util</span><span class="o">.</span><span class="n">deprecated</span><span class="p">(</span>
-</span><span data-line="5942">        <span class="s2">&quot;1.4&quot;</span><span class="p">,</span>
-</span><span data-line="5943">        <span class="s2">&quot;The :meth:`_schema.Computed.copy` method is deprecated &quot;</span>
-</span><span data-line="5944">        <span class="s2">&quot;and will be removed in a future release.&quot;</span><span class="p">,</span>
-</span><span data-line="5945">    <span class="p">)</span>
-</span><span data-line="5946">    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span>
-</span><span data-line="5947">        <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">target_table</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Table</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">:</span> <span class="n">Any</span>
-</span><span data-line="5948">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Computed</span><span class="p">:</span>
-</span><span data-line="5949">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_copy</span><span class="p">(</span><span class="n">target_table</span><span class="o">=</span><span class="n">target_table</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
-</span><span data-line="5950">
-</span><span data-line="5951">    <span class="k">def</span> <span class="nf">_copy</span><span class="p">(</span>
-</span><span data-line="5952">        <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">target_table</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Table</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">:</span> <span class="n">Any</span>
-</span><span data-line="5953">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Computed</span><span class="p">:</span>
-</span><span data-line="5954">        <span class="n">sqltext</span> <span class="o">=</span> <span class="n">_copy_expression</span><span class="p">(</span>
-</span><span data-line="5955">            <span class="bp">self</span><span class="o">.</span><span class="n">sqltext</span><span class="p">,</span>
-</span><span data-line="5956">            <span class="bp">self</span><span class="o">.</span><span class="n">column</span><span class="o">.</span><span class="n">table</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">column</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
-</span><span data-line="5957">            <span class="n">target_table</span><span class="p">,</span>
-</span><span data-line="5958">        <span class="p">)</span>
-</span><span data-line="5959">        <span class="n">g</span> <span class="o">=</span> <span class="n">Computed</span><span class="p">(</span><span class="n">sqltext</span><span class="p">,</span> <span class="n">persisted</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">persisted</span><span class="p">)</span>
-</span><span data-line="5960">
-</span><span data-line="5961">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_schema_item_copy</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
-</span><span data-line="5962">
-</span><span data-line="5963">
-</span><span data-line="5964"><span class="k">class</span> <span class="nc">Identity</span><span class="p">(</span><span class="n">IdentityOptions</span><span class="p">,</span> <span class="n">FetchedValue</span><span class="p">,</span> <span class="n">SchemaItem</span><span class="p">):</span>
-</span><span data-line="5965"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Defines an identity column, i.e. &quot;GENERATED { ALWAYS | BY DEFAULT }</span>
-</span><span data-line="5966"><span class="sd">    AS IDENTITY&quot; syntax.</span>
-</span><span data-line="5967">
-</span><span data-line="5968"><span class="sd">    The :class:`.Identity` construct is an inline construct added to the</span>
-</span><span data-line="5969"><span class="sd">    argument list of a :class:`_schema.Column` object::</span>
-</span><span data-line="5970">
-</span><span data-line="5971"><span class="sd">        from sqlalchemy import Identity</span>
+</span><span data-line="5926"><span class="sd">        :param sqltext:</span>
+</span><span data-line="5927"><span class="sd">          A string containing the column generation expression, which will be</span>
+</span><span data-line="5928"><span class="sd">          used verbatim, or a SQL expression construct, such as a</span>
+</span><span data-line="5929"><span class="sd">          :func:`_expression.text`</span>
+</span><span data-line="5930"><span class="sd">          object.   If given as a string, the object is converted to a</span>
+</span><span data-line="5931"><span class="sd">          :func:`_expression.text` object.</span>
+</span><span data-line="5932">
+</span><span data-line="5933"><span class="sd">        :param persisted:</span>
+</span><span data-line="5934"><span class="sd">          Optional, controls how this column should be persisted by the</span>
+</span><span data-line="5935"><span class="sd">          database.   Possible values are:</span>
+</span><span data-line="5936">
+</span><span data-line="5937"><span class="sd">          * ``None``, the default, it will use the default persistence</span>
+</span><span data-line="5938"><span class="sd">            defined by the database.</span>
+</span><span data-line="5939"><span class="sd">          * ``True``, will render ``GENERATED ALWAYS AS ... STORED``, or the</span>
+</span><span data-line="5940"><span class="sd">            equivalent for the target database if supported.</span>
+</span><span data-line="5941"><span class="sd">          * ``False``, will render ``GENERATED ALWAYS AS ... VIRTUAL``, or</span>
+</span><span data-line="5942"><span class="sd">            the equivalent for the target database if supported.</span>
+</span><span data-line="5943">
+</span><span data-line="5944"><span class="sd">          Specifying ``True`` or ``False`` may raise an error when the DDL</span>
+</span><span data-line="5945"><span class="sd">          is emitted to the target database if the database does not support</span>
+</span><span data-line="5946"><span class="sd">          that persistence option.   Leaving this parameter at its default</span>
+</span><span data-line="5947"><span class="sd">          of ``None`` is guaranteed to succeed for all databases that support</span>
+</span><span data-line="5948"><span class="sd">          ``GENERATED ALWAYS AS``.</span>
+</span><span data-line="5949">
+</span><span data-line="5950"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span data-line="5951">        <span class="bp">self</span><span class="o">.</span><span class="n">sqltext</span> <span class="o">=</span> <span class="n">coercions</span><span class="o">.</span><span class="n">expect</span><span class="p">(</span><span class="n">roles</span><span class="o">.</span><span class="n">DDLExpressionRole</span><span class="p">,</span> <span class="n">sqltext</span><span class="p">)</span>
+</span><span data-line="5952">        <span class="bp">self</span><span class="o">.</span><span class="n">persisted</span> <span class="o">=</span> <span class="n">persisted</span>
+</span><span data-line="5953">        <span class="bp">self</span><span class="o">.</span><span class="n">column</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span data-line="5954">
+</span><span data-line="5955">    <span class="k">def</span> <span class="nf">_set_parent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">:</span> <span class="n">SchemaEventTarget</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="5956">        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">Column</span><span class="p">)</span>
+</span><span data-line="5957">
+</span><span data-line="5958">        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span>
+</span><span data-line="5959">            <span class="n">parent</span><span class="o">.</span><span class="n">server_default</span><span class="p">,</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="kc">None</span><span class="p">),</span> <span class="n">Computed</span><span class="p">)</span>
+</span><span data-line="5960">        <span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">server_onupdate</span><span class="p">,</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="kc">None</span><span class="p">),</span> <span class="n">Computed</span><span class="p">)):</span>
+</span><span data-line="5961">            <span class="k">raise</span> <span class="n">exc</span><span class="o">.</span><span class="n">ArgumentError</span><span class="p">(</span>
+</span><span data-line="5962">                <span class="s2">&quot;A generated column cannot specify a server_default or a &quot;</span>
+</span><span data-line="5963">                <span class="s2">&quot;server_onupdate argument&quot;</span>
+</span><span data-line="5964">            <span class="p">)</span>
+</span><span data-line="5965">        <span class="bp">self</span><span class="o">.</span><span class="n">column</span> <span class="o">=</span> <span class="n">parent</span>
+</span><span data-line="5966">        <span class="n">parent</span><span class="o">.</span><span class="n">computed</span> <span class="o">=</span> <span class="bp">self</span>
+</span><span data-line="5967">        <span class="bp">self</span><span class="o">.</span><span class="n">column</span><span class="o">.</span><span class="n">server_onupdate</span> <span class="o">=</span> <span class="bp">self</span>
+</span><span data-line="5968">        <span class="bp">self</span><span class="o">.</span><span class="n">column</span><span class="o">.</span><span class="n">server_default</span> <span class="o">=</span> <span class="bp">self</span>
+</span><span data-line="5969">
+</span><span data-line="5970">    <span class="k">def</span> <span class="nf">_as_for_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">for_update</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FetchedValue</span><span class="p">:</span>
+</span><span data-line="5971">        <span class="k">return</span> <span class="bp">self</span>
 </span><span data-line="5972">
-</span><span data-line="5973"><span class="sd">        Table(&#39;foo&#39;, metadata_obj,</span>
-</span><span data-line="5974"><span class="sd">            Column(&#39;id&#39;, Integer, Identity())</span>
-</span><span data-line="5975"><span class="sd">            Column(&#39;description&#39;, Text),</span>
-</span><span data-line="5976"><span class="sd">        )</span>
-</span><span data-line="5977">
-</span><span data-line="5978"><span class="sd">    See the linked documentation below for complete details.</span>
-</span><span data-line="5979">
-</span><span data-line="5980"><span class="sd">    .. versionadded:: 1.4</span>
-</span><span data-line="5981">
-</span><span data-line="5982"><span class="sd">    .. seealso::</span>
-</span><span data-line="5983">
-</span><span data-line="5984"><span class="sd">        :ref:`identity_ddl`</span>
-</span><span data-line="5985">
-</span><span data-line="5986"><span class="sd">    &quot;&quot;&quot;</span>
-</span><span data-line="5987">
-</span><span data-line="5988">    <span class="n">__visit_name__</span> <span class="o">=</span> <span class="s2">&quot;identity_column&quot;</span>
-</span><span data-line="5989">
-</span><span data-line="5990">    <span class="n">is_identity</span> <span class="o">=</span> <span class="kc">True</span>
-</span><span data-line="5991">
-</span><span data-line="5992">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-</span><span data-line="5993">        <span class="bp">self</span><span class="p">,</span>
-</span><span data-line="5994">        <span class="n">always</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-</span><span data-line="5995">        <span class="n">on_null</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span data-line="5996">        <span class="n">start</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span data-line="5997">        <span class="n">increment</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span data-line="5998">        <span class="n">minvalue</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span data-line="5999">        <span class="n">maxvalue</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span data-line="6000">        <span class="n">nominvalue</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span data-line="6001">        <span class="n">nomaxvalue</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span data-line="6002">        <span class="n">cycle</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span data-line="6003">        <span class="n">cache</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span data-line="6004">        <span class="n">order</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span data-line="6005">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span data-line="6006"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Construct a GENERATED { ALWAYS | BY DEFAULT } AS IDENTITY DDL</span>
-</span><span data-line="6007"><span class="sd">        construct to accompany a :class:`_schema.Column`.</span>
-</span><span data-line="6008">
-</span><span data-line="6009"><span class="sd">        See the :class:`.Sequence` documentation for a complete description</span>
-</span><span data-line="6010"><span class="sd">        of most parameters.</span>
+</span><span data-line="5973">    <span class="nd">@util</span><span class="o">.</span><span class="n">deprecated</span><span class="p">(</span>
+</span><span data-line="5974">        <span class="s2">&quot;1.4&quot;</span><span class="p">,</span>
+</span><span data-line="5975">        <span class="s2">&quot;The :meth:`_schema.Computed.copy` method is deprecated &quot;</span>
+</span><span data-line="5976">        <span class="s2">&quot;and will be removed in a future release.&quot;</span><span class="p">,</span>
+</span><span data-line="5977">    <span class="p">)</span>
+</span><span data-line="5978">    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span>
+</span><span data-line="5979">        <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">target_table</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Table</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">:</span> <span class="n">Any</span>
+</span><span data-line="5980">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Computed</span><span class="p">:</span>
+</span><span data-line="5981">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_copy</span><span class="p">(</span><span class="n">target_table</span><span class="o">=</span><span class="n">target_table</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+</span><span data-line="5982">
+</span><span data-line="5983">    <span class="k">def</span> <span class="nf">_copy</span><span class="p">(</span>
+</span><span data-line="5984">        <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">target_table</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Table</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">:</span> <span class="n">Any</span>
+</span><span data-line="5985">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Computed</span><span class="p">:</span>
+</span><span data-line="5986">        <span class="n">sqltext</span> <span class="o">=</span> <span class="n">_copy_expression</span><span class="p">(</span>
+</span><span data-line="5987">            <span class="bp">self</span><span class="o">.</span><span class="n">sqltext</span><span class="p">,</span>
+</span><span data-line="5988">            <span class="bp">self</span><span class="o">.</span><span class="n">column</span><span class="o">.</span><span class="n">table</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">column</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="5989">            <span class="n">target_table</span><span class="p">,</span>
+</span><span data-line="5990">        <span class="p">)</span>
+</span><span data-line="5991">        <span class="n">g</span> <span class="o">=</span> <span class="n">Computed</span><span class="p">(</span><span class="n">sqltext</span><span class="p">,</span> <span class="n">persisted</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">persisted</span><span class="p">)</span>
+</span><span data-line="5992">
+</span><span data-line="5993">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_schema_item_copy</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+</span><span data-line="5994">
+</span><span data-line="5995">
+</span><span data-line="5996"><span class="k">class</span> <span class="nc">Identity</span><span class="p">(</span><span class="n">IdentityOptions</span><span class="p">,</span> <span class="n">FetchedValue</span><span class="p">,</span> <span class="n">SchemaItem</span><span class="p">):</span>
+</span><span data-line="5997"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Defines an identity column, i.e. &quot;GENERATED { ALWAYS | BY DEFAULT }</span>
+</span><span data-line="5998"><span class="sd">    AS IDENTITY&quot; syntax.</span>
+</span><span data-line="5999">
+</span><span data-line="6000"><span class="sd">    The :class:`.Identity` construct is an inline construct added to the</span>
+</span><span data-line="6001"><span class="sd">    argument list of a :class:`_schema.Column` object::</span>
+</span><span data-line="6002">
+</span><span data-line="6003"><span class="sd">        from sqlalchemy import Identity</span>
+</span><span data-line="6004">
+</span><span data-line="6005"><span class="sd">        Table(&#39;foo&#39;, metadata_obj,</span>
+</span><span data-line="6006"><span class="sd">            Column(&#39;id&#39;, Integer, Identity())</span>
+</span><span data-line="6007"><span class="sd">            Column(&#39;description&#39;, Text),</span>
+</span><span data-line="6008"><span class="sd">        )</span>
+</span><span data-line="6009">
+</span><span data-line="6010"><span class="sd">    See the linked documentation below for complete details.</span>
 </span><span data-line="6011">
-</span><span data-line="6012"><span class="sd">        .. note::</span>
-</span><span data-line="6013"><span class="sd">            MSSQL supports this construct as the preferred alternative to</span>
-</span><span data-line="6014"><span class="sd">            generate an IDENTITY on a column, but it uses non standard</span>
-</span><span data-line="6015"><span class="sd">            syntax that only support :paramref:`_schema.Identity.start`</span>
-</span><span data-line="6016"><span class="sd">            and :paramref:`_schema.Identity.increment`.</span>
-</span><span data-line="6017"><span class="sd">            All other parameters are ignored.</span>
-</span><span data-line="6018">
-</span><span data-line="6019"><span class="sd">        :param always:</span>
-</span><span data-line="6020"><span class="sd">          A boolean, that indicates the type of identity column.</span>
-</span><span data-line="6021"><span class="sd">          If ``False`` is specified, the default, then the user-specified</span>
-</span><span data-line="6022"><span class="sd">          value takes precedence.</span>
-</span><span data-line="6023"><span class="sd">          If ``True`` is specified, a user-specified value is not accepted (</span>
-</span><span data-line="6024"><span class="sd">          on some backends, like PostgreSQL, OVERRIDING SYSTEM VALUE, or</span>
-</span><span data-line="6025"><span class="sd">          similar, may be specified in an INSERT to override the sequence</span>
-</span><span data-line="6026"><span class="sd">          value).</span>
-</span><span data-line="6027"><span class="sd">          Some backends also have a default value for this parameter,</span>
-</span><span data-line="6028"><span class="sd">          ``None`` can be used to omit rendering this part in the DDL. It</span>
-</span><span data-line="6029"><span class="sd">          will be treated as ``False`` if a backend does not have a default</span>
-</span><span data-line="6030"><span class="sd">          value.</span>
-</span><span data-line="6031">
-</span><span data-line="6032"><span class="sd">        :param on_null:</span>
-</span><span data-line="6033"><span class="sd">          Set to ``True`` to specify ON NULL in conjunction with a</span>
-</span><span data-line="6034"><span class="sd">          ``always=False`` identity column. This option is only supported on</span>
-</span><span data-line="6035"><span class="sd">          some backends, like Oracle.</span>
-</span><span data-line="6036">
-</span><span data-line="6037"><span class="sd">        :param start: the starting index of the sequence.</span>
-</span><span data-line="6038"><span class="sd">        :param increment: the increment value of the sequence.</span>
-</span><span data-line="6039"><span class="sd">        :param minvalue: the minimum value of the sequence.</span>
-</span><span data-line="6040"><span class="sd">        :param maxvalue: the maximum value of the sequence.</span>
-</span><span data-line="6041"><span class="sd">        :param nominvalue: no minimum value of the sequence.</span>
-</span><span data-line="6042"><span class="sd">        :param nomaxvalue: no maximum value of the sequence.</span>
-</span><span data-line="6043"><span class="sd">        :param cycle: allows the sequence to wrap around when the maxvalue</span>
-</span><span data-line="6044"><span class="sd">         or minvalue has been reached.</span>
-</span><span data-line="6045"><span class="sd">        :param cache: optional integer value; number of future values in the</span>
-</span><span data-line="6046"><span class="sd">         sequence which are calculated in advance.</span>
-</span><span data-line="6047"><span class="sd">        :param order: optional boolean value; if true, renders the</span>
-</span><span data-line="6048"><span class="sd">         ORDER keyword.</span>
-</span><span data-line="6049">
-</span><span data-line="6050"><span class="sd">        &quot;&quot;&quot;</span>
-</span><span data-line="6051">        <span class="n">IdentityOptions</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
-</span><span data-line="6052">            <span class="bp">self</span><span class="p">,</span>
-</span><span data-line="6053">            <span class="n">start</span><span class="o">=</span><span class="n">start</span><span class="p">,</span>
-</span><span data-line="6054">            <span class="n">increment</span><span class="o">=</span><span class="n">increment</span><span class="p">,</span>
-</span><span data-line="6055">            <span class="n">minvalue</span><span class="o">=</span><span class="n">minvalue</span><span class="p">,</span>
-</span><span data-line="6056">            <span class="n">maxvalue</span><span class="o">=</span><span class="n">maxvalue</span><span class="p">,</span>
-</span><span data-line="6057">            <span class="n">nominvalue</span><span class="o">=</span><span class="n">nominvalue</span><span class="p">,</span>
-</span><span data-line="6058">            <span class="n">nomaxvalue</span><span class="o">=</span><span class="n">nomaxvalue</span><span class="p">,</span>
-</span><span data-line="6059">            <span class="n">cycle</span><span class="o">=</span><span class="n">cycle</span><span class="p">,</span>
-</span><span data-line="6060">            <span class="n">cache</span><span class="o">=</span><span class="n">cache</span><span class="p">,</span>
-</span><span data-line="6061">            <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span>
-</span><span data-line="6062">        <span class="p">)</span>
-</span><span data-line="6063">        <span class="bp">self</span><span class="o">.</span><span class="n">always</span> <span class="o">=</span> <span class="n">always</span>
-</span><span data-line="6064">        <span class="bp">self</span><span class="o">.</span><span class="n">on_null</span> <span class="o">=</span> <span class="n">on_null</span>
-</span><span data-line="6065">        <span class="bp">self</span><span class="o">.</span><span class="n">column</span> <span class="o">=</span> <span class="kc">None</span>
-</span><span data-line="6066">
-</span><span data-line="6067">    <span class="k">def</span> <span class="nf">_set_parent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">:</span> <span class="n">SchemaEventTarget</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span data-line="6068">        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">Column</span><span class="p">)</span>
-</span><span data-line="6069">        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span>
-</span><span data-line="6070">            <span class="n">parent</span><span class="o">.</span><span class="n">server_default</span><span class="p">,</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="kc">None</span><span class="p">),</span> <span class="n">Identity</span><span class="p">)</span>
-</span><span data-line="6071">        <span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">server_onupdate</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="kc">None</span><span class="p">)):</span>
-</span><span data-line="6072">            <span class="k">raise</span> <span class="n">exc</span><span class="o">.</span><span class="n">ArgumentError</span><span class="p">(</span>
-</span><span data-line="6073">                <span class="s2">&quot;A column with an Identity object cannot specify a &quot;</span>
-</span><span data-line="6074">                <span class="s2">&quot;server_default or a server_onupdate argument&quot;</span>
-</span><span data-line="6075">            <span class="p">)</span>
-</span><span data-line="6076">        <span class="k">if</span> <span class="n">parent</span><span class="o">.</span><span class="n">autoincrement</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
-</span><span data-line="6077">            <span class="k">raise</span> <span class="n">exc</span><span class="o">.</span><span class="n">ArgumentError</span><span class="p">(</span>
-</span><span data-line="6078">                <span class="s2">&quot;A column with an Identity object cannot specify &quot;</span>
-</span><span data-line="6079">                <span class="s2">&quot;autoincrement=False&quot;</span>
-</span><span data-line="6080">            <span class="p">)</span>
-</span><span data-line="6081">        <span class="bp">self</span><span class="o">.</span><span class="n">column</span> <span class="o">=</span> <span class="n">parent</span>
-</span><span data-line="6082">
-</span><span data-line="6083">        <span class="n">parent</span><span class="o">.</span><span class="n">identity</span> <span class="o">=</span> <span class="bp">self</span>
-</span><span data-line="6084">        <span class="k">if</span> <span class="n">parent</span><span class="o">.</span><span class="n">_user_defined_nullable</span> <span class="ow">is</span> <span class="n">NULL_UNSPECIFIED</span><span class="p">:</span>
-</span><span data-line="6085">            <span class="n">parent</span><span class="o">.</span><span class="n">nullable</span> <span class="o">=</span> <span class="kc">False</span>
-</span><span data-line="6086">
-</span><span data-line="6087">        <span class="n">parent</span><span class="o">.</span><span class="n">server_default</span> <span class="o">=</span> <span class="bp">self</span>
-</span><span data-line="6088">
-</span><span data-line="6089">    <span class="k">def</span> <span class="nf">_as_for_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">for_update</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FetchedValue</span><span class="p">:</span>
-</span><span data-line="6090">        <span class="k">return</span> <span class="bp">self</span>
-</span><span data-line="6091">
-</span><span data-line="6092">    <span class="nd">@util</span><span class="o">.</span><span class="n">deprecated</span><span class="p">(</span>
-</span><span data-line="6093">        <span class="s2">&quot;1.4&quot;</span><span class="p">,</span>
-</span><span data-line="6094">        <span class="s2">&quot;The :meth:`_schema.Identity.copy` method is deprecated &quot;</span>
-</span><span data-line="6095">        <span class="s2">&quot;and will be removed in a future release.&quot;</span><span class="p">,</span>
-</span><span data-line="6096">    <span class="p">)</span>
-</span><span data-line="6097">    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Identity</span><span class="p">:</span>
-</span><span data-line="6098">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_copy</span><span class="p">(</span><span class="o">**</span><span class="n">kw</span><span class="p">)</span>
-</span><span data-line="6099">
-</span><span data-line="6100">    <span class="k">def</span> <span class="nf">_copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Identity</span><span class="p">:</span>
-</span><span data-line="6101">        <span class="n">i</span> <span class="o">=</span> <span class="n">Identity</span><span class="p">(</span>
-</span><span data-line="6102">            <span class="n">always</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">always</span><span class="p">,</span>
-</span><span data-line="6103">            <span class="n">on_null</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">on_null</span><span class="p">,</span>
-</span><span data-line="6104">            <span class="n">start</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">,</span>
-</span><span data-line="6105">            <span class="n">increment</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">increment</span><span class="p">,</span>
-</span><span data-line="6106">            <span class="n">minvalue</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">minvalue</span><span class="p">,</span>
-</span><span data-line="6107">            <span class="n">maxvalue</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">maxvalue</span><span class="p">,</span>
-</span><span data-line="6108">            <span class="n">nominvalue</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">nominvalue</span><span class="p">,</span>
-</span><span data-line="6109">            <span class="n">nomaxvalue</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">nomaxvalue</span><span class="p">,</span>
-</span><span data-line="6110">            <span class="n">cycle</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cycle</span><span class="p">,</span>
-</span><span data-line="6111">            <span class="n">cache</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cache</span><span class="p">,</span>
-</span><span data-line="6112">            <span class="n">order</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">order</span><span class="p">,</span>
-</span><span data-line="6113">        <span class="p">)</span>
+</span><span data-line="6012"><span class="sd">    .. versionadded:: 1.4</span>
+</span><span data-line="6013">
+</span><span data-line="6014"><span class="sd">    .. seealso::</span>
+</span><span data-line="6015">
+</span><span data-line="6016"><span class="sd">        :ref:`identity_ddl`</span>
+</span><span data-line="6017">
+</span><span data-line="6018"><span class="sd">    &quot;&quot;&quot;</span>
+</span><span data-line="6019">
+</span><span data-line="6020">    <span class="n">__visit_name__</span> <span class="o">=</span> <span class="s2">&quot;identity_column&quot;</span>
+</span><span data-line="6021">
+</span><span data-line="6022">    <span class="n">is_identity</span> <span class="o">=</span> <span class="kc">True</span>
+</span><span data-line="6023">
+</span><span data-line="6024">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+</span><span data-line="6025">        <span class="bp">self</span><span class="p">,</span>
+</span><span data-line="6026">        <span class="n">always</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+</span><span data-line="6027">        <span class="n">on_null</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="6028">        <span class="n">start</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="6029">        <span class="n">increment</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="6030">        <span class="n">minvalue</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="6031">        <span class="n">maxvalue</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="6032">        <span class="n">nominvalue</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="6033">        <span class="n">nomaxvalue</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="6034">        <span class="n">cycle</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="6035">        <span class="n">cache</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="6036">        <span class="n">order</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="6037">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="6038"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Construct a GENERATED { ALWAYS | BY DEFAULT } AS IDENTITY DDL</span>
+</span><span data-line="6039"><span class="sd">        construct to accompany a :class:`_schema.Column`.</span>
+</span><span data-line="6040">
+</span><span data-line="6041"><span class="sd">        See the :class:`.Sequence` documentation for a complete description</span>
+</span><span data-line="6042"><span class="sd">        of most parameters.</span>
+</span><span data-line="6043">
+</span><span data-line="6044"><span class="sd">        .. note::</span>
+</span><span data-line="6045"><span class="sd">            MSSQL supports this construct as the preferred alternative to</span>
+</span><span data-line="6046"><span class="sd">            generate an IDENTITY on a column, but it uses non standard</span>
+</span><span data-line="6047"><span class="sd">            syntax that only support :paramref:`_schema.Identity.start`</span>
+</span><span data-line="6048"><span class="sd">            and :paramref:`_schema.Identity.increment`.</span>
+</span><span data-line="6049"><span class="sd">            All other parameters are ignored.</span>
+</span><span data-line="6050">
+</span><span data-line="6051"><span class="sd">        :param always:</span>
+</span><span data-line="6052"><span class="sd">          A boolean, that indicates the type of identity column.</span>
+</span><span data-line="6053"><span class="sd">          If ``False`` is specified, the default, then the user-specified</span>
+</span><span data-line="6054"><span class="sd">          value takes precedence.</span>
+</span><span data-line="6055"><span class="sd">          If ``True`` is specified, a user-specified value is not accepted (</span>
+</span><span data-line="6056"><span class="sd">          on some backends, like PostgreSQL, OVERRIDING SYSTEM VALUE, or</span>
+</span><span data-line="6057"><span class="sd">          similar, may be specified in an INSERT to override the sequence</span>
+</span><span data-line="6058"><span class="sd">          value).</span>
+</span><span data-line="6059"><span class="sd">          Some backends also have a default value for this parameter,</span>
+</span><span data-line="6060"><span class="sd">          ``None`` can be used to omit rendering this part in the DDL. It</span>
+</span><span data-line="6061"><span class="sd">          will be treated as ``False`` if a backend does not have a default</span>
+</span><span data-line="6062"><span class="sd">          value.</span>
+</span><span data-line="6063">
+</span><span data-line="6064"><span class="sd">        :param on_null:</span>
+</span><span data-line="6065"><span class="sd">          Set to ``True`` to specify ON NULL in conjunction with a</span>
+</span><span data-line="6066"><span class="sd">          ``always=False`` identity column. This option is only supported on</span>
+</span><span data-line="6067"><span class="sd">          some backends, like Oracle.</span>
+</span><span data-line="6068">
+</span><span data-line="6069"><span class="sd">        :param start: the starting index of the sequence.</span>
+</span><span data-line="6070"><span class="sd">        :param increment: the increment value of the sequence.</span>
+</span><span data-line="6071"><span class="sd">        :param minvalue: the minimum value of the sequence.</span>
+</span><span data-line="6072"><span class="sd">        :param maxvalue: the maximum value of the sequence.</span>
+</span><span data-line="6073"><span class="sd">        :param nominvalue: no minimum value of the sequence.</span>
+</span><span data-line="6074"><span class="sd">        :param nomaxvalue: no maximum value of the sequence.</span>
+</span><span data-line="6075"><span class="sd">        :param cycle: allows the sequence to wrap around when the maxvalue</span>
+</span><span data-line="6076"><span class="sd">         or minvalue has been reached.</span>
+</span><span data-line="6077"><span class="sd">        :param cache: optional integer value; number of future values in the</span>
+</span><span data-line="6078"><span class="sd">         sequence which are calculated in advance.</span>
+</span><span data-line="6079"><span class="sd">        :param order: optional boolean value; if true, renders the</span>
+</span><span data-line="6080"><span class="sd">         ORDER keyword.</span>
+</span><span data-line="6081">
+</span><span data-line="6082"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span data-line="6083">        <span class="n">IdentityOptions</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+</span><span data-line="6084">            <span class="bp">self</span><span class="p">,</span>
+</span><span data-line="6085">            <span class="n">start</span><span class="o">=</span><span class="n">start</span><span class="p">,</span>
+</span><span data-line="6086">            <span class="n">increment</span><span class="o">=</span><span class="n">increment</span><span class="p">,</span>
+</span><span data-line="6087">            <span class="n">minvalue</span><span class="o">=</span><span class="n">minvalue</span><span class="p">,</span>
+</span><span data-line="6088">            <span class="n">maxvalue</span><span class="o">=</span><span class="n">maxvalue</span><span class="p">,</span>
+</span><span data-line="6089">            <span class="n">nominvalue</span><span class="o">=</span><span class="n">nominvalue</span><span class="p">,</span>
+</span><span data-line="6090">            <span class="n">nomaxvalue</span><span class="o">=</span><span class="n">nomaxvalue</span><span class="p">,</span>
+</span><span data-line="6091">            <span class="n">cycle</span><span class="o">=</span><span class="n">cycle</span><span class="p">,</span>
+</span><span data-line="6092">            <span class="n">cache</span><span class="o">=</span><span class="n">cache</span><span class="p">,</span>
+</span><span data-line="6093">            <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span>
+</span><span data-line="6094">        <span class="p">)</span>
+</span><span data-line="6095">        <span class="bp">self</span><span class="o">.</span><span class="n">always</span> <span class="o">=</span> <span class="n">always</span>
+</span><span data-line="6096">        <span class="bp">self</span><span class="o">.</span><span class="n">on_null</span> <span class="o">=</span> <span class="n">on_null</span>
+</span><span data-line="6097">        <span class="bp">self</span><span class="o">.</span><span class="n">column</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span data-line="6098">
+</span><span data-line="6099">    <span class="k">def</span> <span class="nf">_set_parent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">:</span> <span class="n">SchemaEventTarget</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="6100">        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">Column</span><span class="p">)</span>
+</span><span data-line="6101">        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span>
+</span><span data-line="6102">            <span class="n">parent</span><span class="o">.</span><span class="n">server_default</span><span class="p">,</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="kc">None</span><span class="p">),</span> <span class="n">Identity</span><span class="p">)</span>
+</span><span data-line="6103">        <span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">server_onupdate</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="kc">None</span><span class="p">)):</span>
+</span><span data-line="6104">            <span class="k">raise</span> <span class="n">exc</span><span class="o">.</span><span class="n">ArgumentError</span><span class="p">(</span>
+</span><span data-line="6105">                <span class="s2">&quot;A column with an Identity object cannot specify a &quot;</span>
+</span><span data-line="6106">                <span class="s2">&quot;server_default or a server_onupdate argument&quot;</span>
+</span><span data-line="6107">            <span class="p">)</span>
+</span><span data-line="6108">        <span class="k">if</span> <span class="n">parent</span><span class="o">.</span><span class="n">autoincrement</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+</span><span data-line="6109">            <span class="k">raise</span> <span class="n">exc</span><span class="o">.</span><span class="n">ArgumentError</span><span class="p">(</span>
+</span><span data-line="6110">                <span class="s2">&quot;A column with an Identity object cannot specify &quot;</span>
+</span><span data-line="6111">                <span class="s2">&quot;autoincrement=False&quot;</span>
+</span><span data-line="6112">            <span class="p">)</span>
+</span><span data-line="6113">        <span class="bp">self</span><span class="o">.</span><span class="n">column</span> <span class="o">=</span> <span class="n">parent</span>
 </span><span data-line="6114">
-</span><span data-line="6115">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_schema_item_copy</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</span><span data-line="6115">        <span class="n">parent</span><span class="o">.</span><span class="n">identity</span> <span class="o">=</span> <span class="bp">self</span>
+</span><span data-line="6116">        <span class="k">if</span> <span class="n">parent</span><span class="o">.</span><span class="n">_user_defined_nullable</span> <span class="ow">is</span> <span class="n">NULL_UNSPECIFIED</span><span class="p">:</span>
+</span><span data-line="6117">            <span class="n">parent</span><span class="o">.</span><span class="n">nullable</span> <span class="o">=</span> <span class="kc">False</span>
+</span><span data-line="6118">
+</span><span data-line="6119">        <span class="n">parent</span><span class="o">.</span><span class="n">server_default</span> <span class="o">=</span> <span class="bp">self</span>
+</span><span data-line="6120">
+</span><span data-line="6121">    <span class="k">def</span> <span class="nf">_as_for_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">for_update</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FetchedValue</span><span class="p">:</span>
+</span><span data-line="6122">        <span class="k">return</span> <span class="bp">self</span>
+</span><span data-line="6123">
+</span><span data-line="6124">    <span class="nd">@util</span><span class="o">.</span><span class="n">deprecated</span><span class="p">(</span>
+</span><span data-line="6125">        <span class="s2">&quot;1.4&quot;</span><span class="p">,</span>
+</span><span data-line="6126">        <span class="s2">&quot;The :meth:`_schema.Identity.copy` method is deprecated &quot;</span>
+</span><span data-line="6127">        <span class="s2">&quot;and will be removed in a future release.&quot;</span><span class="p">,</span>
+</span><span data-line="6128">    <span class="p">)</span>
+</span><span data-line="6129">    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Identity</span><span class="p">:</span>
+</span><span data-line="6130">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_copy</span><span class="p">(</span><span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+</span><span data-line="6131">
+</span><span data-line="6132">    <span class="k">def</span> <span class="nf">_copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Identity</span><span class="p">:</span>
+</span><span data-line="6133">        <span class="n">i</span> <span class="o">=</span> <span class="n">Identity</span><span class="p">(</span>
+</span><span data-line="6134">            <span class="n">always</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">always</span><span class="p">,</span>
+</span><span data-line="6135">            <span class="n">on_null</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">on_null</span><span class="p">,</span>
+</span><span data-line="6136">            <span class="n">start</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">,</span>
+</span><span data-line="6137">            <span class="n">increment</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">increment</span><span class="p">,</span>
+</span><span data-line="6138">            <span class="n">minvalue</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">minvalue</span><span class="p">,</span>
+</span><span data-line="6139">            <span class="n">maxvalue</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">maxvalue</span><span class="p">,</span>
+</span><span data-line="6140">            <span class="n">nominvalue</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">nominvalue</span><span class="p">,</span>
+</span><span data-line="6141">            <span class="n">nomaxvalue</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">nomaxvalue</span><span class="p">,</span>
+</span><span data-line="6142">            <span class="n">cycle</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cycle</span><span class="p">,</span>
+</span><span data-line="6143">            <span class="n">cache</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cache</span><span class="p">,</span>
+</span><span data-line="6144">            <span class="n">order</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">order</span><span class="p">,</span>
+</span><span data-line="6145">        <span class="p">)</span>
+</span><span data-line="6146">
+</span><span data-line="6147">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_schema_item_copy</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
 </span></pre></div>
         </article>
         <button class="back-to-top" type="button">
