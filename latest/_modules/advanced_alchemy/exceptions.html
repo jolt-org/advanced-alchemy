@@ -11,7 +11,7 @@
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(sessionStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=aecf457f" />
-    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=f2d5353f" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=b984774f" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
@@ -136,11 +136,11 @@
     </div>
     <div class="sy-head-actions flex items-center shrink-0 print:hidden">
       <button class="js-theme theme-switch flex items-center"
-        data-aria-auto="Switch to light color mode"
-        data-aria-light="Switch to dark color mode"
-        data-aria-dark="Switch to auto color mode">
-        <i class="i-lucide theme-icon"></i>
-      </button>
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button>
       <button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="NavLinks" aria-expanded="false">
         <div class="hamburger">
           <span class="hamburger_1"></span>
@@ -324,7 +324,7 @@
 <span></span><span data-line="1"><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 </span><span data-line="2">
 </span><span data-line="3"><span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
-</span><span data-line="4"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+</span><span data-line="4"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Generator</span>
 </span><span data-line="5">
 </span><span data-line="6"><span class="kn">from</span> <span class="nn">sqlalchemy.exc</span> <span class="kn">import</span> <span class="n">IntegrityError</span> <span class="k">as</span> <span class="n">SQLAlchemyIntegrityError</span>
 </span><span data-line="7"><span class="kn">from</span> <span class="nn">sqlalchemy.exc</span> <span class="kn">import</span> <span class="n">MultipleResultsFound</span><span class="p">,</span> <span class="n">SQLAlchemyError</span>
@@ -418,7 +418,7 @@
 </span><span data-line="95">
 </span><span data-line="96">
 <div class="viewcode-block" id="wrap_sqlalchemy_exception"><a class="viewcode-back" href="../../reference/exceptions.html#advanced_alchemy.exceptions.wrap_sqlalchemy_exception">[docs]</a></span><span data-line="97"><span class="nd">@contextmanager</span>
-</span><span data-line="98"><span class="k">def</span> <span class="nf">wrap_sqlalchemy_exception</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+</span><span data-line="98"><span class="k">def</span> <span class="nf">wrap_sqlalchemy_exception</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
 </span><span data-line="99"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Do something within context to raise a ``RepositoryError`` chained</span>
 </span><span data-line="100"><span class="sd">    from an original ``SQLAlchemyError``.</span>
 </span><span data-line="101">

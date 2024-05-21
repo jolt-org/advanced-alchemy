@@ -10,7 +10,7 @@
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(sessionStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="_static/pygments.css?v=aecf457f" />
-    <link rel="stylesheet" type="text/css" href="_static/shibuya.css?v=f2d5353f" />
+    <link rel="stylesheet" type="text/css" href="_static/shibuya.css?v=b984774f" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
@@ -132,11 +132,11 @@
     </div>
     <div class="sy-head-actions flex items-center shrink-0 print:hidden">
       <button class="js-theme theme-switch flex items-center"
-        data-aria-auto="Switch to light color mode"
-        data-aria-light="Switch to dark color mode"
-        data-aria-dark="Switch to auto color mode">
-        <i class="i-lucide theme-icon"></i>
-      </button>
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button>
       <button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="NavLinks" aria-expanded="false">
         <div class="hamburger">
           <span class="hamburger_1"></span>
@@ -1535,8 +1535,6 @@
         <li><a href="reference/extensions/litestar/plugins/init/config/sync.html#advanced_alchemy.extensions.litestar.plugins.init.config.sync.SQLAlchemySyncConfig.engine_config">(advanced_alchemy.extensions.litestar.plugins.init.config.sync.SQLAlchemySyncConfig attribute)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/config/common.html#advanced_alchemy.config.common.GenericSQLAlchemyConfig.engine_config_dict">engine_config_dict (advanced_alchemy.config.common.GenericSQLAlchemyConfig property)</a>
 </li>
       <li><a href="reference/extensions/litestar/plugins/init/config/asyncio.html#advanced_alchemy.extensions.litestar.plugins.init.config.asyncio.SQLAlchemyAsyncConfig.engine_dependency_key">engine_dependency_key (advanced_alchemy.extensions.litestar.plugins.init.config.asyncio.SQLAlchemyAsyncConfig attribute)</a>
@@ -1554,7 +1552,147 @@
 </li>
       </ul></li>
       <li><a href="reference/config/engine.html#advanced_alchemy.config.engine.EngineConfig.execution_options">execution_options (advanced_alchemy.config.engine.EngineConfig attribute)</a>
+
+      <ul>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.params.execution_options">(advanced_alchemy.repository.SQLAlchemyAsyncRepository parameter)</a>
 </li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.count.params.execution_options">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.count parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.delete.params.execution_options">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.delete parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.delete_many.params.execution_options">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.delete_many parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.exists.params.execution_options">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.exists parameter)</a>, <a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.exists.params.execution_options">[1]</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.get.params.execution_options">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.get parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_and_update.params.execution_options">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_and_update parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_one.params.execution_options">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_one parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_one_or_none.params.execution_options">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_one_or_none parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_or_create.params.execution_options">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_or_create parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_or_upsert.params.execution_options">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_or_upsert parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.list.params.execution_options">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.list parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.list_and_count.params.execution_options">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.list_and_count parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.update_many.params.execution_options">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.update_many parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.upsert.params.execution_options">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.upsert parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.upsert_many.params.execution_options">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.upsert_many parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.params.execution_options">(advanced_alchemy.repository.SQLAlchemySyncRepository parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.count.params.execution_options">(advanced_alchemy.repository.SQLAlchemySyncRepository.count parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.delete.params.execution_options">(advanced_alchemy.repository.SQLAlchemySyncRepository.delete parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.delete_many.params.execution_options">(advanced_alchemy.repository.SQLAlchemySyncRepository.delete_many parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.exists.params.execution_options">(advanced_alchemy.repository.SQLAlchemySyncRepository.exists parameter)</a>, <a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.exists.params.execution_options">[1]</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.get.params.execution_options">(advanced_alchemy.repository.SQLAlchemySyncRepository.get parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.get_and_update.params.execution_options">(advanced_alchemy.repository.SQLAlchemySyncRepository.get_and_update parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.get_one.params.execution_options">(advanced_alchemy.repository.SQLAlchemySyncRepository.get_one parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.get_one_or_none.params.execution_options">(advanced_alchemy.repository.SQLAlchemySyncRepository.get_one_or_none parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.get_or_create.params.execution_options">(advanced_alchemy.repository.SQLAlchemySyncRepository.get_or_create parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.get_or_upsert.params.execution_options">(advanced_alchemy.repository.SQLAlchemySyncRepository.get_or_upsert parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.list.params.execution_options">(advanced_alchemy.repository.SQLAlchemySyncRepository.list parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.list_and_count.params.execution_options">(advanced_alchemy.repository.SQLAlchemySyncRepository.list_and_count parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.update_many.params.execution_options">(advanced_alchemy.repository.SQLAlchemySyncRepository.update_many parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.upsert.params.execution_options">(advanced_alchemy.repository.SQLAlchemySyncRepository.upsert parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.upsert_many.params.execution_options">(advanced_alchemy.repository.SQLAlchemySyncRepository.upsert_many parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.params.execution_options">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.count.params.execution_options">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.count parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.exists.params.execution_options">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.exists parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.get.params.execution_options">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.get parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.get_one.params.execution_options">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.get_one parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.get_one_or_none.params.execution_options">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.get_one_or_none parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.list.params.execution_options">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.list parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.list_and_count.params.execution_options">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.list_and_count parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.create.params.execution_options">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.create parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.create_many.params.execution_options">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.create_many parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.delete.params.execution_options">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.delete parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.delete_many.params.execution_options">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.delete_many parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.get_and_update.params.execution_options">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.get_and_update parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.get_or_upsert.params.execution_options">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.get_or_upsert parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.update.params.execution_options">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.update parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.update_many.params.execution_options">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.update_many parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.upsert.params.execution_options">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.upsert parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.upsert_many.params.execution_options">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.upsert_many parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.params.execution_options">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.count.params.execution_options">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.count parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.exists.params.execution_options">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.exists parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.get.params.execution_options">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.get parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.get_one.params.execution_options">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.get_one parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.get_one_or_none.params.execution_options">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.get_one_or_none parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.list.params.execution_options">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.list parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.list_and_count.params.execution_options">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.list_and_count parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.create.params.execution_options">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.create parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.create_many.params.execution_options">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.create_many parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.delete.params.execution_options">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.delete parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.delete_many.params.execution_options">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.delete_many parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.get_and_update.params.execution_options">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.get_and_update parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.get_or_upsert.params.execution_options">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.get_or_upsert parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.update.params.execution_options">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.update parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.update_many.params.execution_options">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.update_many parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.upsert.params.execution_options">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.upsert parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.upsert_many.params.execution_options">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.upsert_many parameter)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.exists">exists() (advanced_alchemy.repository.SQLAlchemyAsyncRepository method)</a>
 
       <ul>
@@ -2004,8 +2142,6 @@
         <li><a href="reference/extensions/litestar/cli.html#cmdoption-Litestar-CLI-make-migrations-m">-m</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     Litestar-CLI-merge-migrations command line option
 
@@ -2058,6 +2194,146 @@
         <li><a href="reference/extensions/litestar/cli.html#cmdoption-Litestar-CLI-upgrade-arg-REVISION">REVISION</a>
 </li>
       </ul></li>
+      <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.params.load">load (advanced_alchemy.repository.SQLAlchemyAsyncRepository parameter)</a>
+
+      <ul>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.count.params.load">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.count parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.delete.params.load">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.delete parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.delete_many.params.load">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.delete_many parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.exists.params.load">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.exists parameter)</a>, <a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.exists.params.load">[1]</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.get.params.load">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.get parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_and_update.params.load">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_and_update parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_one.params.load">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_one parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_one_or_none.params.load">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_one_or_none parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_or_create.params.load">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_or_create parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_or_upsert.params.load">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.get_or_upsert parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.list.params.load">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.list parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.list_and_count.params.load">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.list_and_count parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.update_many.params.load">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.update_many parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.upsert.params.load">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.upsert parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemyAsyncRepository.upsert_many.params.load">(advanced_alchemy.repository.SQLAlchemyAsyncRepository.upsert_many parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.params.load">(advanced_alchemy.repository.SQLAlchemySyncRepository parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.count.params.load">(advanced_alchemy.repository.SQLAlchemySyncRepository.count parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.delete.params.load">(advanced_alchemy.repository.SQLAlchemySyncRepository.delete parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.delete_many.params.load">(advanced_alchemy.repository.SQLAlchemySyncRepository.delete_many parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.exists.params.load">(advanced_alchemy.repository.SQLAlchemySyncRepository.exists parameter)</a>, <a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.exists.params.load">[1]</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.get.params.load">(advanced_alchemy.repository.SQLAlchemySyncRepository.get parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.get_and_update.params.load">(advanced_alchemy.repository.SQLAlchemySyncRepository.get_and_update parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.get_one.params.load">(advanced_alchemy.repository.SQLAlchemySyncRepository.get_one parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.get_one_or_none.params.load">(advanced_alchemy.repository.SQLAlchemySyncRepository.get_one_or_none parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.get_or_create.params.load">(advanced_alchemy.repository.SQLAlchemySyncRepository.get_or_create parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.get_or_upsert.params.load">(advanced_alchemy.repository.SQLAlchemySyncRepository.get_or_upsert parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.list.params.load">(advanced_alchemy.repository.SQLAlchemySyncRepository.list parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.list_and_count.params.load">(advanced_alchemy.repository.SQLAlchemySyncRepository.list_and_count parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.update_many.params.load">(advanced_alchemy.repository.SQLAlchemySyncRepository.update_many parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.upsert.params.load">(advanced_alchemy.repository.SQLAlchemySyncRepository.upsert parameter)</a>
+</li>
+        <li><a href="reference/repository.html#advanced_alchemy.repository.SQLAlchemySyncRepository.upsert_many.params.load">(advanced_alchemy.repository.SQLAlchemySyncRepository.upsert_many parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.params.load">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.count.params.load">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.count parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.exists.params.load">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.exists parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.get.params.load">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.get parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.get_one.params.load">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.get_one parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.get_one_or_none.params.load">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.get_one_or_none parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.list.params.load">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.list parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.list_and_count.params.load">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.list_and_count parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.create.params.load">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.create parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.create_many.params.load">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.create_many parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.delete.params.load">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.delete parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.delete_many.params.load">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.delete_many parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.get_and_update.params.load">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.get_and_update parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.get_or_upsert.params.load">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.get_or_upsert parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.update.params.load">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.update parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.update_many.params.load">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.update_many parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.upsert.params.load">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.upsert parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.upsert_many.params.load">(advanced_alchemy.service.SQLAlchemyAsyncRepositoryService.upsert_many parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.params.load">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.count.params.load">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.count parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.exists.params.load">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.exists parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.get.params.load">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.get parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.get_one.params.load">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.get_one parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.get_one_or_none.params.load">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.get_one_or_none parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.list.params.load">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.list parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.list_and_count.params.load">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.list_and_count parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.create.params.load">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.create parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.create_many.params.load">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.create_many parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.delete.params.load">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.delete parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.delete_many.params.load">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.delete_many parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.get_and_update.params.load">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.get_and_update parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.get_or_upsert.params.load">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.get_or_upsert parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.update.params.load">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.update parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.update_many.params.load">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.update_many parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.upsert.params.load">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.upsert parameter)</a>
+</li>
+        <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.upsert_many.params.load">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.upsert_many parameter)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/types.html#advanced_alchemy.types.EncryptedString.load_dialect_impl">load_dialect_impl() (advanced_alchemy.types.EncryptedString method)</a>
 
       <ul>

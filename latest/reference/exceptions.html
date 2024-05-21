@@ -11,7 +11,7 @@
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(sessionStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=aecf457f" />
-    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=f2d5353f" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=b984774f" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
@@ -136,11 +136,11 @@
     </div>
     <div class="sy-head-actions flex items-center shrink-0 print:hidden">
       <button class="js-theme theme-switch flex items-center"
-        data-aria-auto="Switch to light color mode"
-        data-aria-light="Switch to dark color mode"
-        data-aria-dark="Switch to auto color mode">
-        <i class="i-lucide theme-icon"></i>
-      </button>
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button>
       <button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="NavLinks" aria-expanded="false">
         <div class="hamburger">
           <span class="hamburger_1"></span>
@@ -458,7 +458,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="advanced_alchemy.exceptions.wrap_sqlalchemy_exception">
-<span class="sig-prename descclassname"><span class="pre">advanced_alchemy.exceptions.</span></span><span class="sig-name descname"><span class="pre">wrap_sqlalchemy_exception</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><span class="pre">Any</span></a></span></span><a class="reference internal" href="../_modules/advanced_alchemy/exceptions.html#wrap_sqlalchemy_exception"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#advanced_alchemy.exceptions.wrap_sqlalchemy_exception" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">advanced_alchemy.exceptions.</span></span><span class="sig-name descname"><span class="pre">wrap_sqlalchemy_exception</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Generator" title="(in Python v3.12)"><span class="pre">Generator</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/advanced_alchemy/exceptions.html#wrap_sqlalchemy_exception"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#advanced_alchemy.exceptions.wrap_sqlalchemy_exception" title="Permalink to this definition">¶</a></dt>
 <dd><p>Do something within context to raise a <code class="docutils literal notranslate"><span class="pre">RepositoryError</span></code> chained
 from an original <code class="docutils literal notranslate"><span class="pre">SQLAlchemyError</span></code>.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="gp">&gt;&gt;&gt; </span><span class="k">try</span><span class="p">:</span>
