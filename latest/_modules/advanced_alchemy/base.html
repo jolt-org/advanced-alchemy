@@ -342,20 +342,20 @@ data-aria-dark="Switch to auto color mode">
 </span><span data-line="19">    <span class="n">orm_insert_sentinel</span><span class="p">,</span>
 </span><span data-line="20">    <span class="n">registry</span><span class="p">,</span>
 </span><span data-line="21"><span class="p">)</span>
-</span><span data-line="22">
-</span><span data-line="23"><span class="kn">from</span> <span class="nn">advanced_alchemy.types</span> <span class="kn">import</span> <span class="n">GUID</span><span class="p">,</span> <span class="n">UUID_UTILS_INSTALLED</span><span class="p">,</span> <span class="n">BigIntIdentity</span><span class="p">,</span> <span class="n">DateTimeUTC</span><span class="p">,</span> <span class="n">JsonB</span>
-</span><span data-line="24">
-</span><span data-line="25"><span class="k">if</span> <span class="n">UUID_UTILS_INSTALLED</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-</span><span data-line="26">    <span class="kn">from</span> <span class="nn">uuid_utils.compat</span> <span class="kn">import</span> <span class="n">uuid4</span><span class="p">,</span> <span class="n">uuid6</span><span class="p">,</span> <span class="n">uuid7</span>  <span class="c1"># pyright: ignore[reportMissingImports]</span>
-</span><span data-line="27">
-</span><span data-line="28"><span class="k">else</span><span class="p">:</span>
-</span><span data-line="29">    <span class="kn">from</span> <span class="nn">uuid</span> <span class="kn">import</span> <span class="n">uuid4</span>  <span class="c1"># type: ignore[assignment]</span>
-</span><span data-line="30">
-</span><span data-line="31">    <span class="n">uuid6</span> <span class="o">=</span> <span class="n">uuid4</span>  <span class="c1"># type: ignore[assignment]</span>
-</span><span data-line="32">    <span class="n">uuid7</span> <span class="o">=</span> <span class="n">uuid4</span>  <span class="c1"># type: ignore[assignment]</span>
-</span><span data-line="33">
-</span><span data-line="34"><span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-</span><span data-line="35">    <span class="kn">from</span> <span class="nn">sqlalchemy.orm.decl_base</span> <span class="kn">import</span> <span class="n">_TableArgsType</span> <span class="k">as</span> <span class="n">TableArgsType</span>  <span class="c1"># pyright: ignore[reportPrivateUsage]</span>
+</span><span data-line="22"><span class="kn">from</span> <span class="nn">sqlalchemy.orm.decl_base</span> <span class="kn">import</span> <span class="n">_TableArgsType</span> <span class="k">as</span> <span class="n">TableArgsType</span>  <span class="c1"># pyright: ignore[reportPrivateUsage]</span>
+</span><span data-line="23">
+</span><span data-line="24"><span class="kn">from</span> <span class="nn">advanced_alchemy.types</span> <span class="kn">import</span> <span class="n">GUID</span><span class="p">,</span> <span class="n">UUID_UTILS_INSTALLED</span><span class="p">,</span> <span class="n">BigIntIdentity</span><span class="p">,</span> <span class="n">DateTimeUTC</span><span class="p">,</span> <span class="n">JsonB</span>
+</span><span data-line="25">
+</span><span data-line="26"><span class="k">if</span> <span class="n">UUID_UTILS_INSTALLED</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+</span><span data-line="27">    <span class="kn">from</span> <span class="nn">uuid_utils.compat</span> <span class="kn">import</span> <span class="n">uuid4</span><span class="p">,</span> <span class="n">uuid6</span><span class="p">,</span> <span class="n">uuid7</span>  <span class="c1"># pyright: ignore[reportMissingImports]</span>
+</span><span data-line="28">
+</span><span data-line="29"><span class="k">else</span><span class="p">:</span>
+</span><span data-line="30">    <span class="kn">from</span> <span class="nn">uuid</span> <span class="kn">import</span> <span class="n">uuid4</span>  <span class="c1"># type: ignore[assignment]</span>
+</span><span data-line="31">
+</span><span data-line="32">    <span class="n">uuid6</span> <span class="o">=</span> <span class="n">uuid4</span>  <span class="c1"># type: ignore[assignment]</span>
+</span><span data-line="33">    <span class="n">uuid7</span> <span class="o">=</span> <span class="n">uuid4</span>  <span class="c1"># type: ignore[assignment]</span>
+</span><span data-line="34">
+</span><span data-line="35"><span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
 </span><span data-line="36">    <span class="kn">from</span> <span class="nn">sqlalchemy.sql</span> <span class="kn">import</span> <span class="n">FromClause</span>
 </span><span data-line="37">    <span class="kn">from</span> <span class="nn">sqlalchemy.sql.schema</span> <span class="kn">import</span> <span class="p">(</span>
 </span><span data-line="38">        <span class="n">_NamingSchemaParameter</span> <span class="k">as</span> <span class="n">NamingSchemaParameter</span><span class="p">,</span>  <span class="c1"># pyright: ignore[reportPrivateUsage]</span>
@@ -384,25 +384,25 @@ data-aria-dark="Switch to auto color mode">
 </span><span data-line="61">    <span class="s2">&quot;SQLQuery&quot;</span><span class="p">,</span>
 </span><span data-line="62">    <span class="s2">&quot;orm_registry&quot;</span><span class="p">,</span>
 </span><span data-line="63">    <span class="s2">&quot;merge_table_arguments&quot;</span><span class="p">,</span>
-</span><span data-line="64"><span class="p">)</span>
-</span><span data-line="65">
+</span><span data-line="64">    <span class="s2">&quot;TableArgsType&quot;</span><span class="p">,</span>
+</span><span data-line="65"><span class="p">)</span>
 </span><span data-line="66">
-</span><span data-line="67"><span class="n">UUIDBaseT</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;UUIDBaseT&quot;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="s2">&quot;UUIDBase&quot;</span><span class="p">)</span>
-</span><span data-line="68"><span class="n">BigIntBaseT</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;BigIntBaseT&quot;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="s2">&quot;BigIntBase&quot;</span><span class="p">)</span>
-</span><span data-line="69"><span class="n">UUIDv6BaseT</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;UUIDv6BaseT&quot;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="s2">&quot;UUIDv6Base&quot;</span><span class="p">)</span>
-</span><span data-line="70"><span class="n">UUIDv7BaseT</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;UUIDv7BaseT&quot;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="s2">&quot;UUIDv7Base&quot;</span><span class="p">)</span>
-</span><span data-line="71">
-</span><span data-line="72"><span class="n">convention</span><span class="p">:</span> <span class="n">NamingSchemaParameter</span> <span class="o">=</span> <span class="p">{</span>
-</span><span data-line="73">    <span class="s2">&quot;ix&quot;</span><span class="p">:</span> <span class="s2">&quot;ix_</span><span class="si">%(column_0_label)s</span><span class="s2">&quot;</span><span class="p">,</span>
-</span><span data-line="74">    <span class="s2">&quot;uq&quot;</span><span class="p">:</span> <span class="s2">&quot;uq_</span><span class="si">%(table_name)s</span><span class="s2">_</span><span class="si">%(column_0_name)s</span><span class="s2">&quot;</span><span class="p">,</span>
-</span><span data-line="75">    <span class="s2">&quot;ck&quot;</span><span class="p">:</span> <span class="s2">&quot;ck_</span><span class="si">%(table_name)s</span><span class="s2">_</span><span class="si">%(constraint_name)s</span><span class="s2">&quot;</span><span class="p">,</span>
-</span><span data-line="76">    <span class="s2">&quot;fk&quot;</span><span class="p">:</span> <span class="s2">&quot;fk_</span><span class="si">%(table_name)s</span><span class="s2">_</span><span class="si">%(column_0_name)s</span><span class="s2">_</span><span class="si">%(referred_table_name)s</span><span class="s2">&quot;</span><span class="p">,</span>
-</span><span data-line="77">    <span class="s2">&quot;pk&quot;</span><span class="p">:</span> <span class="s2">&quot;pk_</span><span class="si">%(table_name)s</span><span class="s2">&quot;</span><span class="p">,</span>
-</span><span data-line="78"><span class="p">}</span>
-</span><span data-line="79"><span class="sd">&quot;&quot;&quot;Templates for automated constraint name generation.&quot;&quot;&quot;</span>
-</span><span data-line="80"><span class="n">table_name_regexp</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;((?&lt;=[a-z0-9])[A-Z]|(?!^)[A-Z](?=[a-z]))&quot;</span><span class="p">)</span>
-</span><span data-line="81"><span class="sd">&quot;&quot;&quot;Regular expression for table name&quot;&quot;&quot;</span>
-</span><span data-line="82">
+</span><span data-line="67">
+</span><span data-line="68"><span class="n">UUIDBaseT</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;UUIDBaseT&quot;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="s2">&quot;UUIDBase&quot;</span><span class="p">)</span>
+</span><span data-line="69"><span class="n">BigIntBaseT</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;BigIntBaseT&quot;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="s2">&quot;BigIntBase&quot;</span><span class="p">)</span>
+</span><span data-line="70"><span class="n">UUIDv6BaseT</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;UUIDv6BaseT&quot;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="s2">&quot;UUIDv6Base&quot;</span><span class="p">)</span>
+</span><span data-line="71"><span class="n">UUIDv7BaseT</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;UUIDv7BaseT&quot;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="s2">&quot;UUIDv7Base&quot;</span><span class="p">)</span>
+</span><span data-line="72">
+</span><span data-line="73"><span class="n">convention</span><span class="p">:</span> <span class="n">NamingSchemaParameter</span> <span class="o">=</span> <span class="p">{</span>
+</span><span data-line="74">    <span class="s2">&quot;ix&quot;</span><span class="p">:</span> <span class="s2">&quot;ix_</span><span class="si">%(column_0_label)s</span><span class="s2">&quot;</span><span class="p">,</span>
+</span><span data-line="75">    <span class="s2">&quot;uq&quot;</span><span class="p">:</span> <span class="s2">&quot;uq_</span><span class="si">%(table_name)s</span><span class="s2">_</span><span class="si">%(column_0_name)s</span><span class="s2">&quot;</span><span class="p">,</span>
+</span><span data-line="76">    <span class="s2">&quot;ck&quot;</span><span class="p">:</span> <span class="s2">&quot;ck_</span><span class="si">%(table_name)s</span><span class="s2">_</span><span class="si">%(constraint_name)s</span><span class="s2">&quot;</span><span class="p">,</span>
+</span><span data-line="77">    <span class="s2">&quot;fk&quot;</span><span class="p">:</span> <span class="s2">&quot;fk_</span><span class="si">%(table_name)s</span><span class="s2">_</span><span class="si">%(column_0_name)s</span><span class="s2">_</span><span class="si">%(referred_table_name)s</span><span class="s2">&quot;</span><span class="p">,</span>
+</span><span data-line="78">    <span class="s2">&quot;pk&quot;</span><span class="p">:</span> <span class="s2">&quot;pk_</span><span class="si">%(table_name)s</span><span class="s2">&quot;</span><span class="p">,</span>
+</span><span data-line="79"><span class="p">}</span>
+</span><span data-line="80"><span class="sd">&quot;&quot;&quot;Templates for automated constraint name generation.&quot;&quot;&quot;</span>
+</span><span data-line="81"><span class="n">table_name_regexp</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;((?&lt;=[a-z0-9])[A-Z]|(?!^)[A-Z](?=[a-z]))&quot;</span><span class="p">)</span>
+</span><span data-line="82"><span class="sd">&quot;&quot;&quot;Regular expression for table name&quot;&quot;&quot;</span>
 </span><span data-line="83">
 </span><span data-line="84">
 <div class="viewcode-block" id="merge_table_arguments"><a class="viewcode-back" href="../../reference/base.html#advanced_alchemy.base.merge_table_arguments">[docs]</a></span><span data-line="85"><span class="k">def</span> <span class="nf">merge_table_arguments</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">DeclarativeBase</span><span class="p">],</span> <span class="n">table_args</span><span class="p">:</span> <span class="n">TableArgsType</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TableArgsType</span><span class="p">:</span>
@@ -414,7 +414,7 @@ data-aria-dark="Switch to auto color mode">
 </span><span data-line="91">
 </span><span data-line="92"><span class="sd">    Args:</span>
 </span><span data-line="93"><span class="sd">        cls (DeclarativeBase): This is the model that will get the table args</span>
-</span><span data-line="94"><span class="sd">        table_args: additional information to add to tableargs</span>
+</span><span data-line="94"><span class="sd">        table_args: additional information to add to table_args</span>
 </span><span data-line="95">
 </span><span data-line="96"><span class="sd">    Returns:</span>
 </span><span data-line="97"><span class="sd">        tuple | dict: The merged __table_args__ property</span>
@@ -422,7 +422,7 @@ data-aria-dark="Switch to auto color mode">
 </span><span data-line="99">    <span class="n">args</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 </span><span data-line="100">    <span class="n">kwargs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 </span><span data-line="101">
-</span><span data-line="102">    <span class="n">mixin_table_args</span> <span class="o">=</span> <span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="nb">super</span><span class="p">(</span><span class="n">base_cls</span><span class="p">,</span> <span class="bp">cls</span><span class="p">),</span> <span class="s2">&quot;__table_args__&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">for</span> <span class="n">base_cls</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__bases__</span><span class="p">)</span>
+</span><span data-line="102">    <span class="n">mixin_table_args</span> <span class="o">=</span> <span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="nb">super</span><span class="p">(</span><span class="n">base_cls</span><span class="p">,</span> <span class="bp">cls</span><span class="p">),</span> <span class="s2">&quot;__table_args__&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">for</span> <span class="n">base_cls</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__bases__</span><span class="p">)</span>  <span class="c1"># pyright: ignore[reportUnknownParameter,reportUnknownArgumentType,reportArgumentType]</span>
 </span><span data-line="103">
 </span><span data-line="104">    <span class="k">for</span> <span class="n">arg_to_merge</span> <span class="ow">in</span> <span class="p">(</span><span class="o">*</span><span class="n">mixin_table_args</span><span class="p">,</span> <span class="n">table_args</span><span class="p">):</span>
 </span><span data-line="105">        <span class="k">if</span> <span class="n">arg_to_merge</span><span class="p">:</span>
