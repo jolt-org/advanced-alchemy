@@ -360,7 +360,7 @@ data-aria-dark="Switch to auto color mode">
 </span><span data-line="37">    <span class="kn">from</span> <span class="nn">sqlalchemy.engine.interfaces</span> <span class="kn">import</span> <span class="n">_CoreSingleExecuteParams</span>  <span class="c1"># pyright: ignore[reportPrivateUsage]</span>
 </span><span data-line="38">    <span class="kn">from</span> <span class="nn">sqlalchemy.ext.asyncio</span> <span class="kn">import</span> <span class="n">AsyncSession</span>
 </span><span data-line="39">    <span class="kn">from</span> <span class="nn">sqlalchemy.ext.asyncio.scoping</span> <span class="kn">import</span> <span class="n">async_scoped_session</span>
-</span><span data-line="40">    <span class="kn">from</span> <span class="nn">sqlalchemy.orm.strategy_options</span> <span class="kn">import</span> <span class="n">_AbstractLoad</span>
+</span><span data-line="40">    <span class="kn">from</span> <span class="nn">sqlalchemy.orm.strategy_options</span> <span class="kn">import</span> <span class="n">_AbstractLoad</span>  <span class="c1"># pyright: ignore[reportPrivateUsage]</span>
 </span><span data-line="41">    <span class="kn">from</span> <span class="nn">sqlalchemy.sql</span> <span class="kn">import</span> <span class="n">ColumnElement</span>
 </span><span data-line="42">
 </span><span data-line="43">    <span class="kn">from</span> <span class="nn">advanced_alchemy.filters</span> <span class="kn">import</span> <span class="n">FilterTypes</span>
@@ -733,14 +733,14 @@ data-aria-dark="Switch to auto color mode">
 </span><span data-line="410">            <span class="p">)</span>
 </span><span data-line="411">        <span class="n">statement</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">statement</span> <span class="k">if</span> <span class="n">statement</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">statement</span>
 </span><span data-line="412">        <span class="k">if</span> <span class="n">loader_options</span><span class="p">:</span>
-</span><span data-line="413">            <span class="n">statement</span><span class="o">.</span><span class="n">add_criteria</span><span class="p">(</span>
+</span><span data-line="413">            <span class="n">statement</span> <span class="o">=</span> <span class="n">statement</span><span class="o">.</span><span class="n">add_criteria</span><span class="p">(</span>
 </span><span data-line="414">                <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">options</span><span class="p">(</span><span class="o">*</span><span class="n">loader_options</span><span class="p">),</span>
 </span><span data-line="415">                <span class="n">track_bound_values</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 </span><span data-line="416">                <span class="n">track_closure_variables</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 </span><span data-line="417">                <span class="n">enable_tracking</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 </span><span data-line="418">            <span class="p">)</span>
 </span><span data-line="419">        <span class="k">if</span> <span class="n">execution_options</span><span class="p">:</span>
-</span><span data-line="420">            <span class="n">statement</span><span class="o">.</span><span class="n">add_criteria</span><span class="p">(</span>
+</span><span data-line="420">            <span class="n">statement</span> <span class="o">=</span> <span class="n">statement</span><span class="o">.</span><span class="n">add_criteria</span><span class="p">(</span>
 </span><span data-line="421">                <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">execution_options</span><span class="p">(</span><span class="o">**</span><span class="n">execution_options</span><span class="p">),</span>
 </span><span data-line="422">                <span class="n">track_bound_values</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 </span><span data-line="423">                <span class="n">track_closure_variables</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -770,14 +770,14 @@ data-aria-dark="Switch to auto color mode">
 </span><span data-line="447">        <span class="k">if</span> <span class="n">supports_returning</span> <span class="ow">and</span> <span class="n">statement_type</span> <span class="o">!=</span> <span class="s2">&quot;select&quot;</span><span class="p">:</span>
 </span><span data-line="448">            <span class="n">statement</span> <span class="o">+=</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">returning</span><span class="p">(</span><span class="n">model_type</span><span class="p">)</span>  <span class="c1"># pyright: ignore[reportUnknownLambdaType,reportUnknownMemberType]</span>
 </span><span data-line="449">        <span class="k">if</span> <span class="n">loader_options</span><span class="p">:</span>
-</span><span data-line="450">            <span class="n">statement</span><span class="o">.</span><span class="n">add_criteria</span><span class="p">(</span>
+</span><span data-line="450">            <span class="n">statement</span> <span class="o">=</span> <span class="n">statement</span><span class="o">.</span><span class="n">add_criteria</span><span class="p">(</span>
 </span><span data-line="451">                <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">options</span><span class="p">(</span><span class="o">*</span><span class="n">loader_options</span><span class="p">),</span>
 </span><span data-line="452">                <span class="n">track_bound_values</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 </span><span data-line="453">                <span class="n">track_closure_variables</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 </span><span data-line="454">                <span class="n">enable_tracking</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 </span><span data-line="455">            <span class="p">)</span>
 </span><span data-line="456">        <span class="k">if</span> <span class="n">execution_options</span><span class="p">:</span>
-</span><span data-line="457">            <span class="n">statement</span><span class="o">.</span><span class="n">add_criteria</span><span class="p">(</span>
+</span><span data-line="457">            <span class="n">statement</span> <span class="o">=</span> <span class="n">statement</span><span class="o">.</span><span class="n">add_criteria</span><span class="p">(</span>
 </span><span data-line="458">                <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">execution_options</span><span class="p">(</span><span class="o">**</span><span class="n">execution_options</span><span class="p">),</span>
 </span><span data-line="459">                <span class="n">track_bound_values</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 </span><span data-line="460">                <span class="n">track_closure_variables</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -1265,14 +1265,14 @@ data-aria-dark="Switch to auto color mode">
 </span><span data-line="942">        <span class="k">if</span> <span class="n">supports_returning</span><span class="p">:</span>
 </span><span data-line="943">            <span class="n">statement</span> <span class="o">+=</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">returning</span><span class="p">(</span><span class="n">model_type</span><span class="p">)</span>  <span class="c1"># pyright: ignore[reportUnknownLambdaType,reportUnknownMemberType]</span>
 </span><span data-line="944">        <span class="k">if</span> <span class="n">loader_options</span><span class="p">:</span>
-</span><span data-line="945">            <span class="n">statement</span><span class="o">.</span><span class="n">add_criteria</span><span class="p">(</span>
+</span><span data-line="945">            <span class="n">statement</span> <span class="o">=</span> <span class="n">statement</span><span class="o">.</span><span class="n">add_criteria</span><span class="p">(</span>
 </span><span data-line="946">                <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">options</span><span class="p">(</span><span class="o">*</span><span class="n">loader_options</span><span class="p">),</span>
 </span><span data-line="947">                <span class="n">track_bound_values</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 </span><span data-line="948">                <span class="n">track_closure_variables</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 </span><span data-line="949">                <span class="n">enable_tracking</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 </span><span data-line="950">            <span class="p">)</span>
 </span><span data-line="951">        <span class="k">if</span> <span class="n">execution_options</span><span class="p">:</span>
-</span><span data-line="952">            <span class="n">statement</span><span class="o">.</span><span class="n">add_criteria</span><span class="p">(</span>
+</span><span data-line="952">            <span class="n">statement</span> <span class="o">=</span> <span class="n">statement</span><span class="o">.</span><span class="n">add_criteria</span><span class="p">(</span>
 </span><span data-line="953">                <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">execution_options</span><span class="p">(</span><span class="o">**</span><span class="n">execution_options</span><span class="p">),</span>
 </span><span data-line="954">                <span class="n">track_bound_values</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 </span><span data-line="955">                <span class="n">track_closure_variables</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -1462,14 +1462,14 @@ data-aria-dark="Switch to auto color mode">
 </span><span data-line="1139">            <span class="n">enable_tracking</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 </span><span data-line="1140">        <span class="p">)</span>
 </span><span data-line="1141">        <span class="k">if</span> <span class="n">loader_options</span><span class="p">:</span>
-</span><span data-line="1142">            <span class="n">statement</span><span class="o">.</span><span class="n">add_criteria</span><span class="p">(</span>
+</span><span data-line="1142">            <span class="n">statement</span> <span class="o">=</span> <span class="n">statement</span><span class="o">.</span><span class="n">add_criteria</span><span class="p">(</span>
 </span><span data-line="1143">                <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">options</span><span class="p">(</span><span class="o">*</span><span class="n">loader_options</span><span class="p">),</span>
 </span><span data-line="1144">                <span class="n">track_bound_values</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 </span><span data-line="1145">                <span class="n">track_closure_variables</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 </span><span data-line="1146">                <span class="n">enable_tracking</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 </span><span data-line="1147">            <span class="p">)</span>
 </span><span data-line="1148">        <span class="k">if</span> <span class="n">execution_options</span><span class="p">:</span>
-</span><span data-line="1149">            <span class="n">statement</span><span class="o">.</span><span class="n">add_criteria</span><span class="p">(</span>
+</span><span data-line="1149">            <span class="n">statement</span> <span class="o">=</span> <span class="n">statement</span><span class="o">.</span><span class="n">add_criteria</span><span class="p">(</span>
 </span><span data-line="1150">                <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">execution_options</span><span class="p">(</span><span class="o">**</span><span class="n">execution_options</span><span class="p">),</span>
 </span><span data-line="1151">                <span class="n">track_bound_values</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 </span><span data-line="1152">                <span class="n">track_closure_variables</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
