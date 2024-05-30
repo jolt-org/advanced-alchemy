@@ -1,4 +1,5 @@
 """Unit tests for the SQLAlchemy Repository implementation."""
+
 from __future__ import annotations
 
 from datetime import datetime
@@ -9,23 +10,22 @@ from uuid import uuid4
 import pytest
 from pytest_lazyfixture import lazy_fixture
 from sqlalchemy import String
-from sqlalchemy.exc import IntegrityError, InvalidRequestError, SQLAlchemyError
+from sqlalchemy.exc import InvalidRequestError, SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import InstrumentedAttribute, Mapped, Session, mapped_column
 
-from advanced_alchemy import (
-    SQLAlchemyAsyncRepository,
-    SQLAlchemySyncRepository,
-    base,
-    wrap_sqlalchemy_exception,
-)
-from advanced_alchemy.exceptions import ConflictError, RepositoryError
+from advanced_alchemy import base
+from advanced_alchemy.exceptions import IntegrityError, RepositoryError, wrap_sqlalchemy_exception
 from advanced_alchemy.filters import (
     BeforeAfter,
     CollectionFilter,
     LimitOffset,
     NotInCollectionFilter,
     OnBeforeAfter,
+)
+from advanced_alchemy.repository import (
+    SQLAlchemyAsyncRepository,
+    SQLAlchemySyncRepository,
 )
 from tests.helpers import maybe_async
 
@@ -51,7 +51,7 @@ class BigIntModel(base.BigIntAuditBase):
 
 
 @pytest.fixture()
-def async_mock_repo() -> SQLAlchemyAsyncRepository:
+def async_mock_repo() -> SQLAlchemyAsyncRepository[MagicMock]:
     """SQLAlchemy repository with a mock model type."""
 
     class Repo(SQLAlchemyAsyncRepository[MagicMock]):
@@ -63,7 +63,7 @@ def async_mock_repo() -> SQLAlchemyAsyncRepository:
 
 
 @pytest.fixture()
-def sync_mock_repo() -> SQLAlchemySyncRepository:
+def sync_mock_repo() -> SQLAlchemySyncRepository[MagicMock]:
     """SQLAlchemy repository with a mock model type."""
 
     class Repo(SQLAlchemySyncRepository[MagicMock]):
@@ -75,37 +75,37 @@ def sync_mock_repo() -> SQLAlchemySyncRepository:
 
 
 @pytest.fixture(params=[lazy_fixture("sync_mock_repo"), lazy_fixture("async_mock_repo")])
-def mock_repo(request: FixtureRequest) -> SQLAlchemyAsyncRepository:
+def mock_repo(request: FixtureRequest) -> SQLAlchemyAsyncRepository[MagicMock]:
     return cast(SQLAlchemyAsyncRepository, request.param)
 
 
 @pytest.fixture()
-def mock_session_scalars(mock_repo: SQLAlchemyAsyncRepository, mocker: MockerFixture) -> AnyMock:
+def mock_session_scalars(mock_repo: SQLAlchemyAsyncRepository[MagicMock], mocker: MockerFixture) -> AnyMock:
     return mocker.patch.object(mock_repo.session, "scalars")
 
 
 @pytest.fixture()
-def mock_session_execute(mock_repo: SQLAlchemyAsyncRepository, mocker: MockerFixture) -> AnyMock:
+def mock_session_execute(mock_repo: SQLAlchemyAsyncRepository[MagicMock], mocker: MockerFixture) -> AnyMock:
     return mocker.patch.object(mock_repo.session, "scalars")
 
 
 @pytest.fixture()
-def mock_repo_list(mock_repo: SQLAlchemyAsyncRepository, mocker: MockerFixture) -> AnyMock:
+def mock_repo_list(mock_repo: SQLAlchemyAsyncRepository[MagicMock], mocker: MockerFixture) -> AnyMock:
     return mocker.patch.object(mock_repo, "list")
 
 
 @pytest.fixture()
-def mock_repo_execute(mock_repo: SQLAlchemyAsyncRepository, mocker: MockerFixture) -> AnyMock:
+def mock_repo_execute(mock_repo: SQLAlchemyAsyncRepository[MagicMock], mocker: MockerFixture) -> AnyMock:
     return mocker.patch.object(mock_repo, "_execute")
 
 
 @pytest.fixture()
-def mock_repo_attach_to_session(mock_repo: SQLAlchemyAsyncRepository, mocker: MockerFixture) -> AnyMock:
+def mock_repo_attach_to_session(mock_repo: SQLAlchemyAsyncRepository[MagicMock], mocker: MockerFixture) -> AnyMock:
     return mocker.patch.object(mock_repo, "_attach_to_session")
 
 
 @pytest.fixture()
-def mock_repo_count(mock_repo: SQLAlchemyAsyncRepository, mocker: MockerFixture) -> AnyMock:
+def mock_repo_count(mock_repo: SQLAlchemyAsyncRepository[MagicMock], mocker: MockerFixture) -> AnyMock:
     return mocker.patch.object(mock_repo, "count")
 
 
@@ -177,7 +177,7 @@ def test_sqlalchemy_sentinel(monkeypatch: MonkeyPatch) -> None:
 
 def test_wrap_sqlalchemy_integrity_error() -> None:
     """Test to ensure we wrap IntegrityError."""
-    with pytest.raises(ConflictError), wrap_sqlalchemy_exception():
+    with pytest.raises(IntegrityError), wrap_sqlalchemy_exception():
         raise IntegrityError(None, None, Exception())
 
 
@@ -729,22 +729,23 @@ async def test_sqlalchemy_repo_update(
     instance = await maybe_async(mock_repo.update(mock_instance))
 
     assert instance is mock_instance
-    mock_repo.session.merge.assert_called_once_with(mock_instance)
+    mock_repo.session.merge.assert_called_once_with(mock_instance, load=True)
     mock_repo.session.flush.assert_called_once()
     mock_repo.session.expunge.assert_not_called()
     mock_repo.session.commit.assert_not_called()
     mock_repo.session.refresh.assert_called_once_with(mock_instance, attribute_names=None, with_for_update=None)
 
 
-async def test_sqlalchemy_repo_upsert(mock_repo: SQLAlchemyAsyncRepository) -> None:
+async def test_sqlalchemy_repo_upsert(mock_repo: SQLAlchemyAsyncRepository, mocker: MockerFixture) -> None:
     """Test the sequence of repo calls for upsert operation."""
     mock_instance = MagicMock()
     mock_repo.session.merge.return_value = mock_instance
 
     instance = await maybe_async(mock_repo.upsert(mock_instance))
+    mocker.patch.object(mock_repo, "exists", return_value=True)
+    mocker.patch.object(mock_repo, "count", return_value=1)
 
     assert instance is mock_instance
-    mock_repo.session.merge.assert_called_once_with(mock_instance)
     mock_repo.session.flush.assert_called_once()
     mock_repo.session.expunge.assert_not_called()
     mock_repo.session.commit.assert_not_called()
@@ -767,7 +768,8 @@ async def test_execute(mock_repo: SQLAlchemyAsyncRepository) -> None:
 
 def test_filter_in_collection_noop_if_collection_empty(mock_repo: SQLAlchemyAsyncRepository) -> None:
     """Ensures we don't filter on an empty collection."""
-    mock_repo._filter_in_collection("id", [], statement=mock_repo.statement)
+    statement = mock_repo._to_lambda_stmt(mock_repo.statement)
+    mock_repo._filter_in_collection("id", [], statement=statement)
     mock_repo.statement.where.assert_not_called()
 
 
@@ -783,18 +785,18 @@ def test_filter_on_datetime_field(before: datetime, after: datetime, mock_repo: 
     """Test through branches of _filter_on_datetime_field()"""
     field_mock = MagicMock()
     field_mock.__gt__ = field_mock.__lt__ = lambda self, other: True
-
+    statement = mock_repo._to_lambda_stmt(mock_repo.statement)
     mock_repo.model_type.updated_at = field_mock
-    mock_repo._filter_on_datetime_field("updated_at", before=before, after=after, statement=mock_repo.statement)
+    mock_repo._filter_on_datetime_field("updated_at", before=before, after=after, statement=statement)
 
 
 def test_filter_collection_by_kwargs(mock_repo: SQLAlchemyAsyncRepository, mocker: MockerFixture) -> None:
     """Test `filter_by()` called with kwargs."""
     mock_repo_execute.return_value = MagicMock()
-    mock_repo.statement.where.return_value = mock_repo.statement
-    mocker.patch.object(mock_repo, "filter_collection_by_kwargs", return_value=mock_repo.statement)
-    _ = mock_repo.filter_collection_by_kwargs(mock_repo.statement, a=1, b=2)
-    mock_repo.filter_collection_by_kwargs.assert_called_once_with(mock_repo.statement, a=1, b=2)
+    statement = mock_repo._to_lambda_stmt(mock_repo.statement)
+    mocker.patch.object(mock_repo, "filter_collection_by_kwargs", return_value=statement)
+    _ = mock_repo.filter_collection_by_kwargs(statement, a=1, b=2)
+    mock_repo.filter_collection_by_kwargs.assert_called_once_with(statement, a=1, b=2)
 
 
 def test_filter_collection_by_kwargs_raises_repository_exception_for_attribute_error(
@@ -804,8 +806,9 @@ def test_filter_collection_by_kwargs_raises_repository_exception_for_attribute_e
     """Test that we raise a repository exception if an attribute name is
     incorrect.
     """
-    mock_repo.statement.filter_by = MagicMock(  # pyright: ignore[reportGeneralTypeIssues]
+    statement = mock_repo._to_lambda_stmt(mock_repo.statement)
+    statement.filter_by = MagicMock(  # type: ignore # pyright: ignore[reportGeneralTypeIssues]
         side_effect=InvalidRequestError,
     )
     with pytest.raises(RepositoryError):
-        _ = mock_repo.filter_collection_by_kwargs(mock_repo.statement, a=1)
+        _ = mock_repo.filter_collection_by_kwargs(statement, a=1)

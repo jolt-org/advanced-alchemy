@@ -5,25 +5,21 @@ from __future__ import annotations
 import asyncio
 import contextlib
 import os
-from datetime import datetime, timedelta, timezone
+from datetime import date, datetime, timedelta, timezone
 from typing import TYPE_CHECKING, Any, Dict, Generator, Iterator, List, Literal, Type, Union, cast
 from unittest.mock import NonCallableMagicMock, create_autospec
-from uuid import UUID
+from uuid import UUID, uuid4
 
 import pytest
+from msgspec import Struct
+from pydantic import BaseModel
 from pytest_lazyfixture import lazy_fixture
 from sqlalchemy import Engine, Table, and_, insert, select
 from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession
 from sqlalchemy.orm import Session, sessionmaker
 from time_machine import travel
 
-from advanced_alchemy import (
-    SQLAlchemyAsyncMockRepository,
-    SQLAlchemyAsyncRepository,
-    SQLAlchemyAsyncRepositoryService,
-    SQLAlchemySyncMockRepository,
-    base,
-)
+from advanced_alchemy import base
 from advanced_alchemy.exceptions import NotFoundError, RepositoryError
 from advanced_alchemy.filters import (
     BeforeAfter,
@@ -34,11 +30,21 @@ from advanced_alchemy.filters import (
     OrderBy,
     SearchFilter,
 )
+from advanced_alchemy.repository import SQLAlchemyAsyncRepository, SQLAlchemyAsyncSlugRepository
 from advanced_alchemy.repository._util import get_instrumented_attr, model_from_dict
+from advanced_alchemy.repository.memory import (
+    SQLAlchemyAsyncMockRepository,
+    SQLAlchemySyncMockRepository,
+    SQLAlchemySyncMockSlugRepository,
+)
+from advanced_alchemy.service import (
+    SQLAlchemyAsyncRepositoryService,
+)
+from advanced_alchemy.service.pagination import OffsetPagination
+from advanced_alchemy.utils.text import slugify
 from tests import models_bigint, models_uuid
 from tests.helpers import maybe_async
-
-from .helpers import update_raw_records
+from tests.integration.helpers import update_raw_records
 
 if TYPE_CHECKING:
     from pytest import FixtureRequest
@@ -57,6 +63,8 @@ RuleModel = Type[Union[models_uuid.UUIDRule, models_bigint.BigIntRule]]
 ModelWithFetchedValue = Type[Union[models_uuid.UUIDModelWithFetchedValue, models_bigint.BigIntModelWithFetchedValue]]
 ItemModel = Type[Union[models_uuid.UUIDItem, models_bigint.BigIntItem]]
 TagModel = Type[Union[models_uuid.UUIDTag, models_bigint.BigIntTag]]
+SlugBookModel = Type[Union[models_uuid.UUIDSlugBook, models_bigint.BigIntSlugBook]]
+
 
 AnySecret = Union[models_uuid.UUIDSecret, models_bigint.BigIntSecret]
 SecretRepository = SQLAlchemyAsyncRepository[AnySecret]
@@ -73,6 +81,11 @@ AuthorService = SQLAlchemyAsyncRepositoryService[AnyAuthor]
 AnyRule = Union[models_uuid.UUIDRule, models_bigint.BigIntRule]
 RuleRepository = SQLAlchemyAsyncRepository[AnyRule]
 RuleService = SQLAlchemyAsyncRepositoryService[AnyRule]
+
+AnySlugBook = Union[models_uuid.UUIDSlugBook, models_bigint.BigIntSlugBook]
+SlugBookRepository = SQLAlchemyAsyncSlugRepository[AnySlugBook]
+SlugBookService = SQLAlchemyAsyncRepositoryService[AnySlugBook]
+
 
 AnyBook = Union[models_uuid.UUIDBook, models_bigint.BigIntBook]
 BookRepository = SQLAlchemyAsyncRepository[AnyBook]
@@ -96,7 +109,7 @@ mock_engines = {"mock_async_engine", "mock_sync_engine"}
 
 
 @pytest.fixture(autouse=True)
-def _clear_in_memory_db() -> Generator[None, None, None]:
+def _clear_in_memory_db() -> Generator[None, None, None]:  # pyright: ignore[reportUnusedFunction]
     try:
         yield
     finally:
@@ -134,6 +147,19 @@ def fx_raw_books_uuid(raw_authors_uuid: RawRecordData) -> RawRecordData:
             "title": "Murder on the Orient Express",
             "author_id": raw_authors_uuid[0]["id"],
             "author": raw_authors_uuid[0],
+        },
+    ]
+
+
+@pytest.fixture(name="raw_slug_books_uuid")
+def fx_raw_slug_books_uuid(raw_authors_uuid: RawRecordData) -> RawRecordData:
+    """Unstructured slug book representations."""
+    return [
+        {
+            "id": UUID("f34545b9-663c-4fce-915d-dd1ae9cea42a"),
+            "title": "Murder on the Orient Express",
+            "slug": slugify("Murder on the Orient Express"),
+            "author_id": str(raw_authors_uuid[0]["id"]),
         },
     ]
 
@@ -214,6 +240,18 @@ def fx_raw_books_bigint(raw_authors_bigint: RawRecordData) -> RawRecordData:
             "title": "Murder on the Orient Express",
             "author_id": raw_authors_bigint[0]["id"],
             "author": raw_authors_bigint[0],
+        },
+    ]
+
+
+@pytest.fixture(name="raw_slug_books_bigint")
+def fx_raw_slug_books_bigint(raw_authors_bigint: RawRecordData) -> RawRecordData:
+    """Unstructured slug book representations."""
+    return [
+        {
+            "title": "Murder on the Orient Express",
+            "slug": slugify("Murder on the Orient Express"),
+            "author_id": str(raw_authors_bigint[0]["id"]),
         },
     ]
 
@@ -320,6 +358,16 @@ def book_model(repository_pk_type: RepositoryPKType) -> type[models_uuid.UUIDBoo
 
 
 @pytest.fixture()
+def slug_book_model(
+    repository_pk_type: RepositoryPKType,
+) -> SlugBookModel:
+    """Return the ``SlugBook`` model matching the current repository PK type"""
+    if repository_pk_type == "uuid":
+        return models_uuid.UUIDSlugBook
+    return models_bigint.BigIntSlugBook
+
+
+@pytest.fixture()
 def secret_model(repository_pk_type: RepositoryPKType) -> SecretModel:
     """Return the ``Secret`` model matching the current repository PK type"""
     return models_uuid.UUIDSecret if repository_pk_type == "uuid" else models_bigint.BigIntSecret
@@ -331,6 +379,18 @@ def new_pk_id(repository_pk_type: RepositoryPKType) -> Any:
     if repository_pk_type == "uuid":
         return UUID("baa0a5c7-5404-4821-bc76-6cf5e73c8219")
     return 10
+
+
+@pytest.fixture()
+def existing_slug_book_ids(raw_slug_books: RawRecordData) -> Iterator[Any]:
+    """Return the existing primary keys based on the raw data provided"""
+    return (book["id"] for book in raw_slug_books)
+
+
+@pytest.fixture()
+def first_slug_book_id(raw_slug_books: RawRecordData) -> Any:
+    """Return the primary key of the first ``Book`` record of the current repository PK type"""
+    return raw_slug_books[0]["id"]
 
 
 @pytest.fixture()
@@ -455,6 +515,16 @@ def raw_authors(request: FixtureRequest, repository_pk_type: RepositoryPKType) -
 
 
 @pytest.fixture()
+def raw_slug_books(request: FixtureRequest, repository_pk_type: RepositoryPKType) -> RawRecordData:
+    """Return raw ``Author`` data matching the current PK type"""
+    if repository_pk_type == "bigint":
+        books = request.getfixturevalue("raw_slug_books_bigint")
+    else:
+        books = request.getfixturevalue("raw_slug_books_uuid")
+    return cast("RawRecordData", books)
+
+
+@pytest.fixture()
 def raw_rules(request: FixtureRequest, repository_pk_type: RepositoryPKType) -> RawRecordData:
     """Return raw ``Rule`` data matching the current PK type"""
     if repository_pk_type == "bigint":
@@ -478,29 +548,36 @@ def _seed_db_sync(
     *,
     engine: Engine,
     raw_authors: RawRecordData,
+    raw_slug_books: RawRecordData,
     raw_rules: RawRecordData,
     raw_secrets: RawRecordData,
     author_model: AuthorModel,
     secret_model: SecretModel,
     rule_model: RuleModel,
+    slug_book_model: SlugBookModel,
 ) -> None:
     update_raw_records(raw_authors=raw_authors, raw_rules=raw_rules)
 
     if isinstance(engine, NonCallableMagicMock):
         for raw_author in raw_authors:
-            SQLAlchemySyncMockRepository.__database_add__(
+            SQLAlchemySyncMockRepository.__database_add__(  # pyright: ignore[reportUnknownMemberType]
                 author_model,
                 model_from_dict(author_model, **raw_author),  # type: ignore[type-var]
             )
         for raw_rule in raw_rules:
-            SQLAlchemySyncMockRepository.__database_add__(
+            SQLAlchemySyncMockRepository.__database_add__(  # pyright: ignore[reportUnknownMemberType]
                 author_model,
                 model_from_dict(rule_model, **raw_rule),  # type: ignore[type-var]
             )
         for raw_secret in raw_secrets:
-            SQLAlchemySyncMockRepository.__database_add__(
+            SQLAlchemySyncMockRepository.__database_add__(  # pyright: ignore[reportUnknownMemberType]
                 secret_model,
                 model_from_dict(secret_model, **raw_secret),  # type: ignore[type-var]
+            )
+        for raw_book in raw_slug_books:
+            SQLAlchemySyncMockSlugRepository.__database_add__(  # pyright: ignore[reportUnknownMemberType]
+                slug_book_model,
+                model_from_dict(slug_book_model, **raw_book),  # type: ignore[type-var]
             )
     else:
         with engine.begin() as conn:
@@ -514,6 +591,8 @@ def _seed_db_sync(
                 conn.execute(insert(rule_model).values(rule))
             for secret in raw_secrets:
                 conn.execute(insert(secret_model).values(secret))
+            for book in raw_slug_books:
+                conn.execute(insert(slug_book_model).values(book))
 
 
 def _seed_spanner(
@@ -521,6 +600,7 @@ def _seed_spanner(
     engine: Engine,
     raw_authors_uuid: RawRecordData,
     raw_rules_uuid: RawRecordData,
+    raw_slug_books_uuid: RawRecordData,
 ) -> list[Table]:
     update_raw_records(raw_authors=raw_authors_uuid, raw_rules=raw_rules_uuid)
 
@@ -536,23 +616,32 @@ def _seed_spanner(
 def seed_db_sync(
     engine: Engine,
     raw_authors: RawRecordData,
+    raw_slug_books: RawRecordData,
     raw_rules: RawRecordData,
     raw_secrets: RawRecordData,
     author_model: AuthorModel,
     rule_model: RuleModel,
     secret_model: SecretModel,
+    slug_book_model: SlugBookModel,
 ) -> None:
     if engine.dialect.name.startswith("spanner"):
-        _seed_spanner(engine=engine, raw_authors_uuid=raw_authors, raw_rules_uuid=raw_rules)
+        _seed_spanner(
+            engine=engine,
+            raw_authors_uuid=raw_authors,
+            raw_rules_uuid=raw_rules,
+            raw_slug_books_uuid=raw_slug_books,
+        )
     else:
         _seed_db_sync(
             engine=engine,
             raw_authors=raw_authors,
             raw_rules=raw_rules,
             raw_secrets=raw_secrets,
+            raw_slug_books=raw_slug_books,
             author_model=author_model,
             rule_model=rule_model,
             secret_model=secret_model,
+            slug_book_model=slug_book_model,
         )
 
 
@@ -705,17 +794,17 @@ async def seed_db_async(
 
     if isinstance(async_engine, NonCallableMagicMock):
         for raw_author in raw_authors:
-            SQLAlchemyAsyncMockRepository.__database_add__(
+            SQLAlchemyAsyncMockRepository.__database_add__(  # pyright: ignore[reportUnknownMemberType]
                 author_model,
                 model_from_dict(author_model, **raw_author),  # type: ignore[type-var]
             )
         for raw_rule in raw_rules:
-            SQLAlchemyAsyncMockRepository.__database_add__(
+            SQLAlchemyAsyncMockRepository.__database_add__(  # pyright: ignore[reportUnknownMemberType]
                 author_model,
                 model_from_dict(rule_model, **raw_rule),  # type: ignore[type-var]
             )
         for raw_secret in raw_secrets:
-            SQLAlchemyAsyncMockRepository.__database_add__(
+            SQLAlchemyAsyncMockRepository.__database_add__(  # pyright: ignore[reportUnknownMemberType]
                 secret_model,
                 model_from_dict(secret_model, **raw_secret),  # type: ignore[type-var]
             )
@@ -749,7 +838,7 @@ async def any_engine(
 @pytest.fixture()
 def repository_module(repository_pk_type: RepositoryPKType, request: FixtureRequest) -> Any:
     if repository_pk_type == "bigint" and mock_engines.intersection(set(request.fixturenames)):
-        pytest.skip("foo")
+        pytest.skip("Skipping additional bigint mock repository tests")
     return models_uuid if repository_pk_type == "uuid" else models_bigint
 
 
@@ -861,6 +950,42 @@ def book_service(any_session: AsyncSession | Session, repository_module: Any, re
     else:
         repo = repository_module.BookSyncService(session=any_session)
     return cast(BookService, repo)
+
+
+@pytest.fixture()
+def slug_book_repo(
+    any_session: AsyncSession | Session,
+    repository_module: Any,
+    request: FixtureRequest,
+) -> SlugBookRepository:
+    """Return an SlugBookAsyncRepository or SlugBookSyncRepository based on the current PK and session type"""
+    if "mock_async_engine" in request.fixturenames:
+        repo = repository_module.SlugBookAsyncMockRepository()
+    elif "mock_sync_engine" in request.fixturenames:
+        repo = repository_module.SlugBookSyncMockRepository()
+    elif isinstance(any_session, AsyncSession):
+        repo = repository_module.SlugBookAsyncRepository(session=any_session)
+    else:
+        repo = repository_module.SlugBookSyncRepository(session=any_session)
+    return cast(SlugBookRepository, repo)
+
+
+@pytest.fixture()
+def slug_book_service(
+    any_session: AsyncSession | Session,
+    repository_module: Any,
+    request: FixtureRequest,
+) -> SlugBookService:
+    """Return an SlugBookAsyncService or SlugBookSyncService based on the current PK and session type"""
+    if "mock_async_engine" in request.fixturenames:
+        repo = repository_module.SlugBookAsyncMockService(session=create_autospec(any_session, instance=True))
+    elif "mock_sync_engine" in request.fixturenames:
+        repo = repository_module.SlugBookSyncMockService(session=create_autospec(any_session, instance=True))
+    elif isinstance(any_session, AsyncSession):
+        repo = repository_module.SlugBookAsyncService(session=any_session)
+    else:
+        repo = repository_module.SlugBookSyncService(session=any_session)
+    return cast(SlugBookService, repo)
 
 
 @pytest.fixture()
@@ -1021,7 +1146,7 @@ async def test_repo_list_and_count_method_with_filters(
     assert count == 1
     assert isinstance(collection, list)
     assert len(collection) == 1
-    assert collection[0].id == exp_id
+    assert str(collection[0].id) == str(exp_id)
     assert collection[0].name == exp_name
 
 
@@ -1048,7 +1173,7 @@ async def test_repo_list_and_count_method_empty(book_repo: BookRepository) -> No
 
 @pytest.fixture()
 def frozen_datetime() -> Generator[Coordinates, None, None]:
-    with travel(datetime.utcnow, tick=False) as frozen:
+    with travel(datetime.utcnow, tick=False) as frozen:  # pyright: ignore[reportDeprecated]
         yield frozen
 
 
@@ -1063,7 +1188,7 @@ async def test_repo_created_updated(
 
     if isinstance(author_repo, (SQLAlchemyAsyncMockRepository, SQLAlchemySyncMockRepository)):
         pytest.skip(f"{SQLAlchemyAsyncMockRepository.__name__} does not update created/updated columns")
-    if isinstance(author_repo, SQLAlchemyAsyncRepository):
+    if isinstance(author_repo, SQLAlchemyAsyncRepository):  # pyright: ignore[reportUnnecessaryIsInstance]
         config = SQLAlchemyAsyncConfig(
             engine_instance=author_repo.session.get_bind(),  # type: ignore[arg-type]
         )
@@ -1112,7 +1237,7 @@ async def test_repo_created_updated_no_listener(
     with contextlib.suppress(InvalidRequestError):
         event.remove(Session, "before_flush", touch_updated_timestamp)
 
-    if isinstance(author_repo, SQLAlchemyAsyncRepository):
+    if isinstance(author_repo, SQLAlchemyAsyncRepository):  # pyright: ignore[reportUnnecessaryIsInstance]
         config = SQLAlchemyAsyncConfig(
             enable_touch_updated_timestamp_listener=False,
             engine_instance=author_repo.session.get_bind(),  # type: ignore[arg-type]
@@ -1165,7 +1290,7 @@ async def test_repo_list_method_with_filters(raw_authors: RawRecordData, author_
         )
     assert isinstance(collection, list)
     assert len(collection) == 1
-    assert collection[0].id == exp_id
+    assert str(collection[0].id) == str(exp_id)
     assert collection[0].name == exp_name
 
 
@@ -1208,7 +1333,7 @@ async def test_repo_add_many_method(
 
 
 async def test_repo_update_many_method(author_repo: AnyAuthorRepository) -> None:
-    if author_repo._dialect.name.startswith("spanner") and os.environ.get("SPANNER_EMULATOR_HOST"):
+    if author_repo._dialect.name.startswith("spanner") and os.environ.get("SPANNER_EMULATOR_HOST"):  # pyright: ignore[reportPrivateUsage]
         pytest.skip("Skipped on emulator")
 
     objs = await maybe_async(author_repo.list())
@@ -1255,7 +1380,7 @@ async def test_repo_update_method(author_repo: AnyAuthorRepository, first_author
 
 async def test_repo_delete_method(author_repo: AnyAuthorRepository, first_author_id: Any) -> None:
     obj = await maybe_async(author_repo.delete(first_author_id))
-    assert obj.id == first_author_id
+    assert str(obj.id) == str(first_author_id)
 
 
 async def test_repo_delete_many_method(author_repo: AnyAuthorRepository, author_model: AuthorModel) -> None:
@@ -1294,7 +1419,7 @@ async def test_repo_get_one_method(author_repo: AnyAuthorRepository, first_autho
 
 async def test_repo_get_or_upsert_method(author_repo: AnyAuthorRepository, first_author_id: Any) -> None:
     existing_obj, existing_created = await maybe_async(author_repo.get_or_upsert(name="Agatha Christie"))
-    assert existing_obj.id == first_author_id
+    assert str(existing_obj.id) == str(first_author_id)
     assert existing_created is False
     new_obj, new_created = await maybe_async(author_repo.get_or_upsert(name="New Author"))
     assert new_obj.id is not None
@@ -1307,7 +1432,7 @@ async def test_repo_get_or_upsert_match_filter(author_repo: AnyAuthorRepository,
     existing_obj, existing_created = await maybe_async(
         author_repo.get_or_upsert(match_fields="name", name="Agatha Christie", dob=now.date()),
     )
-    assert existing_obj.id == first_author_id
+    assert str(existing_obj.id) == str(first_author_id)
     assert existing_obj.dob == now.date()
     assert existing_created is False
 
@@ -1320,7 +1445,7 @@ async def test_repo_get_or_upsert_match_filter_no_upsert(
     existing_obj, existing_created = await maybe_async(
         author_repo.get_or_upsert(match_fields="name", upsert=False, name="Agatha Christie", dob=now.date()),
     )
-    assert existing_obj.id == first_author_id
+    assert str(existing_obj.id) == str(first_author_id)
     assert existing_obj.dob != now.date()
     assert existing_created is False
 
@@ -1329,7 +1454,7 @@ async def test_repo_get_and_update(author_repo: AnyAuthorRepository, first_autho
     existing_obj, existing_updated = await maybe_async(
         author_repo.get_and_update(name="Agatha Christie"),
     )
-    assert existing_obj.id == first_author_id
+    assert str(existing_obj.id) == str(first_author_id)
     assert existing_updated is False
 
 
@@ -1354,7 +1479,7 @@ async def test_repo_upsert_method(
     existing_obj = await maybe_async(author_repo.get_one(name="Agatha Christie"))
     existing_obj.name = "Agatha C."
     upsert_update_obj = await maybe_async(author_repo.upsert(existing_obj))
-    assert upsert_update_obj.id == first_author_id
+    assert str(upsert_update_obj.id) == str(first_author_id)
     assert upsert_update_obj.name == "Agatha C."
 
     upsert_insert_obj = await maybe_async(author_repo.upsert(author_model(name="An Author")))
@@ -1365,13 +1490,26 @@ async def test_repo_upsert_method(
     upsert2_insert_obj = await maybe_async(author_repo.upsert(author_model(id=new_pk_id, name="Another Author")))
     assert upsert2_insert_obj.id is not None
     assert upsert2_insert_obj.name == "Another Author"
+    _ = await maybe_async(author_repo.get_one(name="Leo Tolstoy"))
+    # ensures that it still works even if the ID isn't set on an existing key
+    new_dob = datetime.strptime("2028-09-09", "%Y-%m-%d").date()
+    upsert3_update_obj = await maybe_async(
+        author_repo.upsert(
+            author_model(name="Leo Tolstoy", dob=new_dob),
+            match_fields=["name"],
+        ),
+    )
+    if not isinstance(author_repo, (SQLAlchemyAsyncMockRepository, SQLAlchemySyncMockRepository)):
+        assert upsert3_update_obj.id in {UUID("5ef29f3c-3560-4d15-ba6b-a2e5c721e4d2"), 2024}
+    assert upsert3_update_obj.name == "Leo Tolstoy"
+    assert upsert3_update_obj.dob == new_dob
 
 
 async def test_repo_upsert_many_method(
     author_repo: AnyAuthorRepository,
     author_model: AuthorModel,
 ) -> None:
-    if author_repo._dialect.name.startswith("spanner") and os.environ.get("SPANNER_EMULATOR_HOST"):
+    if author_repo._dialect.name.startswith("spanner") and os.environ.get("SPANNER_EMULATOR_HOST"):  # pyright: ignore[reportPrivateUsage]
         pytest.skip(
             "Skipped on emulator. See the following:  https://github.com/GoogleCloudPlatform/cloud-spanner-emulator/issues/73",
         )
@@ -1399,7 +1537,7 @@ async def test_repo_upsert_many_method_match(
     author_repo: AnyAuthorRepository,
     author_model: AuthorModel,
 ) -> None:
-    if author_repo._dialect.name.startswith("spanner") and os.environ.get("SPANNER_EMULATOR_HOST"):
+    if author_repo._dialect.name.startswith("spanner") and os.environ.get("SPANNER_EMULATOR_HOST"):  # pyright: ignore[reportPrivateUsage]
         pytest.skip(
             "Skipped on emulator. See the following:  https://github.com/GoogleCloudPlatform/cloud-spanner-emulator/issues/73",
         )
@@ -1422,7 +1560,7 @@ async def test_repo_upsert_many_method_match_non_id(
     author_repo: AnyAuthorRepository,
     author_model: AuthorModel,
 ) -> None:
-    if author_repo._dialect.name.startswith("spanner") and os.environ.get("SPANNER_EMULATOR_HOST"):
+    if author_repo._dialect.name.startswith("spanner") and os.environ.get("SPANNER_EMULATOR_HOST"):  # pyright: ignore[reportPrivateUsage]
         pytest.skip(
             "Skipped on emulator. See the following:  https://github.com/GoogleCloudPlatform/cloud-spanner-emulator/issues/73",
         )
@@ -1448,7 +1586,7 @@ async def test_repo_upsert_many_method_match_not_on_input(
     author_repo: AnyAuthorRepository,
     author_model: AuthorModel,
 ) -> None:
-    if author_repo._dialect.name.startswith("spanner") and os.environ.get("SPANNER_EMULATOR_HOST"):
+    if author_repo._dialect.name.startswith("spanner") and os.environ.get("SPANNER_EMULATOR_HOST"):  # pyright: ignore[reportPrivateUsage]
         pytest.skip(
             "Skipped on emulator. See the following:  https://github.com/GoogleCloudPlatform/cloud-spanner-emulator/issues/73",
         )
@@ -1609,7 +1747,7 @@ async def test_repo_json_methods(
     rule_service: RuleService,
     rule_model: RuleModel,
 ) -> None:
-    if rule_repo._dialect.name.startswith("spanner") and os.environ.get("SPANNER_EMULATOR_HOST"):
+    if rule_repo._dialect.name.startswith("spanner") and os.environ.get("SPANNER_EMULATOR_HOST"):  # pyright: ignore[reportPrivateUsage]
         pytest.skip("Skipped on emulator")
 
     exp_count = len(raw_rules_uuid) + 1
@@ -1666,6 +1804,8 @@ async def test_lazy_load(
     item_model: ItemModel,
     tag_model: TagModel,
 ) -> None:
+    if getattr(tag_repo, "__collection__", None) is not None:
+        pytest.skip("Skipping lazy load testing on Mock repositories.")
     tag_obj = await maybe_async(tag_repo.add(tag_model(name="A new tag")))
     assert tag_obj
     new_items = await maybe_async(
@@ -1789,7 +1929,7 @@ async def test_service_list_and_count_method_with_filters(
     assert count == 1
     assert isinstance(collection, list)
     assert len(collection) == 1
-    assert collection[0].id == exp_id
+    assert str(collection[0].id) == str(exp_id)
     assert collection[0].name == exp_name
 
 
@@ -1847,7 +1987,7 @@ async def test_service_list_method_with_filters(raw_authors: RawRecordData, auth
         )
     assert isinstance(collection, list)
     assert len(collection) == 1
-    assert collection[0].id == exp_id
+    assert str(collection[0].id) == str(exp_id)
     assert collection[0].name == exp_name
 
 
@@ -1890,7 +2030,7 @@ async def test_service_create_many_method(
 
 
 async def test_service_update_many_method(author_service: AuthorService) -> None:
-    if author_service.repository._dialect.name.startswith("spanner") and os.environ.get("SPANNER_EMULATOR_HOST"):
+    if author_service.repository._dialect.name.startswith("spanner") and os.environ.get("SPANNER_EMULATOR_HOST"):  # pyright: ignore[reportPrivateUsage]
         pytest.skip("Skipped on emulator")
 
     objs = await maybe_async(author_service.list())
@@ -1917,8 +2057,28 @@ async def test_service_update_method_no_item_id(author_service: AuthorService, f
     obj = await maybe_async(author_service.get(first_author_id))
     obj.name = "Updated Name2"
     updated_obj = await maybe_async(author_service.update(data=obj))
-    assert updated_obj.id == first_author_id
+    assert str(updated_obj.id) == str(first_author_id)
     assert updated_obj.name == obj.name
+
+
+async def test_service_update_method_data_is_dict(author_service: AuthorService, first_author_id: Any) -> None:
+    new_date = datetime.date(datetime.now())
+    updated_obj = await maybe_async(
+        author_service.update(item_id=first_author_id, data={"dob": new_date}),
+    )
+    assert updated_obj.dob == new_date
+    # ensure the other fields are not affected
+    assert updated_obj.name == "Agatha Christie"
+
+
+async def test_service_update_method_data_is_dict_with_none_value(
+    author_service: AuthorService,
+    first_author_id: Any,
+) -> None:
+    updated_obj = await maybe_async(author_service.update(item_id=first_author_id, data={"dob": None}))
+    assert cast(Union[date, None], updated_obj.dob) is None
+    # ensure the other fields are not affected
+    assert updated_obj.name == "Agatha Christie"
 
 
 async def test_service_update_method_instrumented_attribute(
@@ -1928,14 +2088,14 @@ async def test_service_update_method_instrumented_attribute(
     obj = await maybe_async(author_service.get(first_author_id))
     id_attribute = get_instrumented_attr(author_service.repository.model_type, "id")
     obj.name = "Updated Name2"
-    updated_obj = await maybe_async(author_service.update(data=obj, id_attribute=id_attribute, item_id=first_author_id))
-    assert updated_obj.id == first_author_id
+    updated_obj = await maybe_async(author_service.update(data=obj, id_attribute=id_attribute))
+    assert str(updated_obj.id) == str(first_author_id)
     assert updated_obj.name == obj.name
 
 
 async def test_service_delete_method(author_service: AuthorService, first_author_id: Any) -> None:
     obj = await maybe_async(author_service.delete(first_author_id))
-    assert obj.id == first_author_id
+    assert str(obj.id) == str(first_author_id)
 
 
 async def test_service_delete_many_method(author_service: AuthorService, author_model: AuthorModel) -> None:
@@ -1974,7 +2134,7 @@ async def test_service_get_one_method(author_service: AuthorService, first_autho
 
 async def test_service_get_or_upsert_method(author_service: AuthorService, first_author_id: Any) -> None:
     existing_obj, existing_created = await maybe_async(author_service.get_or_upsert(name="Agatha Christie"))
-    assert existing_obj.id == first_author_id
+    assert str(existing_obj.id) == str(first_author_id)
     assert existing_created is False
     new_obj, new_created = await maybe_async(author_service.get_or_upsert(name="New Author"))
     assert new_obj.id is not None
@@ -1986,7 +2146,7 @@ async def test_service_get_and_update_method(author_service: AuthorService, firs
     existing_obj, existing_created = await maybe_async(
         author_service.get_and_update(name="Agatha Christie", match_fields="name"),
     )
-    assert existing_obj.id == first_author_id
+    assert str(existing_obj.id) == str(first_author_id)
     assert existing_created is False
     with pytest.raises(NotFoundError):
         _ = await maybe_async(author_service.get_and_update(name="New Author"))
@@ -2001,7 +2161,7 @@ async def test_service_upsert_method(
     existing_obj = await maybe_async(author_service.get_one(name="Agatha Christie"))
     existing_obj.name = "Agatha C."
     upsert_update_obj = await maybe_async(author_service.upsert(item_id=first_author_id, data=existing_obj))
-    assert upsert_update_obj.id == first_author_id
+    assert str(upsert_update_obj.id) == str(first_author_id)
     assert upsert_update_obj.name == "Agatha C."
 
     upsert_insert_obj = await maybe_async(author_service.upsert(data=author_model(name="An Author")))
@@ -2022,7 +2182,7 @@ async def test_service_upsert_method_match(
     author_model: AuthorModel,
     new_pk_id: Any,
 ) -> None:
-    if author_service.repository._dialect.name.startswith("spanner") and os.environ.get("SPANNER_EMULATOR_HOST"):
+    if author_service.repository._dialect.name.startswith("spanner") and os.environ.get("SPANNER_EMULATOR_HOST"):  # pyright: ignore[reportPrivateUsage]
         pytest.skip(
             "Skipped on emulator. See the following:  https://github.com/GoogleCloudPlatform/cloud-spanner-emulator/issues/73",
         )
@@ -2031,7 +2191,8 @@ async def test_service_upsert_method_match(
     upsert_update_obj = await maybe_async(
         author_service.upsert(data=existing_obj.to_dict(exclude={"id"}), match_fields=["name"]),
     )
-    assert upsert_update_obj.id != first_author_id
+    if not isinstance(author_service.repository, (SQLAlchemyAsyncMockRepository, SQLAlchemySyncMockRepository)):
+        assert str(upsert_update_obj.id) == str(first_author_id)
     assert upsert_update_obj.name == "Agatha C."
 
     upsert_insert_obj = await maybe_async(
@@ -2052,7 +2213,7 @@ async def test_service_upsert_many_method(
     author_service: AuthorService,
     author_model: AuthorModel,
 ) -> None:
-    if author_service.repository._dialect.name.startswith("spanner") and os.environ.get("SPANNER_EMULATOR_HOST"):
+    if author_service.repository._dialect.name.startswith("spanner") and os.environ.get("SPANNER_EMULATOR_HOST"):  # pyright: ignore[reportPrivateUsage]
         pytest.skip(
             "Skipped on emulator. See the following:  https://github.com/GoogleCloudPlatform/cloud-spanner-emulator/issues/73",
         )
@@ -2080,7 +2241,7 @@ async def test_service_upsert_many_method_match_fields_id(
     author_service: AuthorService,
     author_model: AuthorModel,
 ) -> None:
-    if author_service.repository._dialect.name.startswith("spanner") and os.environ.get("SPANNER_EMULATOR_HOST"):
+    if author_service.repository._dialect.name.startswith("spanner") and os.environ.get("SPANNER_EMULATOR_HOST"):  # pyright: ignore[reportPrivateUsage]
         pytest.skip(
             "Skipped on emulator. See the following:  https://github.com/GoogleCloudPlatform/cloud-spanner-emulator/issues/73",
         )
@@ -2109,7 +2270,7 @@ async def test_service_upsert_many_method_match_fields_non_id(
     author_service: AuthorService,
     author_model: AuthorModel,
 ) -> None:
-    if author_service.repository._dialect.name.startswith("spanner") and os.environ.get("SPANNER_EMULATOR_HOST"):
+    if author_service.repository._dialect.name.startswith("spanner") and os.environ.get("SPANNER_EMULATOR_HOST"):  # pyright: ignore[reportPrivateUsage]
         pytest.skip(
             "Skipped on emulator. See the following:  https://github.com/GoogleCloudPlatform/cloud-spanner-emulator/issues/73",
         )
@@ -2145,7 +2306,7 @@ async def test_repo_custom_statement(author_repo: AnyAuthorRepository, author_se
 async def test_repo_get_or_create_deprecation(author_repo: AnyAuthorRepository, first_author_id: Any) -> None:
     with pytest.deprecated_call():
         existing_obj, existing_created = await maybe_async(author_repo.get_or_create(name="Agatha Christie"))
-        assert existing_obj.id == first_author_id
+        assert str(existing_obj.id) == str(first_author_id)
         assert existing_created is False
 
 
@@ -2179,3 +2340,115 @@ async def test_repo_encrypted_methods(
     updated = await maybe_async(secret_repo.update(obj))
     assert obj.secret == updated.secret
     assert obj.long_secret == updated.long_secret
+
+
+async def test_service_create_method_slug(
+    raw_slug_books: RawRecordData,
+    slug_book_service: SlugBookService,
+    slug_book_model: SlugBookModel,
+) -> None:
+    new_book = {"title": "a new book!!", "author_id": uuid4().hex}
+    obj = await maybe_async(slug_book_service.create(new_book))
+    assert isinstance(obj, slug_book_model)
+    assert new_book["title"] == obj.title
+    assert obj.slug == "a-new-book"
+    assert obj.id is not None
+
+
+async def test_service_create_method_slug_existing(
+    raw_slug_books: RawRecordData,
+    slug_book_service: SlugBookService,
+    slug_book_model: SlugBookModel,
+) -> None:
+    if issubclass(
+        slug_book_service.repository_type,
+        (
+            SQLAlchemySyncMockSlugRepository,
+            SQLAlchemyAsyncMockRepository,
+            SQLAlchemyAsyncMockRepository,
+            SQLAlchemyAsyncMockRepository,
+        ),
+    ):
+        pytest.skip("Skipping additional bigint mock repository tests")
+    current_count = await maybe_async(slug_book_service.count())
+    if current_count == 0:
+        _ = await maybe_async(slug_book_service.create_many(raw_slug_books))
+
+    new_book = {"title": "Murder on the Orient Express", "author_id": uuid4().hex}
+    obj = await maybe_async(slug_book_service.create(new_book))
+    assert isinstance(obj, slug_book_model)
+    assert new_book["title"] == obj.title
+    assert obj.slug != "murder-on-the-orient-express"
+    assert obj.id is not None
+
+
+async def test_service_create_many_method_slug(
+    raw_slug_books: RawRecordData,
+    slug_book_service: SlugBookService,
+    slug_book_model: SlugBookModel,
+) -> None:
+    objs = await maybe_async(
+        slug_book_service.create_many(
+            [
+                {"title": " extra!! ", "author_id": uuid4().hex},
+                {"title": "punctuated Book!!", "author_id": uuid4().hex},
+            ],
+        ),
+    )
+    assert isinstance(objs, list)
+    for obj in objs:
+        assert obj.id is not None
+        assert obj.slug in {"extra", "punctuated-book"}
+        assert obj.title in {" extra!! ", "punctuated Book!!"}
+
+
+class AuthorStruct(Struct):
+    name: str
+
+
+class AuthorBaseModel(BaseModel):
+    model_config = {"from_attributes": True}
+    name: str
+
+
+async def test_service_paginated_to_schema(raw_authors: RawRecordData, author_service: AuthorService) -> None:
+    """Test SQLAlchemy list with count in asyncpg.
+
+    Args:
+        raw_authors: list of authors pre-seeded into the mock repository
+        author_service: The author mock repository
+    """
+    exp_count = len(raw_authors)
+    collection, count = await maybe_async(author_service.list_and_count())
+    model_dto = author_service.to_schema(data=collection, total=count)
+    pydantic_dto = author_service.to_schema(data=collection, total=count, schema_type=AuthorBaseModel)
+    msgspec_dto = author_service.to_schema(data=collection, total=count, schema_type=AuthorStruct)
+    assert exp_count == count
+    assert isinstance(model_dto, OffsetPagination)
+    assert isinstance(model_dto.items[0].name, str)
+    assert model_dto.total == exp_count
+    assert isinstance(pydantic_dto, OffsetPagination)
+    assert isinstance(pydantic_dto.items[0].name, str)
+    assert pydantic_dto.total == exp_count
+    assert isinstance(msgspec_dto, OffsetPagination)
+    assert isinstance(msgspec_dto.items[0].name, str)
+    assert msgspec_dto.total == exp_count
+
+
+async def test_service_to_schema(
+    author_service: AuthorService,
+    first_author_id: Any,
+) -> None:
+    """Test SQLAlchemy list with count in asyncpg.
+
+    Args:
+        raw_authors: list of authors pre-seeded into the mock repository
+        author_service: The author mock repository
+    """
+    obj = await maybe_async(author_service.get(first_author_id))
+    model_dto = author_service.to_schema(data=obj)
+    pydantic_dto = author_service.to_schema(data=obj, schema_type=AuthorBaseModel)
+    msgspec_dto = author_service.to_schema(data=obj, schema_type=AuthorStruct)
+    assert isinstance(model_dto.name, str)
+    assert isinstance(pydantic_dto.name, str)
+    assert isinstance(msgspec_dto.name, str)

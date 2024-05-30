@@ -1,13 +1,16 @@
 from __future__ import annotations
 
+import random
 import re
+import string
 from typing import TYPE_CHECKING, Any, Generic, Iterable, List, cast, overload
 from unittest.mock import create_autospec
 
 from sqlalchemy import ColumnElement, Dialect, Select
 from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession
+from sqlalchemy.orm import InstrumentedAttribute
 
-from advanced_alchemy.exceptions import ConflictError, NotFoundError, RepositoryError
+from advanced_alchemy.exceptions import IntegrityError, NotFoundError, RepositoryError
 from advanced_alchemy.filters import (
     BeforeAfter,
     CollectionFilter,
@@ -19,10 +22,16 @@ from advanced_alchemy.filters import (
     OrderBy,
     SearchFilter,
 )
+from advanced_alchemy.repository.memory.base import (
+    AnyObject,
+    CollectionT,
+    InMemoryStore,
+    SQLAlchemyInMemoryStore,
+    SQLAlchemyMultiStore,
+)
 from advanced_alchemy.repository.typing import MISSING, ModelT
 from advanced_alchemy.utils.deprecation import deprecated
-
-from .base import AnyObject, CollectionT, InMemoryStore, SQLAlchemyInMemoryStore, SQLAlchemyMultiStore
+from advanced_alchemy.utils.text import slugify
 
 if TYPE_CHECKING:
     from collections import abc
@@ -40,6 +49,7 @@ class SQLAlchemyAsyncMockRepository(Generic[ModelT]):
     model_type: type[ModelT]
     id_attribute: Any = "id"
     match_fields: list[str] | str | None = None
+    _uniquify_results: bool = False
     _exclude_kwargs: set[str] = {
         "statement",
         "session",
@@ -49,6 +59,8 @@ class SQLAlchemyAsyncMockRepository(Generic[ModelT]):
         "attribute_names",
         "with_for_update",
         "force_basic_query_mode",
+        "load",
+        "execution_options",
     }
 
     def __init__(self, **kwargs: Any) -> None:
@@ -58,26 +70,28 @@ class SQLAlchemyAsyncMockRepository(Generic[ModelT]):
         self._dialect: Dialect = create_autospec(Dialect, instance=True)
         self._dialect.name = "mock"
         self.__filtered_store__: InMemoryStore[ModelT] = self.__database__.store_type()
+        self._default_options: Any = []
+        self._default_execution_options: Any = {}
+        self._loader_options: Any = []
+        self._loader_options_have_wildcards = False
 
     def __init_subclass__(cls) -> None:
-        cls.__database_registry__[cls] = cls.__database__
+        cls.__database_registry__[cls] = cls.__database__  # pyright: ignore[reportGeneralTypeIssues]
 
     @classmethod
     def __database_add__(cls, identity: Any, data: ModelT) -> ModelT:
-        return cast(ModelT, cls.__database__.add(identity, data))
+        return cast("ModelT", cls.__database__.add(identity, data))  # pyright: ignore[reportUnnecessaryCast,reportGeneralTypeIssues]
 
     @classmethod
     def __database_clear__(cls) -> None:
-        for database in cls.__database_registry__.values():
+        for database in cls.__database_registry__.values():  # pyright: ignore[reportGeneralTypeIssues]
             database.remove_all()
 
     @overload
-    def __collection__(self) -> InMemoryStore[ModelT]:
-        ...
+    def __collection__(self) -> InMemoryStore[ModelT]: ...
 
     @overload
-    def __collection__(self, identity: type[AnyObject]) -> InMemoryStore[AnyObject]:
-        ...
+    def __collection__(self, identity: type[AnyObject]) -> InMemoryStore[AnyObject]: ...
 
     def __collection__(
         self,
@@ -95,7 +109,11 @@ class SQLAlchemyAsyncMockRepository(Generic[ModelT]):
         return item_or_none
 
     @classmethod
-    def get_id_attribute_value(cls, item: ModelT | type[ModelT], id_attribute: str | None = None) -> Any:
+    def get_id_attribute_value(
+        cls,
+        item: ModelT | type[ModelT],
+        id_attribute: str | InstrumentedAttribute[Any] | None = None,
+    ) -> Any:
         """Get value of attribute named as :attr:`id_attribute <AbstractAsyncRepository.id_attribute>` on ``item``.
 
         Args:
@@ -106,6 +124,8 @@ class SQLAlchemyAsyncMockRepository(Generic[ModelT]):
         Returns:
             The value of attribute on ``item`` named as :attr:`id_attribute <AbstractAsyncRepository.id_attribute>`.
         """
+        if isinstance(id_attribute, InstrumentedAttribute):
+            id_attribute = id_attribute.key
         return getattr(item, id_attribute if id_attribute is not None else cls.id_attribute)
 
     @classmethod
@@ -113,7 +133,7 @@ class SQLAlchemyAsyncMockRepository(Generic[ModelT]):
         cls,
         item_id: Any,
         item: ModelT,
-        id_attribute: str | None = None,
+        id_attribute: str | InstrumentedAttribute[Any] | None = None,
     ) -> ModelT:
         """Return the ``item`` after the ID is set to the appropriate attribute.
 
@@ -126,6 +146,8 @@ class SQLAlchemyAsyncMockRepository(Generic[ModelT]):
         Returns:
             Item with ``item_id`` set to :attr:`id_attribute <AbstractAsyncRepository.id_attribute>`
         """
+        if isinstance(id_attribute, InstrumentedAttribute):
+            id_attribute = id_attribute.key
         setattr(item, id_attribute if id_attribute is not None else cls.id_attribute, item_id)
         return item
 
@@ -253,7 +275,7 @@ class SQLAlchemyAsyncMockRepository(Generic[ModelT]):
                     value=filter_.value,
                     ignore_case=bool(filter_.ignore_case),
                 )
-            elif not isinstance(filter_, ColumnElement):
+            elif not isinstance(filter_, ColumnElement):  # pyright: ignore[reportUnnecessaryIsInstance]
                 msg = f"Unexpected filter: {filter_}"  # type: ignore[unreachable]
                 raise RepositoryError(msg)
         return result
@@ -287,13 +309,13 @@ class SQLAlchemyAsyncMockRepository(Generic[ModelT]):
     def _find_or_raise_not_found(self, id_: Any) -> ModelT:
         return self.check_not_found(self.__collection__().get_or_none(id_))
 
-    def _find_one_or_raise_conflict(self, result: list[ModelT]) -> ModelT:
+    def _find_one_or_raise_error(self, result: list[ModelT]) -> ModelT:
         if not result:
             msg = "No item found when one was expected"
-            raise ConflictError(msg)
+            raise IntegrityError(msg)
         if len(result) > 1:
             msg = "Multiple objects when one was expected"
-            raise ConflictError(msg)
+            raise IntegrityError(msg)
         return result[0]
 
     @classmethod
@@ -310,7 +332,7 @@ class SQLAlchemyAsyncMockRepository(Generic[ModelT]):
         result = self._filter_result_by_kwargs(self.__collection__().list(), kwargs)
         if len(result) > 1:
             msg = "Multiple objects when one was expected"
-            raise ConflictError(msg)
+            raise IntegrityError(msg)
         return result[0] if result else None
 
     @deprecated(version="0.3.5", alternative="SQLAlchemyAsyncRepository.get_or_upsert", kind="method")
@@ -383,7 +405,7 @@ class SQLAlchemyAsyncMockRepository(Generic[ModelT]):
             self.__database__.add(self.model_type, data)
         except KeyError as exc:
             msg = "Item already exist in collection"
-            raise ConflictError(msg) from exc
+            raise IntegrityError(msg) from exc
         return data
 
     async def add_many(self, data: list[ModelT], **_: Any) -> list[ModelT]:
@@ -393,14 +415,10 @@ class SQLAlchemyAsyncMockRepository(Generic[ModelT]):
 
     async def update(self, data: ModelT, **_: Any) -> ModelT:
         self._find_or_raise_not_found(self.__collection__().key(data))
-        self.__collection__().update(data)
-        return data
+        return self.__collection__().update(data)
 
     async def update_many(self, data: list[ModelT], **_: Any) -> list[ModelT]:
-        for obj in data:
-            if obj in self.__collection__():
-                self.__collection__().update(obj)
-        return data
+        return [self.__collection__().update(obj) for obj in data if obj in self.__collection__()]
 
     async def delete(self, item_id: Any, **_: Any) -> ModelT:
         try:
@@ -441,3 +459,44 @@ class SQLAlchemyAsyncMockRepository(Generic[ModelT]):
         result = self.__collection__().list()
         result = self._apply_filters(result, *filters)
         return self._filter_result_by_kwargs(result, kwargs)
+
+
+class SQLAlchemyAsyncMockSlugRepository(SQLAlchemyAsyncMockRepository[ModelT]):
+    async def get_by_slug(
+        self,
+        slug: str,
+        **kwargs: Any,
+    ) -> ModelT | None:
+        """Select record by slug value."""
+        return await self.get_one_or_none(slug=slug)
+
+    async def get_available_slug(
+        self,
+        value_to_slugify: str,
+        **kwargs: Any,
+    ) -> str:
+        """Get a unique slug for the supplied value.
+
+        If the value is found to exist, a random 4 digit character is appended to the end.
+
+        Override this method to change the default behavior
+
+        Args:
+            value_to_slugify (str): A string that should be converted to a unique slug.
+            **kwargs: stuff
+
+        Returns:
+            str: a unique slug for the supplied value.  This is safe for URLs and other unique identifiers.
+        """
+        slug = slugify(value_to_slugify)
+        if await self._is_slug_unique(slug):
+            return slug
+        random_string = "".join(random.choices(string.ascii_lowercase + string.digits, k=4))  # noqa: S311
+        return f"{slug}-{random_string}"
+
+    async def _is_slug_unique(
+        self,
+        slug: str,
+        **kwargs: Any,
+    ) -> bool:
+        return await self.exists(slug=slug) is False

@@ -1,13 +1,23 @@
-from ._async import SQLAlchemyAsyncRepository
-from ._sync import SQLAlchemySyncRepository
-from ._util import get_instrumented_attr, model_from_dict
-from .memory import SQLAlchemyAsyncMockRepository, SQLAlchemySyncMockRepository
+from advanced_alchemy.repository._async import (
+    SQLAlchemyAsyncQueryRepository,
+    SQLAlchemyAsyncRepository,
+    SQLAlchemyAsyncSlugRepository,
+)
+from advanced_alchemy.repository._sync import (
+    SQLAlchemySyncQueryRepository,
+    SQLAlchemySyncRepository,
+    SQLAlchemySyncSlugRepository,
+)
+from advanced_alchemy.repository._util import LoadSpec, get_instrumented_attr, model_from_dict
 
 __all__ = (
     "SQLAlchemyAsyncRepository",
+    "SQLAlchemyAsyncQueryRepository",
+    "SQLAlchemyAsyncSlugRepository",
+    "SQLAlchemySyncSlugRepository",
     "SQLAlchemySyncRepository",
-    "SQLAlchemyAsyncMockRepository",
-    "SQLAlchemySyncMockRepository",
+    "SQLAlchemySyncQueryRepository",
     "get_instrumented_attr",
     "model_from_dict",
+    "LoadSpec",
 )

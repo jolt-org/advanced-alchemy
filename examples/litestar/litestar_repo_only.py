@@ -1,8 +1,6 @@
 from __future__ import annotations
 
-from datetime import date, datetime
-from typing import TYPE_CHECKING
-from uuid import UUID
+from typing import TYPE_CHECKING, List
 
 from litestar import Litestar
 from litestar.controller import Controller
@@ -22,6 +20,9 @@ from advanced_alchemy.filters import LimitOffset
 from advanced_alchemy.repository import SQLAlchemyAsyncRepository
 
 if TYPE_CHECKING:
+    from datetime import date
+    from uuid import UUID
+
     from sqlalchemy.ext.asyncio import AsyncSession
 
 
@@ -35,7 +36,7 @@ class BaseModel(_BaseModel):
 # The `Base` class includes a `UUID` based primary key (`id`)
 class AuthorModel(UUIDBase):
     # we can optionally provide the table name instead of auto-generating it
-    __tablename__ = "author"  #  type: ignore[assignment]
+    __tablename__ = "author"
     name: Mapped[str]
     dob: Mapped[date | None]
     books: Mapped[list[BookModel]] = relationship(back_populates="author", lazy="noload")
@@ -45,7 +46,7 @@ class AuthorModel(UUIDBase):
 # additional columns: `created` and `updated`. `created` is a timestamp of when the
 # record created, and `updated` is the last time the record was modified.
 class BookModel(UUIDAuditBase):
-    __tablename__ = "book"  #  type: ignore[assignment]
+    __tablename__ = "book"
     title: Mapped[str]
     author_id: Mapped[UUID] = mapped_column(ForeignKey("author.id"))
     author: Mapped[AuthorModel] = relationship(lazy="joined", innerjoin=True, viewonly=True)
@@ -127,7 +128,7 @@ class AuthorController(Controller):
     ) -> OffsetPagination[Author]:
         """List authors."""
         results, total = await authors_repo.list_and_count(limit_offset)
-        type_adapter = TypeAdapter(list[Author])
+        type_adapter = TypeAdapter(List[Author])
         return OffsetPagination[Author](
             items=type_adapter.validate_python(results),
             total=total,
@@ -215,5 +216,4 @@ app = Litestar(
     on_startup=[on_startup],
     plugins=[sqlalchemy_plugin],
     dependencies={"limit_offset": Provide(provide_limit_offset_pagination, sync_to_thread=False)},
-    signature_namespace={"date": date, "datetime": datetime, "UUID": UUID},
 )

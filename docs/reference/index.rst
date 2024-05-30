@@ -20,7 +20,10 @@ Available API References
     operations
     repository
     types
+    service
+    utils
 
     alembic/index
     config/index
     extensions/index
+    mixins/index

@@ -1,6 +1,12 @@
 from __future__ import annotations
 
-from typing import Any
+from contextlib import contextmanager
+from typing import Any, Generator
+
+from sqlalchemy.exc import IntegrityError as SQLAlchemyIntegrityError
+from sqlalchemy.exc import MultipleResultsFound, SQLAlchemyError
+
+from advanced_alchemy.utils.deprecation import deprecated
 
 
 class AdvancedAlchemyError(Exception):
@@ -65,6 +71,51 @@ class RepositoryError(AdvancedAlchemyError):
 class ConflictError(RepositoryError):
     """Data integrity error."""
 
+    @deprecated(
+        version="0.7.1",
+        alternative="advanced_alchemy.exceptions.IntegrityError",
+        kind="method",
+        removal_in="1.0.0",
+        info="`ConflictError` has been renamed to `IntegrityError`",
+    )
+    def __init__(self, *args: Any, detail: str = "") -> None:
+        super().__init__(*args, detail=detail)
+
+
+class IntegrityError(RepositoryError):
+    """Data integrity error."""
+
 
 class NotFoundError(RepositoryError):
     """An identity does not exist."""
+
+
+class MultipleResultsFoundError(AdvancedAlchemyError):
+    """A single database result was required but more than one were found."""
+
+
+@contextmanager
+def wrap_sqlalchemy_exception() -> Generator[None, None, None]:
+    """Do something within context to raise a ``RepositoryError`` chained
+    from an original ``SQLAlchemyError``.
+
+        >>> try:
+        ...     with wrap_sqlalchemy_exception():
+        ...         raise SQLAlchemyError("Original Exception")
+        ... except RepositoryError as exc:
+        ...     print(f"caught repository exception from {type(exc.__context__)}")
+        ...
+        caught repository exception from <class 'sqlalchemy.exc.SQLAlchemyError'>
+    """
+    try:
+        yield
+    except MultipleResultsFound as e:
+        msg = "Multiple rows matched the specified key"
+        raise MultipleResultsFoundError(msg) from e
+    except SQLAlchemyIntegrityError as exc:
+        raise IntegrityError from exc
+    except SQLAlchemyError as exc:
+        msg = f"An exception occurred: {exc}"
+        raise RepositoryError(msg) from exc
+    except AttributeError as exc:
+        raise RepositoryError from exc

@@ -3,21 +3,37 @@
 from __future__ import annotations
 
 from datetime import date, datetime
-from typing import List
+from typing import Any, List
 from uuid import UUID
 
 from sqlalchemy import Column, FetchedValue, ForeignKey, String, Table, func
-from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
-from advanced_alchemy import (
-    SQLAlchemyAsyncMockRepository,
+from advanced_alchemy.base import (
+    SlugKey,
+    TableArgsType,  # pyright: ignore[reportPrivateUsage]
+    UUIDAuditBase,
+    UUIDBase,
+    UUIDv6Base,
+    UUIDv7Base,
+    merge_table_arguments,
+)
+from advanced_alchemy.repository import (
     SQLAlchemyAsyncRepository,
-    SQLAlchemyAsyncRepositoryService,
-    SQLAlchemySyncMockRepository,
+    SQLAlchemyAsyncSlugRepository,
     SQLAlchemySyncRepository,
+    SQLAlchemySyncSlugRepository,
+)
+from advanced_alchemy.repository.memory import (
+    SQLAlchemyAsyncMockRepository,
+    SQLAlchemyAsyncMockSlugRepository,
+    SQLAlchemySyncMockRepository,
+    SQLAlchemySyncMockSlugRepository,
+)
+from advanced_alchemy.service import (
+    SQLAlchemyAsyncRepositoryService,
     SQLAlchemySyncRepositoryService,
 )
-from advanced_alchemy.base import UUIDAuditBase, UUIDBase
 from advanced_alchemy.types.encrypted_string import EncryptedString, EncryptedText
 
 
@@ -41,6 +57,21 @@ class UUIDBook(UUIDBase):
     author: Mapped[UUIDAuthor] = relationship(lazy="joined", innerjoin=True, back_populates="books")  # pyright: ignore
 
 
+class UUIDSlugBook(UUIDBase, SlugKey):
+    """The Book domain object with a slug key."""
+
+    title: Mapped[str] = mapped_column(String(length=250))  # pyright: ignore
+    author_id: Mapped[str] = mapped_column(String(length=250))  # pyright: ignore
+
+    @declared_attr.directive
+    @classmethod
+    def __table_args__(cls) -> TableArgsType:
+        return merge_table_arguments(
+            cls,
+            table_args={"comment": "Slugbook"},
+        )
+
+
 class UUIDEventLog(UUIDAuditBase):
     """The event log domain object."""
 
@@ -48,7 +79,7 @@ class UUIDEventLog(UUIDAuditBase):
     payload: Mapped[dict] = mapped_column(default={})  # pyright: ignore
 
 
-class UUIDSecret(UUIDBase):
+class UUIDSecret(UUIDv7Base):
     """The secret domain model."""
 
     secret: Mapped[str] = mapped_column(
@@ -59,7 +90,7 @@ class UUIDSecret(UUIDBase):
     )
 
 
-class UUIDModelWithFetchedValue(UUIDBase):
+class UUIDModelWithFetchedValue(UUIDv6Base):
     """The ModelWithFetchedValue UUIDBase."""
 
     val: Mapped[int]  # pyright: ignore
@@ -152,6 +183,32 @@ class BookSyncMockRepository(SQLAlchemySyncMockRepository[UUIDBook]):
     """Book repository."""
 
     model_type = UUIDBook
+
+
+class SlugBookAsyncRepository(SQLAlchemyAsyncSlugRepository[UUIDSlugBook]):
+    """Book repository."""
+
+    _uniquify_results = True
+    model_type = UUIDSlugBook
+
+
+class SlugBookSyncRepository(SQLAlchemySyncSlugRepository[UUIDSlugBook]):
+    """Slug Book repository."""
+
+    _uniquify_results = True
+    model_type = UUIDSlugBook
+
+
+class SlugBookAsyncMockRepository(SQLAlchemyAsyncMockSlugRepository[UUIDSlugBook]):
+    """Book repository."""
+
+    model_type = UUIDSlugBook
+
+
+class SlugBookSyncMockRepository(SQLAlchemySyncMockSlugRepository[UUIDSlugBook]):
+    """Book repository."""
+
+    model_type = UUIDSlugBook
 
 
 class EventLogAsyncRepository(SQLAlchemyAsyncRepository[UUIDEventLog]):
@@ -419,3 +476,70 @@ class SecretSyncService(SQLAlchemySyncRepositoryService[UUIDSecret]):
     """Rule repository."""
 
     repository_type = SecretSyncRepository
+
+
+class SlugBookAsyncService(SQLAlchemyAsyncRepositoryService[UUIDSlugBook]):
+    """Book repository."""
+
+    repository_type = SlugBookAsyncRepository
+    match_fields = ["title"]
+
+    def __init__(self, **repo_kwargs: Any) -> None:
+        self.repository: SlugBookAsyncRepository = self.repository_type(**repo_kwargs)
+
+    async def to_model(self, data: UUIDSlugBook | dict[str, Any], operation: str | None = None) -> UUIDSlugBook:
+        if isinstance(data, dict) and "slug" not in data and operation == "create":
+            data["slug"] = await self.repository.get_available_slug(data["title"])
+        if isinstance(data, dict) and "slug" not in data and "title" in data and operation == "update":
+            data["slug"] = await self.repository.get_available_slug(data["title"])
+        return await super().to_model(data, operation)
+
+
+class SlugBookSyncService(SQLAlchemySyncRepositoryService[UUIDSlugBook]):
+    """Book repository."""
+
+    repository_type = SlugBookSyncRepository
+
+    def __init__(self, **repo_kwargs: Any) -> None:
+        self.repository: SlugBookSyncRepository = self.repository_type(**repo_kwargs)
+
+    def to_model(self, data: UUIDSlugBook | dict[str, Any], operation: str | None = None) -> UUIDSlugBook:
+        if isinstance(data, dict) and "slug" not in data and operation == "create":
+            data["slug"] = self.repository.get_available_slug(data["title"])
+        if isinstance(data, dict) and "slug" not in data and "title" in data and operation == "update":
+            data["slug"] = self.repository.get_available_slug(data["title"])
+        return super().to_model(data, operation)
+
+
+class SlugBookAsyncMockService(SQLAlchemyAsyncRepositoryService[UUIDSlugBook]):
+    """Book repository."""
+
+    repository_type = SlugBookAsyncMockRepository
+    match_fields = ["title"]
+
+    def __init__(self, **repo_kwargs: Any) -> None:
+        self.repository: SlugBookAsyncMockRepository = self.repository_type(**repo_kwargs)
+
+    async def to_model(self, data: UUIDSlugBook | dict[str, Any], operation: str | None = None) -> UUIDSlugBook:
+        if isinstance(data, dict) and "slug" not in data and operation == "create":
+            data["slug"] = await self.repository.get_available_slug(data["title"])
+        if isinstance(data, dict) and "slug" not in data and "title" in data and operation == "update":
+            data["slug"] = await self.repository.get_available_slug(data["title"])
+        return await super().to_model(data, operation)
+
+
+class SlugBookSyncMockService(SQLAlchemySyncRepositoryService[UUIDSlugBook]):
+    """Book repository."""
+
+    repository_type = SlugBookSyncMockRepository
+    match_fields = ["title"]
+
+    def __init__(self, **repo_kwargs: Any) -> None:
+        self.repository: SlugBookSyncMockRepository = self.repository_type(**repo_kwargs)
+
+    def to_model(self, data: UUIDSlugBook | dict[str, Any], operation: str | None = None) -> UUIDSlugBook:
+        if isinstance(data, dict) and "slug" not in data and operation == "create":
+            data["slug"] = self.repository.get_available_slug(data["title"])
+        if isinstance(data, dict) and "slug" not in data and "title" in data and operation == "update":
+            data["slug"] = self.repository.get_available_slug(data["title"])
+        return super().to_model(data, operation)

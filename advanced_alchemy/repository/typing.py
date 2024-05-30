@@ -1,32 +1,29 @@
-from typing import TYPE_CHECKING, Any, Tuple, TypeVar
+from typing import TYPE_CHECKING, Any, Tuple, TypeVar, Union
 
 if TYPE_CHECKING:
-    from sqlalchemy import Select
+    from sqlalchemy import RowMapping, Select
 
     from advanced_alchemy import base
-
-    from ._async import SQLAlchemyAsyncRepository
-    from ._sync import SQLAlchemySyncRepository
+    from advanced_alchemy.repository._async import SQLAlchemyAsyncRepository
+    from advanced_alchemy.repository._sync import SQLAlchemySyncRepository
 
 __all__ = (
     "ModelT",
     "SelectT",
     "RowT",
+    "MISSING",
     "SQLAlchemySyncRepositoryT",
     "SQLAlchemyAsyncRepositoryT",
-    "MISSING",
 )
 
 T = TypeVar("T")
 ModelT = TypeVar("ModelT", bound="base.ModelProtocol")
-
-
 SelectT = TypeVar("SelectT", bound="Select[Any]")
 RowT = TypeVar("RowT", bound=Tuple[Any, ...])
-
-
-SQLAlchemySyncRepositoryT = TypeVar("SQLAlchemySyncRepositoryT", bound="SQLAlchemySyncRepository")
-SQLAlchemyAsyncRepositoryT = TypeVar("SQLAlchemyAsyncRepositoryT", bound="SQLAlchemyAsyncRepository")
+RowMappingT = TypeVar("RowMappingT", bound="RowMapping")
+ModelOrRowMappingT = TypeVar("ModelOrRowMappingT", bound="Union[base.ModelProtocol, RowMapping]")
+SQLAlchemySyncRepositoryT = TypeVar("SQLAlchemySyncRepositoryT", bound="SQLAlchemySyncRepository[Any]")
+SQLAlchemyAsyncRepositoryT = TypeVar("SQLAlchemyAsyncRepositoryT", bound="SQLAlchemyAsyncRepository[Any]")
 
 
 class _MISSING:

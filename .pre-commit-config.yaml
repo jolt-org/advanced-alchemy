@@ -1,14 +1,14 @@
 default_language_version:
-  python: "3.11"
+  python: python3
 default_install_hook_types: [commit-msg, pre-commit]
 repos:
   - repo: https://github.com/compilerla/conventional-pre-commit
-    rev: v3.0.0
+    rev: v3.2.0
     hooks:
       - id: conventional-pre-commit
         stages: [commit-msg]
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
+    rev: v4.6.0
     hooks:
       - id: check-ast
       - id: check-case-conflict
@@ -23,23 +23,20 @@ repos:
       - id: unasyncd
         additional_dependencies: ["ruff"]
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: "v0.1.11"
+    rev: "v0.4.6"
     hooks:
       - id: ruff
         args: ["--fix"]
         exclude: "docs"
   - repo: https://github.com/codespell-project/codespell
-    rev: v2.2.6
+    rev: v2.3.0
     hooks:
       - id: codespell
         exclude: "pdm.lock|examples/us_state_lookup.json"
-  - repo: https://github.com/psf/black
-    rev: 23.12.1
-    hooks:
-      - id: black
-        args: [--config=./pyproject.toml]
+        additional_dependencies:
+          - tomli
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: "v1.8.0"
+    rev: "v1.10.0"
     hooks:
       - id: mypy
         exclude: "docs"
@@ -51,6 +48,7 @@ repos:
             asyncmy,
             asyncpg,
             asyncpg_stubs,
+            uuid_utils,
             oracledb,
             psycopg,
             pytest,
@@ -59,7 +57,6 @@ repos:
             time-machine,
             httpx,
             "sanic[ext]",
-            socketify,
             fastapi,
             pytest-mock,
             pytest-timeout,

@@ -26,20 +26,43 @@ def _patch_bases(monkeypatch: MonkeyPatch) -> None:
 
     from advanced_alchemy import base
 
-    class NewUUIDBase(base.UUIDPrimaryKey, base.CommonTableAttributes, DeclarativeBase):
-        ...
+    class NewUUIDBase(base.UUIDPrimaryKey, base.CommonTableAttributes, DeclarativeBase): ...
 
-    class NewUUIDAuditBase(base.UUIDPrimaryKey, base.CommonTableAttributes, base.AuditColumns, DeclarativeBase):
-        ...
+    class NewUUIDAuditBase(
+        base.UUIDPrimaryKey,
+        base.CommonTableAttributes,
+        base.AuditColumns,
+        DeclarativeBase,
+    ): ...
 
-    class NewBigIntBase(base.BigIntPrimaryKey, base.CommonTableAttributes, DeclarativeBase):
-        ...
+    class NewUUIDv6Base(base.UUIDPrimaryKey, base.CommonTableAttributes, DeclarativeBase): ...
 
-    class NewBigIntAuditBase(base.BigIntPrimaryKey, base.CommonTableAttributes, base.AuditColumns, DeclarativeBase):
-        ...
+    class NewUUIDv6AuditBase(
+        base.UUIDPrimaryKey,
+        base.CommonTableAttributes,
+        base.AuditColumns,
+        DeclarativeBase,
+    ): ...
+
+    class NewUUIDv7Base(base.UUIDPrimaryKey, base.CommonTableAttributes, DeclarativeBase): ...
+
+    class NewUUIDv7AuditBase(
+        base.UUIDPrimaryKey,
+        base.CommonTableAttributes,
+        base.AuditColumns,
+        DeclarativeBase,
+    ): ...
+
+    class NewBigIntBase(base.BigIntPrimaryKey, base.CommonTableAttributes, DeclarativeBase): ...
+
+    class NewBigIntAuditBase(base.BigIntPrimaryKey, base.CommonTableAttributes, base.AuditColumns, DeclarativeBase): ...
 
     monkeypatch.setattr(base, "UUIDBase", NewUUIDBase)
     monkeypatch.setattr(base, "UUIDAuditBase", NewUUIDAuditBase)
+    monkeypatch.setattr(base, "UUIDv6Base", NewUUIDv6Base)
+    monkeypatch.setattr(base, "UUIDv6AuditBase", NewUUIDv6AuditBase)
+    monkeypatch.setattr(base, "UUIDv7Base", NewUUIDv7Base)
+    monkeypatch.setattr(base, "UUIDv7AuditBase", NewUUIDv7AuditBase)
     monkeypatch.setattr(base, "BigIntBase", NewBigIntBase)
     monkeypatch.setattr(base, "BigIntAuditBase", NewBigIntAuditBase)
 
@@ -168,6 +191,7 @@ def spanner_engine(docker_ip: str, spanner_service: None, monkeypatch: MonkeyPat
 
     return create_engine(
         "spanner+spanner:///projects/emulator-test-project/instances/test-instance/databases/test-database",
+        poolclass=NullPool,
     )
 
 
@@ -363,7 +387,7 @@ async def mssql_async_engine(docker_ip: str, mssql_service: None) -> AsyncEngine
                 "TrustServerCertificate": "yes",
                 # NOTE: MARS_Connection is only needed for the concurrent async tests
                 # lack of this causes some tests to fail
-                # https://github.com/jolt-org/advanced-alchemy/actions/runs/6800623970/job/18493034767?pr=94
+                # https://github.com/litestar-org/advanced-alchemy/actions/runs/6800623970/job/18493034767?pr=94
                 "MARS_Connection": "yes",
             },  # type:ignore[arg-type]
         ),
