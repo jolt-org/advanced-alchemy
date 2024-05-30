@@ -409,7 +409,7 @@ data-aria-dark="Switch to auto color mode">
 </span><span data-line="86">    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">loader_options</span><span class="p">,</span> <span class="n">_AbstractLoad</span><span class="p">):</span>
 </span><span data-line="87">        <span class="k">return</span> <span class="p">([</span><span class="n">loader_options</span><span class="p">],</span> <span class="n">options_have_wildcards</span><span class="p">)</span>
 </span><span data-line="88">    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">loader_options</span><span class="p">,</span> <span class="n">InstrumentedAttribute</span><span class="p">):</span>
-</span><span data-line="89">        <span class="n">loader_options</span> <span class="o">=</span> <span class="n">loader_options</span><span class="o">.</span><span class="n">property</span>
+</span><span data-line="89">        <span class="n">loader_options</span> <span class="o">=</span> <span class="p">[</span><span class="n">loader_options</span><span class="o">.</span><span class="n">property</span><span class="p">]</span>
 </span><span data-line="90">    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">loader_options</span><span class="p">,</span> <span class="n">RelationshipProperty</span><span class="p">):</span>
 </span><span data-line="91">        <span class="n">class_</span> <span class="o">=</span> <span class="n">loader_options</span><span class="o">.</span><span class="n">class_attribute</span>
 </span><span data-line="92">        <span class="k">return</span> <span class="p">(</span>
