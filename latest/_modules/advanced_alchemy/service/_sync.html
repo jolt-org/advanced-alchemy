@@ -921,7 +921,7 @@ data-aria-dark="Switch to auto color mode">
 </span><span data-line="598">        <span class="n">match_fields</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 </span><span data-line="599">        <span class="n">load</span><span class="p">:</span> <span class="n">LoadSpec</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 </span><span data-line="600">        <span class="n">execution_options</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span data-line="601">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">ModelT</span><span class="p">]:</span>
+</span><span data-line="601">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">ModelT</span><span class="p">]:</span>
 </span><span data-line="602"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Wrap repository upsert operation.</span>
 </span><span data-line="603">
 </span><span data-line="604"><span class="sd">        Args:</span>
@@ -1128,7 +1128,40 @@ data-aria-dark="Switch to auto color mode">
 </span><span data-line="805">            <span class="n">chunk_size</span><span class="o">=</span><span class="n">chunk_size</span><span class="p">,</span>
 </span><span data-line="806">            <span class="n">load</span><span class="o">=</span><span class="n">load</span><span class="p">,</span>
 </span><span data-line="807">            <span class="n">execution_options</span><span class="o">=</span><span class="n">execution_options</span><span class="p">,</span>
-</span><span data-line="808">        <span class="p">)</span></div></div>
+</span><span data-line="808">        <span class="p">)</span></div>
+</span><span data-line="809">
+<div class="viewcode-block" id="SQLAlchemySyncRepositoryService.delete_where"><a class="viewcode-back" href="../../../reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.delete_where">[docs]</a></span><span data-line="810">    <span class="k">def</span> <span class="nf">delete_where</span><span class="p">(</span>
+</span><span data-line="811">        <span class="bp">self</span><span class="p">,</span>
+</span><span data-line="812">        <span class="o">*</span><span class="n">filters</span><span class="p">:</span> <span class="n">StatementFilter</span> <span class="o">|</span> <span class="n">ColumnElement</span><span class="p">[</span><span class="nb">bool</span><span class="p">],</span>
+</span><span data-line="813">        <span class="n">auto_commit</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="814">        <span class="n">auto_expunge</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="815">        <span class="n">load</span><span class="p">:</span> <span class="n">LoadSpec</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="816">        <span class="n">execution_options</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="817">        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+</span><span data-line="818">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">ModelT</span><span class="p">]:</span>
+</span><span data-line="819"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Wrap repository scalars operation.</span>
+</span><span data-line="820">
+</span><span data-line="821"><span class="sd">        Args:</span>
+</span><span data-line="822"><span class="sd">            *filters: Types for specific filtering operations.</span>
+</span><span data-line="823"><span class="sd">            auto_expunge: Remove object from session before returning. Defaults to</span>
+</span><span data-line="824"><span class="sd">                :class:`SQLAlchemyAsyncRepository.auto_expunge &lt;SQLAlchemyAsyncRepository&gt;`</span>
+</span><span data-line="825"><span class="sd">            auto_commit: Commit objects before returning. Defaults to</span>
+</span><span data-line="826"><span class="sd">                :class:`SQLAlchemyAsyncRepository.auto_commit &lt;SQLAlchemyAsyncRepository&gt;`</span>
+</span><span data-line="827"><span class="sd">            load: Set default relationships to be loaded</span>
+</span><span data-line="828"><span class="sd">            execution_options: Set default execution options</span>
+</span><span data-line="829"><span class="sd">            **kwargs: Instance attribute value filters.</span>
+</span><span data-line="830">
+</span><span data-line="831"><span class="sd">        Returns:</span>
+</span><span data-line="832"><span class="sd">            The list of instances deleted from the repository.</span>
+</span><span data-line="833"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span data-line="834">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">repository</span><span class="o">.</span><span class="n">delete_where</span><span class="p">(</span>
+</span><span data-line="835">            <span class="o">*</span><span class="n">filters</span><span class="p">,</span>
+</span><span data-line="836">            <span class="n">auto_commit</span><span class="o">=</span><span class="n">auto_commit</span><span class="p">,</span>
+</span><span data-line="837">            <span class="n">auto_expunge</span><span class="o">=</span><span class="n">auto_expunge</span><span class="p">,</span>
+</span><span data-line="838">            <span class="n">load</span><span class="o">=</span><span class="n">load</span><span class="p">,</span>
+</span><span data-line="839">            <span class="n">execution_options</span><span class="o">=</span><span class="n">execution_options</span><span class="p">,</span>
+</span><span data-line="840">            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+</span><span data-line="841">        <span class="p">)</span></div></div>
 </span></pre></div>
         </article>
         <button class="back-to-top" type="button">
