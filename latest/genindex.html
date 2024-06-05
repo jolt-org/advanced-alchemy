@@ -610,8 +610,6 @@ data-aria-dark="Switch to auto color mode">
 </li>
         <li><a href="reference/filters.html#advanced_alchemy.filters.SearchFilter.__init__">(advanced_alchemy.filters.SearchFilter method)</a>
 </li>
-        <li><a href="reference/filters.html#advanced_alchemy.filters.TextSearchFilter.__init__">(advanced_alchemy.filters.TextSearchFilter method)</a>
-</li>
         <li><a href="reference/operations.html#advanced_alchemy.operations.Merge.__init__">(advanced_alchemy.operations.Merge method)</a>
 </li>
         <li><a href="reference/operations.html#advanced_alchemy.operations.MergeClause.__init__">(advanced_alchemy.operations.MergeClause method)</a>
@@ -873,8 +871,6 @@ data-aria-dark="Switch to auto color mode">
 </li>
         <li><a href="reference/filters.html#advanced_alchemy.filters.NotInCollectionFilter.append_to_lambda_statement">(advanced_alchemy.filters.NotInCollectionFilter method)</a>
 </li>
-        <li><a href="reference/filters.html#advanced_alchemy.filters.NotInSearchFilter.append_to_lambda_statement">(advanced_alchemy.filters.NotInSearchFilter method)</a>
-</li>
         <li><a href="reference/filters.html#advanced_alchemy.filters.OnBeforeAfter.append_to_lambda_statement">(advanced_alchemy.filters.OnBeforeAfter method)</a>
 </li>
         <li><a href="reference/filters.html#advanced_alchemy.filters.OrderBy.append_to_lambda_statement">(advanced_alchemy.filters.OrderBy method)</a>
@@ -892,8 +888,6 @@ data-aria-dark="Switch to auto color mode">
         <li><a href="reference/filters.html#advanced_alchemy.filters.LimitOffset.append_to_statement">(advanced_alchemy.filters.LimitOffset method)</a>
 </li>
         <li><a href="reference/filters.html#advanced_alchemy.filters.NotInCollectionFilter.append_to_statement">(advanced_alchemy.filters.NotInCollectionFilter method)</a>
-</li>
-        <li><a href="reference/filters.html#advanced_alchemy.filters.NotInSearchFilter.append_to_statement">(advanced_alchemy.filters.NotInSearchFilter method)</a>
 </li>
         <li><a href="reference/filters.html#advanced_alchemy.filters.OnBeforeAfter.append_to_statement">(advanced_alchemy.filters.OnBeforeAfter method)</a>
 </li>
@@ -1822,7 +1816,7 @@ data-aria-dark="Switch to auto color mode">
 </li>
         <li><a href="reference/filters.html#advanced_alchemy.filters.OrderBy.field_name">(advanced_alchemy.filters.OrderBy attribute)</a>
 </li>
-        <li><a href="reference/filters.html#advanced_alchemy.filters.TextSearchFilter.field_name">(advanced_alchemy.filters.TextSearchFilter attribute)</a>
+        <li><a href="reference/filters.html#advanced_alchemy.filters.SearchFilter.field_name">(advanced_alchemy.filters.SearchFilter attribute)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -1951,6 +1945,8 @@ data-aria-dark="Switch to auto color mode">
         <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.get_or_upsert">(advanced_alchemy.service.SQLAlchemySyncRepositoryService method)</a>
 </li>
       </ul></li>
+      <li><a href="reference/filters.html#advanced_alchemy.filters.SearchFilter.get_search_clauses">get_search_clauses() (advanced_alchemy.filters.SearchFilter method)</a>
+</li>
       <li><a href="reference/alembic/commands.html#advanced_alchemy.alembic.commands.AlembicCommandConfig.get_template_directory">get_template_directory() (advanced_alchemy.alembic.commands.AlembicCommandConfig method)</a>
 </li>
       <li><a href="reference/types.html#advanced_alchemy.types.GUID">GUID (class in advanced_alchemy.types)</a>
@@ -2021,7 +2017,7 @@ data-aria-dark="Switch to auto color mode">
         <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryService.update.params.id_attribute">(advanced_alchemy.service.SQLAlchemySyncRepositoryService.update parameter)</a>
 </li>
       </ul></li>
-      <li><a href="reference/filters.html#advanced_alchemy.filters.TextSearchFilter.ignore_case">ignore_case (advanced_alchemy.filters.TextSearchFilter attribute)</a>
+      <li><a href="reference/filters.html#advanced_alchemy.filters.SearchFilter.ignore_case">ignore_case (advanced_alchemy.filters.SearchFilter attribute)</a>
 </li>
       <li><a href="reference/types.html#advanced_alchemy.types.EncryptedString.impl">impl (advanced_alchemy.types.EncryptedString attribute)</a>
 
@@ -2625,7 +2621,7 @@ data-aria-dark="Switch to auto color mode">
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="reference/filters.html#advanced_alchemy.filters.TextSearchFilter.normalized_field_names">normalized_field_names (advanced_alchemy.filters.TextSearchFilter property)</a>
+      <li><a href="reference/filters.html#advanced_alchemy.filters.SearchFilter.normalized_field_names">normalized_field_names (advanced_alchemy.filters.SearchFilter property)</a>
 </li>
       <li><a href="reference/exceptions.html#advanced_alchemy.exceptions.NotFoundError">NotFoundError</a>
 </li>
@@ -3070,18 +3066,16 @@ data-aria-dark="Switch to auto color mode">
 </li>
       <li><a href="reference/config/common.html#advanced_alchemy.config.common.GenericAlembicConfig.template_path">template_path (advanced_alchemy.config.common.GenericAlembicConfig attribute)</a>
 </li>
-      <li><a href="reference/filters.html#advanced_alchemy.filters.TextSearchFilter">TextSearchFilter (class in advanced_alchemy.filters)</a>
-</li>
       <li><a href="reference/base.html#advanced_alchemy.base.ModelProtocol.to_dict">to_dict() (advanced_alchemy.base.ModelProtocol method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService.to_model">to_model() (advanced_alchemy.service.SQLAlchemyAsyncRepositoryReadService method)</a>
 
       <ul>
         <li><a href="reference/service.html#advanced_alchemy.service.SQLAlchemySyncRepositoryReadService.to_model">(advanced_alchemy.service.SQLAlchemySyncRepositoryReadService method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/service.html#advanced_alchemy.service.OffsetPagination.total">total (advanced_alchemy.service.OffsetPagination attribute)</a>
 </li>
       <li><a href="reference/config/common.html#advanced_alchemy.config.common.GenericSessionConfig.twophase">twophase (advanced_alchemy.config.common.GenericSessionConfig attribute)</a>
@@ -3190,7 +3184,7 @@ data-aria-dark="Switch to auto color mode">
 <h2 id="V">V</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="reference/filters.html#advanced_alchemy.filters.TextSearchFilter.value">value (advanced_alchemy.filters.TextSearchFilter attribute)</a>
+      <li><a href="reference/filters.html#advanced_alchemy.filters.SearchFilter.value">value (advanced_alchemy.filters.SearchFilter attribute)</a>
 
       <ul>
         <li><a href="reference/types.html#advanced_alchemy.types.DateTimeUTC.process_bind_param.params.value">(advanced_alchemy.types.DateTimeUTC.process_bind_param parameter)</a>
