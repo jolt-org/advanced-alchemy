@@ -1660,6 +1660,24 @@ async def test_repo_filter_search(author_repo: AnyAuthorRepository) -> None:
     assert existing_obj[0].name == "Agatha Christie"
 
 
+async def test_repo_filter_search_multi_field(author_repo: AnyAuthorRepository) -> None:
+    existing_obj = await maybe_async(
+        author_repo.list(SearchFilter(field_name={"name", "string_field"}, value="gath", ignore_case=False)),
+    )
+    assert existing_obj[0].name == "Agatha Christie"
+    existing_obj = await maybe_async(
+        author_repo.list(SearchFilter(field_name={"name", "string_field"}, value="GATH", ignore_case=False)),
+    )
+    # sqlite & mysql are case insensitive by default with a `LIKE`
+    dialect = author_repo.session.bind.dialect.name if author_repo.session.bind else "default"
+    expected_objs = 1 if dialect in {"sqlite", "mysql", "mssql"} else 0
+    assert len(existing_obj) == expected_objs
+    existing_obj = await maybe_async(
+        author_repo.list(SearchFilter(field_name={"name", "string_field"}, value="GATH", ignore_case=True)),
+    )
+    assert existing_obj[0].name == "Agatha Christie"
+
+
 async def test_repo_filter_not_in_search(author_repo: AnyAuthorRepository) -> None:
     existing_obj = await maybe_async(
         author_repo.list(NotInSearchFilter(field_name="name", value="gath", ignore_case=False)),
@@ -1673,7 +1691,25 @@ async def test_repo_filter_not_in_search(author_repo: AnyAuthorRepository) -> No
     expected_objs = 1 if dialect in {"sqlite", "mysql", "mssql"} else 2
     assert len(existing_obj) == expected_objs
     existing_obj = await maybe_async(
-        author_repo.list(NotInSearchFilter(field_name="name", value="GATH", ignore_case=True)),
+        author_repo.list(NotInSearchFilter(field_name={"name", "string_field"}, value="GATH", ignore_case=True)),
+    )
+    assert existing_obj[0].name == "Leo Tolstoy"
+
+
+async def test_repo_filter_not_in_search_multi_field(author_repo: AnyAuthorRepository) -> None:
+    existing_obj = await maybe_async(
+        author_repo.list(NotInSearchFilter(field_name={"name", "string_field"}, value="gath", ignore_case=False)),
+    )
+    assert existing_obj[0].name == "Leo Tolstoy"
+    existing_obj = await maybe_async(
+        author_repo.list(NotInSearchFilter(field_name={"name", "string_field"}, value="GATH", ignore_case=False)),
+    )
+    # sqlite & mysql are case insensitive by default with a `LIKE`
+    dialect = author_repo.session.bind.dialect.name if author_repo.session.bind else "default"
+    expected_objs = 1 if dialect in {"sqlite", "mysql", "mssql"} else 2
+    assert len(existing_obj) == expected_objs
+    existing_obj = await maybe_async(
+        author_repo.list(NotInSearchFilter(field_name={"name", "string_field"}, value="GATH", ignore_case=True)),
     )
     assert existing_obj[0].name == "Leo Tolstoy"
 
@@ -1701,14 +1737,14 @@ async def test_repo_filter_collection(
 async def test_repo_filter_no_obj_collection(
     author_repo: AnyAuthorRepository,
 ) -> None:
-    no_obj = await maybe_async(author_repo.list(CollectionFilter(field_name="id", values=[])))
+    no_obj = await maybe_async(author_repo.list(CollectionFilter[str](field_name="id", values=[])))
     assert no_obj == []
 
 
 async def test_repo_filter_null_collection(
     author_repo: AnyAuthorRepository,
 ) -> None:
-    no_obj = await maybe_async(author_repo.list(CollectionFilter(field_name="id", values=None)))
+    no_obj = await maybe_async(author_repo.list(CollectionFilter[str](field_name="id", values=None)))
     assert len(no_obj) > 0
 
 
@@ -1730,14 +1766,14 @@ async def test_repo_filter_not_in_collection(
 async def test_repo_filter_not_in_no_obj_collection(
     author_repo: AnyAuthorRepository,
 ) -> None:
-    existing_obj = await maybe_async(author_repo.list(NotInCollectionFilter(field_name="id", values=[])))
+    existing_obj = await maybe_async(author_repo.list(NotInCollectionFilter[str](field_name="id", values=[])))
     assert len(existing_obj) > 0
 
 
 async def test_repo_filter_not_in_null_collection(
     author_repo: AnyAuthorRepository,
 ) -> None:
-    existing_obj = await maybe_async(author_repo.list(NotInCollectionFilter(field_name="id", values=None)))
+    existing_obj = await maybe_async(author_repo.list(NotInCollectionFilter[str](field_name="id", values=None)))
     assert len(existing_obj) > 0
 
 
@@ -2109,6 +2145,38 @@ async def test_service_delete_many_method(author_service: AuthorService, author_
     data, count = await maybe_async(author_service.list_and_count())
     assert data == []
     assert count == 0
+
+
+async def test_service_delete_where_method_empty(author_service: AuthorService, author_model: AuthorModel) -> None:
+    data_to_insert = [author_model(name="author name %d" % chunk) for chunk in range(2000)]
+    _ = await maybe_async(author_service.create_many(data_to_insert))
+    total_count = await maybe_async(author_service.count())
+    all_objs = await maybe_async(author_service.delete_where())
+    assert len(all_objs) == total_count
+    data, count = await maybe_async(author_service.list_and_count())
+    assert data == []
+    assert count == 0
+
+
+async def test_service_delete_where_method_filter(author_service: AuthorService, author_model: AuthorModel) -> None:
+    data_to_insert = [author_model(name="delete me") for _ in range(2000)]
+    _ = await maybe_async(author_service.create_many(data_to_insert))
+    all_objs = await maybe_async(author_service.delete_where(name="delete me"))
+    assert len(all_objs) == len(data_to_insert)
+    count = await maybe_async(author_service.count())
+    assert count == 2
+
+
+async def test_service_delete_where_method_search_filter(
+    author_service: AuthorService,
+    author_model: AuthorModel,
+) -> None:
+    data_to_insert = [author_model(name="delete me") for _ in range(2000)]
+    _ = await maybe_async(author_service.create_many(data_to_insert))
+    all_objs = await maybe_async(author_service.delete_where(NotInSearchFilter(field_name="name", value="delete me")))
+    assert len(all_objs) == 2
+    count = await maybe_async(author_service.count())
+    assert count == len(data_to_insert)
 
 
 async def test_service_get_method(author_service: AuthorService, first_author_id: Any) -> None:
