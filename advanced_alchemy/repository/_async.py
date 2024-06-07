@@ -107,15 +107,15 @@ class SQLAlchemyAsyncRepository(FilterableRepository[ModelT]):
         item: ModelT | type[ModelT],
         id_attribute: str | InstrumentedAttribute[Any] | None = None,
     ) -> Any:
-        """Get value of attribute named as :attr:`id_attribute <AbstractAsyncRepository.id_attribute>` on ``item``.
+        """Get value of attribute named as :attr:`.id_attribute` on ``item``.
 
         Args:
-            item: Anything that should have an attribute named as :attr:`id_attribute <AbstractAsyncRepository.id_attribute>` value.
+            item: Anything that should have an attribute named as :attr:`.id_attribute` value.
             id_attribute: Allows customization of the unique identifier to use for model fetching.
                 Defaults to `None`, but can reference any surrogate or candidate key for the table.
 
         Returns:
-            The value of attribute on ``item`` named as :attr:`id_attribute <AbstractAsyncRepository.id_attribute>`.
+            The value of attribute on ``item`` named as :attr:`.id_attribute`.
         """
         if isinstance(id_attribute, InstrumentedAttribute):
             id_attribute = id_attribute.key
@@ -132,12 +132,12 @@ class SQLAlchemyAsyncRepository(FilterableRepository[ModelT]):
 
         Args:
             item_id: Value of ID to be set on instance
-            item: Anything that should have an attribute named as :attr:`id_attribute <AbstractAsyncRepository.id_attribute>` value.
+            item: Anything that should have an attribute named as :attr:`.id_attribute` value.
             id_attribute: Allows customization of the unique identifier to use for model fetching.
                 Defaults to `None`, but can reference any surrogate or candidate key for the table.
 
         Returns:
-            Item with ``item_id`` set to :attr:`id_attribute <AbstractAsyncRepository.id_attribute>`
+            Item with ``item_id`` set to :attr:`.id_attribute`
         """
         if isinstance(id_attribute, InstrumentedAttribute):
             id_attribute = id_attribute.key
@@ -1303,13 +1303,13 @@ class SQLAlchemyAsyncRepository(FilterableRepository[ModelT]):
         Update instances with the attribute values present on `data`, or create a new instance if
         one doesn't exist.
 
-        !!! tip
+        .. tip::
             In most cases, you will want to set `match_fields` to the combination of attributes, excluded the primary key, that define uniqueness for a row.
 
         Args:
             data: Instance to update existing, or be created. Identifier used to determine if an
                 existing instance exists is the value of an attribute on ``data`` named as value of
-                :attr:`~advanced_alchemy.repository.AbstractAsyncRepository.id_attribute`.
+                :attr:`.id_attribute`.
             auto_expunge: Remove object from session before returning. Defaults to
                 :class:`SQLAlchemyAsyncRepository.auto_expunge <SQLAlchemyAsyncRepository>`.
             auto_commit: Commit objects before returning. Defaults to

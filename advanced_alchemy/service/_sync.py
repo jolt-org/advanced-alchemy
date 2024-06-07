@@ -604,7 +604,7 @@ class SQLAlchemySyncRepositoryService(SQLAlchemySyncRepositoryReadService[ModelT
         Args:
             data: Instance to update existing, or be created. Identifier used to determine if an
                 existing instance exists is the value of an attribute on ``data`` named as value of
-                :attr:`~advanced_alchemy.repository.AbstractAsyncRepository.id_attribute`.
+                :attr:`.id_attribute`.
             auto_expunge: Remove object from session before returning. Defaults to
                 :class:`SQLAlchemyAsyncRepository.auto_expunge <SQLAlchemyAsyncRepository>`.
             auto_commit: Commit objects before returning. Defaults to
