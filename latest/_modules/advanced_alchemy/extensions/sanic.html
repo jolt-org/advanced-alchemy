@@ -345,7 +345,7 @@ data-aria-dark="Switch to auto color mode">
 </span><span data-line="62">        <span class="n">session_key</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;session&quot;</span><span class="p">,</span>
 </span><span data-line="63">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
 </span><span data-line="64">
-</span><span data-line="65">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+<div class="viewcode-block" id="SanicAdvancedAlchemy.__init__"><a class="viewcode-back" href="../../../reference/extensions/sanic.html#advanced_alchemy.extensions.sanic.SanicAdvancedAlchemy.__init__">[docs]</a></span><span data-line="65">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
 </span><span data-line="66">        <span class="bp">self</span><span class="p">:</span> <span class="p">(</span>
 </span><span data-line="67">            <span class="n">SanicAdvancedAlchemy</span><span class="p">[</span><span class="n">AsyncEngine</span><span class="p">,</span> <span class="n">AsyncSession</span><span class="p">,</span> <span class="n">async_sessionmaker</span><span class="p">[</span><span class="n">AsyncSession</span><span class="p">]]</span>
 </span><span data-line="68">            <span class="o">|</span> <span class="n">SanicAdvancedAlchemy</span><span class="p">[</span><span class="n">Engine</span><span class="p">,</span> <span class="n">Session</span><span class="p">,</span> <span class="n">sessionmaker</span><span class="p">[</span><span class="n">Session</span><span class="p">]]</span>
@@ -379,7 +379,7 @@ data-aria-dark="Switch to auto color mode">
 </span><span data-line="96">            <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">sqlalchemy_config</span><span class="o">.</span><span class="n">get_engine</span><span class="p">()</span>
 </span><span data-line="97">        <span class="p">)</span>
 </span><span data-line="98">        <span class="bp">self</span><span class="o">.</span><span class="n">session_maker</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sqlalchemy_config</span><span class="o">.</span><span class="n">create_session_maker</span><span class="p">()</span>
-</span><span data-line="99">        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="p">:</span> <span class="n">Sanic</span>
+</span><span data-line="99">        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="p">:</span> <span class="n">Sanic</span></div>
 </span><span data-line="100">
 </span><span data-line="101">    <span class="k">async</span> <span class="k">def</span> <span class="nf">_do_commit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">:</span> <span class="n">Session</span> <span class="o">|</span> <span class="n">AsyncSession</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 </span><span data-line="102">        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="n">AsyncSession</span><span class="p">):</span>
